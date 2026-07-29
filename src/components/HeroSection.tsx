@@ -24,7 +24,7 @@ export default function HeroSection() {
                 >
                     <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
                     <span className="text-xs text-text-secondary font-medium tracking-wide uppercase">
-                        The Canvascope Ecosystem
+                        The Scope Ecosystem
                     </span>
                 </motion.div>
 
@@ -46,7 +46,7 @@ export default function HeroSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
                 >
-                    Canvascope Inc. builds premium, privacy-first productivity tools meant to seamlessly connect your student experience across platforms.
+                    Scope Inc. builds premium, privacy-first productivity tools meant to seamlessly connect your student experience across platforms.
                 </motion.p>
 
                 {/* CTA Buttons */}

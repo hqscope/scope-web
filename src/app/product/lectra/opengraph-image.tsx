@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt =
-  "Lectra Notes: iPad PDF Annotation & Study Companion | Canvascope";
+  "Lectra Notes: iPad PDF Annotation & Study Companion | Scope";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -79,7 +79,7 @@ export default function OpengraphImage() {
           <span
             style={{ fontSize: "32px", color: "#5a5347", maxWidth: "900px", lineHeight: 1.4 }}
           >
-            Annotate PDFs with Apple Pencil, organize readings, and use private on-device intelligence. Seamless integration with Canvascope.
+            Annotate PDFs with Apple Pencil, organize readings, and use private on-device intelligence. Seamless integration with Scope.
           </span>
         </div>
 

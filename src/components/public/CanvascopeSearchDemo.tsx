@@ -175,7 +175,7 @@ export default function CanvascopeSearchDemo() {
   }
 
   return (
-    <section className="search-demo-shell" aria-label="Interactive Canvascope search mock">
+    <section className="search-demo-shell" aria-label="Interactive Scope search mock">
       <div className="canvascope-overlay-stage">
         <aside className="overlay-course-rail" aria-label="Indexed courses">
           <div className="overlay-rail-header">
@@ -212,7 +212,7 @@ export default function CanvascopeSearchDemo() {
               <Command className="h-5 w-5" />
             </div>
             <input
-              aria-label="Try the Canvascope search demo"
+              aria-label="Try the Scope search demo"
               autoComplete="off"
               className="palette-input"
               placeholder="Search coursework or type /due"
@@ -237,7 +237,7 @@ export default function CanvascopeSearchDemo() {
           </div>
 
           <p className="palette-section-label">
-            {query ? "Matching Canvascope results" : "Recently opened"}
+            {query ? "Matching Scope results" : "Recently opened"}
           </p>
 
           <div className="palette-results" role="listbox" aria-label="Mock search results">
@@ -311,14 +311,14 @@ export default function CanvascopeSearchDemo() {
           </div>
 
           <div className="palette-footer">
-            <span>Canvascope</span>
+            <span>Scope</span>
             <span>
               <kbd>↑↓</kbd> navigate <kbd>↵</kbd> select <kbd>esc</kbd> close
             </span>
           </div>
         </div>
 
-        <aside className="overlay-detail-panel" aria-label="Selected Canvascope result">
+        <aside className="overlay-detail-panel" aria-label="Selected Scope result">
           <div className="overlay-detail-header">
             <Search className="h-4 w-4" aria-hidden="true" />
             <span>Selected result</span>

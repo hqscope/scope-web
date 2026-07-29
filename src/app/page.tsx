@@ -11,9 +11,9 @@ import { getNewsroomArticlesBySlugs } from "@/lib/newsroom";
 import { CHROME_WEB_STORE_URL, LECTRA_APP_STORE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Canvascope | Local-First Canvas and Brightspace Search",
+  title: "Scope | Local-First Canvas and Brightspace Search",
   description:
-    "Install Canvascope 10.1, the local-first Chrome extension for searching Canvas and Brightspace coursework, asking cited AI questions, indexing PDFs, using Smart Planner, and moving Lectra PDFs back into browser workflows.",
+    "Install Scope 10.1, the local-first Chrome extension for searching Canvas and Brightspace coursework, asking cited AI questions, indexing PDFs, using Smart Planner, and moving Lectra PDFs back into browser workflows.",
   alternates: {
     canonical: "/",
   },
@@ -24,7 +24,7 @@ const flowSteps = [
     step: "01 · Chrome",
     title: "Find & ask",
     copy:
-      "Canvascope searches every course and answers questions with cited sources — right in your browser.",
+      "Scope searches every course and answers questions with cited sources — right in your browser.",
   },
   {
     step: "02 · iPad",
@@ -83,9 +83,9 @@ const privacyStats = [
 ];
 
 const homeNewsroomArticles = getNewsroomArticlesBySlugs([
+  "canvascope-is-now-scope",
   "lectra-pdfs-can-now-come-back-into-browser-workflows",
   "on-device-ai-comes-to-canvascope",
-  "canvascope-v10-connected-ai-planning-and-dropbridge",
 ]);
 
 export default function HomePage() {
@@ -97,12 +97,13 @@ export default function HomePage() {
 
       <section className="page-wrap centered-hero">
         <div data-reveal>
-          <p className="kicker">One system for your coursework</p>
-          <h1>Every course file. Every device. One&nbsp;flow.</h1>
+          <p className="kicker">Local-first software for students</p>
+          <h1>Coursework, finally&nbsp;searchable.</h1>
           <p className="centered-hero-lede">
-            Find anything in Canvas from Chrome, ask questions with real
-            citations, mark up readings on iPad — and send it all back where it
-            belongs. Local-first, always free.
+            Scope indexes every file, deadline, and PDF across your courses — on
+            your device. Ask a question, get an answer cited to your own
+            materials, and move work between Chrome and iPad without exporting
+            anything.
           </p>
           <div className="pill-actions" aria-label="Primary actions">
             <a
@@ -111,12 +112,15 @@ export default function HomePage() {
               rel="noreferrer"
               className="button-primary"
             >
-              Add to Chrome — free
+              Add Scope to Chrome — free
             </a>
             <Link href="/product/lectra" className="button-secondary">
               Get Lectra for iPad →
             </Link>
           </div>
+          <p className="hero-note">
+            Works with Canvas and Brightspace · No account required · Free
+          </p>
         </div>
 
         <div
@@ -150,14 +154,14 @@ export default function HomePage() {
         <div className="stack-top">
           <div className="feature-band" data-reveal>
             <div className="feature-band-copy">
-              <p className="kicker">Canvascope · Chrome extension</p>
+              <p className="kicker">Scope for Canvas · Chrome extension</p>
               <h3>Find any coursework in seconds.</h3>
               <p>
                 Assignments, files, deadlines, and text inside PDFs across all
                 your courses — one ⌘K away. Ask questions and get answers with
                 citations from your own materials.
               </p>
-              <Link href="/product/canvascope" className="text-link">
+              <Link href="/product/scope" className="text-link">
                 Explore the extension →
               </Link>
             </div>
@@ -186,7 +190,7 @@ export default function HomePage() {
                 ))}
               </div>
               <div className="palette-mock-footer">
-                <span>● CANVASCOPE</span>
+                <span>● SCOPE</span>
                 <span>↑↓ NAVIGATE</span>
                 <span>↵ SELECT</span>
                 <span>ESC CLOSE</span>
@@ -230,7 +234,7 @@ export default function HomePage() {
                 iPad. Push a PDF from Chrome, get a delivery receipt, and pick up
                 the annotated file in any upload flow — both directions.
               </p>
-              <Link href="/product/canvascope" className="text-link">
+              <Link href="/product/scope" className="text-link">
                 How the handoff works →
               </Link>
             </div>
@@ -282,7 +286,7 @@ export default function HomePage() {
             rel="noreferrer"
             className="button-primary"
           >
-            Add to Chrome — free
+            Add Scope to Chrome — free
           </a>
           <a
             href={LECTRA_APP_STORE_URL}

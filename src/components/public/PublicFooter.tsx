@@ -6,7 +6,7 @@ export type PublicFooterVariant = "full" | "slim";
 
 const slimLinks = [
   { href: "/", label: "Home" },
-  { href: "/product/canvascope", label: "Extension" },
+  { href: "/product/scope", label: "Scope for Canvas" },
   { href: "/product/lectra", label: "Lectra" },
   { href: "/product/agent-workspace", label: "Agent Workspace" },
   { href: "/newsroom", label: "Newsroom" },
@@ -23,7 +23,7 @@ export default function PublicFooter({
     return (
       <footer className="public-footer public-footer-slim">
         <div className="page-wrap public-footer-slim-inner">
-          <span>© 2026 Canvascope Inc.</span>
+          <span>© 2026 Scope Inc. (formerly Canvascope Inc.)</span>
           <nav aria-label="Footer links">
             {slimLinks.map((link) => (
               <Link key={link.href} href={link.href}>
@@ -40,10 +40,14 @@ export default function PublicFooter({
     <footer className="public-footer">
       <div className="page-wrap public-footer-grid">
         <div className="public-footer-lede">
-          <p>Canvascope</p>
+          <p>Scope</p>
           <span>
             Local-first search for Canvas and Brightspace, cited AI answers, and
             two-way Lectra workflows.
+          </span>
+          <span>
+            Scope was previously Canvascope. Same company, same product — the old
+            name was too easily confused with Canvas LMS.
           </span>
           <a
             href={CHROME_WEB_STORE_URL}
@@ -58,7 +62,7 @@ export default function PublicFooter({
         <div className="public-footer-links" aria-label="Footer links">
           <div>
             <p>Product</p>
-            <Link href="/product/canvascope">Extension</Link>
+            <Link href="/product/scope">Scope for Canvas</Link>
             <Link href="/product/lectra">Lectra</Link>
             <Link href="/product/agent-workspace">Agent Workspace</Link>
             <Link href="/receiver">Lectra Receiver for Mac</Link>
@@ -68,6 +72,7 @@ export default function PublicFooter({
             <p>Company</p>
             <Link href="/newsroom">Newsroom</Link>
             <Link href="/research">Research</Link>
+            <Link href="/#hiring">Build / test with us</Link>
             <a href={`mailto:${SUPPORT_EMAIL}`}>Contact</a>
           </div>
           <div>
@@ -79,7 +84,7 @@ export default function PublicFooter({
       </div>
 
       <div className="page-wrap public-footer-bottom">
-        <span>© 2026 Canvascope Inc.</span>
+        <span>© 2026 Scope Inc. (formerly Canvascope Inc.)</span>
       </div>
     </footer>
   );

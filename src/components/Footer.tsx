@@ -20,7 +20,7 @@ export default function Footer() {
                                 </svg>
                             </div>
                             <span className="text-xl font-bold text-text-primary tracking-tight">
-                                Canvascope <span className="text-brand-primary-light">Inc.</span>
+                                Scope <span className="text-brand-primary-light">Inc.</span>
                             </span>
                         </div>
                         <p className="text-sm text-text-secondary max-w-sm leading-relaxed">
@@ -49,7 +49,7 @@ export default function Footer() {
 
                 <div className="pt-8 border-t border-glass-border/20 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-text-muted">
-                        © {new Date().getFullYear()} Canvascope Inc. All rights reserved.
+                        © {new Date().getFullYear()} Scope Inc. All rights reserved.
                     </p>
                     <div className="flex gap-6">
                         <Link href="https://github.com/NoelSason" target="_blank" rel="noopener noreferrer" className="text-xs text-text-muted hover:text-text-primary transition-colors">GitHub</Link>

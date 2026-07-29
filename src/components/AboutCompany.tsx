@@ -23,7 +23,7 @@ export default function AboutCompany() {
                     transition={{ delay: 0.1 }}
                     className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-4xl mx-auto mb-16"
                 >
-                    Canvascope Inc. was founded with a singular mission: to help students securely and efficiently access academic resources through privacy-first, intelligent productivity tools. Our tools are built by students, for students, with a focus on uncompromising quality.
+                    Scope Inc. was founded with a singular mission: to help students securely and efficiently access academic resources through privacy-first, intelligent productivity tools. Our tools are built by students, for students, with a focus on uncompromising quality.
                 </motion.p>
 
                 <div className="grid md:grid-cols-2 gap-8 text-left">
@@ -52,7 +52,7 @@ export default function AboutCompany() {
                     >
                         <h4 className="text-xl font-bold text-text-primary mb-3">The Roadmap Ahead</h4>
                         <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                            The Canvascope Extension is our flagship free product, but it&apos;s just the beginning. The ecosystem is expanding to include exam analytics tools and dedicated learning trackers.
+                            Scope for Canvas is our flagship free product, but it&apos;s just the beginning. The ecosystem is expanding to include exam analytics tools and dedicated learning trackers.
                         </p>
                         <p className="text-text-secondary text-sm leading-relaxed">
                             Every new product we build seamlessly integrates with the knowledge graph established by the Extension, creating an unrivaled, holistic platform.

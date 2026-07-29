@@ -86,7 +86,7 @@ export default function Navbar() {
                                 </svg>
                             </div>
                             <span className="text-lg font-semibold text-text-primary tracking-tight transition-colors">
-                                Canvascope
+                                Scope
                             </span>
                         </a>
 

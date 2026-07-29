@@ -609,7 +609,7 @@ function parseIntegrationStatus(
   return [
     {
       id: "canvascope",
-      name: "Canvascope Extension",
+      name: "Scope for Canvas",
       status: canvascopeRows.length > 0 ? "connected" : "available",
       headline:
         canvascopeRows.length > 0
@@ -630,7 +630,7 @@ function parseIntegrationStatus(
       headline:
         documents.length > 0
           ? `${documents.length} document handoffs are visible in the workspace`
-          : "Document handoff appears once PDFs are sent from Canvascope",
+          : "Document handoff appears once PDFs are sent from Scope",
       description:
         "Lectra remains the annotation companion. The web workspace now exposes document access and follow-up, not just sync status.",
       actionHref: "/product/lectra",

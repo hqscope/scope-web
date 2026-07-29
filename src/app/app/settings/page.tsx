@@ -158,7 +158,7 @@ export default async function AppSettingsPage() {
             <div className="app-card-soft rounded-[1.25rem] p-4">
               <p className="font-medium text-white">Terms and support</p>
               <p className="mt-2 app-copy">
-                The workspace is part of the same Canvascope product system as the extension and Lectra.
+                The workspace is part of the same Scope product system as the extension and Lectra.
               </p>
               <div className="mt-4 flex flex-wrap gap-4">
                 <Link href="/terms" className="font-semibold text-white underline underline-offset-4">

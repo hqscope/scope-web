@@ -13,16 +13,16 @@ import PublicPageFrame from "@/components/public/PublicPageFrame";
 import { LECTRA_APP_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Lectra Notes Support | Canvascope",
+  title: "Lectra Notes Support | Scope",
   description:
-    "Support information for Lectra Notes, the Canvascope App Store app for reading, annotating, organizing, and handing off PDFs on iPhone and iPad.",
+    "Support information for Lectra Notes, the Scope App Store app for reading, annotating, organizing, and handing off PDFs on iPhone and iPad.",
   alternates: {
     canonical: "/support/lectra",
   },
   openGraph: {
-    title: "Lectra Notes Support | Canvascope",
+    title: "Lectra Notes Support | Scope",
     description:
-      "Get help with Lectra Notes imports, annotations, account access, privacy, and Canvascope document handoff.",
+      "Get help with Lectra Notes imports, annotations, account access, privacy, and Scope document handoff.",
     type: "website",
     url: "/support/lectra",
   },
@@ -37,9 +37,9 @@ const supportTopics = [
   },
   {
     icon: RefreshCw,
-    title: "Canvascope handoff",
+    title: "Scope handoff",
     copy:
-      "For connected workflows, sign in with the same account in Lectra and Canvascope. Documents sent from Canvascope may take a moment to appear if realtime delivery falls back to polling.",
+      "For connected workflows, sign in with the same account in Lectra and Scope. Documents sent from Scope may take a moment to appear if realtime delivery falls back to polling.",
   },
   {
     icon: FileQuestion,
@@ -51,7 +51,7 @@ const supportTopics = [
     icon: Lock,
     title: "Account and privacy",
     copy:
-      "Lectra includes account deletion from inside the app. Privacy, data-use, and retention details are maintained in the Canvascope privacy policy.",
+      "Lectra includes account deletion from inside the app. Privacy, data-use, and retention details are maintained in the Scope privacy policy.",
   },
 ];
 
@@ -65,9 +65,9 @@ export default function LectraSupportPage() {
             Help for Lectra Notes on iPhone and iPad.
           </h1>
           <p className="section-copy text-lg">
-            Lectra Notes is the Canvascope App Store app for importing course
+            Lectra Notes is the Scope App Store app for importing course
             PDFs, organizing readings, annotating with Apple Pencil where
-            supported, and moving finished files through connected Canvascope
+            supported, and moving finished files through connected Scope
             workflows.
           </p>
         </div>

@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt =
-  "Canvascope: local-first Canvas and Brightspace search with cited AI answers";
+  "Scope: local-first Canvas and Brightspace search with cited AI answers";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,7 +36,7 @@ export default function OpengraphImage() {
           <span
             style={{ fontSize: "40px", fontWeight: 700, color: "#0e1116" }}
           >
-            Canvascope
+            Scope
           </span>
         </div>
 

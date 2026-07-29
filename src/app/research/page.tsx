@@ -9,14 +9,14 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Canvascope Research",
+  title: "Scope Research",
   description:
-    "Canvascope Research builds computational tools that predict the cortical response a stimulus evokes, map those predictions onto interpretable brain regions, and hold them to held-out evaluation against strong baselines.",
+    "Scope Research builds computational tools that predict the cortical response a stimulus evokes, map those predictions onto interpretable brain regions, and hold them to held-out evaluation against strong baselines.",
   alternates: {
     canonical: "/research",
   },
   keywords: [
-    "Canvascope Research",
+    "Scope Research",
     "computational neuroscience",
     "brain encoding models",
     "cortical response prediction",
@@ -132,7 +132,7 @@ export default function ResearchPage() {
             { name: "Home", path: "/" },
             { name: "Research", path: "/research" },
           ]),
-          itemListSchema("Canvascope Research focus areas", "/research", [
+          itemListSchema("Scope Research focus areas", "/research", [
             { name: "How the work runs", path: "/research#approach" },
             { name: "What we don't claim", path: "/research#standards" },
             { name: "Collaboration", path: "/research#collaborate" },
@@ -142,7 +142,7 @@ export default function ResearchPage() {
 
       <section className="page-wrap centered-hero">
         <div data-reveal>
-          <p className="kicker">Canvascope Research</p>
+          <p className="kicker">Scope Research</p>
           <h1>Predicting how the cortex responds — and proving it.</h1>
           <p className="centered-hero-lede">
             We build computational tools that estimate the cortical response a

@@ -47,7 +47,7 @@ export default async function AppIntegrationsPage() {
         <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <p className="app-label">Integrations</p>
-            <h1 className="mt-3 text-4xl">Operational health for Canvascope, Lectra, and connected sources</h1>
+            <h1 className="mt-3 text-4xl">Operational health for Scope, Lectra, and connected sources</h1>
             <p className="mt-4 max-w-3xl app-copy">
               The workspace treats integrations as infrastructure. This page shows
               whether data is flowing, how much is present, and which path to use when a user needs to reconnect.
@@ -182,8 +182,8 @@ export default async function AppIntegrationsPage() {
             <p className="app-label">Reconnect and support</p>
             <h2 className="mt-2 text-2xl">Primary entry points</h2>
             <div className="mt-6 space-y-3">
-              <Link href="/product/canvascope" className="button-secondary !border-white/10 !bg-white/5 !text-white">
-                Review Canvascope install flow
+              <Link href="/product/scope" className="button-secondary !border-white/10 !bg-white/5 !text-white">
+                Review Scope install flow
               </Link>
               <Link href="/product/lectra" className="button-secondary !border-white/10 !bg-white/5 !text-white">
                 Review Lectra workflow

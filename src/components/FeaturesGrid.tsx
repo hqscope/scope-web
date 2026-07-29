@@ -97,7 +97,7 @@ export default function FeaturesGrid() {
                         <span className="text-gradient">Nothing you don&apos;t.</span>
                     </h2>
                     <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-                        Canvascope is designed for fast LMS retrieval and clear migration
+                        Scope is designed for fast LMS retrieval and clear migration
                         from local workflows into optional cross-device workflows.
                     </p>
                 </motion.div>

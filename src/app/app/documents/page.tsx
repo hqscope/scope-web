@@ -139,7 +139,7 @@ export default async function AppDocumentsPage({
           <div className="empty-panel">
             <p className="text-lg font-semibold">No documents match this inbox view</p>
             <p className="mt-2 app-copy">
-              Change the filters or wait for documents to appear after they are sent from Canvascope to Lectra.
+              Change the filters or wait for documents to appear after they are sent from Scope to Lectra.
             </p>
           </div>
         ) : (

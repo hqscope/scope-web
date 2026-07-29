@@ -5,7 +5,7 @@ import { getConfiguredSiteUrl } from "@/lib/site";
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
-const SEO_UPDATE_DATE = "2026-07-02";
+const SEO_UPDATE_DATE = "2026-07-28";
 
 const publicRoutes: {
   path: string;
@@ -15,7 +15,7 @@ const publicRoutes: {
 }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", lastModified: SEO_UPDATE_DATE },
   {
-    path: "/product/canvascope",
+    path: "/product/scope",
     priority: 0.95,
     changeFrequency: "weekly",
     lastModified: SEO_UPDATE_DATE,

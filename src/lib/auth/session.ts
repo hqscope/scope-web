@@ -25,7 +25,7 @@ export const getAuthenticatedAppUser = cache(async () => {
     (typeof metadata.full_name === "string" && metadata.full_name) ||
     (typeof metadata.name === "string" && metadata.name) ||
     user.email ||
-    "Canvascope user";
+    "Scope user";
 
   const avatarUrl =
     typeof metadata.avatar_url === "string" ? metadata.avatar_url : null;

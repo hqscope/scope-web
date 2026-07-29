@@ -51,19 +51,22 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.canvascope.org",
   ),
   title: {
-    default: "Canvascope",
-    template: "%s | Canvascope",
+    default: "Scope",
+    template: "%s | Scope",
   },
   description:
-    "Canvascope 10.1 is the local-first Chrome extension for Canvas and Brightspace search, cited AI answers, PDF/OCR indexing, Smart Planner, and two-way Lectra document handoff.",
-  applicationName: "Canvascope",
-  authors: [{ name: "Canvascope Inc." }],
-  creator: "Canvascope Inc.",
-  publisher: "Canvascope Inc.",
+    "Scope 10.1 is the local-first Chrome extension for Canvas and Brightspace search, cited AI answers, PDF/OCR indexing, Smart Planner, and two-way Lectra document handoff.",
+  applicationName: "Scope",
+  authors: [{ name: "Scope Inc." }],
+  creator: "Scope Inc.",
+  publisher: "Scope Inc.",
   category: "education",
   keywords: [
+    "Scope",
+    "Scope 10.1",
+    "Scope for Canvas",
+    // Retained through the rename so the former name still resolves to us.
     "Canvascope",
-    "Canvascope 10.1",
     "Lectra",
     "Canvas LMS",
     "Brightspace",
@@ -101,11 +104,11 @@ export const metadata: Metadata = {
     ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION.trim() }
     : undefined,
   openGraph: {
-    title: "Canvascope",
+    title: "Scope",
     description:
-      "The local-first Chrome extension for finding coursework, asking cited course-context questions, and moving PDFs between Canvascope and Lectra.",
+      "The local-first Chrome extension for finding coursework, asking cited course-context questions, and moving PDFs between Scope and Lectra.",
     type: "website",
-    siteName: "Canvascope",
+    siteName: "Scope",
     locale: "en_US",
     url: "/",
     images: [
@@ -113,13 +116,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Canvascope local-first Canvas and Brightspace search with cited AI answers",
+        alt: "Scope local-first Canvas and Brightspace search with cited AI answers",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Canvascope",
+    title: "Scope",
     description:
       "Search Canvas and Brightspace. Ask cited course context. Keep the core index local.",
     images: ["/opengraph-image"],

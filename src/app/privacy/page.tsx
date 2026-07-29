@@ -5,22 +5,22 @@ import PublicPageFrame from "@/components/public/PublicPageFrame";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Canvascope",
+  title: "Privacy Policy | Scope",
   description:
-    "How Canvascope and Lectra, operated by Canvascope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
+    "How Scope and Lectra, operated by Scope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
   alternates: {
     canonical: "/privacy",
   },
 };
 
-const LAST_UPDATED = "July 15, 2026";
+const LAST_UPDATED = "July 28, 2026";
 
 const highlights = [
   {
     icon: ShieldCheck,
     title: "Local-first stays the default",
     copy:
-      "Canvascope stores its core LMS search index in browser-local storage. The website reflects synced data only after you explicitly sign in or sync a document through connected product flows.",
+      "Scope stores its core LMS search index in browser-local storage. The website reflects synced data only after you explicitly sign in or sync a document through connected product flows.",
   },
   {
     icon: Database,
@@ -32,19 +32,19 @@ const highlights = [
     icon: Bot,
     title: "AI is local-first, with explicit fallback",
     copy:
-      "The extension tries Chrome's on-device model first. If cloud fallback is used, retrieved prompt context is sent through authenticated Canvascope endpoints only to generate the requested answer.",
+      "The extension tries Chrome's on-device model first. If cloud fallback is used, retrieved prompt context is sent through authenticated Scope endpoints only to generate the requested answer.",
   },
   {
     icon: Lock,
     title: "Shared identity, scoped access",
     copy:
-      "The website uses the same shared account system as Canvascope and Lectra. Access to synced records stays scoped to the signed-in user, protected by secure access controls, and hardened by cross-account protection events.",
+      "The website uses the same shared account system as Scope and Lectra. Access to synced records stays scoped to the signed-in user, protected by secure access controls, and hardened by cross-account protection events.",
   },
   {
     icon: CalendarPlus,
     title: "Calendar access is optional",
     copy:
-      "If you use syllabus or planner calendar sync, Canvascope may request Google Calendar event access so selected course dates can be written to your calendar. Core search does not require it.",
+      "If you use syllabus or planner calendar sync, Scope may request Google Calendar event access so selected course dates can be written to your calendar. Core search does not require it.",
   },
   {
     icon: UserRound,
@@ -60,14 +60,14 @@ export default function PrivacyPage() {
         <div className="space-y-6">
           <p className="kicker">Privacy policy</p>
           <h1 className="text-5xl sm:text-6xl">
-            How Canvascope handles your data.
+            How Scope handles your data.
           </h1>
           <p className="section-copy text-lg">
-            This Privacy Policy explains how the Canvascope application and
-            website (collectively, &ldquo;Canvascope,&rdquo; the
-            &ldquo;Service&rdquo;), operated by Canvascope Inc., accesses, uses,
+            This Privacy Policy explains how the Scope application and
+            website (collectively, &ldquo;Scope,&rdquo; the
+            &ldquo;Service&rdquo;), operated by Scope Inc., accesses, uses,
             stores, shares, retains, and protects your data, including
-            data obtained from your Google Account. Canvascope is local-first
+            data obtained from your Google Account. Scope is local-first
             where that matters most: course indexing, fast search, and
             day-to-day retrieval. Connected web and document workflows exist to
             support you, not to turn academic behavior into an analytics funnel.
@@ -109,8 +109,10 @@ export default function PrivacyPage() {
           <section className="space-y-4">
             <h2 className="text-3xl">Who we are</h2>
             <p className="section-copy">
-              Canvascope is developed and operated by Canvascope Inc. This
-              policy applies to the Canvascope browser extension, the Canvascope
+              Scope is developed and operated by Scope Inc., previously named
+              Canvascope Inc. The rename did not change the company, this
+              policy, or how your data is handled. This
+              policy applies to the Scope browser extension, the Scope
               website and web app, the Lectra Notes app distributed
               on the Apple App Store, and the Lectra-connected workflows that
               share the same account system. If you have any questions about this
@@ -141,10 +143,10 @@ export default function PrivacyPage() {
               <li>Your Google profile picture (if available)</li>
             </ul>
             <p className="section-copy">
-              If you choose to use Canvascope&apos;s syllabus or planner calendar
+              If you choose to use Scope&apos;s syllabus or planner calendar
               sync features, we may also request{" "}
               <code>https://www.googleapis.com/auth/calendar.events</code> so
-              Canvascope can create selected course schedule events in Google
+              Scope can create selected course schedule events in Google
               Calendar. For that feature, we may store Google OAuth tokens needed
               to keep calendar writes working until you disconnect access or the
               tokens expire.
@@ -162,19 +164,19 @@ export default function PrivacyPage() {
             <h2 className="text-3xl">How we use Google user data</h2>
             <p className="section-copy">
               We use the Google user data described above solely to provide and
-              improve user-facing features of Canvascope. Specifically, we use it
+              improve user-facing features of Scope. Specifically, we use it
               to:
             </p>
             <ul className="section-copy list-disc space-y-2 pl-6">
-              <li>Authenticate you and create or restore your Canvascope account session</li>
+              <li>Authenticate you and create or restore your Scope account session</li>
               <li>
-                Identify you across the shared Canvascope and Lectra account
+                Identify you across the shared Scope and Lectra account
                 system so your synced course snapshots, documents, and Course
                 Brain artifacts are scoped to you
               </li>
               <li>
-                Personalize Canvascope AI responses when you save or allow
-                Canvascope to auto-capture student profile facts such as current
+                Personalize Scope AI responses when you save or allow
+                Scope to auto-capture student profile facts such as current
                 courses, study preferences, or pending todo count
               </li>
               <li>Display your name, email, and profile picture in the signed-in interface</li>
@@ -190,7 +192,7 @@ export default function PrivacyPage() {
               data brokers or information resellers, determining credit-worthiness,
               lending, building independent databases, or training, developing,
               or improving generalized artificial intelligence or machine
-              learning models. Canvascope&rsquo;s use of information received
+              learning models. Scope&rsquo;s use of information received
               from Google APIs adheres to the{" "}
               <a
                 href="https://developers.google.com/terms/api-services-user-data-policy"
@@ -205,9 +207,9 @@ export default function PrivacyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-3xl">Canvascope browser extension and clipboard data</h2>
+            <h2 className="text-3xl">Scope browser extension and clipboard data</h2>
             <p className="section-copy">
-              To support connected study workflows, help you organize assignments, and build your Student Profile, the Canvascope browser extension reads, stores, and syncs clipboard activity.
+              To support connected study workflows, help you organize assignments, and build your Student Profile, the Scope browser extension reads, stores, and syncs clipboard activity.
             </p>
             <p className="section-copy">
               Specifically, when you copy, cut, or paste content on Canvas, Brightspace, or other sites and applications, or when you load a page, the extension may capture the raw text currently in your clipboard (capped at 4,000 characters per entry for storage and sync limits). This raw text is stored securely in your browser-local storage and synced to our database under the same secure sync path used for your grades, notes, and tasks.
@@ -235,11 +237,11 @@ export default function PrivacyPage() {
                 use your data for their own purposes.
               </li>
               <li>
-                <strong>AI fallback providers:</strong> Canvascope tries Chrome&apos;s
+                <strong>AI fallback providers:</strong> Scope tries Chrome&apos;s
                 on-device model first. If you use cloud AI fallback, or if a
                 full-course context question needs a larger cloud route,
                 retrieved prompt context may be sent through authenticated
-                Canvascope Supabase Edge Functions to Google Gemini or Anthropic
+                Scope Supabase Edge Functions to Google Gemini or Anthropic
                 Claude APIs solely to generate the requested answer. This does
                 not change the local-first search index, and we do not use this
                 data to train generalized AI models.
@@ -252,7 +254,7 @@ export default function PrivacyPage() {
               <li>
                 <strong>With your direction:</strong> We share data when you
                 explicitly direct us to, such as syncing a document between
-                connected Canvascope and Lectra workflows.
+                connected Scope and Lectra workflows.
               </li>
             </ul>
           </section>
@@ -266,7 +268,7 @@ export default function PrivacyPage() {
               in a signed, secure, HTTP-only cookie. Access to synced records is
               scoped to the authenticated user and protected by secure access
               controls. When Google Cross-Account Protection sends a valid
-              account-risk event, Canvascope can revoke affected sessions and, for
+              account-risk event, Scope can revoke affected sessions and, for
               disabled accounts, block future token issuance until the account is
               re-enabled. We restrict internal access to personal data to what is
               necessary to operate and support the Service.
@@ -276,8 +278,8 @@ export default function PrivacyPage() {
           <section className="space-y-4">
             <h2 className="text-3xl">Lectra Notes and the Apple App Store</h2>
             <p className="section-copy">
-              Lectra Notes is the Apple App Store app from Canvascope for iPhone
-              and iPad. You sign in to Lectra with the same Canvascope
+              Lectra Notes is the Apple App Store app from Scope for iPhone
+              and iPad. You sign in to Lectra with the same Scope
               account, using <strong>Sign in with Apple</strong> or Google,
               and Lectra lets you receive course PDFs, read them, annotate them
               by hand with Apple Pencil, and use a local Projects workspace with
@@ -370,7 +372,7 @@ export default function PrivacyPage() {
               Foundation Models (Apple Intelligence) when your device supports them.
               The text of your documents is processed <strong>privately on your
               device</strong> to generate these results. Lectra does not send your
-              document contents to Canvascope servers or to any third party to
+              document contents to Scope servers or to any third party to
               power these features, and your content is <strong>not</strong> used
               to train, develop, or improve any generalized AI or machine-learning
               models. If a device or OS does not support Apple Intelligence, these
@@ -393,8 +395,8 @@ export default function PrivacyPage() {
               device to Anthropic. Depending on the mode and tools you choose,
               this may include selected text, file contents, diffs, diagnostics,
               tool results, commands, and command output. Anthropic processes
-              that data to return the requested response. Canvascope does not
-              proxy these requests through Canvascope or Supabase servers and
+              that data to return the requested response. Scope does not
+              proxy these requests through Scope or Supabase servers and
               does not collect prompts, code, paths, commands, diffs, or agent
               responses as analytics or telemetry. Anthropic&rsquo;s processing is
               governed by its own{" "}
@@ -440,7 +442,7 @@ export default function PrivacyPage() {
             </p>
             <p className="section-copy">
               If you connect GitHub, Lectra uses GitHub OAuth through the shared
-              Canvascope account system or a personal access token you enter. The
+              Scope account system or a personal access token you enter. The
               resulting GitHub token is stored in the iOS Keychain and attached
               only to requests made to GitHub so you can browse repositories,
               clone, pull, commit, and push. You can disconnect GitHub from
@@ -535,7 +537,7 @@ export default function PrivacyPage() {
               </a>
               . Upon a verified request, we will delete your account data within a
               reasonable period, except where retention is required by law. You can
-              also revoke Canvascope&rsquo;s access to your Google Account at any
+              also revoke Scope&rsquo;s access to your Google Account at any
               time from your{" "}
               <a
                 href="https://myaccount.google.com/permissions"
@@ -565,7 +567,7 @@ export default function PrivacyPage() {
             <h2 className="text-3xl">Contact us</h2>
             <p className="section-copy">
               For any questions, concerns, or requests regarding this Privacy
-              Policy or your data, contact Canvascope Inc. at{" "}
+              Policy or your data, contact Scope Inc. at{" "}
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
                 className="font-semibold text-[var(--color-brand-deep)] underline underline-offset-4"

@@ -10,7 +10,7 @@ import { formatRelativeTime } from "@/lib/ui/format";
 export const metadata: Metadata = {
   title: {
     default: "Workspace",
-    template: "%s | Canvascope",
+    template: "%s | Scope",
   },
   robots: {
     index: false,
@@ -34,7 +34,7 @@ export default async function AppLayout({
       <div className="mx-auto flex min-h-screen max-w-[88rem] gap-6 px-4 py-5 lg:px-6 lg:py-8">
         <aside className="app-card hidden w-[15rem] shrink-0 rounded-[1.75rem] p-4 md:flex md:flex-col xl:w-[17rem]">
           <Link href="/" className="rounded-2xl px-3 py-4 transition-colors hover:bg-white/4">
-            <p className="app-label">Canvascope portal</p>
+            <p className="app-label">Scope portal</p>
             <h2 className="mt-2 text-2xl">Student home</h2>
             <p className="mt-2 text-sm leading-7 text-[var(--color-shell-copy-muted)]">
               Assignments, files, quick links, and the next thing to do.

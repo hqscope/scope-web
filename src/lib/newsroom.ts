@@ -15,6 +15,55 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "canvascope-is-now-scope",
+    title: "Canvascope is now Scope",
+    date: "2026-07-28",
+    category: "Company",
+    description:
+      "Same company, same product, shorter name. Canvascope was too easily confused with Canvas LMS — and what we make now reaches well past Canvas.",
+    lede:
+      "Same team, same product, shorter name. Here's why we changed it and what it means for you.",
+    keywords: [
+      "Canvascope is now Scope",
+      "Canvascope rename",
+      "Scope",
+      "Scope for Canvas",
+      "company update",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "We started as a way to search Canvas faster, and the name said exactly that. It doesn't anymore. The name was constantly mistaken for an official Canvas product, or for a feature of one — and we are neither. Meanwhile the work outgrew the name: Brightspace, PDFs and scanned pages, cited answers from your own materials, study plans, and a two-way handoff to your iPad. Calling all of that Canvascope had started to describe about a quarter of it.",
+      },
+      {
+        type: "paragraph",
+        text: "So we're Scope. It's shorter, it's easier to say out loud, and it points at what the product actually does: it gives you the whole picture of your semester and lets you look closely at any part of it. The mark stays — it was always an aperture.",
+      },
+      {
+        type: "paragraph",
+        text: "The Chrome extension is now Scope for Canvas, which keeps the useful half of the old name where it's genuinely informative: on the thing that works inside your LMS. Lectra, DropBridge, and Agent Workspace keep their names.",
+      },
+      {
+        type: "paragraph",
+        text: "Nothing about this asks anything of you:",
+      },
+      {
+        type: "list",
+        items: [
+          "The extension you already installed keeps working and updates itself. You don't need to reinstall it.",
+          "Your courses, your local index, your notes, and your plans are untouched.",
+          "Your account, sign-in, and Lectra pairing carry over as they are.",
+          "Old links still work — bookmarks and shared pages redirect to the new ones.",
+          "Nothing about pricing changed. Scope for Canvas is still free.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "You'll see the old name in a few places for a while — the Chrome Web Store listing, some screenshots, the occasional email signature — and we'll clear those as we go. If you spot one that matters, tell us. Otherwise, nothing to do. Same software you were using yesterday, with a name that finally fits it.",
+      },
+    ],
+  },
+  {
     slug: "introducing-the-lectra-document-format",
     title: "Introducing .lectra, a document you can actually hand to someone",
     date: "2026-07-21",
@@ -152,7 +201,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-07-02",
     category: "Release",
     description:
-      "Lectra Notes is live on the Apple App Store as a free iPhone and iPad app for private PDF study, annotation, organization, and Canvascope handoff.",
+      "Lectra Notes is live on the Apple App Store as a free iPhone and iPad app for private PDF study, annotation, organization, and Scope handoff.",
     lede:
       "Lectra is no longer just the iPad companion we were preparing for review. It's a real App Store app now.",
     keywords: [
@@ -160,34 +209,34 @@ export const newsroomArticles: NewsroomArticle[] = [
       "App Store",
       "Apple Pencil PDF annotation",
       "private PDF study",
-      "Canvascope handoff",
+      "Scope handoff",
     ],
     body: [
       {
         type: "paragraph",
-        text: "Lectra Notes is live on the App Store as a free download for iPhone and iPad. The first public build focuses on the core student document loop: import a PDF, organize the library, read and mark up the page, and keep the work tied to the Canvascope flow when the file started in the browser.",
+        text: "Lectra Notes is live on the App Store as a free download for iPhone and iPad. The first public build focuses on the core student document loop: import a PDF, organize the library, read and mark up the page, and keep the work tied to the Scope flow when the file started in the browser.",
       },
       {
         type: "paragraph",
-        text: "The product is intentionally first-party at launch. Lectra centers on documents, Apple Pencil annotation, backup and sync, private on-device intelligence where supported, and the handoff path with Canvascope. The older pre-release third-party experiments were removed from the shipping surface so the App Store version stays understandable and reviewable.",
+        text: "The product is intentionally first-party at launch. Lectra centers on documents, Apple Pencil annotation, backup and sync, private on-device intelligence where supported, and the handoff path with Scope. The older pre-release third-party experiments were removed from the shipping surface so the App Store version stays understandable and reviewable.",
       },
       {
         type: "paragraph",
-        text: "This also changes the public Canvascope workflow. Students can now install Canvascope on Chrome, download Lectra Notes from the App Store, send readings to the Apple device, annotate them, and bring finished PDFs back into supported browser upload flows without treating downloads and file names as the workflow.",
+        text: "This also changes the public Scope workflow. Students can now install Scope on Chrome, download Lectra Notes from the App Store, send readings to the Apple device, annotate them, and bring finished PDFs back into supported browser upload flows without treating downloads and file names as the workflow.",
       },
     ],
   },
   {
     slug: "canvascope-can-now-take-action-safely",
-    title: "Canvascope can now take action, and it's built so it can't do your work for you",
+    title: "Scope can now take action, and it's built so it can't do your work for you",
     date: "2026-06-25",
     category: "Engineering",
     description:
-      "Canvascope added a multi-step AI agent that reads course context, deadlines, grades, and calendar and creates study aids, while being unable to submit graded work.",
+      "Scope added a multi-step AI agent that reads course context, deadlines, grades, and calendar and creates study aids, while being unable to submit graded work.",
     lede:
       "For a long time the assistant could answer questions about your courses. Now it can take the next steps too, safely.",
     keywords: [
-      "Canvascope agent",
+      "Scope agent",
       "AI study agent",
       "tool-using AI",
       "daily briefing",
@@ -196,7 +245,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Until now, every action was still on you. Canvascope could read your courses and answer with citations, but you were the one who had to make the to-do, add the calendar event, or turn a pile of deadlines into a plan. The new agent closes that gap. Ask it something like \"help me get ready for my biochem class this week,\" and it can check your calendar, look up what's due, search your own course materials, and turn that into a study plan, to-dos, or calendar events.",
+        text: "Until now, every action was still on you. Scope could read your courses and answer with citations, but you were the one who had to make the to-do, add the calendar event, or turn a pile of deadlines into a plan. The new agent closes that gap. Ask it something like \"help me get ready for my biochem class this week,\" and it can check your calendar, look up what's due, search your own course materials, and turn that into a study plan, to-dos, or calendar events.",
       },
       {
         type: "paragraph",
@@ -296,10 +345,10 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-06-21",
     category: "Product",
     description:
-      "Canvascope 10.1 adds an Attach from Lectra picker that can bring finished Lectra PDFs back into supported browser upload flows.",
-    lede: "Canvascope 10.1 turned the Lectra handoff into a two-way workflow.",
+      "Scope 10.1 adds an Attach from Lectra picker that can bring finished Lectra PDFs back into supported browser upload flows.",
+    lede: "Scope 10.1 turned the Lectra handoff into a two-way workflow.",
     keywords: [
-      "Canvascope 10.1",
+      "Scope 10.1",
       "Lectra PDF handoff",
       "Attach from Lectra",
       "Gradescope upload",
@@ -308,7 +357,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Canvascope can now surface a Select from Lectra picker inside supported browser upload flows. The picker loads a student's Lectra library through the extension background worker, shows searchable document rows, renders PDF thumbnails without breaking strict page security rules, and fills the page's file input with the finished PDF.",
+        text: "Scope can now surface a Select from Lectra picker inside supported browser upload flows. The picker loads a student's Lectra library through the extension background worker, shows searchable document rows, renders PDF thumbnails without breaking strict page security rules, and fills the page's file input with the finished PDF.",
       },
       {
         type: "paragraph",
@@ -326,7 +375,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-06-20",
     category: "Release",
     description:
-      "Lectra narrowed around first-party document import, organization, Apple Pencil annotation, on-device intelligence, backup, and Canvascope handoff before App Store submission.",
+      "Lectra narrowed around first-party document import, organization, Apple Pencil annotation, on-device intelligence, backup, and Scope handoff before App Store submission.",
     lede:
       "Lectra became a tighter first-party app instead of a bundle of every experiment we had built.",
     keywords: [
@@ -334,12 +383,12 @@ export const newsroomArticles: NewsroomArticle[] = [
       "Apple Pencil PDF annotation",
       "document import",
       "on-device intelligence",
-      "Canvascope handoff",
+      "Scope handoff",
     ],
     body: [
       {
         type: "paragraph",
-        text: "The iPad app now focuses on the core Lectra workflow: import documents, organize them, annotate with Apple Pencil, use private on-device intelligence, back up the library, and hand finished work back to Canvascope. That meant removing the pre-release Course Brain, Canvas course import, and Gradescope submission surfaces from the iPad target because those flows depended on third-party service access that is not ready for release.",
+        text: "The iPad app now focuses on the core Lectra workflow: import documents, organize them, annotate with Apple Pencil, use private on-device intelligence, back up the library, and hand finished work back to Scope. That meant removing the pre-release Course Brain, Canvas course import, and Gradescope submission surfaces from the iPad target because those flows depended on third-party service access that is not ready for release.",
       },
       {
         type: "paragraph",
@@ -376,19 +425,19 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "The same work strengthened the Canvascope bridge. Export to Canvascope now waits for a real upload receipt, tracks terminal delivery states, and shows clear feedback when the desktop extension downloads, cancels, or needs to be opened. DropBridge is becoming a visible delivery system, not just a background upload.",
+        text: "The same work strengthened the Scope bridge. Export to Scope now waits for a real upload receipt, tracks terminal delivery states, and shows clear feedback when the desktop extension downloads, cancels, or needs to be opened. DropBridge is becoming a visible delivery system, not just a background upload.",
       },
     ],
   },
   {
     slug: "on-device-ai-comes-to-canvascope",
-    title: "On-device AI comes to Canvascope",
+    title: "On-device AI comes to Scope",
     date: "2026-06-16",
     category: "Engineering",
     description:
-      "Canvascope is integrating Chrome's built-in Gemini Nano model with retrieval across course PDFs, assignments, and Canvas content for cited course-aware AI.",
+      "Scope is integrating Chrome's built-in Gemini Nano model with retrieval across course PDFs, assignments, and Canvas content for cited course-aware AI.",
     lede:
-      "Most AI study tools stop working the moment your connection gets spotty. We wanted Canvascope to work differently.",
+      "Most AI study tools stop working the moment your connection gets spotty. We wanted Scope to work differently.",
     keywords: [
       "on-device AI",
       "Gemini Nano",
@@ -399,7 +448,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "We've been integrating support for Chrome's built-in Gemini Nano model, which lets certain AI workflows run directly on your device instead of going to the cloud. Paired with retrieval-augmented generation across your course PDFs, assignments, and Canvas content, Canvascope can give answers that are grounded in your own materials with citations back to the original source.",
+        text: "We've been integrating support for Chrome's built-in Gemini Nano model, which lets certain AI workflows run directly on your device instead of going to the cloud. Paired with retrieval-augmented generation across your course PDFs, assignments, and Canvas content, Scope can give answers that are grounded in your own materials with citations back to the original source.",
       },
       {
         type: "paragraph",
@@ -422,26 +471,26 @@ export const newsroomArticles: NewsroomArticle[] = [
   },
   {
     slug: "dropbridge-v2-handoff-between-lectra-and-canvascope-is-nearly-instant",
-    title: "DropBridge v2: the handoff between Lectra and Canvascope is now nearly instant",
+    title: "DropBridge v2: the handoff between Lectra and Scope is now nearly instant",
     date: "2026-06-14",
     category: "Engineering",
     description:
-      "DropBridge v2 made the Lectra-to-Canvascope file workflow feel immediate with account-linked receive, delivery confirmation, and smarter prefetching.",
+      "DropBridge v2 made the Lectra-to-Scope file workflow feel immediate with account-linked receive, delivery confirmation, and smarter prefetching.",
     keywords: [
       "DropBridge v2",
       "Lectra handoff",
-      "Canvascope file transfer",
+      "Scope file transfer",
       "PDF delivery",
       "iPad annotation",
     ],
     body: [
       {
         type: "paragraph",
-        text: "We rebuilt the way files move between Lectra on iPad and Canvascope on desktop, and it's one of the pieces of this whole project we're most proud of.",
+        text: "We rebuilt the way files move between Lectra on iPad and Scope on desktop, and it's one of the pieces of this whole project we're most proud of.",
       },
       {
         type: "paragraph",
-        text: "With DropBridge v2, sending a PDF from your iPad to your desktop feels immediate. There's no manual pairing. Sign in once and the Canvascope extension auto-receives files. You get clear delivery confirmation, so your iPad knows the moment the desktop has finished downloading. Smarter prefetching loads PDFs in parallel on wake, so your library is ready before you reach for it.",
+        text: "With DropBridge v2, sending a PDF from your iPad to your desktop feels immediate. There's no manual pairing. Sign in once and the Scope extension auto-receives files. You get clear delivery confirmation, so your iPad knows the moment the desktop has finished downloading. Smarter prefetching loads PDFs in parallel on wake, so your library is ready before you reach for it.",
       },
       {
         type: "paragraph",
@@ -459,13 +508,13 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-06-14",
     category: "Engineering",
     description:
-      "Canvascope reconciled production Supabase migration history and added sender device routing so DropBridge can avoid duplicate or misdirected pickups.",
+      "Scope reconciled production Supabase migration history and added sender device routing so DropBridge can avoid duplicate or misdirected pickups.",
     keywords: [
       "DropBridge production routing",
       "Supabase migrations",
       "sender device id",
       "PDF delivery receipts",
-      "Canvascope backend",
+      "Scope backend",
     ],
     body: [
       {
@@ -478,7 +527,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "It is backend plumbing, but it protects the thing students actually feel: a PDF leaves Lectra, wakes Canvascope, downloads on the right computer, and reports back without guesswork.",
+        text: "It is backend plumbing, but it protects the thing students actually feel: a PDF leaves Lectra, wakes Scope, downloads on the right computer, and reports back without guesswork.",
       },
     ],
   },
@@ -488,7 +537,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-06-13",
     category: "Product",
     description:
-      "Canvascope Student Profiles let AI features adapt to a student's major, academic goals, and study style while keeping profile data editable and deletable.",
+      "Scope Student Profiles let AI features adapt to a student's major, academic goals, and study style while keeping profile data editable and deletable.",
     keywords: [
       "Student Profiles",
       "personalized AI study",
@@ -499,11 +548,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Canvascope already understood your courses: lectures, PDFs, assignments, deadlines, and study schedules. What it didn't understand was the student behind them. Student Profiles close that gap.",
+        text: "Scope already understood your courses: lectures, PDFs, assignments, deadlines, and study schedules. What it didn't understand was the student behind them. Student Profiles close that gap.",
       },
       {
         type: "paragraph",
-        text: "Canvascope now adapts to your major, your academic goals, and how you like to learn, across every AI feature. Course Brain can explain the same concept differently for a pre-med biology student than for a CS major. Smart Planner can build schedules around your real course load. Chat can tailor help to the way you actually study.",
+        text: "Scope now adapts to your major, your academic goals, and how you like to learn, across every AI feature. Course Brain can explain the same concept differently for a pre-med biology student than for a CS major. Smart Planner can build schedules around your real course load. Chat can tailor help to the way you actually study.",
       },
       {
         type: "paragraph",
@@ -517,22 +566,22 @@ export const newsroomArticles: NewsroomArticle[] = [
   },
   {
     slug: "canvascope-added-real-account-event-protection",
-    title: "Canvascope added real account-event protection",
+    title: "Scope added real account-event protection",
     date: "2026-06-13",
     category: "Security",
     description:
-      "Canvascope added Google Cross-Account Protection with RISC validation, event deduplication, Supabase user mapping, session revocation, and sign-in blocks.",
+      "Scope added Google Cross-Account Protection with RISC validation, event deduplication, Supabase user mapping, session revocation, and sign-in blocks.",
     keywords: [
       "Google Cross-Account Protection",
       "RISC",
-      "Canvascope security",
+      "Scope security",
       "Supabase sessions",
       "account protection",
     ],
     body: [
       {
         type: "paragraph",
-        text: "Canvascope added Cross-Account Protection through Google's RISC security event stream. When Google reports a high-risk account event, Canvascope can validate the signed event, dedupe it, map it to the matching Supabase user, and revoke active sessions.",
+        text: "Scope added Cross-Account Protection through Google's RISC security event stream. When Google reports a high-risk account event, Scope can validate the signed event, dedupe it, map it to the matching Supabase user, and revoke active sessions.",
       },
       {
         type: "paragraph",
@@ -546,14 +595,14 @@ export const newsroomArticles: NewsroomArticle[] = [
   },
   {
     slug: "canvascope-v10-connected-ai-planning-and-dropbridge",
-    title: "Canvascope v10 connected AI, planning, and DropBridge",
+    title: "Scope v10 connected AI, planning, and DropBridge",
     date: "2026-06-11",
     category: "Engineering",
     description:
-      "Canvascope v10 connected its AI side panel, RAG retrieval, Smart Planner, and DropBridge v3 delivery infrastructure into one extension architecture.",
-    lede: "Canvascope v10 turned several separate experiments into one extension architecture.",
+      "Scope v10 connected its AI side panel, RAG retrieval, Smart Planner, and DropBridge v3 delivery infrastructure into one extension architecture.",
+    lede: "Scope v10 turned several separate experiments into one extension architecture.",
     keywords: [
-      "Canvascope v10",
+      "Scope v10",
       "Smart Planner",
       "DropBridge v3",
       "RAG",
@@ -570,7 +619,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "DropBridge v3 landed in the same release line with realtime receipts, heartbeat updates, hot-path indexes, targeted upload claims, and fallback polling. The point was not just speed; it was making Lectra-to-Canvascope delivery observable enough to debug when a file does not arrive.",
+        text: "DropBridge v3 landed in the same release line with realtime receipts, heartbeat updates, hot-path indexes, targeted upload claims, and fallback polling. The point was not just speed; it was making Lectra-to-Scope delivery observable enough to debug when a file does not arrive.",
       },
     ],
   },
@@ -580,7 +629,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-06-09",
     category: "Product",
     description:
-      "Canvascope started turning course deadlines into editable study plans that connect search, to-dos, calendar events, and reminders.",
+      "Scope started turning course deadlines into editable study plans that connect search, to-dos, calendar events, and reminders.",
     keywords: [
       "syllabus autopilot",
       "Smart Planner",
@@ -591,11 +640,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Canvascope started turning course deadlines into actual study plans. The syllabus autopilot work taught the extension to read academic structure, split deadlines into useful work blocks, and prepare those blocks for the same to-do, calendar, and reminder systems students already use.",
+        text: "Scope started turning course deadlines into actual study plans. The syllabus autopilot work taught the extension to read academic structure, split deadlines into useful work blocks, and prepare those blocks for the same to-do, calendar, and reminder systems students already use.",
       },
       {
         type: "paragraph",
-        text: "This was the bridge between search and planning. Instead of only finding the syllabus or listing due dates, Canvascope began asking what the student should do next and drafting the work into something editable.",
+        text: "This was the bridge between search and planning. Instead of only finding the syllabus or listing due dates, Scope began asking what the student should do next and drafting the work into something editable.",
       },
       {
         type: "paragraph",
@@ -609,9 +658,9 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-05-28",
     category: "Engineering",
     description:
-      "Canvascope v8 pulled together local document parsing, active-page context, semantic matching, streaming fixes, and a dedicated chat surface beside the LMS.",
+      "Scope v8 pulled together local document parsing, active-page context, semantic matching, streaming fixes, and a dedicated chat surface beside the LMS.",
     keywords: [
-      "Canvascope v8",
+      "Scope v8",
       "AI side panel",
       "local document parsing",
       "semantic matching",
@@ -620,25 +669,25 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "The Canvascope side panel became more than a place to type a prompt. The v8 work pulled together local document parsing, active-page context, semantic matching, streaming fixes, and a dedicated chat surface that could sit beside a student's LMS instead of replacing it.",
+        text: "The Scope side panel became more than a place to type a prompt. The v8 work pulled together local document parsing, active-page context, semantic matching, streaming fixes, and a dedicated chat surface that could sit beside a student's LMS instead of replacing it.",
       },
       {
         type: "paragraph",
-        text: "The important change was context. Canvascope could start answering with awareness of the page, the student's indexed materials, and the course artifacts already stored locally. That set up the later v10 work where AI, planning, profiles, and citations share one path.",
+        text: "The important change was context. Scope could start answering with awareness of the page, the student's indexed materials, and the course artifacts already stored locally. That set up the later v10 work where AI, planning, profiles, and citations share one path.",
       },
     ],
   },
   {
     slug: "canvascope-7-turning-canvas-into-a-real-student-workspace",
-    title: "Canvascope 7.0.0: turning Canvas into a real student workspace",
+    title: "Scope 7.0.0: turning Canvas into a real student workspace",
     date: "2026-05-24",
     category: "Product",
     description:
-      "Canvascope 7 introduced Zen Mode, theme switching, slash commands, quick notes, custom to-dos, GPA tools, and faster shortcuts inside Canvas.",
+      "Scope 7 introduced Zen Mode, theme switching, slash commands, quick notes, custom to-dos, GPA tools, and faster shortcuts inside Canvas.",
     lede:
       "What started as a way to search Canvas faster started becoming a full productivity layer for students.",
     keywords: [
-      "Canvascope 7",
+      "Scope 7",
       "Zen Mode",
       "Canvas productivity",
       "slash commands",
@@ -691,11 +740,11 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "One of the reasons I started building Canvascope was frustration with how dependent students are on digging through LMS pages just to find basic content. Over the past few months I'd been building systems to import and index materials directly from my courses, so I could search across assignments, files, modules, pages, and announcements from one place. During the outage, those indexed materials were still there.",
+        text: "One of the reasons I started building Scope was frustration with how dependent students are on digging through LMS pages just to find basic content. Over the past few months I'd been building systems to import and index materials directly from my courses, so I could search across assignments, files, modules, pages, and announcements from one place. During the outage, those indexed materials were still there.",
       },
       {
         type: "paragraph",
-        text: "It reinforced something I keep coming back to: current LMS platforms are designed around how instructors upload content, not around how students actually learn and work. Canvascope started as a better way to search Canvas. We're building toward something bigger: a student-centered workspace, and eventually a student-first LMS. The best tools don't just work when systems are online; they help people keep working when systems fail.",
+        text: "It reinforced something I keep coming back to: current LMS platforms are designed around how instructors upload content, not around how students actually learn and work. Scope started as a better way to search Canvas. We're building toward something bigger: a student-centered workspace, and eventually a student-first LMS. The best tools don't just work when systems are online; they help people keep working when systems fail.",
       },
     ],
   },
@@ -705,7 +754,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-05-19",
     category: "Notes",
     description:
-      "Canvascope kept previously indexed content and synced Lectra files accessible during an LMS outage, reinforcing local-first reliability as a product feature.",
+      "Scope kept previously indexed content and synced Lectra files accessible during an LMS outage, reinforcing local-first reliability as a product feature.",
     keywords: [
       "Canvas reliability",
       "offline LMS search",
@@ -720,20 +769,20 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "During this outage, Canvascope kept working for any previously indexed content, and any files already synced into Lectra stayed accessible. That's the whole idea we're building toward: students should be able to reach their coursework even when the systems they depend on fail.",
+        text: "During this outage, Scope kept working for any previously indexed content, and any files already synced into Lectra stayed accessible. That's the whole idea we're building toward: students should be able to reach their coursework even when the systems they depend on fail.",
       },
     ],
   },
   {
     slug: "canvascope-doesnt-just-search-anymore-it-predicts",
-    title: "Canvascope doesn't just search anymore. It predicts.",
+    title: "Scope doesn't just search anymore. It predicts.",
     date: "2026-04-21",
     category: "Product",
     description:
-      "Canvascope began anticipating likely coursework based on routines, time of week, and course patterns so students can work with less searching.",
+      "Scope began anticipating likely coursework based on routines, time of week, and course patterns so students can work with less searching.",
     keywords: [
       "predictive search",
-      "Canvascope search",
+      "Scope search",
       "course routines",
       "student workflow",
       "Canvas productivity",
@@ -745,7 +794,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "So we taught Canvascope to anticipate. When you open it now, it suggests what you're probably looking for based on patterns like the time of week and your coursework. For me, that Friday lab is already there before I type a single character.",
+        text: "So we taught Scope to anticipate. When you open it now, it suggests what you're probably looking for based on patterns like the time of week and your coursework. For me, that Friday lab is already there before I type a single character.",
       },
       {
         type: "paragraph",
@@ -759,13 +808,13 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-18",
     category: "Notes",
     description:
-      "When Canvas Pages stopped working for a course, Canvascope's local index still made the course materials searchable.",
+      "When Canvas Pages stopped working for a course, Scope's local index still made the course materials searchable.",
     keywords: [
       "Canvas Pages",
       "local index",
       "course search",
       "LMS outage",
-      "Canvascope reliability",
+      "Scope reliability",
     ],
     body: [
       {
@@ -774,7 +823,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "Normally that's game over. But Canvascope had already indexed the course, so I just searched, and everything was still there. No stress, no waiting. Most tools only work when everything works. The best ones work when things break.",
+        text: "Normally that's game over. But Scope had already indexed the course, so I just searched, and everything was still there. No stress, no waiting. Most tools only work when everything works. The best ones work when things break.",
       },
     ],
   },
@@ -784,12 +833,12 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-16",
     category: "Product",
     description:
-      "Canvascope and Lectra connect finding a Canvas file, sending it to iPad, annotating it, and returning to work through a controlled file handoff.",
+      "Scope and Lectra connect finding a Canvas file, sending it to iPad, annotating it, and returning to work through a controlled file handoff.",
     keywords: [
       "Canvas to iPad",
       "PDF annotation workflow",
       "Lectra handoff",
-      "Canvascope PDFs",
+      "Scope PDFs",
       "student annotation",
     ],
     body: [
@@ -809,10 +858,10 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-14",
     category: "Notes",
     description:
-      "A broken Canvas course page showed how a local Canvascope index can make coursework available when classmates cannot reach the LMS page.",
+      "A broken Canvas course page showed how a local Scope index can make coursework available when classmates cannot reach the LMS page.",
     keywords: [
       "Canvas page failure",
-      "Canvascope local search",
+      "Scope local search",
       "course materials",
       "LMS reliability",
       "student workflow",
@@ -820,7 +869,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Today in class, a course Canvas page stopped working and everyone around me started stressing. I wasn't. Canvascope had already indexed the course, so I just searched and everything was still there.",
+        text: "Today in class, a course Canvas page stopped working and everyone around me started stressing. I wasn't. Scope had already indexed the course, so I just searched and everything was still there.",
       },
       {
         type: "paragraph",
@@ -834,11 +883,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-11",
     category: "Product",
     description:
-      "Canvascope reduces repeated Canvas navigation and PDF handoff friction so students can open a file and send it to iPad in one flow.",
+      "Scope reduces repeated Canvas navigation and PDF handoff friction so students can open a file and send it to iPad in one flow.",
     keywords: [
       "Canvas workflow",
       "PDF to iPad",
-      "Canvascope productivity",
+      "Scope productivity",
       "Lectra",
       "student files",
     ],
@@ -859,9 +908,9 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-09",
     category: "Product",
     description:
-      "Canvascope expanded from a Canvas search extension into a student workflow platform spanning PDFs, Lectra, web workspace, Brightspace, and local-first privacy.",
+      "Scope expanded from a Canvas search extension into a student workflow platform spanning PDFs, Lectra, web workspace, Brightspace, and local-first privacy.",
     keywords: [
-      "Canvascope workflow platform",
+      "Scope workflow platform",
       "Brightspace support",
       "D2L support",
       "Lectra PDF viewer",
@@ -870,14 +919,14 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Three months before this update, Canvascope was a Chrome extension that helped you search Canvas faster. It started becoming a full student workflow platform with several major pieces:",
+        text: "Three months before this update, Scope was a Chrome extension that helped you search Canvas faster. It started becoming a full student workflow platform with several major pieces:",
       },
       {
         type: "list",
         items: [
           "Lectra PDF Viewer Overlay: open, view, and annotate PDFs directly in your browser.",
           "Lectra for iPad: Apple Pencil-native annotation built specifically for coursework.",
-          "DropBridge: send a PDF from Canvascope to Lectra, annotate it, and send it back through one account-linked pipeline.",
+          "DropBridge: send a PDF from Scope to Lectra, annotate it, and send it back through one account-linked pipeline.",
           "Full web workspace: courses, assignments, documents, and deadlines in one dashboard.",
           "Brightspace and D2L support: the same search and workflow experience beyond Canvas.",
           "Privacy-first by default: data stays local unless the student chooses a connected feature.",
@@ -891,13 +940,13 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-07",
     category: "Notes",
     description:
-      "Canvascope and Lectra are built around how students search, study, and take notes instead of how LMS platforms organize administration.",
+      "Scope and Lectra are built around how students search, study, and take notes instead of how LMS platforms organize administration.",
     keywords: [
       "student-first LMS",
       "Canvas search",
       "student tools",
       "Lectra",
-      "Canvascope",
+      "Scope",
     ],
     body: [
       {
@@ -906,7 +955,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "We're flipping that. Lectra and Canvascope are built around how students actually study, actually search, and actually take notes. The goal isn't a better tool. It's a better system. And this is just the beginning.",
+        text: "We're flipping that. Lectra and Scope are built around how students actually study, actually search, and actually take notes. The goal isn't a better tool. It's a better system. And this is just the beginning.",
       },
     ],
   },
@@ -916,13 +965,13 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-04-04",
     category: "Product",
     description:
-      "Canvascope helps students search by what they mean, not just exact file names, then send relevant PDFs to iPad when annotation matters.",
+      "Scope helps students search by what they mean, not just exact file names, then send relevant PDFs to iPad when annotation matters.",
     keywords: [
       "intent search",
       "Canvas search",
       "student file search",
       "Lectra handoff",
-      "Canvascope extension",
+      "Scope extension",
     ],
     body: [
       {
@@ -941,22 +990,22 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-03-21",
     category: "Notes",
     description:
-      "Canvascope plus Lectra is positioned as a coursework workflow, not generic file sharing, because it preserves the step from finding material to using it.",
+      "Scope plus Lectra is positioned as a coursework workflow, not generic file sharing, because it preserves the step from finding material to using it.",
     keywords: [
       "AirDrop alternative",
       "student PDF workflow",
-      "Canvascope Lectra",
+      "Scope Lectra",
       "coursework handoff",
       "iPad annotation",
     ],
     body: [
       {
         type: "paragraph",
-        text: "AirDrop moves files. What we're building between Canvascope and Lectra moves students straight into work.",
+        text: "AirDrop moves files. What we're building between Scope and Lectra moves students straight into work.",
       },
       {
         type: "paragraph",
-        text: "If AirDrop already works, why switch? Because this isn't about sending a PDF faster. It's about removing the friction between finding class material and actually using it. A student can find what they need in Canvascope and open it in Lectra right away to read, highlight, and annotate without breaking focus. AirDrop is general-purpose file sharing. Canvascope plus Lectra is a workflow built for students.",
+        text: "If AirDrop already works, why switch? Because this isn't about sending a PDF faster. It's about removing the friction between finding class material and actually using it. A student can find what they need in Scope and open it in Lectra right away to read, highlight, and annotate without breaking focus. AirDrop is general-purpose file sharing. Scope plus Lectra is a workflow built for students.",
       },
     ],
   },
@@ -966,10 +1015,10 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-03-19",
     category: "Product",
     description:
-      "Canvascope added a Custom Algorithm setting so students can tune ranking around due dates, course context, or file types.",
+      "Scope added a Custom Algorithm setting so students can tune ranking around due dates, course context, or file types.",
     keywords: [
       "custom search algorithm",
-      "Canvascope search settings",
+      "Scope search settings",
       "course context",
       "due dates",
       "file type ranking",
@@ -991,13 +1040,13 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-03-17",
     category: "Product",
     description:
-      "Canvascope maps student intent like a physics lab this week to related Canvas materials even when file names and module labels do not match.",
+      "Scope maps student intent like a physics lab this week to related Canvas materials even when file names and module labels do not match.",
     keywords: [
       "semantic Canvas search",
       "intent-aware search",
       "Canvas files",
       "student search",
-      "Canvascope",
+      "Scope",
     ],
     body: [
       {
@@ -1012,13 +1061,13 @@ export const newsroomArticles: NewsroomArticle[] = [
   },
   {
     slug: "canvascope-4-removing-seven-steps",
-    title: "Canvascope 4.0.0: the most underrated feature is removing seven steps",
+    title: "Scope 4.0.0: the most underrated feature is removing seven steps",
     date: "2026-03-14",
     category: "Product",
     description:
-      "Canvascope 4.0.0 made sending class PDFs from Canvas to Lectra on iPad faster with real-time wakeups, fallback polling, and richer course-context sync.",
+      "Scope 4.0.0 made sending class PDFs from Canvas to Lectra on iPad faster with real-time wakeups, fallback polling, and richer course-context sync.",
     keywords: [
-      "Canvascope 4",
+      "Scope 4",
       "Canvas PDF to iPad",
       "Lectra",
       "real-time wakeups",
@@ -1045,10 +1094,10 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-03-12",
     category: "Milestone",
     description:
-      "Canvascope crossed 100,000 indexed files, highlighting how much coursework students manage and how useful fast local-first search can be.",
+      "Scope crossed 100,000 indexed files, highlighting how much coursework students manage and how useful fast local-first search can be.",
     keywords: [
       "100000 indexed files",
-      "Canvascope milestone",
+      "Scope milestone",
       "local-first search",
       "course files",
       "student productivity",
@@ -1056,11 +1105,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "We just crossed 100,000 indexed files in Canvascope. The number matters less than what it represents: how much course content students manage every day, and how much it helps to find the right assignment, reading, or syllabus quickly and reliably.",
+        text: "We just crossed 100,000 indexed files in Scope. The number matters less than what it represents: how much course content students manage every day, and how much it helps to find the right assignment, reading, or syllabus quickly and reliably.",
       },
       {
         type: "paragraph",
-        text: "Canvascope is built around exactly that: fast local-first search and planner-aware retrieval that surfaces what you need without breaking focus. Meanwhile, Lectra is taking shape around Canvas handoff, a document library with folders and thumbnails, and cloud backup controls. A meaningful milestone, and a strong sign of momentum across both products.",
+        text: "Scope is built around exactly that: fast local-first search and planner-aware retrieval that surfaces what you need without breaking focus. Meanwhile, Lectra is taking shape around Canvas handoff, a document library with folders and thumbnails, and cloud backup controls. A meaningful milestone, and a strong sign of momentum across both products.",
       },
     ],
   },
@@ -1070,18 +1119,18 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-03-09",
     category: "Engineering",
     description:
-      "Lectra's early build focused on Apple Pencil PDF annotation, a document vault, local-first persistence, flattened export, and direct Canvascope handoff.",
+      "Lectra's early build focused on Apple Pencil PDF annotation, a document vault, local-first persistence, flattened export, and direct Scope handoff.",
     keywords: [
       "Lectra iPad app",
       "Apple Pencil PDF editor",
       "document vault",
       "flattened PDF export",
-      "Canvascope handoff",
+      "Scope handoff",
     ],
     body: [
       {
         type: "paragraph",
-        text: "Lectra is the Apple Pencil-first iPad app we're building as part of the Canvascope ecosystem. The goal is to make PDF annotation fast and natural on iPad while keeping a reliable workflow between iPad and desktop. The current build includes:",
+        text: "Lectra is the Apple Pencil-first iPad app we're building as part of the Scope ecosystem. The goal is to make PDF annotation fast and natural on iPad while keeping a reliable workflow between iPad and desktop. The current build includes:",
       },
       {
         type: "list",
@@ -1090,7 +1139,7 @@ export const newsroomArticles: NewsroomArticle[] = [
           "A document vault with folders, search, recents, and grid/list browsing",
           "PDF and image import, including blank documents for scratch work",
           "A local-first annotation pipeline with on-device persistence and flattened PDF export",
-          "Direct handoff to the Canvascope extension on desktop, with upload status tracking",
+          "Direct handoff to the Scope extension on desktop, with upload status tracking",
           "Optional cloud backup with iCloud-aware fallback behavior",
         ],
       },
@@ -1098,13 +1147,13 @@ export const newsroomArticles: NewsroomArticle[] = [
   },
   {
     slug: "canvascope-is-live-on-the-chrome-web-store",
-    title: "Canvascope is live on the Chrome Web Store",
+    title: "Scope is live on the Chrome Web Store",
     date: "2026-03-07",
     category: "Milestone",
     description:
-      "Canvascope launched as a real installable Chrome extension for local-first Canvas search across assignments, files, and modules.",
+      "Scope launched as a real installable Chrome extension for local-first Canvas search across assignments, files, and modules.",
     keywords: [
-      "Canvascope Chrome Web Store",
+      "Scope Chrome Web Store",
       "Canvas Chrome extension",
       "local-first Canvas search",
       "privacy-first extension",
@@ -1113,11 +1162,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "Canvascope started as a fix for a problem I kept hitting as a student: finding anything in Canvas is harder than it should be. Today it's a real, installable product.",
+        text: "Scope started as a fix for a problem I kept hitting as a student: finding anything in Canvas is harder than it should be. Today it's a real, installable product.",
       },
       {
         type: "paragraph",
-        text: "Canvascope is a privacy-first Chrome extension that indexes your course materials locally and lets you search across assignments, files, and modules in plain language. It's local-first for performance and privacy, with zero third-party analytics or tracking, optimized for low-latency search, and designed to extend into bigger integrations down the line.",
+        text: "Scope is a privacy-first Chrome extension that indexes your course materials locally and lets you search across assignments, files, and modules in plain language. It's local-first for performance and privacy, with zero third-party analytics or tracking, optimized for low-latency search, and designed to extend into bigger integrations down the line.",
       },
       {
         type: "paragraph",

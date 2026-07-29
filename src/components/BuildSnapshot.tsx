@@ -5,7 +5,7 @@ import { CheckCircle2, Rocket, Wrench } from "lucide-react";
 import { RELEASE_PRODUCT_HEADING } from "@/lib/siteRelease";
 
 const currentState = [
-  "Canvascope v10 Chrome MV3 runtime with organized src/ layout",
+  "Scope v10 Chrome MV3 runtime with organized src/ layout",
   "Fuse.js + lexical hybrid retrieval with abbreviation and course-aware ranking",
   "Unified AI side panel with active-page + whole-corpus RAG and clickable citations",
   "Shared AI router: Chrome on-device model first, authenticated cloud fallback when needed",

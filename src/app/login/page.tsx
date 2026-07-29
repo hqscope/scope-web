@@ -8,7 +8,7 @@ import { sanitizeNextPath } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Sign in",
   description:
-    "Sign in to the Canvascope workspace to see synced courses, documents, and connected product activity.",
+    "Sign in to the Scope workspace to see synced courses, documents, and connected product activity.",
 };
 
 const errorCopy: Record<string, string> = {
@@ -31,7 +31,7 @@ export default async function LoginPage({
       <section className="page-wrap grid gap-10 py-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-20">
         <div className="space-y-6">
           <p className="kicker">Sign in</p>
-          <h1 className="text-5xl sm:text-6xl">Use the same account across Canvascope, Lectra, and the web workspace.</h1>
+          <h1 className="text-5xl sm:text-6xl">Use the same account across Scope, Lectra, and the web workspace.</h1>
           <p className="section-copy text-lg">
             Sign in once, then move between the extension, Lectra, and the web
             workspace without losing access to your synced courses and documents.
@@ -80,7 +80,7 @@ export default async function LoginPage({
           <div className="space-y-6">
             <div className="space-y-3">
               <p className="app-label text-[var(--color-brand-deep)]">Account access</p>
-              <h2 className="text-3xl">Open the Canvascope app shell</h2>
+              <h2 className="text-3xl">Open the Scope app shell</h2>
               <p className="section-copy">
                 After sign-in, you will land in the authenticated workspace at{" "}
                 <span className="rounded-md bg-black/5 px-2 py-1 font-mono text-sm">
@@ -110,8 +110,8 @@ export default async function LoginPage({
                 homepage
               </Link>{" "}
               or read the product pages for{" "}
-              <Link href="/product/canvascope" className="font-semibold text-[var(--color-brand-deep)]">
-                Canvascope
+              <Link href="/product/scope" className="font-semibold text-[var(--color-brand-deep)]">
+                Scope
               </Link>{" "}
               and{" "}
               <Link href="/product/lectra" className="font-semibold text-[var(--color-brand-deep)]">

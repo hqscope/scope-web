@@ -39,7 +39,7 @@ export default async function AppCourseDetailPage({
             <p className="app-label">Course workspace</p>
             <h1 className="mt-3 text-4xl">{detail.catalog.courseName}</h1>
             <p className="mt-4 max-w-3xl app-copy">
-              This is the deeper class view behind the simpler student dashboard. Use it when you want everything Canvascope knows about one course in one place.
+              This is the deeper class view behind the simpler student dashboard. Use it when you want everything Scope knows about one course in one place.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">

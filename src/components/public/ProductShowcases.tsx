@@ -29,33 +29,33 @@ const commandItems = [
 
 const productTabs = [
   {
-    label: "Canvascope",
+    label: "Scope",
     title: "Search the mess before it becomes a missed deadline.",
     copy:
       "Course pages, PDFs, deadlines, notes, and active LMS context move into one fast command surface.",
-    href: "/product/canvascope",
+    href: "/product/scope",
   },
   {
     label: "Lectra",
     title: "Turn course PDFs into an Apple Pencil workspace.",
     copy:
-      "Read, annotate, summarize, and return finished PDFs through the connected Canvascope flow.",
+      "Read, annotate, summarize, and return finished PDFs through the connected Scope flow.",
     href: "/product/lectra",
   },
   {
     label: "Research",
     title: "Study tools backed by careful research systems.",
     copy:
-      "Canvascope Research explores cortical mapping and validation without overstating clinical claims.",
+      "Scope Research explores cortical mapping and validation without overstating clinical claims.",
     href: "/research",
   },
 ];
 
 export function CommandPaletteShowcase() {
   return (
-    <div className="showcase command-showcase" aria-label="Canvascope command palette preview">
+    <div className="showcase command-showcase" aria-label="Scope command palette preview">
       <div className="showcase-toolbar">
-        <span>Canvascope search</span>
+        <span>Scope search</span>
         <kbd>⌘K</kbd>
       </div>
       <div className="command-input">
@@ -84,9 +84,9 @@ export function CommandPaletteShowcase() {
 
 export function CitedChatShowcase() {
   return (
-    <div className="showcase chat-showcase" aria-label="Canvascope AI citation preview">
+    <div className="showcase chat-showcase" aria-label="Scope AI citation preview">
       <div className="showcase-toolbar">
-        <span>Ask Canvascope</span>
+        <span>Ask Scope</span>
         <span>3 sources</span>
       </div>
       <div className="chat-message user-message">
@@ -116,7 +116,7 @@ export function ProductSwitcher() {
         <div className="section-intro">
           <h2>One ecosystem, three jobs.</h2>
           <p>
-            Canvascope handles browser course work, Lectra handles focused
+            Scope handles browser course work, Lectra handles focused
             reading, and Research keeps the longer horizon honest.
           </p>
         </div>
@@ -151,7 +151,7 @@ export function LectraWorkspaceShowcase() {
         <div className="pdf-sheet">
           <Image
             src="/brand/lectra-canvascope-lockup.png"
-            alt="Lectra and Canvascope product lockup"
+            alt="Lectra and Scope product lockup"
             width={720}
             height={420}
           />

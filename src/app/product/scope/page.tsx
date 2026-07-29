@@ -17,15 +17,19 @@ import { CHROME_WEB_STORE_URL } from "@/lib/site";
 import { RELEASE_VERSION } from "@/lib/siteRelease";
 
 export const metadata: Metadata = {
-  title: "Canvascope Chrome Extension",
+  title: "Scope for Canvas",
   description:
-    "Canvascope 10.1 is the free Chrome extension that searches Canvas and Brightspace courses, indexes PDFs locally, answers cited AI questions, drafts study plans, sends selected documents to Lectra, and brings finished Lectra PDFs back into browser upload flows.",
+    "Scope 10.1 is the free Chrome extension that searches Canvas and Brightspace courses, indexes PDFs locally, answers cited AI questions, drafts study plans, sends selected documents to Lectra, and brings finished Lectra PDFs back into browser upload flows.",
   alternates: {
-    canonical: "/product/canvascope",
+    canonical: "/product/scope",
   },
   keywords: [
-    "Canvascope Chrome extension",
-    "Canvascope 10.1",
+    "Scope for Canvas",
+    "Scope Chrome extension",
+    "Scope 10.1",
+    // Retained so people still searching the former name find us.
+    "Canvascope",
+    "Canvascope extension",
     "Canvas LMS search",
     "Brightspace search",
     "Attach from Lectra",
@@ -63,7 +67,7 @@ const capabilities = [
   {
     title: "PDF & OCR indexing",
     copy:
-      "Canvascope parses PDF text locally and can OCR scanned pages and images, so their contents show up in future searches. Nothing is uploaded.",
+      "Scope parses PDF text locally and can OCR scanned pages and images, so their contents show up in future searches. Nothing is uploaded.",
   },
   {
     title: "Cited AI answers",
@@ -120,7 +124,7 @@ const slashCommands = [
   {
     command: "/quiz",
     title: "Practice from sources",
-    copy: "Generate practice questions and answers from the course context Canvascope has indexed.",
+    copy: "Generate practice questions and answers from the course context Scope has indexed.",
   },
   {
     command: "/autopilot",
@@ -153,24 +157,24 @@ const privacyModel = [
 
 const faqs: FaqEntry[] = [
   {
-    question: "Is Canvascope free?",
+    question: "Is Scope free?",
     answer:
-      "Yes. Canvascope is a free Chrome extension. Install it from the Chrome Web Store and start searching your courses right away, with no subscription required.",
+      "Yes. Scope is a free Chrome extension. Install it from the Chrome Web Store and start searching your courses right away, with no subscription required.",
   },
   {
-    question: "Does Canvascope work with both Canvas and Brightspace?",
+    question: "Does Scope work with both Canvas and Brightspace?",
     answer:
-      "Yes. Canvascope searches across Canvas (Instructure) and Brightspace (D2L) courses, including assignments, readings, files, quizzes, pages, and due dates.",
+      "Yes. Scope searches across Canvas (Instructure) and Brightspace (D2L) courses, including assignments, readings, files, quizzes, pages, and due dates.",
   },
   {
     question: "Where is my course data stored?",
     answer:
-      "Canvascope is local-first. Your course index and search data live in browser-local storage by default. Connected features like Google sign-in, calendar sync, cloud AI fallback, and Lectra handoff only run when you explicitly choose them.",
+      "Scope is local-first. Your course index and search data live in browser-local storage by default. Connected features like Google sign-in, calendar sync, cloud AI fallback, and Lectra handoff only run when you explicitly choose them.",
   },
   {
-    question: "Can Canvascope search inside PDFs?",
+    question: "Can Scope search inside PDFs?",
     answer:
-      "Yes. Canvascope parses PDF text locally and can OCR scanned pages and images so their contents show up in future searches.",
+      "Yes. Scope parses PDF text locally and can OCR scanned pages and images so their contents show up in future searches.",
   },
   {
     question: "What are the cited AI answers?",
@@ -197,7 +201,7 @@ export default function CanvascopeProductPage() {
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Canvascope Chrome Extension", path: "/product/canvascope" },
+            { name: "Scope for Canvas", path: "/product/scope" },
           ]),
           canvascopeSoftwareSchema(),
           faqSchema(faqs),
@@ -206,7 +210,7 @@ export default function CanvascopeProductPage() {
 
       <section className="page-wrap centered-hero">
         <div data-reveal>
-          <p className="kicker">The Canvascope extension · {RELEASE_VERSION}</p>
+          <p className="kicker">The Scope extension · {RELEASE_VERSION}</p>
           <h1>One shortcut for your entire semester.</h1>
           <p className="centered-hero-lede">
             Hit <kbd>⌘K</kbd> on any Canvas or Brightspace page. Search
@@ -256,7 +260,7 @@ export default function CanvascopeProductPage() {
             ))}
           </div>
           <div className="palette-mock-footer">
-            <span>● CANVASCOPE</span>
+            <span>● SCOPE</span>
             <span>↑↓ NAVIGATE</span>
             <span>↵ SELECT</span>
             <span>ESC CLOSE</span>

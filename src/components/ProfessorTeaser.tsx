@@ -169,7 +169,7 @@ export default function ProfessorTeaser() {
                                         ))}
                                     </div>
 
-                                    {/* Canvascope Attribution */}
+                                    {/* Scope Attribution */}
                                     <div className="px-5 py-2 border-t border-glass-border flex items-center justify-center gap-1.5">
                                         <svg viewBox="0 0 128 128" className="w-3.5 h-3.5">
                                             <path
@@ -191,7 +191,7 @@ export default function ProfessorTeaser() {
                                             />
                                         </svg>
                                         <span className="text-[10px] text-text-muted">
-                                            Powered by Canvascope
+                                            Powered by Scope
                                         </span>
                                     </div>
                                 </div>

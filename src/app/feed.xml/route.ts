@@ -39,10 +39,10 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Canvascope Newsroom</title>
+    <title>Scope Newsroom</title>
     <link>${escapeXml(newsroomUrl)}</link>
     <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />
-    <description>Product updates, engineering notes, and milestones from Canvascope and Lectra.</description>
+    <description>Product updates, engineering notes, and milestones from Scope and Lectra.</description>
     <language>en-us</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>${items}
   </channel>

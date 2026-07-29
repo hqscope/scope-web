@@ -52,7 +52,7 @@ export default function ChromeWebStoreStats() {
             <span className="text-gradient">stats.</span>
           </h2>
           <p className="text-text-secondary text-lg max-w-3xl mx-auto">
-            Current listing snapshot for Canvascope on the Chrome Web Store.
+            Current listing snapshot for Scope on the Chrome Web Store.
           </p>
         </motion.div>
 

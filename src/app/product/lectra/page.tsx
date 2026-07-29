@@ -25,13 +25,13 @@ import { LECTRA_APP_STORE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Lectra Notes - iPad PDF Annotation & Study Companion",
   description:
-    "Lectra Notes is now on the App Store. Annotate course readings by hand with Apple Pencil, organize documents, use private on-device AI, and hand PDFs to and from Canvascope.",
+    "Lectra Notes is now on the App Store. Annotate course readings by hand with Apple Pencil, organize documents, use private on-device AI, and hand PDFs to and from Scope.",
   alternates: {
     canonical: "/product/lectra",
   },
   keywords: [
     "Lectra Notes",
-    "Canvascope Lectra",
+    "Scope Lectra",
     "Lectra App Store",
     "Apple Pencil PDF annotation",
     "Lectra on-device AI",
@@ -43,12 +43,12 @@ export const metadata: Metadata = {
     "handwritten notes iPad",
     "local-first document reader",
     "DropBridge v3",
-    "Canvascope companion app",
+    "Scope companion app",
   ],
   openGraph: {
     title: "Lectra Notes - iPad PDF Annotation & Study Companion",
     description:
-      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and seamlessly hand PDFs between Canvascope and your iPad.",
+      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and seamlessly hand PDFs between Scope and your iPad.",
     type: "website",
     url: "/product/lectra",
     images: [
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lectra Notes - iPad PDF Annotation & Study Companion",
     description:
-      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and hand PDFs to and from Canvascope.",
+      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and hand PDFs to and from Scope.",
     images: ["/brand/lectra-canvascope-lockup.png"],
   },
 };
@@ -75,7 +75,7 @@ const workflow = [
     icon: FileText,
     title: "Your readings, on your iPad",
     copy:
-      "Import PDFs directly or send course readings from Canvascope to Lectra through DropBridge v3.",
+      "Import PDFs directly or send course readings from Scope to Lectra through DropBridge v3.",
   },
   {
     icon: PenLine,
@@ -87,7 +87,7 @@ const workflow = [
     icon: RefreshCw,
     title: "Send finished files back",
     copy:
-      "Finished PDFs can return through Canvascope's browser picker in supported upload flows.",
+      "Finished PDFs can return through Scope's browser picker in supported upload flows.",
   },
   {
     icon: Radio,
@@ -100,9 +100,9 @@ const workflow = [
 const boundaries = [
   "Open course PDFs on your iPad without emailing them to yourself.",
   "Annotate by hand with your Apple Pencil: highlights, underlines, and notes.",
-  "Keep document status and course metadata attached to the original Canvascope handoff.",
+  "Keep document status and course metadata attached to the original Scope handoff.",
   "Use private on-device document intelligence for summaries, tags, flashcards, quizzes, and grounded Q&A where supported.",
-  "Bring finished PDFs back into Canvascope's supported browser upload flows.",
+  "Bring finished PDFs back into Scope's supported browser upload flows.",
   "Built for focused reading and assignment work, not another generic file bucket.",
 ];
 
@@ -110,27 +110,27 @@ const faqs: FaqEntry[] = [
   {
     question: "What is Lectra?",
     answer:
-      "Lectra Notes is the App Store app from Canvascope. It imports and organizes documents, receives course PDFs from the Canvascope Chrome extension, lets you annotate them with Apple Pencil, and can use private on-device intelligence for supported study aids.",
+      "Lectra Notes is the App Store app from Scope. It imports and organizes documents, receives course PDFs from the Scope Chrome extension, lets you annotate them with Apple Pencil, and can use private on-device intelligence for supported study aids.",
   },
   {
-    question: "How do PDFs get from Canvascope to Lectra?",
+    question: "How do PDFs get from Scope to Lectra?",
     answer:
-      "Canvascope sends documents to Lectra through DropBridge v3, which uses realtime receiver wakeups, delivery receipts, and automatic download handling, with a polling fallback when realtime delivery is unavailable.",
+      "Scope sends documents to Lectra through DropBridge v3, which uses realtime receiver wakeups, delivery receipts, and automatic download handling, with a polling fallback when realtime delivery is unavailable.",
   },
   {
-    question: "Do I need Canvascope to use Lectra?",
+    question: "Do I need Scope to use Lectra?",
     answer:
-      "No. Lectra Notes can import and organize documents on its own. Canvascope adds the connected browser workflow for sending course PDFs to Lectra and bringing finished PDFs back into supported upload flows.",
+      "No. Lectra Notes can import and organize documents on its own. Scope adds the connected browser workflow for sending course PDFs to Lectra and bringing finished PDFs back into supported upload flows.",
   },
   {
     question: "Does Lectra keep my notes tied to the original course file?",
     answer:
-      "Yes. Delivery state, receipts, and document metadata stay attached to the original course file from the Canvascope handoff, so your annotations and finished exports stay in context.",
+      "Yes. Delivery state, receipts, and document metadata stay attached to the original course file from the Scope handoff, so your annotations and finished exports stay in context.",
   },
   {
     question: "Can finished Lectra PDFs return to browser uploads?",
     answer:
-      "Yes. Canvascope 10.1 added an Attach from Lectra picker for supported browser upload flows, starting with Gradescope's upload modal, so annotated PDFs can come back without digging through downloads.",
+      "Yes. Scope 10.1 added an Attach from Lectra picker for supported browser upload flows, starting with Gradescope's upload modal, so annotated PDFs can come back without digging through downloads.",
   },
   {
     question: "Is Lectra available now?",
@@ -162,14 +162,14 @@ export default function LectraProductPage() {
           faqSchema(faqs),
           videoObjectSchema(
             "Lectra Notes iPad Workspace Demonstration",
-            "A demonstration of using Lectra Notes on iPad with Apple Pencil to annotate course readings and hand finished PDFs back to Canvascope.",
+            "A demonstration of using Lectra Notes on iPad with Apple Pencil to annotate course readings and hand finished PDFs back to Scope.",
             "/brand/lectra-canvascope-lockup.png",
             "2026-06-19T08:00:00Z",
             "/brand/lectra-horizontal.mp4",
           ),
           videoObjectSchema(
             "Lectra Notes iPhone Interface Walkthrough",
-            "Explore the Lectra Notes interface on iPhone, including document search, summaries, and Canvascope sync.",
+            "Explore the Lectra Notes interface on iPhone, including document search, summaries, and Scope sync.",
             "/brand/lectra-canvascope-lockup.png",
             "2026-06-19T08:00:00Z",
             "/brand/lectra-vertical.mp4",
@@ -183,7 +183,7 @@ export default function LectraProductPage() {
           <h1>The workspace for documents you think on.</h1>
           <p className="centered-hero-lede">
             Apple-Pencil-first PDF markup, notebooks, and an offline-first
-            library for iPad and iPhone — connected to Canvascope with one click.
+            library for iPad and iPhone — connected to Scope with one click.
           </p>
           <div className="pill-actions">
             <a
@@ -324,7 +324,7 @@ export default function LectraProductPage() {
           articles={lectraNewsroomArticles}
           kicker="Lectra updates"
           title="Lectra is live."
-          copy="Read the launch note, the two-way Canvascope handoff work, and the release-shape cleanup behind the App Store build."
+          copy="Read the launch note, the two-way Scope handoff work, and the release-shape cleanup behind the App Store build."
         />
       </div>
 
@@ -347,7 +347,7 @@ export default function LectraProductPage() {
         <div>
           <h2>Bring your readings to your iPad.</h2>
           <p>
-            Canvascope finds your coursework in seconds. Lectra gives your
+            Scope finds your coursework in seconds. Lectra gives your
             readings a calm place to live — then hands the finished file back.
           </p>
         </div>
@@ -360,8 +360,8 @@ export default function LectraProductPage() {
           >
             Download on the App Store
           </a>
-          <Link href="/product/canvascope" className="button-secondary">
-            Start with Canvascope
+          <Link href="/product/scope" className="button-secondary">
+            Start with Scope
           </Link>
         </div>
       </section>

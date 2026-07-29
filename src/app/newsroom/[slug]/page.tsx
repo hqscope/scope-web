@@ -47,7 +47,7 @@ export async function generateMetadata({
         "application/rss+xml": "/feed.xml",
       },
     },
-    keywords: [...article.keywords, article.category, "Canvascope", "Lectra"],
+    keywords: [...article.keywords, article.category, "Scope", "Lectra"],
     openGraph: {
       title: article.title,
       description: article.description,
@@ -99,7 +99,7 @@ export default async function NewsroomArticlePage({
           ]),
           articleSchema(article),
           itemListSchema(
-            `Related Canvascope updates for ${article.title}`,
+            `Related Scope updates for ${article.title}`,
             articlePath(article),
             surfacedRelatedArticles.map((relatedArticle) => ({
               name: relatedArticle.title,

@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import { CHROME_WEB_STORE_URL } from "@/lib/site";
 
 const links: { href: string; label: string; badge?: string }[] = [
-  { href: "/product/canvascope", label: "Extension" },
+  { href: "/product/scope", label: "Scope for Canvas" },
   { href: "/product/lectra", label: "Lectra" },
   { href: "/product/agent-workspace", label: "Agent Workspace", badge: "NEW" },
   { href: "/newsroom", label: "Newsroom" },
@@ -21,7 +21,7 @@ export type PublicNavSection =
   | null;
 
 const sectionByHref: Record<string, PublicNavSection> = {
-  "/product/canvascope": "extension",
+  "/product/scope": "extension",
   "/product/lectra": "lectra",
   "/product/agent-workspace": "agent-workspace",
   "/newsroom": "newsroom",
@@ -50,7 +50,7 @@ export default function PublicHeader({
   return (
     <header className="public-header">
       <div className="page-wrap public-header-inner">
-        <Link href="/" className="public-brand" aria-label="Canvascope home">
+        <Link href="/" className="public-brand" aria-label="Scope home">
           <Image
             src="/brand/canvascope-mark.png"
             alt=""
@@ -59,7 +59,10 @@ export default function PublicHeader({
             className="public-brand-mark"
             priority
           />
-          <span>Canvascope</span>
+          <span className="public-brand-text">
+            <span>Scope</span>
+            <span className="public-brand-former">prev. Canvascope</span>
+          </span>
         </Link>
 
         <nav className="public-nav" aria-label="Public navigation">

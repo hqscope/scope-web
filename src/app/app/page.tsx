@@ -80,7 +80,7 @@ export default async function AppPage() {
             <p className="app-label">Student workspace</p>
             <h1 className="mt-3 text-4xl">Drop files, open assignments, and keep your week understandable.</h1>
             <p className="mt-4 max-w-3xl app-copy">
-              Canvascope keeps the home page focused on the next real student actions instead of every synced system detail at once.
+              Scope keeps the home page focused on the next real student actions instead of every synced system detail at once.
             </p>
           </div>
 
@@ -141,7 +141,7 @@ export default async function AppPage() {
               <div className="empty-panel mt-6">
                 <p className="text-lg font-semibold">No assignments are surfaced right now</p>
                 <p className="mt-2 app-copy">
-                  Once Canvascope syncs due-dated work, your next assignments will appear here automatically.
+                  Once Scope syncs due-dated work, your next assignments will appear here automatically.
                 </p>
               </div>
             ) : (

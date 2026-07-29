@@ -24,10 +24,10 @@ export default function HiringInterestSection() {
             Build / Test
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary mb-4">
-            Interested in building or testing Canvascope?
+            Interested in building or testing Scope?
           </h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto mb-8">
-            Submit the interest form if you want to help build Canvascope or test
+            Submit the interest form if you want to help build Scope or test
             new releases early.
           </p>
 

@@ -8,13 +8,13 @@ const flow = [
     icon: <Chrome className="w-5 h-5" />,
     title: "1) Index Locally in Chrome",
     description:
-      "Canvascope indexes LMS metadata in chrome.storage.local with Fuse.js + lexical ranking for fast local-first search.",
+      "Scope indexes LMS metadata in chrome.storage.local with Fuse.js + lexical ranking for fast local-first search.",
   },
   {
     icon: <ShieldCheck className="w-5 h-5" />,
     title: "2) Optional Account Bridge",
     description:
-      "When enabled, Google OAuth and Canvascope web session endpoints provide identity for account-linked cross-product flows.",
+      "When enabled, Google OAuth and Scope web session endpoints provide identity for account-linked cross-product flows.",
   },
   {
     icon: <FileUp className="w-5 h-5" />,
@@ -26,7 +26,7 @@ const flow = [
     icon: <PenSquare className="w-5 h-5" />,
     title: "4) Annotate on iPad",
     description:
-      "Lectra fetches pending documents, supports Pencil-first annotation, and syncs annotated output back into the Canvascope workflow.",
+      "Lectra fetches pending documents, supports Pencil-first annotation, and syncs annotated output back into the Scope workflow.",
   },
 ];
 
@@ -45,7 +45,7 @@ export default function PlatformBridge() {
             System Flow
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            <span className="text-text-primary">How Canvascope connects</span>{" "}
+            <span className="text-text-primary">How Scope connects</span>{" "}
             <span className="text-gradient">extension, web, and Lectra.</span>
           </h2>
           <p className="text-text-secondary text-lg max-w-3xl mx-auto">

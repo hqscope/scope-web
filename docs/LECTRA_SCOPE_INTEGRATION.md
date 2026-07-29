@@ -1,4 +1,12 @@
-# Lectra + Canvascope Integration
+# Lectra + Scope Integration
+
+> **Naming note.** Canvascope was renamed to Scope in July 2026. This document
+> still says "Canvascope" wherever the name is part of a live wire contract —
+> cookie names (`canvascope_session`, `canvascope_oauth_state`), env vars
+> (`CANVASCOPE_*`), DB columns, and the `canvascope` source id. Those identifiers
+> were deliberately left unchanged so existing sessions, deploys, and stored rows
+> keep working. Read "Canvascope" here as the old spelling of Scope, not a
+> separate product.
 
 This document defines the website-owned cross-subsidiary auth, reminder, and
 account-protection contract. The active extension receive path is DropBridge v3:

@@ -17,9 +17,9 @@ import {
 } from "@/lib/newsroom";
 
 export const metadata: Metadata = {
-  title: "Canvascope Newsroom",
+  title: "Scope Newsroom",
   description:
-    "Product updates, engineering notes, launch milestones, and release updates for Canvascope, Lectra, DropBridge, local-first LMS search, and cited AI study workflows.",
+    "Product updates, engineering notes, launch milestones, and release updates for Scope, Lectra, DropBridge, local-first LMS search, and cited AI study workflows.",
   alternates: {
     canonical: "/newsroom",
     types: {
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "Canvascope blog",
-    "Canvascope newsroom",
+    "Scope blog",
+    "Scope newsroom",
     "Lectra updates",
     "Canvas LMS search",
     "Brightspace search",
@@ -37,17 +37,17 @@ export const metadata: Metadata = {
     "student productivity",
   ],
   openGraph: {
-    title: "Canvascope Newsroom",
+    title: "Scope Newsroom",
     description:
-      "Product updates and engineering notes from the team behind Canvascope and Lectra.",
+      "Product updates and engineering notes from the team behind Scope and Lectra.",
     type: "website",
     url: "/newsroom",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Canvascope Newsroom",
+    title: "Scope Newsroom",
     description:
-      "Product updates, engineering notes, and milestones from Canvascope and Lectra.",
+      "Product updates, engineering notes, and milestones from Scope and Lectra.",
   },
 };
 
@@ -82,7 +82,7 @@ export default async function NewsroomPage({
           ]),
           newsroomCollectionSchema(newsroomArticles),
           itemListSchema(
-            "Canvascope Newsroom articles",
+            "Scope Newsroom articles",
             "/newsroom",
             newsroomArticles.map((article) => ({
               name: article.title,
@@ -100,7 +100,7 @@ export default async function NewsroomPage({
           </div>
           <p>
             Product releases, engineering notes, and company news from the team
-            behind Canvascope and Lectra.
+            behind Scope and Lectra.
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export default async function NewsroomPage({
             <h2>
               {activeCategory
                 ? `All ${activeCategory} notes.`
-                : "All Canvascope product notes."}
+                : "All Scope product notes."}
             </h2>
           </div>
 

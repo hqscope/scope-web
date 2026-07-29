@@ -48,7 +48,7 @@ export default function EcosystemOverview() {
                         viewport={{ once: true }}
                         className="text-lg text-text-secondary leading-relaxed"
                     >
-                        Canvascope is more than a single product. It is a unified ecosystem of premium applications designed to optimize how you manage, search, and consume your coursework. From the browser to your tablet, we build the bridges so you can focus on learning.
+                        Scope is more than a single product. It is a unified ecosystem of premium applications designed to optimize how you manage, search, and consume your coursework. From the browser to your tablet, we build the bridges so you can focus on learning.
                     </motion.p>
                 </div>
 
