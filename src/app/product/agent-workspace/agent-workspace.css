@@ -1,0 +1,1793 @@
+/* ============================================================
+   Agent Workspace product page
+   Route-scoped stylesheet: once loaded it is document-global and
+   persists across client navigations, so EVERY selector must be
+   scoped under .aw-page or .public-page--dark, and every keyframe
+   carries the aw- prefix. No bare element selectors.
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+.aw-page,
+.public-page--dark {
+  --aw-bg: #0d0a1a;
+  --aw-surface-1: #0f0c1e;
+  --aw-surface-2: #100d20;
+  --aw-surface-3: #131022;
+  --aw-surface-window: #17142a;
+  --aw-surface-chip: #1d1834;
+  --aw-ink: #f2eef8;
+  --aw-ink-soft: rgba(242, 238, 248, 0.62);
+  --aw-ink-muted: rgba(242, 238, 248, 0.55);
+  --aw-ink-faint: rgba(242, 238, 248, 0.45);
+  --aw-accent: #ff6a50;
+  --aw-accent-hover: #ffa08a;
+  --aw-cta: #e8402a;
+  --aw-cta-hover: #ff5138;
+  --aw-cream: #e8dfd2;
+  --aw-claude: #d97757;
+  --aw-codex: #10a37f;
+  --aw-gemini: #4285f4;
+  --aw-waiting: #ffc454;
+  --aw-done: #7fd48a;
+  --aw-line: rgba(255, 255, 255, 0.09);
+  --aw-line-soft: rgba(255, 255, 255, 0.06);
+  --aw-line-strong: rgba(255, 255, 255, 0.14);
+  --aw-radius-pill: 99px;
+  --aw-radius-card: 14px;
+  --aw-radius-window: 16px;
+}
+
+/* ---------- dark chrome (shared header/footer on this route) ---------- */
+.public-page--dark {
+  background: var(--aw-bg);
+  color: var(--aw-ink);
+}
+
+.public-page--dark .public-header {
+  background: rgba(13, 10, 26, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.public-page--dark .public-brand,
+.public-page--dark .public-nav a,
+.public-page--dark .public-mobile-menu summary {
+  color: var(--aw-ink);
+}
+
+.public-page--dark .public-nav {
+  color: rgba(242, 238, 248, 0.65);
+}
+
+.public-page--dark .public-nav a:hover {
+  color: var(--aw-ink);
+}
+
+.public-page--dark .public-nav a[aria-current="page"] {
+  color: var(--aw-accent);
+}
+
+.public-page--dark .public-nav a::after {
+  background: var(--aw-accent);
+}
+
+.public-page--dark .public-nav-badge {
+  background: var(--aw-accent);
+  color: #0d0a1a;
+}
+
+.public-page--dark .public-header-cta {
+  background: #f2eef8;
+  border-color: transparent;
+  color: #0d0a1a;
+}
+
+.public-page--dark .public-header-cta:hover {
+  background: #fff;
+}
+
+.public-page--dark .public-mobile-panel {
+  background: #131022;
+  border-color: var(--aw-line);
+}
+
+.public-page--dark .public-mobile-panel a {
+  color: var(--aw-ink);
+}
+
+.public-page--dark .public-footer,
+.public-page--dark .public-footer-slim {
+  background: var(--aw-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--aw-ink-faint);
+}
+
+.public-page--dark .public-footer-slim-inner a {
+  color: var(--aw-ink-muted);
+}
+
+.public-page--dark .public-footer-slim-inner a:hover {
+  color: var(--aw-ink);
+}
+
+.public-page--dark :focus-visible {
+  outline-color: var(--aw-accent);
+}
+
+/* ---------- page shell ---------- */
+.aw-page {
+  font-family: var(--font-aw-sans), "Space Grotesk", system-ui, sans-serif;
+  background: var(--aw-bg);
+  color: var(--aw-ink);
+}
+
+/* ============================================================
+   Workstream B — full page port (appended after the M1 blocks)
+   ============================================================ */
+
+/* ---------- shared utilities ---------- */
+.aw-page {
+  --aw-mono: var(--font-aw-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --aw-pad-x: clamp(20px, 4.5vw, 32px);
+}
+
+.aw-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.aw-page .aw-eyebrow {
+  margin: 0;
+  font-family: var(--aw-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--aw-accent);
+}
+
+.aw-page .aw-eyebrow--dive {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+.aw-page .aw-eyebrow--center {
+  text-align: center;
+}
+
+.aw-page .aw-button-primary {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  background: var(--aw-cta);
+  border: 0;
+  border-radius: var(--aw-radius-pill);
+  padding: 14px 26px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(232, 64, 42, 0.35);
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.aw-page .aw-button-primary:hover {
+  background: var(--aw-cta-hover);
+  color: #fff;
+}
+
+.aw-page .aw-button-ghost {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--aw-ink);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--aw-radius-pill);
+  padding: 13px 26px;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.aw-page .aw-button-ghost:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--aw-ink);
+}
+
+/* ---------- hero ---------- */
+.aw-page .aw-hero-zone {
+  position: relative;
+  overflow: hidden;
+}
+
+.aw-page .aw-hero-glow {
+  position: absolute;
+  left: 50%;
+  top: 340px;
+  transform: translateX(-50%);
+  width: 1100px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(120, 80, 220, 0.16), transparent 65%);
+  pointer-events: none;
+}
+
+.aw-page .aw-hero {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 88px) var(--aw-pad-x) 0;
+  text-align: center;
+}
+
+.aw-page .aw-hero-title {
+  margin: 22px 0 0;
+  font-size: clamp(2.5rem, 9vw, 4.875rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--aw-ink);
+  text-wrap: balance;
+}
+
+.aw-page .aw-hero-lede {
+  margin: 26px auto 0;
+  max-width: 620px;
+  font-size: clamp(1rem, 2.4vw, 1.1875rem);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--aw-ink-soft);
+  text-wrap: pretty;
+}
+
+.aw-page .aw-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.aw-page .aw-hero-note {
+  margin: 16px 0 0;
+  font-family: var(--aw-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--aw-ink-muted);
+}
+
+/* ---------- hero window / demo seam ---------- */
+/* 1060 of window plus the side padding, so the window itself measures the
+   mockup's 1060 rather than 1060 minus the gutters. */
+.aw-page .aw-demo-section {
+  position: relative;
+  max-width: calc(1060px + 2 * var(--aw-pad-x));
+  margin: 56px auto 0;
+  padding: 0 var(--aw-pad-x) 96px;
+  scroll-margin-top: 80px;
+}
+
+.aw-page .aw-window-wrap {
+  position: relative;
+}
+
+.aw-page .aw-window {
+  position: relative;
+  border-radius: var(--aw-radius-window);
+  background: var(--aw-surface-window);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 60px 140px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.aw-page .aw-window-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--aw-surface-3);
+  border-bottom: 1px solid var(--aw-line-soft);
+}
+
+.aw-page .aw-tl {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.aw-page .aw-tl--red {
+  background: #ff5f57;
+}
+
+.aw-page .aw-tl--yellow {
+  background: #febc2e;
+}
+
+.aw-page .aw-tl--green {
+  background: #28c840;
+}
+
+.aw-page .aw-window-title {
+  flex: 1;
+  text-align: center;
+  margin-left: -60px;
+  font-family: var(--aw-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--aw-ink-faint);
+}
+
+/* Space reservation for the live demo (CLS 0). The demo agent owns
+   everything rendered inside this box. */
+/* Toolbar (43) + the mockup's 508-tall scene. Reserved before the demo
+   mounts, so nothing shifts on hydration. */
+.aw-page .aw-window-body {
+  position: relative;
+  aspect-ratio: 1060 / 551;
+  background: linear-gradient(180deg, #1b1734, #0f0c1e 70%);
+}
+
+.aw-page .aw-window-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  margin: 0;
+  text-align: center;
+  z-index: 9;
+  pointer-events: none;
+}
+
+.aw-page .aw-window-hint span {
+  font-family: var(--aw-mono);
+  font-size: 8.5px;
+  font-weight: 500;
+  color: rgba(239, 233, 247, 0.55);
+  background: rgba(13, 11, 22, 0.55);
+  border-radius: var(--aw-radius-pill);
+  padding: 4px 12px;
+}
+
+/* Floating annotation chips (hidden below 900px). Coordinates are the
+   mockup's, re-based from its padded container onto the window wrap. */
+.aw-page .aw-floaty {
+  position: absolute;
+  z-index: 9;
+  margin: 0;
+  background: var(--aw-surface-chip);
+  border: 1px solid var(--aw-line-strong);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: var(--aw-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #d7cdf2;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.aw-page .aw-floaty--1 {
+  left: -36px;
+  top: 150px;
+  transform: rotate(-2deg);
+}
+
+.aw-page .aw-floaty--2 {
+  right: -38px;
+  top: 110px;
+  transform: rotate(2deg);
+  border-color: rgba(255, 196, 84, 0.5);
+  color: #ffd88a;
+}
+
+.aw-page .aw-floaty--3 {
+  right: 8px;
+  bottom: 24px;
+  transform: rotate(-1.5deg);
+}
+
+/* ---------- vendor strip ---------- */
+.aw-page .aw-vendor {
+  border-top: 1px solid var(--aw-line-soft);
+  border-bottom: 1px solid var(--aw-line-soft);
+  background: var(--aw-surface-1);
+}
+
+.aw-page .aw-vendor-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 26px var(--aw-pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(22px, 4vw, 44px);
+  flex-wrap: wrap;
+}
+
+.aw-page .aw-vendor-label {
+  margin: 0;
+  font-family: var(--aw-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--aw-ink-faint);
+}
+
+.aw-page .aw-vendor-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.aw-page .aw-vendor-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.aw-page .aw-vendor-dot--claude {
+  background: radial-gradient(circle at 35% 30%, #f0a184, var(--aw-claude));
+}
+
+.aw-page .aw-vendor-dot--codex {
+  background: radial-gradient(circle at 35% 30%, #4fd1ab, var(--aw-codex));
+}
+
+.aw-page .aw-vendor-dot--gemini {
+  background: radial-gradient(circle at 35% 30%, #8ab4f8, var(--aw-gemini));
+}
+
+.aw-page .aw-vendor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(242, 238, 248, 0.85);
+}
+
+.aw-page .aw-vendor-tail {
+  margin: 0;
+  font-family: var(--aw-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--aw-ink-muted);
+}
+
+/* ---------- three cards ---------- */
+.aw-page .aw-cards {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(64px, 8vw, 96px) var(--aw-pad-x) 40px;
+}
+
+.aw-page .aw-cards-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.aw-page .aw-card {
+  flex: 1;
+  background: var(--aw-surface-3);
+  border: 1px solid var(--aw-line);
+  border-radius: var(--aw-radius-card);
+  padding: 26px;
+}
+
+.aw-page .aw-card-label {
+  margin: 0;
+  font-family: var(--aw-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.aw-page .aw-card-num {
+  color: var(--aw-accent);
+}
+
+.aw-page .aw-card-tag {
+  color: var(--aw-ink-faint);
+}
+
+.aw-page .aw-card-title {
+  margin: 12px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--aw-ink);
+}
+
+.aw-page .aw-card-body {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(242, 238, 248, 0.6);
+  text-wrap: pretty;
+}
+
+.aw-page .aw-cards-arrow {
+  flex: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--aw-accent);
+}
+
+.aw-page .aw-cards-arrow span {
+  display: inline-block;
+}
+
+/* ---------- deep dives ---------- */
+.aw-page .aw-dives {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 70px var(--aw-pad-x) 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(72px, 10vw, 110px);
+}
+
+.aw-page .aw-dive {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 70px);
+}
+
+.aw-page .aw-dive--reverse {
+  flex-direction: row-reverse;
+}
+
+.aw-page .aw-dive-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.aw-page .aw-dive-title {
+  margin: 14px 0 0;
+  font-size: clamp(1.875rem, 4.2vw, 2.375rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--aw-ink);
+  text-wrap: balance;
+}
+
+.aw-page .aw-dive-lede {
+  margin: 16px 0 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--aw-ink-soft);
+  text-wrap: pretty;
+}
+
+.aw-page .aw-dive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--aw-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: rgba(242, 238, 248, 0.75);
+}
+
+.aw-page .aw-dive-glyph {
+  color: var(--aw-accent);
+}
+
+.aw-page .aw-dive-glyph--warn {
+  color: var(--aw-waiting);
+}
+
+.aw-page .aw-dive-art {
+  flex: none;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Fixed-size mockup art scales down with its container. */
+.aw-page .aw-art-frame {
+  position: relative;
+  container-type: inline-size;
+}
+
+/* width/max-width, not min(400px, 100%): the art column is flex: none, so a
+   percentage width has no definite parent to resolve against and collapses
+   the frame to zero — which lets the absolutely positioned art escape and
+   push a horizontal scrollbar onto the page. */
+.aw-page .aw-art-frame--fs {
+  width: 400px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.aw-page .aw-art-frame--ap {
+  width: 400px;
+  max-width: 100%;
+  aspect-ratio: 400 / 330;
+}
+
+.aw-page .aw-fs,
+.aw-page .aw-ap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 400px;
+  transform-origin: 0 0;
+}
+
+/* tan(atan2(a, b)) divides two lengths into the plain number scale() needs. */
+@supports (scale: tan(atan2(1px, 1px))) {
+  .aw-page .aw-fs,
+  .aw-page .aw-ap {
+    transform: scale(tan(atan2(100cqw, 400px)));
+  }
+}
+
+.aw-page .aw-fs {
+  height: 400px;
+}
+
+.aw-page .aw-ap {
+  height: 330px;
+}
+
+/* ---------- illustration: FloorsStack ---------- */
+.aw-page .aw-fs-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.aw-page .aw-fs-plate {
+  position: absolute;
+  border-radius: 12px;
+}
+
+.aw-page .aw-fs-plate--f3 {
+  left: 70px;
+  top: 6px;
+  width: 230px;
+  height: 230px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  background: #2b2544;
+  opacity: 0.5;
+}
+
+.aw-page .aw-fs-plate--f2 {
+  left: 60px;
+  top: 96px;
+  width: 250px;
+  height: 250px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  background: #2f2950;
+  opacity: 0.75;
+}
+
+.aw-page .aw-fs-plate--f1 {
+  left: 50px;
+  top: 190px;
+  width: 270px;
+  height: 270px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  background: #37305c;
+  outline: 2px solid var(--aw-cream);
+  box-shadow: 0 0 34px rgba(232, 223, 210, 0.22);
+}
+
+.aw-page .aw-fs-label {
+  position: absolute;
+  margin: 0;
+  text-align: right;
+  font-family: var(--aw-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+}
+
+.aw-page .aw-fs-label--f3 {
+  left: 0;
+  right: 110px;
+  top: 56px;
+  color: rgba(239, 233, 247, 0.45);
+}
+
+.aw-page .aw-fs-label--f2 {
+  left: 0;
+  right: 100px;
+  top: 158px;
+  color: rgba(239, 233, 247, 0.6);
+}
+
+.aw-page .aw-fs-label--f1 {
+  left: 0;
+  right: 80px;
+  top: 268px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #efe9f7;
+}
+
+.aw-page .aw-fs-label--f1 span {
+  background: rgba(232, 223, 210, 0.14);
+  border-radius: var(--aw-radius-pill);
+  padding: 3px 9px;
+}
+
+.aw-page .aw-fs-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.aw-page .aw-fs-dot--f2codex {
+  left: 110px;
+  top: 100px;
+  background: var(--aw-codex);
+}
+
+.aw-page .aw-fs-dot--claude {
+  left: 80px;
+  top: 90px;
+  background: var(--aw-claude);
+}
+
+.aw-page .aw-fs-dot--waiting {
+  left: 150px;
+  top: 130px;
+  background: var(--aw-waiting);
+}
+
+.aw-page .aw-fs-dot--codex {
+  left: 110px;
+  top: 180px;
+  background: var(--aw-codex);
+}
+
+.aw-page .aw-fs-elevator {
+  position: absolute;
+  right: 26px;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+}
+
+.aw-page .aw-fs-elevator span {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(239, 233, 247, 0.3);
+}
+
+.aw-page .aw-fs-elevator .aw-fs-elevator-car {
+  height: 18px;
+  background: var(--aw-cream);
+}
+
+/* ---------- illustration: InspectPanelMock ---------- */
+.aw-page .aw-ip {
+  width: 330px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--aw-surface-chip);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.55);
+}
+
+.aw-page .aw-ip-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.aw-page .aw-ip-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex: none;
+  background: radial-gradient(circle at 35% 30%, #f0a184, var(--aw-claude));
+}
+
+.aw-page .aw-ip-id {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.aw-page .aw-ip-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #efe9f7;
+}
+
+.aw-page .aw-ip-status {
+  font-family: var(--aw-mono);
+  font-size: 8.5px;
+  font-weight: 400;
+  color: var(--aw-done);
+}
+
+.aw-page .aw-ip-desk {
+  font-family: var(--aw-mono);
+  font-size: 8px;
+  color: rgba(239, 233, 247, 0.4);
+}
+
+.aw-page .aw-ip-tiles {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.aw-page .aw-ip-tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 7px;
+  padding: 6px 8px;
+}
+
+.aw-page .aw-ip-tile-num {
+  font-family: var(--aw-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: #efe9f7;
+}
+
+.aw-page .aw-ip-tile-cap {
+  font-family: var(--aw-mono);
+  font-size: 7px;
+  color: rgba(239, 233, 247, 0.45);
+}
+
+.aw-page .aw-ip-tabs {
+  display: flex;
+  gap: 12px;
+  border-bottom: 1px solid var(--aw-line);
+  margin-top: 11px;
+}
+
+.aw-page .aw-ip-tab {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(239, 233, 247, 0.5);
+  padding-bottom: 5px;
+}
+
+.aw-page .aw-ip-tab.is-active {
+  color: #efe9f7;
+  border-bottom: 2px solid var(--aw-claude);
+}
+
+.aw-page .aw-ip-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.aw-page .aw-ip-msg {
+  max-width: 88%;
+  padding: 7px 9px;
+  font-family: var(--aw-mono);
+  font-size: 9.5px;
+  line-height: 1.55;
+}
+
+.aw-page .aw-ip-msg--agent {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px 10px 10px 4px;
+  color: #d7cdf2;
+}
+
+.aw-page .aw-ip-msg--you {
+  align-self: flex-end;
+  background: rgba(232, 223, 210, 0.14);
+  border: 1px solid rgba(232, 223, 210, 0.2);
+  border-radius: 10px 10px 4px 10px;
+  color: #efe9f7;
+}
+
+.aw-page .aw-ip-input {
+  display: flex;
+  gap: 6px;
+  margin-top: 11px;
+}
+
+.aw-page .aw-ip-field {
+  flex: 1;
+  background: #141026;
+  border: 1px solid var(--aw-line-strong);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--aw-mono);
+  font-size: 9.5px;
+  color: rgba(239, 233, 247, 0.4);
+}
+
+.aw-page .aw-ip-send {
+  display: flex;
+  align-items: center;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #17142a;
+  background: var(--aw-cream);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* ---------- illustration: ApprovalsScene ---------- */
+.aw-page .aw-ap-floor {
+  position: absolute;
+  left: 110px;
+  top: 150px;
+  width: 200px;
+  height: 200px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  background-color: #241f38;
+  border-radius: 12px;
+  background-image: linear-gradient(rgba(240, 235, 250, 0.055) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(240, 235, 250, 0.055) 2px, transparent 2px);
+  background-size: 50px 50px;
+}
+
+.aw-page .aw-ap-worker {
+  position: absolute;
+  left: 130px;
+  top: 110px;
+  width: 150px;
+  height: 150px;
+  z-index: 2;
+}
+
+.aw-page .aw-ap-chair {
+  position: absolute;
+  left: 88px;
+  top: 50px;
+  width: 24px;
+  height: 34px;
+  border-radius: 8px;
+  background: #3a3156;
+}
+
+.aw-page .aw-ap-body {
+  position: absolute;
+  left: 78px;
+  top: 40px;
+  width: 40px;
+  height: 44px;
+}
+
+.aw-page .aw-ap-head {
+  position: absolute;
+  left: 12px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #c9dcf5;
+}
+
+.aw-page .aw-ap-eye {
+  position: absolute;
+  top: 9px;
+  width: 5px;
+  height: 7px;
+  border-radius: 2px;
+  background: #262041;
+}
+
+.aw-page .aw-ap-eye--l {
+  left: 8px;
+}
+
+.aw-page .aw-ap-eye--r {
+  left: 27px;
+}
+
+.aw-page .aw-ap-torso {
+  position: absolute;
+  left: 8px;
+  top: 16px;
+  width: 24px;
+  height: 22px;
+  border-radius: 9px 9px 6px 6px;
+  background: linear-gradient(180deg, #7ba8f0, var(--aw-gemini));
+}
+
+.aw-page .aw-ap-arm {
+  position: absolute;
+  top: 19px;
+  width: 5px;
+  height: 13px;
+  border-radius: 3px;
+  background: #c9dcf5;
+  transform-origin: 50% 0;
+}
+
+.aw-page .aw-ap-arm--rest {
+  left: 5px;
+  transform: rotate(14deg);
+}
+
+/* Static pose keeps the raised hand legible when motion is off. */
+.aw-page .aw-ap-arm--wave {
+  left: 30px;
+  transform: rotate(-150deg);
+}
+
+.aw-page .aw-ap-desktop {
+  position: absolute;
+  left: 16px;
+  top: 76px;
+  width: 118px;
+  height: 36px;
+  background: linear-gradient(180deg, #584a72, #473a5e);
+  border-radius: 9px;
+  transform: perspective(240px) rotateX(38deg);
+  z-index: 3;
+}
+
+.aw-page .aw-ap-deskfront {
+  position: absolute;
+  left: 16px;
+  top: 103px;
+  width: 118px;
+  height: 24px;
+  background: #342b4e;
+  border-radius: 0 0 10px 10px;
+  z-index: 5;
+}
+
+.aw-page .aw-ap-nameplate {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  text-align: center;
+  font-family: var(--aw-mono);
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(239, 233, 247, 0.75);
+}
+
+.aw-page .aw-ap-shadow {
+  position: absolute;
+  left: 22px;
+  top: 128px;
+  width: 106px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  filter: blur(4px);
+}
+
+.aw-page .aw-ap-toast {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  right: 12px;
+  z-index: 3;
+  background: #221c3a;
+  border: 1px solid rgba(255, 196, 84, 0.5);
+  border-radius: 13px;
+  padding: 11px 13px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aw-page .aw-ap-toast-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex: none;
+  background: radial-gradient(circle at 35% 30%, #8ab4f8, var(--aw-gemini));
+}
+
+.aw-page .aw-ap-toast-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.aw-page .aw-ap-toast-title {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #efe9f7;
+}
+
+.aw-page .aw-ap-toast-sub {
+  margin-top: 1px;
+  font-family: var(--aw-mono);
+  font-size: 8.5px;
+  color: #ffd88a;
+}
+
+.aw-page .aw-ap-toast-actions {
+  display: flex;
+  gap: 5px;
+  flex: none;
+}
+
+.aw-page .aw-ap-approve {
+  font-size: 9px;
+  font-weight: 600;
+  color: #17142a;
+  background: var(--aw-waiting);
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.aw-page .aw-ap-deny {
+  font-size: 9px;
+  font-weight: 600;
+  color: #efe9f7;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* ---------- illustration: TimeOfDayCards ---------- */
+.aw-page .aw-tod {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 380px;
+  max-width: 100%;
+}
+
+.aw-page .aw-tod-card {
+  position: relative;
+  height: 104px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.aw-page .aw-tod-card--day {
+  background: linear-gradient(180deg, #b9cde0, #d4ddde);
+}
+
+.aw-page .aw-tod-card--dusk {
+  background: linear-gradient(180deg, #3c2842, #8a3c50 65%, #c05a3a);
+}
+
+.aw-page .aw-tod-card--night {
+  background: linear-gradient(180deg, #1b1734, #0f0c1e);
+}
+
+.aw-page .aw-tod-badge {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 3;
+  font-family: var(--aw-mono);
+  font-size: 8.5px;
+  font-weight: 600;
+  border-radius: var(--aw-radius-pill);
+  padding: 3px 9px;
+}
+
+.aw-page .aw-tod-card--day .aw-tod-badge {
+  color: #3a3226;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-badge {
+  color: #ffd8a8;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.aw-page .aw-tod-card--night .aw-tod-badge {
+  color: #cabcf0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.aw-page .aw-tod-plate {
+  position: absolute;
+  right: 60px;
+  top: 34px;
+  width: 150px;
+  height: 150px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  border-radius: 8px;
+}
+
+.aw-page .aw-tod-card--day .aw-tod-plate {
+  background: #d3c2a2;
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-plate {
+  background: #4d3947;
+}
+
+.aw-page .aw-tod-card--night .aw-tod-plate {
+  background: #241f38;
+}
+
+.aw-page .aw-tod-desk {
+  position: absolute;
+  right: 104px;
+  top: 34px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aw-page .aw-tod-head {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.aw-page .aw-tod-torso {
+  width: 14px;
+  height: 11px;
+  border-radius: 5px 5px 3px 3px;
+  margin-top: -2px;
+}
+
+.aw-page .aw-tod-bar {
+  width: 44px;
+  height: 13px;
+  border-radius: 4px;
+  margin-top: -2px;
+}
+
+.aw-page .aw-tod-card--day .aw-tod-head {
+  background: #f0c9a8;
+}
+
+.aw-page .aw-tod-card--day .aw-tod-torso {
+  background: var(--aw-claude);
+}
+
+.aw-page .aw-tod-card--day .aw-tod-bar {
+  background: #c2a67e;
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-head {
+  background: #e0b394;
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-torso {
+  background: var(--aw-codex);
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-bar {
+  background: #6b4d68;
+}
+
+.aw-page .aw-tod-card--night .aw-tod-head {
+  background: #c9dcf5;
+}
+
+.aw-page .aw-tod-card--night .aw-tod-torso {
+  background: var(--aw-gemini);
+}
+
+.aw-page .aw-tod-card--night .aw-tod-bar {
+  background: #584a72;
+}
+
+.aw-page .aw-tod-sun {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.aw-page .aw-tod-card--day .aw-tod-sun {
+  left: 16px;
+  bottom: 10px;
+  width: 10px;
+  height: 10px;
+  background: #ffd76e;
+  box-shadow: 0 0 14px rgba(255, 215, 110, 0.9);
+}
+
+.aw-page .aw-tod-card--dusk .aw-tod-sun {
+  left: 16px;
+  bottom: -5px;
+  width: 14px;
+  height: 14px;
+  background: #ffca7a;
+  box-shadow: 0 0 16px rgba(255, 202, 122, 0.9);
+}
+
+.aw-page .aw-tod-moon {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f2e9cf;
+  box-shadow: 0 0 12px rgba(242, 233, 207, 0.7);
+}
+
+.aw-page .aw-tod-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.aw-page .aw-tod-star--a {
+  left: 44px;
+  top: 30px;
+}
+
+.aw-page .aw-tod-star--b {
+  left: 70px;
+  top: 18px;
+}
+
+/* ---------- details grid ---------- */
+.aw-page .aw-details {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 110px) var(--aw-pad-x) 0;
+}
+
+.aw-page .aw-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--aw-radius-card);
+  overflow: hidden;
+  margin-top: 26px;
+}
+
+.aw-page .aw-details-cell {
+  background: var(--aw-surface-2);
+  padding: 22px;
+}
+
+.aw-page .aw-details-cell h3 {
+  margin: 0;
+  font-family: var(--aw-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #efe9f7;
+}
+
+.aw-page .aw-details-cell p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--aw-ink-muted);
+}
+
+/* ---------- FAQ ---------- */
+.aw-page .aw-faq {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 110px) var(--aw-pad-x) 0;
+  scroll-margin-top: 80px;
+}
+
+.aw-page .aw-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.aw-page .aw-faq-item {
+  background: var(--aw-surface-3);
+  border: 1px solid var(--aw-line);
+  border-radius: var(--aw-radius-card);
+}
+
+.aw-page .aw-faq-item summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--aw-ink);
+}
+
+.aw-page .aw-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.aw-page .aw-faq-item summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--aw-mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--aw-accent);
+}
+
+.aw-page .aw-faq-item[open] summary::after {
+  content: "−";
+}
+
+.aw-page .aw-faq-item p {
+  margin: 0;
+  padding: 0 20px 16px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--aw-ink-soft);
+  text-wrap: pretty;
+}
+
+/* ---------- final CTA ---------- */
+.aw-page .aw-final {
+  text-align: center;
+  padding: clamp(88px, 12vw, 130px) var(--aw-pad-x) clamp(64px, 9vw, 90px);
+  scroll-margin-top: 80px;
+  outline: none;
+}
+
+.aw-page .aw-final-title {
+  margin: 18px 0 0;
+  font-size: clamp(2.125rem, 7vw, 3.625rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--aw-ink);
+  text-wrap: balance;
+}
+
+.aw-page .aw-final-sub {
+  margin: 14px 0 0;
+  font-size: 16px;
+  color: var(--aw-ink-muted);
+  text-wrap: pretty;
+}
+
+.aw-page .aw-final-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Seam defaults for the waitlist form (Workstream D owns the component). */
+.aw-page .aw-waitlist-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 30px auto 0;
+  max-width: 460px;
+}
+
+.aw-page .aw-waitlist-form input[type="email"] {
+  flex: 1;
+  min-width: 220px;
+  background: #141026;
+  border: 1px solid var(--aw-line-strong);
+  border-radius: var(--aw-radius-pill);
+  padding: 13px 20px;
+  font-family: var(--aw-mono);
+  font-size: 13px;
+  color: var(--aw-ink);
+}
+
+.aw-page .aw-waitlist-form input[type="email"]::placeholder {
+  color: var(--aw-ink-faint);
+}
+
+/* ============================================================
+   Motion stratum — every looping / entrance animation lives here.
+   The base rules above render a complete, legible static page.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  /* The mockup's 16 keyframes, ported verbatim with the aw- prefix.
+     The live demo references these same names — do not rename. */
+  @keyframes aw-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.14);
+      opacity: 0.7;
+    }
+  }
+  @keyframes aw-glowp {
+    0%,
+    100% {
+      box-shadow: 0 0 10px 2px var(--g, rgba(217, 119, 87, 0.5));
+    }
+    50% {
+      box-shadow: 0 0 20px 6px var(--g, rgba(217, 119, 87, 0.5));
+    }
+  }
+  @keyframes aw-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes aw-hop {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes aw-conf {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(38px) rotate(240deg);
+      opacity: 0;
+    }
+  }
+  @keyframes aw-zzz {
+    0% {
+      transform: translate(0, 0) scale(0.7);
+      opacity: 0;
+    }
+    25% {
+      opacity: 0.85;
+    }
+    100% {
+      transform: translate(12px, -26px) scale(1.15);
+      opacity: 0;
+    }
+  }
+  @keyframes aw-stroll {
+    0%,
+    8% {
+      transform: translate(0, 0);
+    }
+    46%,
+    60% {
+      transform: translate(60px, 50px);
+    }
+    94%,
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  @keyframes aw-waddle {
+    0%,
+    100% {
+      transform: rotate(-3.5deg);
+    }
+    50% {
+      transform: rotate(3.5deg);
+    }
+  }
+  @keyframes aw-steam {
+    0% {
+      transform: translateY(0);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-13px);
+      opacity: 0;
+    }
+  }
+  @keyframes aw-twinkle {
+    0%,
+    100% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 0.25;
+    }
+  }
+  @keyframes aw-typea {
+    0%,
+    100% {
+      transform: rotate(18deg);
+    }
+    50% {
+      transform: rotate(27deg) translateY(1px);
+    }
+  }
+  @keyframes aw-typeb {
+    0%,
+    100% {
+      transform: rotate(-18deg);
+    }
+    50% {
+      transform: rotate(-27deg) translateY(1px);
+    }
+  }
+  @keyframes aw-armsup {
+    0%,
+    100% {
+      transform: rotate(152deg);
+    }
+    50% {
+      transform: rotate(172deg);
+    }
+  }
+  @keyframes aw-armsupb {
+    0%,
+    100% {
+      transform: rotate(-152deg);
+    }
+    50% {
+      transform: rotate(-172deg);
+    }
+  }
+  @keyframes aw-wavehand {
+    0%,
+    100% {
+      transform: rotate(-165deg);
+    }
+    50% {
+      transform: rotate(-138deg);
+    }
+  }
+  @keyframes aw-floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+
+  /* Applications (page + illustrations; the demo applies its own). */
+  .aw-page .aw-floaty--1 {
+    animation: aw-floaty 4s ease-in-out infinite;
+  }
+
+  .aw-page .aw-floaty--2 {
+    animation: aw-floaty 4.6s 0.6s ease-in-out infinite;
+  }
+
+  .aw-page .aw-floaty--3 {
+    animation: aw-floaty 5s 1.2s ease-in-out infinite;
+  }
+
+  .aw-page .aw-fs-dot--waiting {
+    animation: aw-pulse 1.4s infinite;
+  }
+
+  .aw-page .aw-ip-caret {
+    animation: aw-blink 1s step-end infinite;
+  }
+
+  .aw-page .aw-ap-body {
+    animation: aw-hop 1.1s ease-in-out infinite;
+  }
+
+  .aw-page .aw-ap-arm--wave {
+    animation: aw-wavehand 1.1s ease-in-out infinite;
+  }
+
+  .aw-page .aw-ap-toast {
+    animation: aw-floaty 4.4s ease-in-out infinite;
+  }
+
+  .aw-page .aw-tod-star {
+    animation: aw-twinkle 2.4s infinite;
+  }
+
+  .aw-page .aw-tod-star--b {
+    animation-delay: 0.8s;
+  }
+
+  /* Parallax garnish — FloorsStack layers only, progressive enhancement.
+     Uses the standalone `translate` property so the plates' isometric
+     transform stays intact. */
+  @media (min-width: 900px) {
+    @supports (animation-timeline: view()) {
+      @keyframes aw-fs-drift-a {
+        from {
+          translate: 0 3.5%;
+        }
+        to {
+          translate: 0 -3.5%;
+        }
+      }
+      @keyframes aw-fs-drift-b {
+        from {
+          translate: 0 -3.5%;
+        }
+        to {
+          translate: 0 3.5%;
+        }
+      }
+
+      .aw-page .aw-fs-layer--f3 {
+        animation: aw-fs-drift-a linear both;
+        animation-timeline: view();
+      }
+
+      .aw-page .aw-fs-layer--f1 {
+        animation: aw-fs-drift-b linear both;
+        animation-timeline: view();
+      }
+    }
+  }
+}
+
+/* ============================================================
+   Responsive (the mockup ships desktop-only; these are ours)
+   ============================================================ */
+@media (max-width: 899.98px) {
+  .aw-page .aw-floaty {
+    display: none;
+  }
+
+  .aw-page .aw-cards-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .aw-page .aw-cards-arrow {
+    align-self: center;
+  }
+
+  .aw-page .aw-cards-arrow span {
+    transform: rotate(90deg);
+  }
+
+  .aw-page .aw-dive,
+  .aw-page .aw-dive--reverse {
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .aw-page .aw-dive-copy {
+    width: 100%;
+  }
+
+  .aw-page .aw-dive-art {
+    order: -1;
+  }
+
+  .aw-page .aw-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 559.98px) {
+  .aw-page .aw-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aw-page .aw-window-title {
+    margin-left: 0;
+  }
+}
