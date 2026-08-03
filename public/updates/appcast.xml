@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PLACEHOLDER. No Lectra Receiver build has been published yet, so this feed is
+  intentionally empty. Sparkle finds no update, which is the truth.
+
+  This file is GENERATED IN THE lectra-ios REPO by Sparkle's generate_appcast and
+  copied here verbatim by scripts/publish-receiver-release.sh, which REPLACES it
+  wholesale rather than appending. Every <item> carries an EdDSA signature over
+  the .dmg it points at. Never write, edit, reorder or re-sign entries in this
+  repo — the Mac app verifies them, and a broken signature makes updates fail
+  silently. This repo only hosts the file.
+
+  next.config.ts also reads this file at build time to work out where
+  /downloads/LectraReceiver.dmg should point, so it is the single record of
+  which build is live.
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Lectra Receiver</title>
+    <link>https://www.canvascope.org/updates/appcast.xml</link>
+    <description>Updates for Lectra Receiver, the macOS companion app for Lectra.</description>
+    <language>en</language>
+  </channel>
+</rss>

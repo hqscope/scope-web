@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# app binaries — Lectra Receiver DMGs are ~50 MB and live in R2, never in git.
+# See docs/RECEIVER_DISTRIBUTION.md
+*.dmg
+
 # debug
 npm-debug.log*
 yarn-debug.log*
