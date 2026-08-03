@@ -123,9 +123,11 @@ read -r reply
 # is re-running after a half-finished publish, where the bytes already up there
 # are byte-identical to the ones we were about to send.
 step "Checking $key is not already published"
+# `|| true` because a 404 here is the expected case and -f makes curl exit
+# non-zero for it, which set -e would otherwise treat as fatal.
 published_length="$(
-  curl -fsI --max-time 20 "$public_url" 2>/dev/null \
-    | sed -n 's/^[Cc]ontent-[Ll]ength:[[:space:]]*\([0-9]*\).*/\1/p' | tr -d '\r'
+  { curl -fsI --max-time 20 "$public_url" 2>/dev/null \
+    | sed -n 's/^[Cc]ontent-[Ll]ength:[[:space:]]*\([0-9]*\).*/\1/p' | tr -d '\r'; } || true
 )"
 
 if [ -n "$published_length" ]; then

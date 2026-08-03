@@ -10,6 +10,9 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    // scripts/read-appcast.mts is run by Node's type stripping, which needs the
+    // real ".ts" path in its import. Safe with noEmit: nothing is rewritten.
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
