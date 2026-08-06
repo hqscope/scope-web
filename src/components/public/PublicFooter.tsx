@@ -70,6 +70,7 @@ export default function PublicFooter({
           </div>
           <div>
             <p>Company</p>
+            <Link href="/mission">Mission</Link>
             <Link href="/newsroom">Newsroom</Link>
             <Link href="/research">Research</Link>
             <Link href="/#hiring">Build / test with us</Link>

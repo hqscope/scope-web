@@ -51,6 +51,12 @@ const publicRoutes: {
     lastModified: SEO_UPDATE_DATE,
   },
   {
+    path: "/mission",
+    priority: 0.75,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-03",
+  },
+  {
     path: "/research",
     priority: 0.7,
     changeFrequency: "monthly",

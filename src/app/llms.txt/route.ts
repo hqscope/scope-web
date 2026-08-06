@@ -130,6 +130,8 @@ Public routes include:
 - /product/lectra
 - /product/agent-workspace
 - /support/lectra
+- /mission
+- /research
 - /newsroom
 - /newsroom/[slug]
 - /feed.xml
@@ -187,6 +189,26 @@ user's Mac.
 - zero setup: agents appear moments after they start, with nothing to
   install into projects
 - early access is gated by a waitlist on the product page
+
+## Mission
+
+Scope's mission statement is published at https://www.canvascope.org/mission.
+
+- the premise: coursework is handwritten, drawn, and worked out in notation,
+  while the software students get reads only text
+- Scope builds the workspace where the work happens and the multimodal models
+  that can read it in the form it was done
+- answers are grounded in the student's own course materials and cite the page,
+  slide, or lecture moment they came from
+- where a subject has hard rules, deterministic tools decide what holds and the
+  model only proposes; uncertain readings are surfaced as questions
+- local-first remains an architectural constraint, and there is no paid tier
+- Scope Labs is the research arm: continuous literature review, a graph linking
+  each method to the component it would change and the experiment that would
+  test it, and evaluation specified before anything is trained
+- stated limits: Scope is not a grading system, has no instructor gradebook or
+  roster sync, does not replace an LMS, and the model work is designed but not
+  yet validated
 
 ## Research
 
