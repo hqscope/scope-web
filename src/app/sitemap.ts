@@ -39,6 +39,12 @@ const publicRoutes: {
     lastModified: "2026-07-15",
   },
   {
+    path: "/support",
+    priority: 0.5,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-05",
+  },
+  {
     path: "/support/lectra",
     priority: 0.45,
     changeFrequency: "monthly",

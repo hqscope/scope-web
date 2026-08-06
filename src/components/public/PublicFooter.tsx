@@ -74,6 +74,7 @@ export default function PublicFooter({
             <Link href="/newsroom">Newsroom</Link>
             <Link href="/research">Research</Link>
             <Link href="/#hiring">Build / test with us</Link>
+            <Link href="/support">Support</Link>
             <a href={`mailto:${SUPPORT_EMAIL}`}>Contact</a>
           </div>
           <div>

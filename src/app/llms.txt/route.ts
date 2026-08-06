@@ -231,6 +231,7 @@ Lectra Notes App Store marketing URL: https://www.canvascope.org/product/lectra
 
 ## Contact
 
+Support page: https://www.canvascope.org/support
 Support email: canvascopeextension@gmail.com
 Chrome Web Store: https://chromewebstore.google.com/detail/canvascope/bamoelobnoepklagbcokjnlipfhcfdbb
 `;
