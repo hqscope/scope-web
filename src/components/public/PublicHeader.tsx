@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
+import ScopeMark from "@/components/public/ScopeMark";
 import { CHROME_WEB_STORE_URL } from "@/lib/site";
 
 const links: { href: string; label: string; badge?: string }[] = [
@@ -51,14 +51,7 @@ export default function PublicHeader({
     <header className="public-header">
       <div className="page-wrap public-header-inner">
         <Link href="/" className="public-brand" aria-label="Scope home">
-          <Image
-            src="/brand/canvascope-mark.png"
-            alt=""
-            width={32}
-            height={32}
-            className="public-brand-mark"
-            priority
-          />
+          <ScopeMark className="public-brand-mark" />
           <span className="public-brand-text">
             <span>Scope</span>
             <span className="public-brand-former">prev. Canvascope</span>

@@ -25,14 +25,43 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* The Scope mark, drawn as bars so Satori can render it without an
+              external asset fetch. */}
           <div
             style={{
-              width: "56px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "7px",
+              width: "58px",
               height: "56px",
-              borderRadius: "14px",
-              backgroundColor: "#e1121f",
+              justifyContent: "center",
             }}
-          />
+          >
+            <div
+              style={{
+                width: "32px",
+                height: "14px",
+                borderRadius: "7px",
+                backgroundColor: "#c42b26",
+              }}
+            />
+            <div
+              style={{
+                width: "46px",
+                height: "14px",
+                borderRadius: "7px",
+                backgroundColor: "#241e18",
+              }}
+            />
+            <div
+              style={{
+                width: "58px",
+                height: "14px",
+                borderRadius: "7px",
+                backgroundColor: "#241e18",
+              }}
+            />
+          </div>
           <span
             style={{ fontSize: "40px", fontWeight: 700, color: "#0e1116" }}
           >

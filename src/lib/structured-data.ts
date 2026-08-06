@@ -33,7 +33,9 @@ export function organizationSchema() {
     // Kept so search engines connect the former name to the new one.
     alternateName: ["Canvascope", "Canvascope Inc."],
     url: origin,
-    logo: absoluteUrl("/brand/canvascope-logo-horizontal.png"),
+    // Same mark as the OAuth consent screen and the app icon, on the brand
+    // plaster ground — search engines and Google's brand review see one logo.
+    logo: absoluteUrl("/brand/scope-mark-plaster-2048.png"),
     email: SUPPORT_EMAIL,
     sameAs: [CHROME_WEB_STORE_URL],
   };

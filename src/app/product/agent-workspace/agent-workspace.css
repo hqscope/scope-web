@@ -55,6 +55,12 @@
   color: var(--aw-ink);
 }
 
+/* Flip the transparent Scope mark to its light-on-dark colourway. */
+.public-page--dark {
+  --scope-mark-ink: #f6f1e7;
+  --scope-mark-accent: #e5484d;
+}
+
 .public-page--dark .public-nav {
   color: rgba(242, 238, 248, 0.65);
 }
