@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Bot, CalendarPlus, Database, Lock, ShieldCheck, UserRound } from "lucide-react";
 
+import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { breadcrumbSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -56,6 +58,14 @@ const highlights = [
 export default function PrivacyPage() {
   return (
     <PublicPageFrame>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Privacy", path: "/privacy" },
+          ]),
+        ]}
+      />
       <section className="page-wrap max-w-4xl py-14 lg:py-20">
         <div className="space-y-6">
           <p className="kicker">Privacy policy</p>

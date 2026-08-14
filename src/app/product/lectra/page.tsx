@@ -130,7 +130,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Can finished Lectra PDFs return to browser uploads?",
     answer:
-      "Yes. Scope 10.1 added an Attach from Lectra picker for supported browser upload flows, starting with Gradescope's upload modal, so annotated PDFs can come back without digging through downloads.",
+      "Yes. The Scope browser extension adds an Attach from Lectra picker to supported browser upload flows — starting with Gradescope's upload modal — so annotated PDFs can come back without digging through downloads.",
   },
   {
     question: "Is Lectra available now?",
@@ -194,11 +194,11 @@ export default function LectraProductPage() {
             >
               Download on the App Store
             </a>
-            <Link href="/receiver" className="button-secondary">
-              Lectra Receiver for Mac →
+            <Link href="/mac" className="button-secondary">
+              Lectra for Mac →
             </Link>
           </div>
-          <p className="hero-note">iPadOS 17+ · Free</p>
+          <p className="hero-note">iPadOS 18+ · Free</p>
         </div>
 
         <div
@@ -302,9 +302,9 @@ export default function LectraProductPage() {
             }}
           >
             The free Receiver app catches documents sent from your iPad and drops
-            them straight into your Mac. With Lectra Pro it also carries the
-            remote desktop, so the full screen, keyboard, files, and wake are a
-            tap away.
+            them straight into your Mac. It also carries the remote desktop, so
+            the full screen, keyboard, files, and wake are a tap away from
+            Lectra on your iPad — free, like everything else.
           </p>
           <Link href="/receiver" className="button-dark">
             Download for Mac

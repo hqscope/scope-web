@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Publish a Lectra Receiver release.
+# Publish a Lectra for Mac release (formerly Lectra Receiver).
 #
 #   ./scripts/publish-receiver-release.sh \
 #       ~/Library/Developer/LectraReceiver-release/appcast/appcast.xml
@@ -72,10 +72,11 @@ enclosure_length="$(printf '%s' "$parsed" | cut -f4)"
 
 [ -n "$key" ] || die "appcast parse returned no DMG filename"
 
-# shortVersionString is optional in a feed; the filename always carries it.
+# shortVersionString is optional in a feed; the filename always carries it,
+# after the last dash — Lectra-1.1.0.dmg and LectraReceiver-1.0.2.dmg alike.
 if [ -z "$version" ]; then
-  version="${key#LectraReceiver-}"
-  version="${version%.dmg}"
+  version="${key%.dmg}"
+  version="${version##*-}"
 fi
 
 public_url="${origin}/${key}"
@@ -107,7 +108,7 @@ if [ -f "${dmg_src}.sha256" ]; then
   [ "$expected" = "$actual" ] || die "DMG does not match ${dmg_src}.sha256"
 fi
 
-printf '\nPublishing Lectra Receiver %s (build %s)\n' "$version" "$build_version"
+printf '\nPublishing Lectra for Mac %s (build %s)\n' "$version" "$build_version"
 printf '  DMG      %s (%s)\n' "$dmg_src" "$(du -h "$dmg_src" | awk '{print $1}')"
 printf '  appcast  %s\n' "$appcast_src"
 printf '  bucket   r2://%s/%s\n' "$R2_BUCKET" "$key"
@@ -176,7 +177,7 @@ On a first release this usually means the bucket's r2.dev public URL has not
 finished activating. Check that public access is enabled for $R2_BUCKET.
 
 The DMG itself uploaded fine, so it is safe to continue and let the origin catch
-up — but /downloads/LectraReceiver.dmg will 404 until it does.
+up — but /downloads/Lectra.dmg will 404 until it does.
 EOF
   printf '\nCopy the appcast in anyway? [y/N] '
   read -r reply
@@ -200,6 +201,6 @@ to bump. Review, then commit and deploy:
 
 After deploying, confirm the contract:
 
-  curl -sI https://www.canvascope.org/downloads/LectraReceiver.dmg   # 307 -> ${key}
+  curl -sI https://www.canvascope.org/downloads/Lectra.dmg   # 307 -> ${key}
   curl -sI https://www.canvascope.org/updates/appcast.xml            # application/xml, max-age=300
 EOF

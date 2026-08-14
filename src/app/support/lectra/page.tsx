@@ -9,7 +9,9 @@ import {
   RefreshCw,
 } from "lucide-react";
 
+import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { breadcrumbSchema } from "@/lib/structured-data";
 import { LECTRA_APP_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -58,6 +60,15 @@ const supportTopics = [
 export default function LectraSupportPage() {
   return (
     <PublicPageFrame>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Support", path: "/support" },
+            { name: "Lectra support", path: "/support/lectra" },
+          ]),
+        ]}
+      />
       <section className="page-wrap max-w-4xl py-14 lg:py-20">
         <div className="space-y-6">
           <p className="kicker">Lectra Notes support</p>

@@ -65,7 +65,7 @@ export default function PublicFooter({
             <Link href="/product/scope">Scope for Canvas</Link>
             <Link href="/product/lectra">Lectra</Link>
             <Link href="/product/agent-workspace">Agent Workspace</Link>
-            <Link href="/receiver">Lectra Receiver for Mac</Link>
+            <Link href="/mac">Lectra for Mac</Link>
             <Link href="/support/lectra">Lectra Support</Link>
           </div>
           <div>

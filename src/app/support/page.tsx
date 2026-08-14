@@ -10,7 +10,9 @@ import {
   UserRound,
 } from "lucide-react";
 
+import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { breadcrumbSchema } from "@/lib/structured-data";
 import { CHROME_WEB_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -72,6 +74,14 @@ const emailChecklist = [
 export default function SupportPage() {
   return (
     <PublicPageFrame>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Support", path: "/support" },
+          ]),
+        ]}
+      />
       <section className="page-wrap max-w-4xl py-14 lg:py-20">
         <div className="space-y-6">
           <p className="kicker">Support</p>

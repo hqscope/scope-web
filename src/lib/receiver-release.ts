@@ -1,15 +1,18 @@
-// Lectra Receiver — macOS release pointer.
+// Lectra for Mac — macOS release pointer.
 //
-// Receiver ships as a notarized Developer ID .dmg (~50 MB) built in the
-// lectra-ios repo under LectraReceiver/. The binaries are NOT in this repo:
-// they live in Cloudflare R2 under versioned, immutable names
-// (LectraReceiver-1.0.0.dmg). This module works out which of those is current.
+// The Mac app ships as a notarized Developer ID .dmg (~50 MB) built in the
+// lectra-ios repo. (It began as the standalone Lectra Receiver, which has since
+// been absorbed into the full Lectra app; the names below are unchanged because
+// shipped software depends on them.) The binaries are NOT in this repo: they
+// live in Cloudflare R2 under versioned, immutable names
+// (LectraReceiver-1.0.2.dmg). This module works out which of those is current.
 //
-// Three URLs are a fixed contract with the shipped macOS and iOS apps. They
+// Four URLs are a fixed contract with the shipped macOS and iOS apps. They
 // can never be renamed:
 //
-//   /receiver                     landing page (src/app/receiver/page.tsx)
-//   /downloads/LectraReceiver.dmg 307 -> the newest versioned DMG
+//   /receiver                     landing page, still served (renders /mac)
+//   /downloads/LectraReceiver.dmg 307 -> /downloads/Lectra.dmg
+//   /downloads/Lectra.dmg         307 -> the newest versioned DMG
 //   /updates/appcast.xml          Sparkle feed (public/updates/appcast.xml)
 //
 // The redirects and cache headers that implement the last two are in
@@ -17,9 +20,9 @@
 //
 // There is deliberately no hardcoded version constant here. The appcast is the
 // only place a version is recorded, and the redirect is derived from it, so
-// /downloads/LectraReceiver.dmg cannot point at a build the update feed does
-// not describe. That failure mode is silent — Sparkle would simply never offer
-// the update — so it is designed out rather than documented around.
+// /downloads/Lectra.dmg cannot point at a build the update feed does not
+// describe. That failure mode is silent — Sparkle would simply never offer the
+// update — so it is designed out rather than documented around.
 //
 // Release: run scripts/publish-receiver-release.sh.
 
@@ -44,7 +47,12 @@ export const RECEIVER_ENCLOSURE_PREFIX =
 // Versioned DMG names. Also matched by the wildcard redirect in next.config.ts,
 // which is deliberately narrow so /downloads/<anything> does not become an
 // open door onto the bucket.
-export const RECEIVER_DMG_PATTERN = /^LectraReceiver-\d+\.\d+\.\d+\.dmg$/;
+//
+// Both names are accepted: LectraReceiver-X.Y.Z.dmg is what every already
+// published release is called, and Lectra-X.Y.Z.dmg is what the unified Mac app
+// builds as. Rejecting the second would fail this site's build the day that
+// release is published.
+export const RECEIVER_DMG_PATTERN = /^Lectra(?:Receiver)?-\d+\.\d+\.\d+\.dmg$/;
 
 export type PublishedReceiverRelease = {
   /** e.g. "LectraReceiver-1.0.0.dmg" — the R2 object name. */
@@ -114,7 +122,8 @@ export function publishedReleaseFromAppcast(
     if (!RECEIVER_DMG_PATTERN.test(dmgFilename)) {
       throw new Error(
         `appcast points at "${dmgFilename}", which is not a versioned ` +
-          "LectraReceiver-X.Y.Z.dmg — published DMGs must be immutable",
+          "Lectra-X.Y.Z.dmg or LectraReceiver-X.Y.Z.dmg — published DMGs " +
+          "must be immutable",
       );
     }
 

@@ -16,9 +16,9 @@ function readIsMac(): boolean {
 
 const emptySubscribe = () => () => {};
 
-// Non-Mac visitors (iPad, Windows, Android) get a gentle heads-up that Lectra
-// Receiver runs on the Mac they want to control. They can still download it.
-export default function ReceiverPlatformNotice() {
+// Non-Mac visitors (iPad, Windows, Android) get a gentle heads-up that this
+// download runs on the Mac they want to reach. They can still download it.
+export default function MacPlatformNotice() {
   const isMac = useSyncExternalStore(emptySubscribe, readIsMac, () => true);
 
   if (isMac) return null;
@@ -33,8 +33,8 @@ export default function ReceiverPlatformNotice() {
         aria-hidden="true"
       />
       <span>
-        Lectra Receiver is a Mac app. Open this page on the Mac you want to
-        control to set it up there.
+        This one runs on your Mac. Open this page on the Mac you want to reach
+        to set it up there.
       </span>
     </p>
   );

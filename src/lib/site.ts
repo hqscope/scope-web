@@ -4,11 +4,13 @@ export const CHROME_WEB_STORE_URL =
 export const LECTRA_APP_STORE_URL =
   "https://apps.apple.com/us/app/lectra-notes/id6759754531";
 
-// Lectra Receiver, the free macOS companion app. The iPad app
-// (LectraLinks.receiverDownload) and Chrome extension deep-link straight to
-// this .dmg, so keep the path stable — a notarized LectraReceiver.dmg.sha256
-// sits next to it.
-export const LECTRA_RECEIVER_DOWNLOAD_URL = "/downloads/LectraReceiver.dmg";
+// Lectra for Mac, the free Mac app (it absorbed the standalone Lectra
+// Receiver). Keep the path stable — it is the download every CTA points at.
+//
+// The former name, /downloads/LectraReceiver.dmg, is deep-linked from the iPad
+// app (LectraLinks.receiverDownload), the Chrome extension, and shipped
+// Receiver builds. It still resolves: next.config.ts redirects it here.
+export const LECTRA_MAC_DOWNLOAD_URL = "/downloads/Lectra.dmg";
 
 // Agent Workspace, the Mac desktop app (in development). While in waitlist
 // mode the download URL is null and every CTA reads "Get early access". At

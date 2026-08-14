@@ -1,6 +1,7 @@
 import {
   CHROME_WEB_STORE_URL,
   LECTRA_APP_STORE_URL,
+  LECTRA_MAC_DOWNLOAD_URL,
   SUPPORT_EMAIL,
   getConfiguredSiteUrl,
 } from "@/lib/site";
@@ -59,6 +60,8 @@ export function websiteSchema() {
       "local-first student productivity",
       "cited AI study tools",
       "PDF annotation workflow",
+      "iPad Python notebooks",
+      "on-device coding workspace",
     ],
   };
 }
@@ -154,26 +157,83 @@ export function lectraSoftwareSchema() {
     name: "Lectra Notes",
     alternateName: "Lectra",
     applicationCategory: "EducationalApplication",
-    applicationSubCategory: "PDF annotation",
-    operatingSystem: "iOS, iPadOS",
+    applicationSubCategory: "Note-taking, PDF annotation, and computational notebooks",
+    operatingSystem: "iOS 18+, iPadOS 18+",
     url: absoluteUrl("/product/lectra"),
     downloadUrl: LECTRA_APP_STORE_URL,
     image: absoluteUrl("/brand/lectra-canvascope-lockup.png"),
     description:
-      "Lectra Notes is the App Store app from Scope for importing documents, organizing readings, annotating PDFs with Apple Pencil, using private on-device intelligence, backing up the library, and handing finished files back to Scope.",
+      "Lectra Notes is the free App Store app from Scope: an Apple Pencil workspace for handwritten notes and PDF markup with a built-in computing environment — Jupyter-compatible .ipynb notebooks with on-device Python, a code editor, a terminal with git, SSH remote development, and remote desktop to your Mac — plus private on-device study intelligence and an offline-first library.",
+    // Matches the live App Store version, not the in-development build.
+    softwareVersion: "5.0",
     featureList: [
-      "Apple Pencil PDF annotation",
-      "document import and organization",
-      "on-device document summaries and study aids",
+      "Apple Pencil PDF annotation with a custom vector ink engine",
+      "handwritten notebooks with lined, grid, dotted, and Cornell paper styles",
+      "document scanner with auto-capture",
+      "typed text boxes that export as selectable PDF text",
+      "document import and organization with folders, tags, and favorites",
+      "in-document search and handwriting-aware library search",
+      "Jupyter-compatible .ipynb notebooks running on-device Python with numpy, pandas, and matplotlib — fully offline",
+      "code editor with syntax highlighting for Python, JavaScript, C++, and more",
+      "built-in terminal with git, python, and pip",
+      "GitHub repository browsing, clone, pull, and push",
+      "SSH remote development with a full terminal emulator",
+      "remote desktop to your Mac, using the free Lectra for Mac app",
+      "on-device AI summaries, flashcards, quizzes, and grounded Q&A on supported devices",
+      "flattened, text-preserving PDF export with an invisible OCR layer",
+      "hybrid PDF export that opens in any PDF reader and re-imports with editable ink",
       "Shortcuts and Siri App Intents",
-      "Scope DropBridge export receipts",
-      "Attach from Lectra browser return workflow",
+      "Scope DropBridge handoff to and from the browser",
+      "works fully offline — free, with no tiers, subscriptions, or analytics",
     ],
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
       url: LECTRA_APP_STORE_URL,
+      availability: "https://schema.org/InStock",
+    },
+    publisher: { "@id": `${origin}/#organization` },
+  };
+}
+
+export function lectraMacSoftwareSchema() {
+  const origin = siteOrigin();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `${origin}/#lectra-mac`,
+    name: "Lectra for Mac",
+    // Kept so the absorbed companion app's name still resolves to this page.
+    alternateName: ["Lectra Receiver", "Lectra Mac app"],
+    applicationCategory: "EducationalApplication",
+    applicationSubCategory:
+      "Note-taking, PDF annotation, and remote desktop host",
+    operatingSystem: "macOS",
+    url: absoluteUrl("/mac"),
+    downloadUrl: absoluteUrl(LECTRA_MAC_DOWNLOAD_URL),
+    image: absoluteUrl("/brand/lectra-canvascope-lockup.png"),
+    description:
+      "Lectra for Mac is the free, notarized Mac app from Scope: read and mark up documents by hand with a mouse or trackpad, run Jupyter-compatible notebooks on on-device Python, use a code editor and a terminal with git — and let Lectra on your iPad see and control the Mac, receive documents sent from the iPad, and share a clipboard. It replaces the standalone Lectra Receiver companion app.",
+    featureList: [
+      "handwritten markup and typed text boxes on PDFs, with mouse or trackpad",
+      "document library with folders, favorites, and search",
+      "Jupyter-compatible notebooks running on-device Python — fully offline",
+      "code editor, shell, and git on device",
+      "remote desktop host for Lectra on iPad — screen, keyboard, trackpad, and Pencil input",
+      "multi-display remote sessions over an encrypted connection",
+      "receives documents sent from Lectra on iPad",
+      "shared clipboard between the iPad session and the Mac",
+      "remote wake for the Mac",
+      "notarized Developer ID direct download",
+      "free, with no tiers or subscriptions",
+    ],
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      url: absoluteUrl("/mac"),
       availability: "https://schema.org/InStock",
     },
     publisher: { "@id": `${origin}/#organization` },

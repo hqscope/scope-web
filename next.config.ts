@@ -9,22 +9,22 @@ import {
   publishedReleaseFromAppcast,
 } from "./src/lib/receiver-release";
 
-// Read at build time. The appcast is the single record of which Lectra Receiver
-// build is live, so the /downloads redirect is derived from it rather than from
-// a constant that could drift out of sync with the feed.
-const publishedReceiver = publishedReleaseFromAppcast(
+// Read at build time. The appcast is the single record of which Mac build is
+// live, so the /downloads redirect is derived from it rather than from a
+// constant that could drift out of sync with the feed.
+const publishedMacApp = publishedReleaseFromAppcast(
   readFileSync(path.join(process.cwd(), "public/updates/appcast.xml"), "utf8"),
 );
 
-if (!publishedReceiver) {
+if (!publishedMacApp) {
   console.warn(
-    "[receiver] appcast.xml has no entries — /downloads/LectraReceiver.dmg will 404 until the first release",
+    "[mac] appcast.xml has no entries — /downloads/Lectra.dmg will 404 until the first release",
   );
 }
 
 // Matches only versioned DMGs (and their checksums), so /downloads/<anything>
 // does not turn into an open door onto the bucket.
-const receiverVersionedFile = RECEIVER_DMG_PATTERN.source
+const versionedDmgFile = RECEIVER_DMG_PATTERN.source
   .replace(/^\^/, "")
   .replace(/\$$/, "")
   .concat("(?:\\.sha256)?");
@@ -46,7 +46,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // --- Lectra Receiver downloads (see src/lib/receiver-release.ts) ---
+      // --- Lectra for Mac downloads (see src/lib/receiver-release.ts) ---
       //
       // These are TEMPORARY (307) on purpose. A permanent redirect is cached by
       // browsers indefinitely, and this URL has to be repointable at every
@@ -54,22 +54,31 @@ const nextConfig: NextConfig = {
       // rewrite would stream ~50 MB through Vercel on every download, billed as
       // bandwidth and subject to a 120s proxy timeout the download can exceed.
       //
-      // The stable URL the /receiver page and the iOS app depend on. Always the
-      // newest build, per the appcast. Must stay ahead of the versioned rule.
-      ...(publishedReceiver
+      // The stable URL every download CTA points at. Always the newest build,
+      // per the appcast. Must stay ahead of the versioned rule.
+      ...(publishedMacApp
         ? [
             {
-              source: "/downloads/LectraReceiver.dmg",
-              destination: `${RECEIVER_DOWNLOADS_ORIGIN}/${publishedReceiver.dmgFilename}`,
+              source: "/downloads/Lectra.dmg",
+              destination: `${RECEIVER_DOWNLOADS_ORIGIN}/${publishedMacApp.dmgFilename}`,
               permanent: false,
             },
           ]
         : []),
-      // Every versioned DMG, e.g. /downloads/LectraReceiver-1.0.0.dmg. Sparkle
+      // The name the standalone Receiver shipped under. Shipped Receiver builds,
+      // the iPad app, and the Chrome extension all link straight to it, so it
+      // can never 404 — it now lands on the same Mac download as everything
+      // else. Temporary for the same reason as the rule above.
+      {
+        source: "/downloads/LectraReceiver.dmg",
+        destination: "/downloads/Lectra.dmg",
+        permanent: false,
+      },
+      // Every versioned DMG, e.g. /downloads/LectraReceiver-1.0.2.dmg. Sparkle
       // appcast enclosures point here rather than straight at R2, so the storage
       // host stays swappable without invalidating shipped update feeds.
       {
-        source: `/downloads/:file(${receiverVersionedFile})`,
+        source: `/downloads/:file(${versionedDmgFile})`,
         destination: `${RECEIVER_DOWNLOADS_ORIGIN}/:file`,
         permanent: false,
       },
@@ -78,7 +87,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // The Sparkle feed installed copies of Lectra Receiver poll. Short cache
+        // The Sparkle feed installed Mac copies poll (including every shipped
+        // Lectra Receiver 1.0.x, which was absorbed into it). Short cache
         // so a new release is picked up promptly. Content-Type is pinned because
         // Sparkle feeds are expected to be served as XML.
         source: "/updates/appcast.xml",

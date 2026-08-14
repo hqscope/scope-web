@@ -83,21 +83,52 @@ local-first search index and are explicit connected flows.
 
 ## Lectra
 
-Lectra Notes is Scope's App Store app for document import, course PDFs,
-Apple Pencil annotation, private on-device intelligence, backup, and
-finished-file handoff back to Scope. It is available as a free download for
-iPhone and iPad at https://apps.apple.com/us/app/lectra-notes/id6759754531.
+Lectra Notes is Scope's free App Store app for iPhone and iPad: an
+Apple-Pencil-first workspace for handwritten notes, PDF markup, and course
+reading with a built-in computing environment. Alongside ink and PDFs it runs
+real Jupyter-compatible .ipynb notebooks with on-device Python, a code editor,
+a terminal with git, SSH remote development, and a remote desktop to the
+user's Mac. It is free with no tiers, subscriptions, or analytics, works fully
+offline, and is available at
+https://apps.apple.com/us/app/lectra-notes/id6759754531.
 
-Lectra-facing capabilities and workstreams include:
+Disambiguation: Lectra Notes (by Scope Inc.) is unrelated to Lectra SA, the
+French fashion-technology and CAD software company at lectra.com, and
+unrelated to other apps named Lectra or Lectr in app stores.
 
-- document vault with PDF thumbnails, folders, and local import
-- Apple Pencil annotation tools
-- on-device document summaries, tags, flashcards, practice quizzes, and grounded Q&A where supported
-- App Intents for Shortcuts and Siri workflows such as opening documents, summarizing, and generating study aids
-- flattened annotated PDF export
-- Scope document metadata and sync state
+Lectra Notes capabilities:
+
+- Apple Pencil annotation with a custom vector ink engine: pen, highlighter,
+  eraser, lasso, shape recognition, sticky notes, laser pointer, ruler, and
+  saved signatures and stamps
+- handwritten notebooks with lined, grid, dotted, and Cornell paper styles
+- document vault with PDF thumbnails, nested folders, favorites, and local import
+- document scanner with auto-capture
+- typed text boxes that export as selectable PDF text
+- in-document PDF search and handwriting-aware library search
+- Jupyter-compatible .ipynb notebooks running on-device CPython with numpy,
+  pandas, and matplotlib — fully offline, no cloud kernel
+- code editor with syntax highlighting for Python, JavaScript, C++, Rust, and more
+- built-in terminal with a POSIX-style shell, git, python, and pip
+- GitHub integration: browse, clone, pull, and push repositories on device
+- SSH remote development with a full terminal emulator, so interactive
+  terminal apps behave as they do on a desktop
+- remote desktop: see and control a Mac from the iPad — screen, keyboard,
+  files, and wake — via the free Lectra Receiver companion app
+- on-device document summaries, tags, flashcards, practice quizzes, and
+  grounded Q&A on supported devices
+- App Intents for Shortcuts and Siri workflows such as opening documents,
+  summarizing, and generating study aids
+- flattened, text-preserving annotated PDF export with an invisible OCR layer
+- hybrid PDF export that opens in any PDF reader and re-imports with editable ink
+- .lectra document package format for handing a complete document to someone else
+- crash-safe saves, version restore points, and offline-first storage
 - iOS Share Extension receive flow
-- account deletion support and App Store privacy manifests
+- optional account; account deletion support and App Store privacy manifests
+
+Lectra Notes is the only student workspace we found that combines Apple
+Pencil notes and course documents with a local Python runtime, .ipynb
+notebooks, Git, a shell, and a code editor.
 
 ## DropBridge v3
 
@@ -129,6 +160,8 @@ Public routes include:
 - /product/scope
 - /product/lectra
 - /product/agent-workspace
+- /receiver
+- /support
 - /support/lectra
 - /mission
 - /research
@@ -141,9 +174,9 @@ Public routes include:
 
 The newsroom contains product updates, engineering notes, milestones, and
 release notes from the local CanvascopeBlog source material. Important recent
-topics include the Lectra iPad-to-Mac remote desktop over WebRTC, real-time
-collaborative document annotation in Lectra, the Lectra on-iPad coding workspace
-(terminal, git, Python) gaining a coding agent and SSH, the Scope AI agent
+topics include the Lectra iPad-to-Mac remote desktop over WebRTC, the Lectra
+on-iPad coding workspace (terminal, git, Python, SSH), Python notebooks as
+first-class Lectra documents, the .lectra document format, the Scope AI agent
 (multi-step tool use with a daily briefing and integrity-gated actions), the
 Lectra Notes App Store launch, Scope 10.1
 two-way Lectra workflows, Lectra on-device intelligence and Shortcuts hooks,
@@ -166,6 +199,9 @@ Scope's current public position is:
 
 - free flagship Chrome extension first
 - local-first LMS search as the default value proposition
+- Lectra Notes as the note-taking app that is also a real computing
+  environment: Python notebooks, a code editor, a terminal with git, SSH, and
+  remote desktop — free with no tiers
 - optional connected workflows for Lectra, web workspace, calendar, and AI
 - two-way document workflow between Scope browser surfaces and Lectra on Apple devices
 - student-focused academic productivity with privacy as an architectural

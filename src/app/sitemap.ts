@@ -32,11 +32,13 @@ const publicRoutes: {
     changeFrequency: "weekly",
     lastModified: "2026-07-22",
   },
+  // /receiver still serves this page for shipped Receiver builds, but it
+  // canonicalises to /mac, so only /mac belongs in the sitemap.
   {
-    path: "/receiver",
-    priority: 0.6,
+    path: "/mac",
+    priority: 0.7,
     changeFrequency: "monthly",
-    lastModified: "2026-07-15",
+    lastModified: "2026-08-14",
   },
   {
     path: "/support",
