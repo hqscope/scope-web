@@ -163,10 +163,11 @@ export default function PrivacyPage() {
             </p>
             <p className="section-copy">
               We do <strong>not</strong> request or access your Gmail messages,
-              Google Drive files, Google Classroom data, contacts, or broad
-              calendar read/write scopes beyond the event-level access described
-              above. We only receive data you explicitly authorize during the
-              Google consent flow.
+              Google Classroom data, contacts, or broad calendar read/write
+              scopes beyond the event-level access described above. The optional
+              Lectra Google Drive backup can only see the folder it creates
+              (described in the Lectra sections below). We only receive data you
+              explicitly authorize during the Google consent flow.
             </p>
           </section>
 
@@ -471,7 +472,9 @@ export default function PrivacyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-3xl">Sign in with Apple, iCloud, and notifications</h2>
+            <h2 className="text-3xl">
+              Sign in with Apple, iCloud, Google Drive, and notifications
+            </h2>
             <p className="section-copy">
               <strong>Sign in with Apple.</strong> Lectra offers Sign in with Apple
               and requests only your name and email. You may choose to hide your
@@ -486,6 +489,18 @@ export default function PrivacyPage() {
               account under Apple&rsquo;s control; we do not separately collect or
               read your iCloud backups. Anthropic API keys and raw agent tool
               output are never included in iCloud sync.
+            </p>
+            <p className="section-copy">
+              <strong>Google Drive backup.</strong> If you connect Google Drive
+              backup in Lectra, Lectra creates a folder in your own Google Drive
+              and uploads copies of your documents, notebooks, and project files
+              to it. Lectra uses Google&rsquo;s{" "}
+              <code>https://www.googleapis.com/auth/drive.file</code> permission,
+              which only allows access to files Lectra itself creates — it cannot
+              see, read, or change anything else in your Drive. Uploads happen
+              only while backup is connected; disconnecting it stops them, and
+              the folder and its contents remain yours in your Drive. Google
+              Drive backup is optional and never required to use Lectra.
             </p>
             <p className="section-copy">
               <strong>Push notifications.</strong> Lectra uses Apple Push

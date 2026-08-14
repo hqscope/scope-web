@@ -11,6 +11,7 @@ import {
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import NewsroomTeaserGrid from "@/components/public/NewsroomTeaserGrid";
+import LectraWorkspacePreview from "@/components/public/LectraWorkspacePreview";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -23,9 +24,9 @@ import { getNewsroomArticlesBySlugs } from "@/lib/newsroom";
 import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Lectra Notes - iPad PDF Annotation & Study Companion",
+  title: "Lectra Notes — Pencil Notes, PDFs & Python on iPad",
   description:
-    "Lectra Notes is now on the App Store. Annotate course readings by hand with Apple Pencil, organize documents, use private on-device AI, and hand PDFs to and from Scope.",
+    "Lectra Notes is the free iPad workspace for students: Apple Pencil PDF markup, real Jupyter notebooks with on-device Python, a terminal with Git, on-device AI study tools, and a two-way handoff with Scope.",
   alternates: {
     canonical: "/product/lectra",
   },
@@ -34,21 +35,23 @@ export const metadata: Metadata = {
     "Scope Lectra",
     "Lectra App Store",
     "Apple Pencil PDF annotation",
+    "iPad Python notebook",
+    "Jupyter iPad",
+    "iPad terminal",
+    "git on iPad",
     "Lectra on-device AI",
     "Attach from Lectra",
     "student PDF annotation",
     "iPad study companion",
     "iPad PDF editor",
-    "LMS PDF markup",
     "handwritten notes iPad",
     "local-first document reader",
     "DropBridge v3",
-    "Scope companion app",
   ],
   openGraph: {
-    title: "Lectra Notes - iPad PDF Annotation & Study Companion",
+    title: "Lectra Notes — Pencil Notes, PDFs & Python on iPad",
     description:
-      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and seamlessly hand PDFs between Scope and your iPad.",
+      "Apple Pencil PDF markup, real Jupyter notebooks with on-device Python, a terminal with Git, and on-device AI study tools — free, offline-first, connected to Scope.",
     type: "website",
     url: "/product/lectra",
     images: [
@@ -56,15 +59,15 @@ export const metadata: Metadata = {
         url: "/brand/lectra-canvascope-lockup.png",
         width: 1200,
         height: 630,
-        alt: "Lectra Notes iPad PDF Annotation & Study Companion",
+        alt: "Lectra Notes — Pencil notes, PDFs, and Python on iPad",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lectra Notes - iPad PDF Annotation & Study Companion",
+    title: "Lectra Notes — Pencil Notes, PDFs & Python on iPad",
     description:
-      "Annotate course readings by hand with Apple Pencil, use private on-device AI, and hand PDFs to and from Scope.",
+      "Apple Pencil PDF markup, real Jupyter notebooks with on-device Python, a terminal with Git, and on-device AI study tools — free and offline-first.",
     images: ["/brand/lectra-canvascope-lockup.png"],
   },
 };
@@ -93,7 +96,7 @@ const workflow = [
     icon: Radio,
     title: "Built for realtime receive",
     copy:
-      "The bridge uses receiver wakeups and automatic download handling, with polling fallback when realtime is unavailable.",
+      "Sends arrive in the background the moment they are ready, and are picked up on the next check if the realtime path is unavailable.",
   },
 ];
 
@@ -115,7 +118,7 @@ const faqs: FaqEntry[] = [
   {
     question: "How do PDFs get from Scope to Lectra?",
     answer:
-      "Scope sends documents to Lectra through DropBridge v3, which uses realtime receiver wakeups, delivery receipts, and automatic download handling, with a polling fallback when realtime delivery is unavailable.",
+      "Scope sends documents to Lectra through DropBridge v3. Sends arrive in the background with delivery receipts the moment they are ready, and are picked up on the next check if realtime delivery is unavailable.",
   },
   {
     question: "Do I need Scope to use Lectra?",
@@ -137,12 +140,35 @@ const faqs: FaqEntry[] = [
     answer:
       "Yes. Lectra Notes is available now on the Apple App Store as a free download for iPhone and iPad.",
   },
+  {
+    question: "Is Lectra Notes free?",
+    answer:
+      "Yes — completely. There are no tiers, subscriptions, or paywalls, and no analytics. The notebooks, terminal, Git, code editor, and Lectra for Mac are all part of the free app.",
+  },
+  {
+    question: "Can Lectra Notes run Python?",
+    answer:
+      "Yes. Lectra Notes runs real CPython on the device — Jupyter-compatible .ipynb notebooks with numpy, pandas, and matplotlib, plus python in the built-in terminal. Everything executes offline; there is no cloud kernel.",
+  },
+  {
+    question: "How is Lectra Notes different from other note-taking apps?",
+    answer:
+      "Apps like Goodnotes and Notability are stronger today at lecture-audio recording and cross-platform sync. Lectra Notes adds what they don't have: a real computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — beside your handwritten notes, and it's free with no subscription.",
+  },
+  {
+    question: "Does Lectra Notes work offline?",
+    answer:
+      "Yes. The library, Pencil markup, notebooks, Python, Git, and the terminal all work with no connection. The network is only needed for handoffs, backup, Git remotes, and SSH.",
+  },
 ];
 
 const lectraNewsroomArticles = getNewsroomArticlesBySlugs([
   "lectra-notes-is-now-on-the-app-store",
+  "python-notebooks-are-first-class-lectra-documents",
+  "lectra-runs-a-real-terminal-git-and-python-on-ipad",
+  "lectra-remote-desktop-reach-your-mac-from-your-ipad",
+  "introducing-the-lectra-document-format",
   "lectra-pdfs-can-now-come-back-into-browser-workflows",
-  "lectra-moved-into-app-store-release-shape",
 ]);
 
 export default function LectraProductPage() {
@@ -182,8 +208,9 @@ export default function LectraProductPage() {
           <p className="kicker">Lectra · Now on the App Store</p>
           <h1>The workspace for documents you think on.</h1>
           <p className="centered-hero-lede">
-            Apple-Pencil-first PDF markup, notebooks, and an offline-first
-            library for iPad and iPhone — connected to Scope with one click.
+            Lectra Notes is Apple-Pencil-first PDF markup, real Python
+            notebooks, and an offline-first library for iPad and iPhone —
+            connected to Scope with one click.
           </p>
           <div className="pill-actions">
             <a
@@ -248,8 +275,8 @@ export default function LectraProductPage() {
               <span>01</span>
               <h3>Send from Chrome</h3>
               <p>
-                Tap Send to Lectra on any course PDF. DropBridge v3 wakes the
-                receiver and it lands on your iPad in seconds.
+                Tap Send to Lectra on any course PDF and it lands on your iPad
+                in seconds.
               </p>
             </div>
             <div>
@@ -289,10 +316,44 @@ export default function LectraProductPage() {
         </div>
       </section>
 
-      <section className="page-wrap split-section" id="receiver">
+      <section className="page-wrap section-pad" id="work">
+        <div className="section-heading" data-reveal>
+          <p className="kicker">When reading turns into work</p>
+          <h2>The only notes app with a real computing environment.</h2>
+          <p className="section-copy mt-4">
+            Lectra Notes is the only student workspace we found that combines
+            Apple Pencil notes and course documents with a local Python
+            runtime, .ipynb notebooks, Git, a shell, and a code editor — all
+            offline, all free.
+          </p>
+        </div>
+        <div
+          data-reveal
+          style={{ marginTop: "clamp(2rem, 4vw, 3rem)" }}
+        >
+          <LectraWorkspacePreview />
+        </div>
+        <div
+          className="pill-actions"
+          data-reveal
+          style={{ marginTop: "clamp(2rem, 4vw, 3rem)", justifyContent: "center" }}
+        >
+          <Link href="/product/lectra/notebooks" className="button-secondary">
+            Jupyter notebooks on iPad →
+          </Link>
+          <Link href="/product/lectra/code" className="button-secondary">
+            Terminal, Git &amp; editor →
+          </Link>
+          <Link href="/mac" className="button-secondary">
+            Your Mac, from your iPad →
+          </Link>
+        </div>
+      </section>
+
+      <section className="page-wrap split-section" id="mac">
         <div data-reveal>
-          <p className="kicker kicker-muted">Lectra Receiver</p>
-          <h2>A quiet companion for your Mac.</h2>
+          <p className="kicker kicker-muted">Lectra for Mac</p>
+          <h2>The same app, waiting on your Mac.</h2>
           <p
             style={{
               margin: "1.125rem 0 1.625rem",
@@ -301,12 +362,12 @@ export default function LectraProductPage() {
               lineHeight: 1.65,
             }}
           >
-            The free Receiver app catches documents sent from your iPad and drops
-            them straight into your Mac. It also carries the remote desktop, so
-            the full screen, keyboard, files, and wake are a tap away from
-            Lectra on your iPad — free, like everything else.
+            Lectra runs on macOS too — readings, markup, notebooks, and a
+            terminal. It also catches documents you send from your iPad, and
+            puts the Mac itself on your iPad: the screen, the keyboard, the
+            trackpad, and wake, a tap away. Free, like everything else.
           </p>
-          <Link href="/receiver" className="button-dark">
+          <Link href="/mac" className="button-dark">
             Download for Mac
           </Link>
         </div>
@@ -324,7 +385,7 @@ export default function LectraProductPage() {
           articles={lectraNewsroomArticles}
           kicker="Lectra updates"
           title="Lectra is live."
-          copy="Read the launch note, the two-way Scope handoff work, and the release-shape cleanup behind the App Store build."
+          copy="The launch note, Python notebooks, the on-iPad terminal and Git, the remote desktop, the .lectra format, and the two-way Scope handoff — from the engineering notebook."
         />
       </div>
 

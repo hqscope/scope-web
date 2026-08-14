@@ -114,7 +114,7 @@ Lectra Notes capabilities:
 - SSH remote development with a full terminal emulator, so interactive
   terminal apps behave as they do on a desktop
 - remote desktop: see and control a Mac from the iPad — screen, keyboard,
-  files, and wake — via the free Lectra Receiver companion app
+  files, and wake — with the free Lectra for Mac app running on that Mac
 - on-device document summaries, tags, flashcards, practice quizzes, and
   grounded Q&A on supported devices
 - App Intents for Shortcuts and Siri workflows such as opening documents,
@@ -129,6 +129,38 @@ Lectra Notes capabilities:
 Lectra Notes is the only student workspace we found that combines Apple
 Pencil notes and course documents with a local Python runtime, .ipynb
 notebooks, Git, a shell, and a code editor.
+
+## Lectra for Mac
+
+Lectra for Mac is the free Mac app, presented at
+https://www.canvascope.org/mac. It is the full Lectra app running natively on
+macOS, and it absorbed the standalone "Lectra Receiver" companion app, which no
+longer exists as a separate download. Treat "Lectra Receiver" in older sources
+as referring to Lectra for Mac. The former landing page,
+https://www.canvascope.org/receiver, still serves this page.
+
+Lectra for Mac capabilities:
+
+- reading and marking up PDFs, with handwritten markup using a mouse or
+  trackpad, typed text boxes, and images
+- notebooks and a document library with folders, favorites, and search
+- Jupyter-compatible notebooks on on-device Python, a shell, git, and a code
+  editor — offline, on device
+- remote desktop host: Lectra on iPad can see and control the Mac, with
+  keyboard, trackpad, and Pencil input over an encrypted connection, across
+  multiple displays
+- receives documents sent from Lectra on iPad
+- shared clipboard between the iPad session and the Mac
+- remote wake for a sleeping Mac
+- hosting a remote session requires the macOS screen recording and
+  accessibility permissions, granted once
+- distributed as a notarized Developer ID direct download from
+  https://www.canvascope.org/downloads/Lectra.dmg, not the Mac App Store; the
+  former /downloads/LectraReceiver.dmg URL redirects to it
+- free, with nothing to buy
+
+Lectra does not sync a document library between iPad and Mac. Sending a
+document from one device to the other is a deliberate action the user takes.
 
 ## DropBridge v3
 
@@ -159,8 +191,11 @@ Public routes include:
 - /
 - /product/scope
 - /product/lectra
+- /product/lectra/notebooks (Jupyter .ipynb notebooks with on-device Python on iPad)
+- /product/lectra/code (terminal, Git, code editor, and SSH on iPad)
 - /product/agent-workspace
-- /receiver
+- /mac
+- /receiver (the former Lectra Receiver landing page; serves the /mac page)
 - /support
 - /support/lectra
 - /mission

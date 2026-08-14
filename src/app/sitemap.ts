@@ -24,7 +24,19 @@ const publicRoutes: {
     path: "/product/lectra",
     priority: 0.92,
     changeFrequency: "weekly",
-    lastModified: SEO_UPDATE_DATE,
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/product/lectra/notebooks",
+    priority: 0.85,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/product/lectra/code",
+    priority: 0.85,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
   },
   {
     path: "/product/agent-workspace",
@@ -74,7 +86,7 @@ const publicRoutes: {
     path: "/privacy",
     priority: 0.35,
     changeFrequency: "yearly",
-    lastModified: "2026-06-19",
+    lastModified: "2026-08-14",
   },
   {
     path: "/terms",

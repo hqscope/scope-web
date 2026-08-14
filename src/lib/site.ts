@@ -15,7 +15,7 @@ export const LECTRA_MAC_DOWNLOAD_URL = "/downloads/Lectra.dmg";
 // Agent Workspace, the Mac desktop app (in development). While in waitlist
 // mode the download URL is null and every CTA reads "Get early access". At
 // launch, point this at the notarized dmg (keep the path stable, mirroring
-// LECTRA_RECEIVER_DOWNLOAD_URL) and the page/header CTAs switch to a
+// LECTRA_MAC_DOWNLOAD_URL) and the page/header CTAs switch to a
 // download button automatically.
 export const AGENT_WORKSPACE_DOWNLOAD_URL: string | null = null;
 

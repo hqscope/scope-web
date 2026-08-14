@@ -108,7 +108,7 @@ export const newsroomArticles: NewsroomArticle[] = [
     date: "2026-07-15",
     category: "Engineering",
     description:
-      "Lectra added a Pro iPad-to-Mac remote desktop over WebRTC, with a companion Mac app, adaptive video quality, keyboard and pointer input, file transfer, and the ability to wake a sleeping Mac.",
+      "Lectra added an iPad-to-Mac remote desktop, with adaptive video quality, keyboard and pointer input, file transfer, and the ability to wake a sleeping Mac. It is part of Lectra for Mac.",
     lede:
       "Sometimes the thing you need is just... on your Mac. Now you can reach it.",
     keywords: [
@@ -121,11 +121,11 @@ export const newsroomArticles: NewsroomArticle[] = [
     body: [
       {
         type: "paragraph",
-        text: "The workstation idea only really works if the iPad can reach the one machine that still has everything else on it: your Mac. So Lectra now includes a remote desktop. Pair it with a small companion Mac app, and your Mac's screen shows up live on your iPad, wherever you are, the full desktop and not a stripped-down mirror.",
+        text: "The workstation idea only really works if the iPad can reach the one machine that still has everything else on it: your Mac. So Lectra now includes a remote desktop. Install Lectra for Mac on that machine, and your Mac's screen shows up live on your iPad, wherever you are, the full desktop and not a stripped-down mirror.",
       },
       {
         type: "paragraph",
-        text: "Under the hood it works the way a video call does: a direct peer-to-peer connection carries the screen as live video, and the quality adapts on the fly to whatever your connection can handle, so it stays smooth instead of freezing. Your touches, keyboard, and typing travel back over the same connection, and you can move files across it too. If the Mac is asleep, Lectra can wake it first.",
+        text: "It works the way a video call does: your Mac's screen arrives as live video over an encrypted connection, and the quality adapts on the fly to whatever your connection can handle, so it stays smooth instead of freezing. Your touches, keyboard, and typing travel back the same way, and you can send documents between the two devices as well. If the Mac is asleep, Lectra can wake it first.",
       },
       {
         type: "paragraph",

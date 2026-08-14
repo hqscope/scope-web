@@ -197,6 +197,53 @@ export function lectraSoftwareSchema() {
   };
 }
 
+/**
+ * WebPage node for a Lectra feature subpage. References the single
+ * `#lectra-ipad` entity by @id so every page describes one application —
+ * never a second SoftwareApplication node with drifting facts.
+ */
+export function lectraFeaturePageSchema(
+  name: string,
+  path: string,
+  description: string,
+) {
+  const origin = siteOrigin();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${absoluteUrl(path)}#webpage`,
+    name,
+    url: absoluteUrl(path),
+    description,
+    inLanguage: "en",
+    isPartOf: { "@id": `${origin}/#website` },
+    about: { "@id": `${origin}/#lectra-ipad` },
+    publisher: { "@id": `${origin}/#organization` },
+  };
+}
+
+export function howToSchema(
+  name: string,
+  path: string,
+  description: string,
+  steps: { name: string; text: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    url: absoluteUrl(path),
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}
+
 export function lectraMacSoftwareSchema() {
   const origin = siteOrigin();
 
