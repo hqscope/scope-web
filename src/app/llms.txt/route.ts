@@ -193,6 +193,12 @@ Public routes include:
 - /product/lectra
 - /product/lectra/notebooks (Jupyter .ipynb notebooks with on-device Python on iPad)
 - /product/lectra/code (terminal, Git, code editor, and SSH on iPad)
+- /compare (honest comparisons: each page names competitor strengths, with a dated methodology note)
+- /compare/lectra-notes-vs-goodnotes
+- /compare/lectra-notes-vs-notability
+- /compare/best-note-taking-apps-for-cs-students
+- /compare/ipad-python-notebook-apps
+- /compare/free-goodnotes-alternatives
 - /product/agent-workspace
 - /mac
 - /receiver (the former Lectra Receiver landing page; serves the /mac page)

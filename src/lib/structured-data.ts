@@ -244,6 +244,50 @@ export function howToSchema(
   };
 }
 
+/**
+ * Article node for an evergreen /compare page. Deliberately not BlogPosting —
+ * comparisons are versioned reference pages, not dated newsroom posts.
+ */
+export function comparisonArticleSchema(
+  headline: string,
+  path: string,
+  description: string,
+  datePublished: string,
+  dateModified: string,
+) {
+  const origin = siteOrigin();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${absoluteUrl(path)}#article`,
+    headline,
+    description,
+    datePublished,
+    dateModified,
+    inLanguage: "en",
+    url: absoluteUrl(path),
+    mainEntityOfPage: absoluteUrl(path),
+    about: { "@id": `${origin}/#lectra-ipad` },
+    author: { "@id": `${origin}/#organization` },
+    publisher: { "@id": `${origin}/#organization` },
+  };
+}
+
+/**
+ * Minimal node for a competitor app on a comparison page: name and official
+ * URL only. Never attach ratings, prices, or feature lists we don't control —
+ * those live in the visible, dated page copy where they can be corrected.
+ */
+export function competitorAppNode(name: string, url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    url,
+  };
+}
+
 export function lectraMacSoftwareSchema() {
   const origin = siteOrigin();
 

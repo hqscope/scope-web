@@ -39,6 +39,42 @@ const publicRoutes: {
     lastModified: "2026-08-14",
   },
   {
+    path: "/compare",
+    priority: 0.7,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/compare/lectra-notes-vs-goodnotes",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/compare/lectra-notes-vs-notability",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/compare/best-note-taking-apps-for-cs-students",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/compare/ipad-python-notebook-apps",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
+    path: "/compare/free-goodnotes-alternatives",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-08-14",
+  },
+  {
     path: "/product/agent-workspace",
     priority: 0.9,
     changeFrequency: "weekly",

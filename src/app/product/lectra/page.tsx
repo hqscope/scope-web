@@ -347,6 +347,9 @@ export default function LectraProductPage() {
           <Link href="/mac" className="button-secondary">
             Your Mac, from your iPad →
           </Link>
+          <Link href="/compare" className="button-secondary">
+            Compare with other apps →
+          </Link>
         </div>
       </section>
 
