@@ -299,7 +299,8 @@ export default function PrivacyPage() {
               describe Lectra&rsquo;s data practices specifically and map them to
               the data types Apple uses in App Store privacy
               (&ldquo;Nutrition&rdquo;) labels. Lectra contains no third-party
-              advertising, analytics, or tracking SDKs.
+              advertising, analytics, or tracking SDKs. It does count active
+              users first-party, as described below.
             </p>
           </section>
 
@@ -336,6 +337,23 @@ export default function PrivacyPage() {
                 ID generated on your device) so documents and projects can be
                 delivered to the right Apple device and scoped to the right
                 account.
+              </li>
+            </ul>
+            <p className="section-copy">
+              Lectra also collects one data type that is{" "}
+              <strong>not linked to your identity</strong>:
+            </p>
+            <ul className="section-copy list-disc space-y-2 pl-6">
+              <li>
+                <strong>Usage &amp; Diagnostics - Product Interaction:</strong>{" "}
+                So we can tell how many people actually use Lectra, the app sends
+                a short &ldquo;someone is using this&rdquo; ping when you open it.
+                The ping carries the random per-install identifier above, the
+                platform, and the app version - nothing else. It works whether or
+                not you have an account, so people using Lectra entirely offline
+                are still counted. It never includes document names, document
+                contents, annotations, or anything you wrote, and it is never
+                combined with data from other companies or used for advertising.
               </li>
             </ul>
             <p className="section-copy">
