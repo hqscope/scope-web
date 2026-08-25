@@ -12,8 +12,8 @@ const MIN_FILL_TIME_MS = 2500;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 
-const CONFIRMED_PATH = "/product/agent-workspace/waitlist-confirmed";
-const FORM_RETRY_PATH = "/product/agent-workspace#early-access";
+const CONFIRMED_PATH = "/products/agent-workspace/waitlist-confirmed";
+const FORM_RETRY_PATH = "/products/agent-workspace#early-access";
 
 // Best-effort rate limiter: this Map lives per serverless instance, so a cold
 // start or a second instance resets the counts. That is fine — it is a

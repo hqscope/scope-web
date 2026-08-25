@@ -125,7 +125,7 @@ const evidenceSteps = [
 
 export default function ResearchPage() {
   return (
-    <PublicPageFrame active="research" footerVariant="slim">
+    <PublicPageFrame footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([

@@ -38,13 +38,33 @@ const nextConfig: NextConfig = {
       // The standalone blog (blog.canvascope.org) was merged into the newsroom.
       { source: "/blog", destination: "/newsroom", permanent: true },
       { source: "/blog/:path*", destination: "/newsroom", permanent: true },
-      // Canvascope was renamed to Scope. Keep the old extension URL alive —
-      // it is linked from the Chrome Web Store listing and older newsroom posts.
+      // --- The 2026 site rebuild moved /product/* to /products/* and
+      // /mission to /direction. Every one of these URLs is linked from
+      // somewhere we do not control — the Chrome Web Store listing, older
+      // newsroom posts, shipped app builds — so none of them may 404.
+      { source: "/product/scope", destination: "/products/extension", permanent: true },
+      // Canvascope was renamed to Scope; that redirect now chains through.
+      { source: "/product/canvascope", destination: "/products/extension", permanent: true },
+      { source: "/product/lectra", destination: "/products/lectra", permanent: true },
       {
-        source: "/product/canvascope",
-        destination: "/product/scope",
+        source: "/product/lectra/:path*",
+        destination: "/products/lectra/:path*",
         permanent: true,
       },
+      {
+        source: "/product/agent-workspace",
+        destination: "/products/agent-workspace",
+        permanent: true,
+      },
+      {
+        source: "/product/agent-workspace/:path*",
+        destination: "/products/agent-workspace/:path*",
+        permanent: true,
+      },
+      { source: "/mission", destination: "/direction", permanent: true },
+      // The student workspace was retired; its entry points now land on the
+      // marketing home rather than dead-ending.
+      { source: "/account", destination: "/", permanent: true },
 
       // --- Lectra for Mac downloads (see src/lib/receiver-release.ts) ---
       //

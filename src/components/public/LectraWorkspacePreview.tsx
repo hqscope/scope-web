@@ -38,7 +38,7 @@ export default function LectraWorkspacePreview() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-black/20 bg-[#1b1712] shadow-sm">
+      <div className="overflow-hidden rounded-2xl border border-black/20 bg-[var(--color-deep-panel)] shadow-sm">
         <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2.5 text-xs font-medium text-white/60">
           <TerminalSquare className="h-3.5 w-3.5" aria-hidden="true" />
           Terminal — bio-lab

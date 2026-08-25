@@ -7,7 +7,11 @@ import { sanitizeNextPath } from "@/lib/site";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const isAppRoute = pathname.startsWith("/app");
+  // The student workspace under /app is gone; the internal admin dashboard is
+  // all that is left there. Gating on /app/admin rather than /app means the
+  // retired workspace paths 404 outright instead of bouncing signed-out
+  // visitors to a login for something that no longer exists.
+  const isAppRoute = pathname.startsWith("/app/admin");
   const isLoginRoute = pathname === "/login";
   const hasAuthCode = request.nextUrl.searchParams.has("code");
 
@@ -51,7 +55,7 @@ export async function proxy(request: NextRequest) {
     callbackUrl.pathname = "/auth/callback";
 
     if (!callbackUrl.searchParams.has("next")) {
-      callbackUrl.searchParams.set("next", "/app");
+      callbackUrl.searchParams.set("next", "/");
     }
 
     return copyResponseCookies(
@@ -75,10 +79,14 @@ export async function proxy(request: NextRequest) {
     );
   }
 
+  // Nothing under /app is reachable to an ordinary account any more — the only
+  // page left there gates on admin membership — so a signed-in visitor who
+  // lands back on /login goes to the marketing home. Admins arrive at the
+  // dashboard through the `next` parameter set by the gate above.
   if (isLoginRoute && user) {
     return copyResponseCookies(
       supabaseResponse,
-      NextResponse.redirect(new URL("/app", request.url)),
+      NextResponse.redirect(new URL("/", request.url)),
     );
   }
 

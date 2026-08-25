@@ -1,48 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Hanken_Grotesk,
-  Instrument_Serif,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 import JsonLd from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 
-// Authenticated app shell keeps its original type system (do not change).
-const hankenGrotesk = Hanken_Grotesk({
-  variable: "--font-hanken",
+// Bricolage is variable across optical size and weight; the display sizes
+// need the full 200-800 range, so it is deliberately not pinned to a weight.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-});
-
-// Public marketing surface - new design language.
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -132,7 +107,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ffffff",
+  themeColor: "#f6f1e7",
   colorScheme: "light",
 };
 
@@ -144,7 +119,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body
-        className={`${hankenGrotesk.variable} ${instrumentSerif.variable} ${jetBrainsMono.variable} ${geist.variable} ${geistMono.variable} antialiased`}
+        className={`${bricolage.variable} ${plexMono.variable} antialiased`}
       >
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         {children}

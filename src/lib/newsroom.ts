@@ -15,6 +15,288 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "lectra-v7-keyboard-commands-and-a-signature-that-saves",
+    title: "Keyboard commands, a new tool picker, and a signature that finally saves",
+    date: "2026-08-24",
+    category: "Release",
+    description:
+      "The page editor now answers the menu bar's shortcuts, the floating tool picker was rebuilt, and the signature Lectra never offered to save now saves.",
+    lede:
+      "A release made almost entirely of things that were quietly wrong.",
+    keywords: [
+      "Lectra keyboard shortcuts",
+      "Lectra signature",
+      "Lectra tool picker",
+      "iPad annotation",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Shortcuts now reach the page editor. Until this build the menu bar's commands stopped at the window, so the document you were actually working in never heard them. They land now — and in a split workspace they belong to the document you are working in, not the companion pane beside it.",
+      },
+      {
+        type: "paragraph",
+        text: "The floating tool picker was rebuilt. It sits closer to the page, gets out of the way faster, and stops covering the line you are writing on.",
+      },
+      {
+        type: "paragraph",
+        text: "And the signature bug. Lectra is supposed to notice when you have hand-drawn a signature and offer to keep it for next time. It never did, for a reason that is embarrassing and simple: the check compared a stroke measured in fractions of a page against a threshold measured in points. On a US Letter page the widest possible signature came out one point wide, so nothing was ever big enough to qualify. Same page, same units now — and there is a regression test built from the exact page the report came from, so it cannot drift back.",
+      },
+      {
+        type: "paragraph",
+        text: "Also in this build: text boxes keep their size when the page scales, inserting into a page presents correctly, and Lectra for Mac drops the notch drop target. It was a nice trick that people found by accident and then could not find again; the menu-bar item does the same job where you can actually see it.",
+      },
+    ],
+  },
+  {
+    slug: "lectra-studio",
+    title: "Lectra Studio: a real canvas, next to your notes",
+    date: "2026-08-21",
+    category: "Release",
+    description:
+      "Layers, pressure-aware brushes, text on the canvas, shape guides, version history, and live collaboration — a drawing surface that lives in the same app as the reading it belongs to.",
+    lede:
+      "Ink on a PDF is for marking up someone else's page. Studio is for making your own.",
+    keywords: [
+      "Lectra Studio",
+      "iPad drawing app",
+      "Apple Pencil brushes",
+      "collaborative canvas",
+      "Lectra",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Annotation and drawing are different jobs. Marking up a reading means working on top of a page you did not make. Drawing a mechanism, a free-body diagram, a poster, or a figure for a lab report means making the page. Lectra has been good at the first for a while. Studio is the second.",
+      },
+      {
+        type: "paragraph",
+        text: "It is a full canvas, and it ships with what a canvas needs:",
+      },
+      {
+        type: "list",
+        items: [
+          "Brushes that respond to pressure and tilt, with per-brush variance and stroke smoothing, and presets you can save.",
+          "Layers, with a media library so images and captures sit on the canvas as objects rather than as pasted pixels.",
+          "Text on the canvas, edited in place.",
+          "Shape guides and a precision panel, for when the drawing has to be right rather than expressive.",
+          "Version history, so an experiment is never a one-way door.",
+          "Export to image, to a package, or into a .lectra document alongside the rest of your work.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Two people can now work on the same canvas at once, the way they already could on a document. Strokes, objects, and selections travel between devices while you draw.",
+      },
+      {
+        type: "paragraph",
+        text: "Studio is part of Lectra Notes, not a separate app and not a separate purchase. A canvas can sit beside the reading it came from, in the same library, in the same document.",
+      },
+    ],
+  },
+  {
+    slug: "how-we-count-people-using-scope",
+    title: "How we count people using Scope, and what we never collect",
+    date: "2026-08-19",
+    category: "Security",
+    description:
+      "Scope now counts how many people actually use it — including people who never sign in. Here is exactly what that ping contains, and the much longer list of what it doesn't.",
+    lede:
+      "We could not answer \"how many students use this?\" without asking them to sign in. Now we can, and the answer costs you nothing.",
+    keywords: [
+      "Scope privacy",
+      "usage analytics",
+      "local-first",
+      "no tracking",
+      "active users",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Until this release, Scope could only count people who had signed in. Most people never do — the extension works without an account, which is the point — so the number we had was not the number of people using Scope. It was the number of people using Scope who had also bothered to log in, which is a different and much less useful question.",
+      },
+      {
+        type: "paragraph",
+        text: "Scope now sends a short \"someone is using this\" ping. It contains four things: a random number generated on your device, which product it is, which platform, and the version.",
+      },
+      {
+        type: "paragraph",
+        text: "What it never contains: what you searched for, which pages you visited, course names, file names, anything you read, anything you wrote, or where you are.",
+      },
+      {
+        type: "paragraph",
+        text: "The random install ID is not derived from your device, your hardware, your browser, or your account. It is not shared with anyone and it is not used to build a profile. If you happen to be signed in, the ping is linked to your account — not to learn more about you, but so that using Scope on your laptop and your desktop counts as one person instead of two.",
+      },
+      {
+        type: "paragraph",
+        text: "The part we care most about getting right is what \"active\" means. A browser extension is technically running the whole time Chrome is open, so a ping on a timer would report every install as active every day and the number would be worthless — flattering and worthless. So the ping fires when you actually do something: open Scope, search, land on a course page. Stop, and it goes quiet within about fifteen minutes. Idle time does not count.",
+      },
+      {
+        type: "paragraph",
+        text: "This is the whole of it. There is no second system, no analytics vendor, and nothing sold. The full table is in the extension's privacy documentation.",
+      },
+    ],
+  },
+  {
+    slug: "sending-to-lectra-stops-guessing",
+    title: "Sending to Lectra stops guessing, and Lectra comes to the Mac",
+    date: "2026-08-14",
+    category: "Product",
+    description:
+      "A send that would land on top of a document you already have now says so, and asks. Plus a Mac app that lets your laptop take part in the handoff.",
+    keywords: [
+      "DropBridge",
+      "Send to Lectra",
+      "Lectra for Mac",
+      "file transfer",
+      "Scope extension",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Sending the same reading to Lectra twice used to be a coin flip you did not know you were tossing. You would send a PDF, annotate it, send it again a week later after the instructor reposted it, and end up with either two copies or one copy quietly replaced along with your ink.",
+      },
+      {
+        type: "paragraph",
+        text: "The send now checks first. If what you are sending would land on top of a document already in your library, it says so and asks: replace it, or keep both. That replaces the browser's blocking confirmation box, which could only ever ask \"are you sure?\" about a question you did not have enough information to answer.",
+      },
+      {
+        type: "paragraph",
+        text: "The dialog renders in its own isolated shadow root, because it appears on Canvas pages and Canvas stylesheets are not shy.",
+      },
+      {
+        type: "paragraph",
+        text: "Alongside it: Lectra for Mac. Your laptop is now a destination like your iPad — files sent from the browser land on it, and it can send them back. It runs quietly in the menu bar and does not need the iPad to be awake or nearby.",
+      },
+      {
+        type: "paragraph",
+        text: "Underneath, a new transfer path is in this build: resumable uploads that survive a dropped connection, a delivery ledger so a send is never silently lost, and a direct device-to-device route for when both machines are on the same network. It is switched off by default and stays off until it has run between real devices for longer than it has. Today's sends take the same cloud path they have taken all along.",
+      },
+    ],
+  },
+  {
+    slug: "who-teaches-this-and-does-it-fit-my-week",
+    title: "Who teaches this, and does it fit my week",
+    date: "2026-08-04",
+    category: "Product",
+    description:
+      "Scope now answers the four questions students actually ask while registering — inside Berkeley's Schedule Planner, without opening a single new tab.",
+    lede:
+      "Registration is a research project you run in fifteen browser tabs at 6:58 in the morning. It shouldn't be.",
+    keywords: [
+      "Schedule Planner",
+      "Rate My Professors",
+      "course registration",
+      "UC Berkeley",
+      "Scope extension",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Picking classes means answering four questions over and over: who teaches this, how is it graded, does it fit my week, and where on campus is it. None of those answers are on the registration page. All of them are somewhere else, and you go and get them one tab at a time.",
+      },
+      {
+        type: "paragraph",
+        text: "Scope now answers them on the page. Hover an instructor's name in Schedule Planner and you get their rating, difficulty, would-take-again, the distribution behind the average, and student comments — both their reviews and the campus threads that mention them, linked back to the source.",
+      },
+      {
+        type: "paragraph",
+        text: "Two details we spent most of the work on, because the obvious version of this feature is misleading:",
+      },
+      {
+        type: "list",
+        items: [
+          "Reviews from the same course you are hovering float to the top. A 4.9 earned in a twelve-person seminar tells you very little about the same professor's four-hundred-person lecture, and averaging them together tells you less.",
+          "Professors with more than one profile are not merged. Real instructors often have two or three, with different ratings and different counts. Scope ranks them by department and shows the best match — and when it genuinely cannot tell, it shows both rather than inventing a combined number that exists nowhere.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Hovering a meeting time gives you the week it would make and where the building actually is. Everything renders into one card, so there is only ever one thing on screen.",
+      },
+      {
+        type: "paragraph",
+        text: "This is UC Berkeley's Schedule Planner to start with, because that is the one we could test against every edge case. Other campuses run the same planner software and are next.",
+      },
+    ],
+  },
+  {
+    slug: "a-working-prototype-of-the-instructor-side",
+    title: "A working prototype of the instructor side, and you can click through it",
+    date: "2026-08-02",
+    category: "Product",
+    description:
+      "Six courses, six real working environments, and the whole loop — instructor publishes, student works, student submits, instructor grades. A design prototype, not a shipping product.",
+    lede:
+      "Everything we say about where this goes is easier to argue about when you can click it.",
+    keywords: [
+      "Scope LMS",
+      "instructor tools",
+      "design prototype",
+      "course workspace",
+      "Direction",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "We say the next LMS should not be a better filing cabinet — that an assignment should open into the environment it actually needs rather than into a description with an upload box underneath. That is easy to say and hard to picture. So we built it, as a prototype you can walk through without an account.",
+      },
+      {
+        type: "paragraph",
+        text: "Six courses, six working environments, all built: a repository with an editor, a terminal and checks; a notebook; a derivation canvas; a structure and mechanism editor; a paper beside its lab notebook; and a draft beside its sources. Flip the persona switch and you walk the whole loop — the instructor publishes, the student works, the student submits, the instructor grades, the grade posts back.",
+      },
+      {
+        type: "paragraph",
+        text: "Two things in it matter more than the six environments. Each workspace records what the student did while they did it, and can rebuild its own state from that record — so a submission is a thing that happened, not a file that appeared. And submitting never leaves the workspace: the sheet describes what travels in the vocabulary of the work, files and the latest check run, cells and their outputs, rather than as an attachment.",
+      },
+      {
+        type: "paragraph",
+        text: "Being plain about what this is not: there is no instructor product, no course authoring, no gradebook, no roster sync, and no grade passback in any shipping Scope product. Every course, person, submission, and grade in the prototype is invented. The passback to Canvas is simulated in the browser and reaches nothing. Nothing here charges anyone or claims an institution.",
+      },
+      {
+        type: "paragraph",
+        text: "It exists so instructors and design partners can try the thing the roadmap describes before it is built, and so that when we do build it, there is something specific to build against.",
+      },
+    ],
+  },
+  {
+    slug: "course-indexing-stops-getting-stuck",
+    title: "Course indexing stops getting stuck",
+    date: "2026-07-29",
+    category: "Engineering",
+    description:
+      "A course that stalled at ninety-something percent and never finished was the most common thing people wrote to us about. It's fixed, and there are now tests that fail if it comes back.",
+    keywords: [
+      "Scope indexing",
+      "course materials",
+      "PDF parsing",
+      "local index",
+      "bug fix",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "The single most common message we got: \"it's been indexing this course for an hour.\" Usually at ninety-something percent, usually forever.",
+      },
+      {
+        type: "paragraph",
+        text: "The cause was a queue that could not admit defeat. Course materials are parsed one at a time, and a file that failed in the wrong way — a PDF with a broken page, a link to something that no longer exists, a file the LMS says is there and then will not hand over — did not fail. It waited. Everything behind it waited with it, and the progress bar sat at the last number it had honestly earned.",
+      },
+      {
+        type: "paragraph",
+        text: "The queue now finishes. A file that cannot be parsed is recorded as such and the queue moves on, so one bad document costs you that document instead of the whole course. Indexing reports what it actually covered rather than an optimistic fraction.",
+      },
+      {
+        type: "paragraph",
+        text: "The same release makes searches route better. Asking \"when is the midterm\" and asking \"find the midterm review slides\" want different things, and Scope now tells them apart before it goes looking, instead of running the same retrieval for both and hoping.",
+      },
+      {
+        type: "paragraph",
+        text: "The reason we are reasonably confident this one stays fixed: it now has tests. The parse queue is tested against files that fail in each of the ways real ones do, and index coverage is tested against a course where some materials cannot be read — the case that used to hang.",
+      },
+    ],
+  },
+  {
     slug: "canvascope-is-now-scope",
     title: "Canvascope is now Scope",
     date: "2026-07-28",

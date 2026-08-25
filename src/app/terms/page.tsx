@@ -8,7 +8,7 @@ import { breadcrumbSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Scope",
+  title: "Terms of Service",
   description:
     "The terms for using Scope, Lectra Notes, and the Scope web workspace: accounts, your content, academic integrity, AI features, third-party platforms, and the as-is nature of the product.",
   alternates: {
@@ -61,13 +61,13 @@ export default function TermsPage() {
           ]),
         ]}
       />
-      <section className="page-wrap max-w-4xl py-14 lg:py-20">
+      <section className="page-wrap legal-page">
         <div className="space-y-6">
           <p className="kicker">Terms of service</p>
-          <h1 className="text-5xl sm:text-6xl">
+          <h1>
             What Scope does, what it does not, and what stays your responsibility.
           </h1>
-          <p className="section-copy text-lg">
+          <p className="section-copy">
             These Terms of Service (the &ldquo;Terms&rdquo;) govern your use of
             Scope, Lectra Notes, and the Scope
             website and web workspace (together, the &ldquo;Service&rdquo;),
@@ -88,7 +88,7 @@ export default function TermsPage() {
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h2 className="text-2xl">{section.title}</h2>
+                    <h2 className="">{section.title}</h2>
                     <p className="mt-3 section-copy">
                       {section.copy === SUPPORT_EMAIL ? (
                         <a

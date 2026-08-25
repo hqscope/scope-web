@@ -147,7 +147,7 @@ export default function LectraForMacPage() {
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Lectra", path: "/product/lectra" },
+            { name: "Lectra", path: "/products/lectra" },
             { name: "Lectra for Mac", path: "/mac" },
           ]),
           lectraMacSoftwareSchema(),
@@ -182,7 +182,7 @@ export default function LectraForMacPage() {
                 <Download className="h-4 w-4" aria-hidden="true" />
                 Download for Mac
               </a>
-              <Link href="/product/lectra" className="button-secondary">
+              <Link href="/products/lectra" className="button-secondary">
                 Lectra for iPad
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -198,18 +198,11 @@ export default function LectraForMacPage() {
       </section>
 
       <section className="section-band" id="receiver">
-        <div className="page-wrap split-section" style={{ paddingBlock: 0 }}>
+        <div className="page-wrap split-section">
           <div data-reveal>
             <p className="kicker kicker-muted">If you came here for Receiver</p>
             <h2>Receiver is now part of Lectra for Mac.</h2>
-            <p
-              style={{
-                margin: "1.125rem 0 0",
-                color: "var(--color-ink-soft)",
-                fontSize: "1rem",
-                lineHeight: 1.65,
-              }}
-            >
+            <p className="section-copy">
               There is no separate app to install anymore. Everything Receiver
               did — letting your iPad see and control this Mac, catching
               documents you send over, sharing a clipboard between them — is

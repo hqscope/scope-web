@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Rss } from "lucide-react";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import ScopeMark from "@/components/public/ScopeMark";
 import JsonLd from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -11,7 +11,6 @@ import {
 } from "@/lib/structured-data";
 import {
   articlePath,
-  articleReadingMinutes,
   formatArticleDate,
   newsroomArticles,
 } from "@/lib/newsroom";
@@ -68,9 +67,9 @@ export default async function NewsroomPage({
     ? newsroomArticles.filter((article) => article.category === activeCategory)
     : newsroomArticles;
 
-  const [featuredArticle, ...restArticles] = visibleArticles;
-  const latestArticles = restArticles.slice(0, 3);
-  const moreArticles = restArticles.slice(3, 6);
+  // The newest post leads. Filtering swaps it for the newest in that
+  // category, so the featured slot is never empty or stale.
+  const [featured, ...rest] = visibleArticles;
 
   return (
     <PublicPageFrame active="newsroom" footerVariant="slim">
@@ -82,9 +81,9 @@ export default async function NewsroomPage({
           ]),
           newsroomCollectionSchema(newsroomArticles),
           itemListSchema(
-            "Scope Newsroom articles",
+            "Scope newsroom posts",
             "/newsroom",
-            newsroomArticles.map((article) => ({
+            newsroomArticles.slice(0, 12).map((article) => ({
               name: article.title,
               path: articlePath(article),
             })),
@@ -92,126 +91,74 @@ export default async function NewsroomPage({
         ]}
       />
 
-      <section className="page-wrap news-hero">
-        <div className="news-hero-top" data-reveal>
-          <div>
-            <p className="kicker">Newsroom</p>
-            <h1>News &amp; updates</h1>
-          </div>
-          <p>
-            Product releases, engineering notes, and company news from the team
-            behind Scope and Lectra.
-          </p>
-        </div>
-
-        <nav className="news-filter-row" aria-label="Filter by category">
+      {/* --- Hero --- */}
+      <section className="page-wrap news-hero" data-reveal>
+        <p className="kicker">Newsroom</p>
+        <h1>Building in the open.</h1>
+        <p className="section-copy">
+          Releases, format announcements, and the occasional argument about
+          where course software should go.
+        </p>
+        <div className="news-filter-row">
           <Link
             href="/newsroom"
-            aria-current={activeCategory === null ? "page" : undefined}
+            className={activeCategory ? undefined : "is-active"}
           >
             All
           </Link>
-          {categories.map((item) => (
+          {categories.map((name) => (
             <Link
-              key={item}
-              href={`/newsroom?category=${encodeURIComponent(item)}`}
-              aria-current={activeCategory === item ? "page" : undefined}
+              key={name}
+              href={`/newsroom?category=${encodeURIComponent(name)}`}
+              className={activeCategory === name ? "is-active" : undefined}
             >
-              {item}
+              {name}
             </Link>
           ))}
-          <a href="/feed.xml" aria-label="RSS feed">
-            <Rss className="inline h-3.5 w-3.5" aria-hidden="true" /> RSS
-          </a>
-        </nav>
+        </div>
       </section>
 
-      {featuredArticle ? (
-        <section className="page-wrap news-split">
-          <Link
-            href={articlePath(featuredArticle)}
-            className="news-featured"
-            data-reveal
-          >
-            <div className="news-meta">
-              <span>{featuredArticle.category}</span>
-              <span aria-hidden="true">·</span>
-              <span>{formatArticleDate(featuredArticle.date)}</span>
-              <span aria-hidden="true">·</span>
-              <span>{articleReadingMinutes(featuredArticle)} min read</span>
-            </div>
-            <h2>{featuredArticle.title}</h2>
-            <p>{featuredArticle.lede ?? featuredArticle.description}</p>
+      {/* --- The lead --- */}
+      {featured ? (
+        <section className="page-wrap strip-section" data-reveal>
+          <Link href={articlePath(featured)} className="news-featured">
+            <span className="news-featured-plate">
+              <ScopeMark size={72} />
+              <span>{featured.category}</span>
+            </span>
+            <span className="news-featured-copy">
+              <span className="news-meta">
+                {formatArticleDate(featured.date)} · {featured.category}
+              </span>
+              <strong>{featured.title}</strong>
+              <span className="section-copy">{featured.description}</span>
+              <span className="text-link">Read the post →</span>
+            </span>
           </Link>
-
-          {latestArticles.length > 0 ? (
-            <div className="news-latest" data-reveal>
-              <p>LATEST</p>
-              {latestArticles.map((article) => (
-                <Link key={article.slug} href={articlePath(article)}>
-                  <span>{article.category}</span>
-                  <h3>{article.title}</h3>
-                  <p>{formatArticleDate(article.date)}</p>
-                </Link>
-              ))}
-            </div>
-          ) : null}
         </section>
       ) : null}
 
-      {moreArticles.length > 0 ? (
-        <section className="page-wrap section-pad-sm">
-          <div className="news-section-head">
-            <h2>More stories</h2>
-            <Link href="#archive" className="text-link">
-              View archive →
+      {/* --- The archive --- */}
+      <section className="section-band">
+        <div className="page-wrap newsroom-archive-list">
+          {rest.map((article) => (
+            <Link
+              key={article.slug}
+              href={articlePath(article)}
+              className="newsroom-archive-row"
+            >
+              <span>{formatArticleDate(article.date)}</span>
+              <span>{article.title}</span>
+              <span>{article.category}</span>
             </Link>
-          </div>
-          <div className="news-more-grid" data-reveal>
-            {moreArticles.map((article) => (
-              <Link key={article.slug} href={articlePath(article)}>
-                <div className="news-meta">
-                  <span>{article.category}</span>
-                  <span>{formatArticleDate(article.date)}</span>
-                </div>
-                <h3>{article.title}</h3>
-                <p>{article.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="section-band" id="archive">
-        <div className="page-wrap newsroom-archive">
-          <div className="section-heading">
-            <p className="kicker kicker-muted">Archive</p>
-            <h2>
-              {activeCategory
-                ? `All ${activeCategory} notes.`
-                : "All Scope product notes."}
-            </h2>
-          </div>
-
-          <div className="newsroom-archive-list">
-            {visibleArticles.map((article) => (
-              <Link
-                key={article.slug}
-                href={articlePath(article)}
-                className="newsroom-archive-row"
-              >
-                <span>{formatArticleDate(article.date)}</span>
-                <div>
-                  <h3>{article.title}</h3>
-                  <p>
-                    {article.category} · {articleReadingMinutes(article)} min read
-                  </p>
-                </div>
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
+
+        <p className="page-wrap stack-top">
+          <a href="/feed.xml" className="text-link">
+            Subscribe by RSS →
+          </a>
+        </p>
       </section>
     </PublicPageFrame>
   );

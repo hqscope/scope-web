@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import type { NewsroomArticle } from "@/lib/newsroom";
-import { articlePath, articleReadingMinutes, formatArticleDate } from "@/lib/newsroom";
+import { articlePath, formatArticleDate } from "@/lib/newsroom";
 
 type NewsroomTeaserGridProps = {
   articles: NewsroomArticle[];
@@ -39,11 +39,10 @@ export default function NewsroomTeaserGrid({
         {articles.map((article) => (
           <Link key={article.slug} href={articlePath(article)} className="newsroom-teaser-card">
             <span className="newsroom-card-meta">
-              {formatArticleDate(article.date)} · {article.category} ·{" "}
-              {articleReadingMinutes(article)} min
+              {formatArticleDate(article.date)}
             </span>
             <h3>{article.title}</h3>
-            <p>{article.description}</p>
+            <span className="text-link">Read →</span>
           </Link>
         ))}
       </div>

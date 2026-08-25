@@ -15,7 +15,7 @@ import { breadcrumbSchema } from "@/lib/structured-data";
 import { LECTRA_APP_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Lectra Notes Support | Scope",
+  title: "Lectra Notes Support",
   description:
     "Support information for Lectra Notes, the Scope App Store app for reading, annotating, organizing, and handing off PDFs on iPhone and iPad.",
   alternates: {
@@ -69,13 +69,13 @@ export default function LectraSupportPage() {
           ]),
         ]}
       />
-      <section className="page-wrap max-w-4xl py-14 lg:py-20">
+      <section className="page-wrap legal-page">
         <div className="space-y-6">
           <p className="kicker">Lectra Notes support</p>
-          <h1 className="text-5xl sm:text-6xl">
+          <h1>
             Help for Lectra Notes on iPhone and iPad.
           </h1>
-          <p className="section-copy text-lg">
+          <p className="section-copy">
             Lectra Notes is the Scope App Store app for importing course
             PDFs, organizing readings, annotating with Apple Pencil where
             supported, and moving finished files through connected Scope
@@ -89,7 +89,7 @@ export default function LectraSupportPage() {
             className="public-panel rounded-[1.5rem] p-6"
           >
             <LifeBuoy className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4 text-2xl">Contact support</h2>
+            <h2 className="mt-4">Contact support</h2>
             <p className="mt-3 section-copy">
               Email {SUPPORT_EMAIL} with your device model, iOS or iPadOS
               version, and a short description of the issue.
@@ -103,7 +103,7 @@ export default function LectraSupportPage() {
             className="public-panel rounded-[1.5rem] p-6"
           >
             <Download className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4 text-2xl">App Store listing</h2>
+            <h2 className="mt-4">App Store listing</h2>
             <p className="mt-3 section-copy">
               Download Lectra Notes, check availability, and review the current
               App Store product information.
@@ -127,7 +127,7 @@ export default function LectraSupportPage() {
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="text-2xl">{topic.title}</h3>
+                      <h3 className="">{topic.title}</h3>
                       <p className="mt-3 section-copy">{topic.copy}</p>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function LectraSupportPage() {
         </section>
 
         <section className="mt-14 grid gap-4 sm:grid-cols-3">
-          <Link href="/product/lectra" className="button-secondary justify-center">
+          <Link href="/products/lectra" className="button-secondary justify-center">
             Marketing page
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>

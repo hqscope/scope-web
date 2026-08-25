@@ -121,7 +121,7 @@ export function canvascopeSoftwareSchema() {
     applicationSubCategory: "Student productivity",
     operatingSystem: "ChromeOS, macOS, Windows, Linux",
     browserRequirements: "Requires Google Chrome or a Chromium browser that supports Chrome extensions.",
-    url: absoluteUrl("/product/scope"),
+    url: absoluteUrl("/products/extension"),
     downloadUrl: CHROME_WEB_STORE_URL,
     image: absoluteUrl("/brand/canvascope-extension-screenshot.png"),
     description:
@@ -159,7 +159,7 @@ export function lectraSoftwareSchema() {
     applicationCategory: "EducationalApplication",
     applicationSubCategory: "Note-taking, PDF annotation, and computational notebooks",
     operatingSystem: "iOS 18+, iPadOS 18+",
-    url: absoluteUrl("/product/lectra"),
+    url: absoluteUrl("/products/lectra"),
     downloadUrl: LECTRA_APP_STORE_URL,
     image: absoluteUrl("/brand/lectra-canvascope-lockup.png"),
     description:
@@ -342,7 +342,7 @@ export function agentWorkspaceSoftwareSchema() {
     applicationCategory: "DeveloperApplication",
     applicationSubCategory: "AI agent mission control",
     operatingSystem: "macOS",
-    url: absoluteUrl("/product/agent-workspace"),
+    url: absoluteUrl("/products/agent-workspace"),
     // No downloadUrl until launch — set it alongside
     // AGENT_WORKSPACE_DOWNLOAD_URL in src/lib/site.ts.
     description:
@@ -361,7 +361,7 @@ export function agentWorkspaceSoftwareSchema() {
       price: "0",
       priceCurrency: "USD",
       availability: "https://schema.org/PreOrder",
-      url: absoluteUrl("/product/agent-workspace"),
+      url: absoluteUrl("/products/agent-workspace"),
     },
     publisher: { "@id": `${origin}/#organization` },
   };

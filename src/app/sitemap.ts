@@ -15,25 +15,25 @@ const publicRoutes: {
 }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", lastModified: SEO_UPDATE_DATE },
   {
-    path: "/product/scope",
+    path: "/products/extension",
     priority: 0.95,
     changeFrequency: "weekly",
     lastModified: SEO_UPDATE_DATE,
   },
   {
-    path: "/product/lectra",
+    path: "/products/lectra",
     priority: 0.92,
     changeFrequency: "weekly",
     lastModified: "2026-08-14",
   },
   {
-    path: "/product/lectra/notebooks",
+    path: "/products/lectra/notebooks",
     priority: 0.85,
     changeFrequency: "monthly",
     lastModified: "2026-08-14",
   },
   {
-    path: "/product/lectra/code",
+    path: "/products/lectra/code",
     priority: 0.85,
     changeFrequency: "monthly",
     lastModified: "2026-08-14",
@@ -75,7 +75,7 @@ const publicRoutes: {
     lastModified: "2026-08-14",
   },
   {
-    path: "/product/agent-workspace",
+    path: "/products/agent-workspace",
     priority: 0.9,
     changeFrequency: "weekly",
     lastModified: "2026-07-22",
@@ -107,7 +107,7 @@ const publicRoutes: {
     lastModified: SEO_UPDATE_DATE,
   },
   {
-    path: "/mission",
+    path: "/direction",
     priority: 0.75,
     changeFrequency: "monthly",
     lastModified: "2026-08-03",

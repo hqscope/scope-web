@@ -189,22 +189,22 @@ verified-domain RISC receiver proxy for Google Cross-Account Protection events.
 Public routes include:
 
 - /
-- /product/scope
-- /product/lectra
-- /product/lectra/notebooks (Jupyter .ipynb notebooks with on-device Python on iPad)
-- /product/lectra/code (terminal, Git, code editor, and SSH on iPad)
+- /products/extension
+- /products/lectra
+- /products/lectra/notebooks (Jupyter .ipynb notebooks with on-device Python on iPad)
+- /products/lectra/code (terminal, Git, code editor, and SSH on iPad)
 - /compare (honest comparisons: each page names competitor strengths, with a dated methodology note)
 - /compare/lectra-notes-vs-goodnotes
 - /compare/lectra-notes-vs-notability
 - /compare/best-note-taking-apps-for-cs-students
 - /compare/ipad-python-notebook-apps
 - /compare/free-goodnotes-alternatives
-- /product/agent-workspace
+- /products/agent-workspace
 - /mac
 - /receiver (the former Lectra Receiver landing page; serves the /mac page)
 - /support
 - /support/lectra
-- /mission
+- /direction
 - /research
 - /newsroom
 - /newsroom/[slug]
@@ -252,7 +252,7 @@ Scope's current public position is:
 ## Agent Workspace
 
 Agent Workspace is a Mac desktop app in development, presented at
-https://www.canvascope.org/product/agent-workspace. It turns every live AI
+https://www.canvascope.org/products/agent-workspace. It turns every live AI
 coding session — Claude Code (including subagents), OpenAI Codex CLI, and
 Gemini CLI — into an animated worker in a side-view office building on the
 user's Mac.
@@ -269,7 +269,7 @@ user's Mac.
 
 ## Mission
 
-Scope's mission statement is published at https://www.canvascope.org/mission.
+Scope's mission statement is published at https://www.canvascope.org/direction.
 
 - the premise: coursework is handwritten, drawn, and worked out in notation,
   while the software students get reads only text
@@ -304,7 +304,7 @@ at https://www.canvascope.org/research.
 ## App Store URLs
 
 Lectra Notes App Store support URL: https://www.canvascope.org/support/lectra
-Lectra Notes App Store marketing URL: https://www.canvascope.org/product/lectra
+Lectra Notes App Store marketing URL: https://www.canvascope.org/products/lectra
 
 ## Contact
 

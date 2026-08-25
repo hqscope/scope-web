@@ -16,7 +16,7 @@ import { breadcrumbSchema } from "@/lib/structured-data";
 import { CHROME_WEB_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Support | Scope",
+  title: "Support",
   description:
     "Get help with Scope for Canvas, Lectra Notes, Agent Workspace, and your Scope account. Email canvascopeextension@gmail.com and a person will read it.",
   alternates: {
@@ -39,7 +39,7 @@ const productHelp = [
     title: "Scope for Canvas",
     copy:
       "If search comes up empty or a course looks out of date, open a course page in your LMS and let it finish indexing, then search again. Tell us your school and the course you were looking at and we can narrow it down quickly.",
-    action: { href: "/product/scope", label: "About the extension" },
+    action: { href: "/products/extension", label: "About the extension" },
   },
   {
     icon: Tablet,
@@ -53,7 +53,7 @@ const productHelp = [
     title: "Agent Workspace",
     copy:
       "Agent Workspace is still in early access. If you are on the list and something is broken, email us and mention which build you are running.",
-    action: { href: "/product/agent-workspace", label: "About Agent Workspace" },
+    action: { href: "/products/agent-workspace", label: "About Agent Workspace" },
   },
   {
     icon: UserRound,
@@ -82,11 +82,11 @@ export default function SupportPage() {
           ]),
         ]}
       />
-      <section className="page-wrap max-w-4xl py-14 lg:py-20">
+      <section className="page-wrap legal-page">
         <div className="space-y-6">
           <p className="kicker">Support</p>
-          <h1 className="text-5xl sm:text-6xl">Something not working? Tell us.</h1>
-          <p className="section-copy text-lg">
+          <h1>Something not working? Tell us.</h1>
+          <p className="section-copy">
             Scope is built by a small team, and the same people who write the
             software answer the email. There is no ticket queue and no phone
             tree — write to us and you will hear back from a person.
@@ -96,7 +96,7 @@ export default function SupportPage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           <a href={mailtoHref} className="public-panel rounded-[1.5rem] p-6">
             <Mail className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4 text-2xl">Email us</h2>
+            <h2 className="mt-4">Email us</h2>
             <p className="mt-3 section-copy">
               {SUPPORT_EMAIL}
             </p>
@@ -113,7 +113,7 @@ export default function SupportPage() {
             className="public-panel rounded-[1.5rem] p-6"
           >
             <LifeBuoy className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4 text-2xl">Reinstall or update</h2>
+            <h2 className="mt-4">Reinstall or update</h2>
             <p className="mt-3 section-copy">
               A surprising number of problems clear up after updating to the
               latest version from the Chrome Web Store and reloading your LMS
@@ -165,7 +165,7 @@ export default function SupportPage() {
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <div>
-                      <h3 className="text-2xl">{topic.title}</h3>
+                      <h3 className="">{topic.title}</h3>
                       <p className="mt-3 section-copy">{topic.copy}</p>
                       <Link
                         href={topic.action.href}

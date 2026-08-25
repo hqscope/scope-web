@@ -126,7 +126,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     sessionSecret,
   );
 
-  const returnTo = sanitizeReturnPath(savedState.returnTo ?? null) ?? "/account";
+  const returnTo = sanitizeReturnPath(savedState.returnTo ?? null) ?? "/";
   const redirectUrl = new URL(returnTo, getCanvascopeAuthBaseUrl());
 
   const response = NextResponse.redirect(redirectUrl);

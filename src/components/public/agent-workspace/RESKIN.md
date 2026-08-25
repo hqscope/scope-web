@@ -9,7 +9,7 @@ is a contract the TypeScript depends on.
 ## 1. Cosmetic layer — safe to replace wholesale
 
 Everything below lives in `office-demo.css` (plus the tokens and keyframes in
-`../../../app/product/agent-workspace/agent-workspace.css`). None of it is read
+`../../../app/products/agent-workspace/agent-workspace.css`). None of it is read
 by the simulation.
 
 | What | Where |

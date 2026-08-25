@@ -212,7 +212,7 @@ export default function IpadPythonAppsPage() {
             <p>
               The only one that is also a note-taking app. Notebooks live
               beside the lecture PDF and your handwriting, with{" "}
-              <Link href="/product/lectra/code">a terminal, Git, and SSH</Link>{" "}
+              <Link href="/products/lectra/code">a terminal, Git, and SSH</Link>{" "}
               in the same place — free. When the notebook belongs to a course,
               this is the point.
             </p>

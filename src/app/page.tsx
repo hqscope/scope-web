@@ -1,284 +1,444 @@
 import type { Metadata } from "next";
-import { Fragment, type CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Search } from "lucide-react";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import NewsroomTeaserGrid from "@/components/public/NewsroomTeaserGrid";
+import ScopeMark from "@/components/public/ScopeMark";
+import BriefingMock from "@/components/public/mocks/BriefingMock";
+import CommandPaletteMock from "@/components/public/mocks/CommandPaletteMock";
+import DropBridgeStrip from "@/components/public/mocks/DropBridgeStrip";
+import PolyaChatMock from "@/components/public/mocks/PolyaChatMock";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbSchema, canvascopeSoftwareSchema } from "@/lib/structured-data";
+import {
+  breadcrumbSchema,
+  canvascopeSoftwareSchema,
+} from "@/lib/structured-data";
 import { getNewsroomArticlesBySlugs } from "@/lib/newsroom";
 import { CHROME_WEB_STORE_URL, LECTRA_APP_STORE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Scope | Local-First Canvas and Brightspace Search",
+  title: {
+    absolute: "Scope | The LMS where students actually do the work",
+  },
   description:
-    "Install Scope 10.1, the local-first Chrome extension for searching Canvas and Brightspace coursework, asking cited AI questions, indexing PDFs, using Smart Planner, and moving Lectra PDFs back into browser workflows.",
+    "Scope works with the LMS your school already runs — and puts your reading, notes, code, and questions in one place, tied to the course. Local-first search for Canvas and Brightspace, cited course answers, and an iPad workspace.",
   alternates: {
     canonical: "/",
   },
 };
 
-const flowSteps = [
+const paletteRows = [
   {
-    step: "01 · Chrome",
-    title: "Find & ask",
-    copy:
-      "Scope searches every course and answers questions with cited sources — right in your browser.",
-  },
-  {
-    step: "02 · iPad",
-    title: "Read & annotate",
-    copy:
-      "One click sends any PDF to Lectra over DropBridge for Apple Pencil markup.",
-  },
-  {
-    step: "03 · Back",
-    title: "Submit & done",
-    copy:
-      "Finished files flow back into browser upload pickers. No exporting, no email-to-self.",
-  },
-];
-
-const paletteResults = [
-  {
-    title: "Academic Integrity Pledge",
-    context: "2026 Spring Biology 1A",
-    kind: "quiz",
+    tag: "PDF",
+    title: "Practice Midterm 2 — solutions.pdf",
+    meta: "Files · Exams",
     active: true,
   },
   {
-    title: "PLWS 22",
-    context: "Chem 3A (Spring 2025)",
-    kind: "assignment",
+    tag: "PDF",
+    title: "Practice Midterm 2 (blank).pdf",
+    meta: "Files · Exams",
   },
   {
-    title: "Enzyme Kinetics Worksheet",
-    context: "Biology 1A · inside PDF",
-    kind: "pdf",
+    tag: "Due",
+    tone: "due" as const,
+    title: "Midterm 2 — in class",
+    meta: "Thu Nov 5 · Assignments",
+  },
+  {
+    tag: "Page",
+    title: "Syllabus — exam policy",
+    meta: "Pages",
   },
 ];
 
-const bridgeReceipts = [
+const briefingItems = [
+  { label: "Problem Set 4 due Thursday", course: "Math 53", urgent: true },
+  { label: "Quiz Friday — sections 5.1–5.4", course: "Chem 1A" },
+  { label: "New slides posted — Week 9", course: "BioE 141" },
+];
+
+const loop = [
   {
-    label: "Enzyme Kinetics Worksheet.pdf",
-    meta: "Chrome → iPad",
+    step: "01 — Find",
+    title: "⌘K in the browser",
+    copy:
+      "Every file, page, and assignment across your courses — searched on your device, answers cited to the source.",
   },
   {
-    label: "Delivered to Lectra",
-    meta: "Receipt",
-    done: true,
+    step: "02 — Work",
+    title: "Lectra Notes on iPad",
+    copy:
+      "Ink the reading, run the notebook, keep the library offline. Polya when you're stuck on a step.",
   },
   {
-    label: "Worksheet — annotated.pdf",
-    meta: "iPad → Chrome",
+    step: "03 — Back",
+    title: "Into any upload flow",
+    copy:
+      "Finished files return to the browser and attach wherever the course collects work. DropBridge carries them.",
   },
 ];
 
-const privacyStats = [
-  { value: "0", label: "Data sold" },
-  { value: "0", label: "Ad trackers" },
-  // Milestone published in the newsroom on 2026-03-12.
-  { value: "100K+", label: "Files indexed locally" },
+const extensionFeatures = [
+  {
+    title: "Instant, local search",
+    copy: "Indexed on your device, including OCR on scanned PDFs.",
+  },
+  {
+    title: "Cited course answers",
+    copy:
+      "Ask about the course; every answer points back to the page it came from.",
+  },
+  {
+    title: "Practice exams and a planner",
+    copy:
+      "Built from real course materials. Due dates, optionally in Google Calendar.",
+  },
+];
+
+const lectraFeatures = [
+  {
+    title: "Apple-Pencil-first ink",
+    copy: "Vector ink on PDFs, notebooks, and scans. Your library, offline.",
+  },
+  {
+    title: "A real computing environment",
+    copy: "Python notebooks, a terminal, and Git — offline, on the iPad.",
+  },
+  {
+    title: "On-device document intelligence",
+    copy:
+      "On supported devices. Anything that reaches the cloud is explicit and optional.",
+  },
+];
+
+const roadmap = [
+  {
+    stage: "today" as const,
+    when: "Today",
+    status: "Shipping · free",
+    copy:
+      "The student layer on top of the LMS your school already runs. The extension, Lectra Notes, Polya.",
+  },
+  {
+    stage: "next" as const,
+    when: "Next",
+    status: "In design",
+    copy:
+      "Instructors run the course in Scope — publishing, feedback, grading.",
+  },
+  {
+    stage: "eventually" as const,
+    when: "Eventually",
+    status: "The goal",
+    copy:
+      "The course doesn't need the old system underneath. Replacement becomes a migration, not a leap.",
+  },
 ];
 
 const homeNewsroomArticles = getNewsroomArticlesBySlugs([
-  "canvascope-is-now-scope",
-  "lectra-pdfs-can-now-come-back-into-browser-workflows",
-  "on-device-ai-comes-to-canvascope",
+  "lectra-studio",
+  "who-teaches-this-and-does-it-fit-my-week",
+  "a-working-prototype-of-the-instructor-side",
 ]);
 
 export default function HomePage() {
-  const breadcrumbJsonLd = breadcrumbSchema([{ name: "Home", path: "/" }]);
-
   return (
     <PublicPageFrame>
-      <JsonLd data={[canvascopeSoftwareSchema(), breadcrumbJsonLd]} />
+      <JsonLd
+        data={[
+          breadcrumbSchema([{ name: "Home", path: "/" }]),
+          canvascopeSoftwareSchema(),
+        ]}
+      />
 
-      <section className="page-wrap centered-hero">
-        <div data-reveal>
-          <p className="kicker">Local-first software for students</p>
-          <h1>Coursework, finally&nbsp;searchable.</h1>
-          <p className="centered-hero-lede">
-            Scope indexes every file, deadline, and PDF across your courses — on
-            your device. Ask a question, get an answer cited to your own
-            materials, and move work between Chrome and iPad without exporting
-            anything.
-          </p>
-          <div className="pill-actions" aria-label="Primary actions">
-            <a
-              href={CHROME_WEB_STORE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="button-primary"
-            >
-              Add Scope to Chrome — free
-            </a>
-            <Link href="/product/lectra" className="button-secondary">
-              Get Lectra for iPad →
-            </Link>
+      {/* --- Hero --- */}
+      <section className="page-wrap product-hero">
+        <div className="product-hero-grid">
+          <div className="product-hero-copy" data-reveal>
+            <h1>
+              The LMS where students <em>actually</em> do the work.
+            </h1>
+            <p className="section-copy">
+              Scope works with the LMS your school already runs — and puts your
+              reading, notes, code, and questions in one place, tied to the
+              course.
+            </p>
+            <div className="pill-actions">
+              <a
+                href={CHROME_WEB_STORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="button-primary"
+              >
+                Add Scope to Chrome — free
+              </a>
+              <Link href="/products/lectra" className="button-secondary">
+                Get Lectra Notes →
+              </Link>
+            </div>
+            <p className="hero-note">
+              Works with Canvas and Brightspace · No account required · Free
+            </p>
           </div>
-          <p className="hero-note">
-            Works with Canvas and Brightspace · No account required · Free
-          </p>
-        </div>
 
-        <div
-          className="flow-strip"
-          data-reveal
-          style={{ "--reveal-delay": "120ms" } as CSSProperties}
-        >
-          {flowSteps.map((item, index) => (
-            <Fragment key={item.step}>
-              {index > 0 ? (
-                <div className="flow-arrow" aria-hidden="true">
-                  →
-                </div>
-              ) : null}
-              <article className="flow-card">
-                <p>{item.step.toUpperCase()}</p>
+          <div data-reveal="scale">
+            <CommandPaletteMock
+              query="practice midterm"
+              scope="Math 53 · Fall"
+              rows={paletteRows}
+              footnote="Local index · ⌘L send to Lectra"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* --- The problem --- */}
+      <section className="section-band">
+        <div className="page-wrap split-section" data-reveal>
+          <div>
+            <p className="kicker">The problem</p>
+            <h2>The course lives in the LMS. The work lives everywhere else.</h2>
+            <p className="section-copy">
+              Files, assignments, and grades sit in the system your school runs.
+              The reading gets annotated in one app, the code written in another,
+              the questions asked somewhere else entirely. The LMS only ever sees
+              the final upload.
+            </p>
+          </div>
+          <div className="pull-quote">
+            <p>
+              GoodNotes knows the notebook but not the course. Canvas knows the
+              course but not the work. We connect them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --- Today's loop --- */}
+      <section className="section-band">
+        <div className="page-wrap">
+          <div className="news-hero-top" data-reveal>
+            <div className="loop-heading">
+              <p className="kicker">Today&rsquo;s loop</p>
+              <h2>Find. Work. Back.</h2>
+            </div>
+            <p className="hero-note">Shipping now · free</p>
+          </div>
+
+          <div
+            className="plain-grid stack-top"
+            data-reveal="stagger"
+            style={{ "--stagger-step": "80ms" } as React.CSSProperties}
+          >
+            {loop.map((item, index) => (
+              <div
+                key={item.step}
+                style={{ "--stagger-index": index } as React.CSSProperties}
+              >
+                <p className="kicker kicker--bare">{item.step}</p>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
-              </article>
-            </Fragment>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="page-wrap section-pad">
-        <div className="section-heading" data-reveal>
-          <p className="kicker kicker-muted">The family</p>
-          <h2>Three pieces, one workflow.</h2>
-        </div>
-
-        <div className="stack-top">
-          <div className="feature-band" data-reveal>
-            <div className="feature-band-copy">
-              <p className="kicker">Scope for Canvas · Chrome extension</p>
-              <h3>Find any coursework in seconds.</h3>
-              <p>
-                Assignments, files, deadlines, and text inside PDFs across all
-                your courses — one ⌘K away. Ask questions and get answers with
-                citations from your own materials.
-              </p>
-              <Link href="/product/scope" className="text-link">
-                Explore the extension →
-              </Link>
-            </div>
-
-            <div className="palette-mock" aria-hidden="true">
-              <div className="palette-mock-input">
-                <Search className="h-4 w-4" />
-                <span className="palette-mock-query">
-                  Search · type, title, course
-                </span>
-                <kbd>⌘K</kbd>
-              </div>
-              <div className="palette-mock-rows">
-                {paletteResults.map((result) => (
-                  <div
-                    key={result.title}
-                    className="palette-mock-row"
-                    data-active={result.active ? "true" : undefined}
-                  >
-                    <div>
-                      <strong>{result.title}</strong>
-                      <small>{result.context}</small>
-                    </div>
-                    <span>{result.kind}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="palette-mock-footer">
-                <span>● SCOPE</span>
-                <span>↑↓ NAVIGATE</span>
-                <span>↵ SELECT</span>
-                <span>ESC CLOSE</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="feature-band feature-band-filled feature-band-reverse" data-reveal>
-            <div className="feature-band-copy">
-              <p className="kicker">Lectra · iPad</p>
-              <h3>The reading desk your syllabus deserves.</h3>
-              <p>
-                An Apple-Pencil-first PDF workspace. Highlight, annotate, and
-                organize readings — and everything syncs back through DropBridge
-                when you&apos;re done.
-              </p>
-              <Link href="/product/lectra" className="text-link">
-                Meet Lectra →
-              </Link>
-            </div>
-
-            <div className="media-frame">
-              <video
-                src="/brand/lectra-horizontal.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Lectra Notes document workspace on iPad"
-              />
-            </div>
-          </div>
-
-          <div className="feature-band" data-reveal>
-            <div className="feature-band-copy">
-              <p className="kicker">DropBridge · the connection</p>
-              <h3>Files move themselves.</h3>
-              <p>
-                DropBridge is the realtime link between your browser and your
-                iPad. Push a PDF from Chrome, get a delivery receipt, and pick up
-                the annotated file in any upload flow — both directions.
-              </p>
-              <Link href="/product/scope" className="text-link">
-                How the handoff works →
-              </Link>
-            </div>
-
-            <div className="receipt-list" aria-hidden="true">
-              {bridgeReceipts.map((receipt) => (
-                <div key={receipt.label} className="receipt-row">
-                  <i data-tone={receipt.done ? "done" : undefined} />
-                  <strong>{receipt.label}</strong>
-                  <span>{receipt.meta.toUpperCase()}</span>
-                </div>
+      {/* --- The extension --- */}
+      <section className="section-band">
+        <div className="page-wrap split-section split-section--center" data-reveal>
+          <div>
+            <p className="kicker">Scope extension — Chrome</p>
+            <h2>Your courses, one keystroke away.</h2>
+            <ul className="check-list">
+              {extensionFeatures.map((feature) => (
+                <li key={feature.title}>
+                  <strong>{feature.title}</strong>
+                  <span>{feature.copy}</span>
+                </li>
               ))}
+            </ul>
+            <Link href="/products/extension" className="text-link">
+              Explore the extension →
+            </Link>
+          </div>
+
+          <div className="mock-column">
+            <div className="mock-chips">
+              <span className="mock-chip">/ask</span>
+              <span className="mock-chip">/plan</span>
+              <span className="mock-chip">/quiz</span>
+            </div>
+            <BriefingMock date="Tue Aug 25" items={briefingItems} />
+          </div>
+        </div>
+      </section>
+
+      {/* --- DropBridge --- */}
+      <section className="page-wrap strip-section" data-reveal="fade">
+        <DropBridgeStrip />
+        <p className="strip-note">
+          DropBridge — files move between browser and iPad, and back into any
+          upload flow
+        </p>
+      </section>
+
+      {/* --- Lectra --- */}
+      <section className="section-band">
+        <div className="page-wrap split-section split-section--center" data-reveal>
+          <div className="device-frame">
+            <Image
+              src="/brand/lectra-library-ipad.png"
+              alt="The Lectra Notes library on iPad, showing recent course documents including an organic chemistry midterm review, a physics rotational dynamics reading, and a statics lab worksheet."
+              width={2064}
+              height={1548}
+              quality={90}
+              sizes="(max-width: 860px) 100vw, 50vw"
+            />
+          </div>
+          <div>
+            <p className="kicker">Lectra Notes — iPad · iPhone</p>
+            <h2>
+              The workspace for documents you <em>think</em> on.
+            </h2>
+            <ul className="check-list">
+              {lectraFeatures.map((feature) => (
+                <li key={feature.title}>
+                  <strong>{feature.title}</strong>
+                  <span>{feature.copy}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="link-row">
+              <a
+                href={LECTRA_APP_STORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-link"
+              >
+                Get Lectra Notes →
+              </a>
+              <Link href="/mac" className="link-quiet">
+                Also on Mac →
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="page-wrap privacy-band" data-reveal>
-        <p className="kicker kicker-muted">Privacy, by design</p>
-        <h2>Local-first isn&apos;t a feature. It&apos;s the whole point.</h2>
-        <p>
-          Your course index lives on your devices. Handoffs are end-to-end.
-          On-device AI when available. Nothing sold, ever.
-        </p>
-        <div className="privacy-stats">
-          {privacyStats.map((stat) => (
-            <div key={stat.label}>
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
+      {/* --- Polya --- */}
+      <section className="section-band">
+        <div className="page-wrap split-section split-section--center" data-reveal>
+          <div>
+            <p className="kicker">Polya — web</p>
+            <h2>A tutor that knows the course.</h2>
+            <p className="section-copy">
+              Not a chatbot that knows everything and nothing. Polya grounds
+              every hint in your actual course materials and cites the page,
+              slide, or lecture moment it came from. Guided help that gets you to
+              the answer — not past it.
+            </p>
+            <Link href="/products/polya" className="text-link">
+              Try Polya →
+            </Link>
+          </div>
+
+          <div className="mock-column">
+            <PolyaChatMock
+              question="Why does the sign flip in step 3 of the substitution?"
+              answer="Look at what happens to du when u = cos θ. Before checking the solutions — try writing out the new bounds first. What direction are they running?"
+              sources={["Lecture 14 · Slide 22"]}
+            />
+            <p className="strip-note">
+              Guided, not answer-dumping · every answer cited
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* --- Direction --- */}
+      <section className="section-band section-band--sunken">
+        <div className="page-wrap">
+          <div className="direction-head" data-reveal>
+            <div>
+              <p className="kicker">Direction</p>
+              <h2>The next LMS should not be a better filing cabinet.</h2>
+              <p className="section-copy">
+                It should be the course&rsquo;s execution environment. Here is
+                the path — plainly labeled.
+              </p>
             </div>
-          ))}
+            <p className="hero-note">
+              What we&rsquo;re building —<br />
+              not what ships today
+            </p>
+          </div>
+
+          <div className="roadmap stack-top" data-reveal>
+            {roadmap.map((row) => (
+              <div key={row.when} className="roadmap-row" data-stage={row.stage}>
+                <div className="roadmap-when">
+                  <span>{row.when}</span>
+                  <span>{row.status}</span>
+                </div>
+                <div className="roadmap-body">
+                  <div className="roadmap-bar" />
+                  <p>{row.copy}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="stack-top">
+            <Link href="/direction" className="text-link">
+              See where this goes →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* --- Privacy --- */}
+      <section className="page-wrap section-pad">
+        <div className="privacy-band" data-reveal>
+          <div>
+            <p className="kicker">Privacy</p>
+            <h2>Local-first isn&rsquo;t a feature. It&rsquo;s the whole point.</h2>
+            <p className="section-copy">
+              Your course index is built and searched on your device. Anything
+              that reaches the cloud is explicit and optional — and off by
+              default.
+            </p>
+          </div>
+          <div className="privacy-stats">
+            <div>
+              <span className="stat-zero">0</span>
+              <span className="stat-label">Data sold</span>
+            </div>
+            <div>
+              <span className="stat-zero">0</span>
+              <span className="stat-label">Ad trackers</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <NewsroomTeaserGrid
         articles={homeNewsroomArticles}
-        title="From the newsroom"
-        ctaLabel="All updates →"
+        kicker="Newsroom"
+        title="Building in the open."
+        ctaLabel="All posts →"
       />
 
+      {/* --- Final CTA --- */}
       <section className="page-wrap final-cta" data-reveal>
-        <div>
-          <h2>One flow, from found to submitted.</h2>
-        </div>
+        <ScopeMark size={44} />
+        <h2>Start where you already are.</h2>
+        <p>
+          Scope enters through the LMS your school already runs. Install it, open
+          a course, press ⌘K.
+        </p>
         <div className="pill-actions">
           <a
             href={CHROME_WEB_STORE_URL}
@@ -288,14 +448,9 @@ export default function HomePage() {
           >
             Add Scope to Chrome — free
           </a>
-          <a
-            href={LECTRA_APP_STORE_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="button-secondary"
-          >
-            Get Lectra for iPad
-          </a>
+          <Link href="/products/lectra" className="button-secondary">
+            Get Lectra Notes →
+          </Link>
         </div>
         <p className="hero-note">
           Works with Canvas and Brightspace · No account required · Free

@@ -15,7 +15,7 @@ async function performSignOut(request: NextRequest): Promise<NextResponse> {
 
   return copyResponseCookies(
     response,
-    NextResponse.redirect(new URL(nextPath === "/app" ? "/" : nextPath, request.url)),
+    NextResponse.redirect(new URL(nextPath, request.url)),
   );
 }
 

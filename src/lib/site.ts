@@ -24,8 +24,10 @@ export const AGENT_WORKSPACE_WAITLIST_SOURCE = "agent-workspace";
 export const SUPPORT_EMAIL = "canvascopeextension@gmail.com";
 
 export function sanitizeNextPath(raw: string | null): string {
+  // The student workspace this used to default into no longer exists, so an
+  // absent or hostile `next` lands on the marketing home instead.
   if (!raw || !raw.startsWith("/") || raw.startsWith("//")) {
-    return "/app";
+    return "/";
   }
 
   return raw;

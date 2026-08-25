@@ -7,7 +7,7 @@ import { breadcrumbSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Scope",
+  title: "Privacy Policy",
   description:
     "How Scope and Lectra, operated by Scope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
   alternates: {
@@ -66,13 +66,13 @@ export default function PrivacyPage() {
           ]),
         ]}
       />
-      <section className="page-wrap max-w-4xl py-14 lg:py-20">
+      <section className="page-wrap legal-page">
         <div className="space-y-6">
           <p className="kicker">Privacy policy</p>
-          <h1 className="text-5xl sm:text-6xl">
+          <h1>
             How Scope handles your data.
           </h1>
-          <p className="section-copy text-lg">
+          <p className="section-copy">
             This Privacy Policy explains how the Scope application and
             website (collectively, &ldquo;Scope,&rdquo; the
             &ldquo;Service&rdquo;), operated by Scope Inc., accesses, uses,
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h2 className="text-2xl">{section.title}</h2>
+                    <h2 className="">{section.title}</h2>
                     <p className="mt-3 section-copy">
                       {section.copy === SUPPORT_EMAIL ? (
                         <a

@@ -17,9 +17,9 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#f6f7f9",
+          backgroundColor: "#f6f1e7",
           backgroundImage:
-            "radial-gradient(900px 520px at 88% -10%, rgba(225,18,31,0.16), transparent 60%)",
+            "radial-gradient(900px 520px at 88% -10%, rgba(196,43,38,0.16), transparent 60%)",
           padding: "80px",
           fontFamily: "sans-serif",
         }}
@@ -63,7 +63,7 @@ export default function OpengraphImage() {
             />
           </div>
           <span
-            style={{ fontSize: "40px", fontWeight: 700, color: "#0e1116" }}
+            style={{ fontSize: "40px", fontWeight: 700, color: "#241e18" }}
           >
             Scope
           </span>
@@ -75,7 +75,7 @@ export default function OpengraphImage() {
               fontSize: "68px",
               fontWeight: 800,
               lineHeight: 1.05,
-              color: "#0e1116",
+              color: "#241e18",
               maxWidth: "920px",
               letterSpacing: "-0.02em",
             }}
@@ -83,7 +83,7 @@ export default function OpengraphImage() {
             Search, ask, and move coursework in seconds.
           </span>
           <span
-            style={{ fontSize: "32px", color: "#b60d18", maxWidth: "900px" }}
+            style={{ fontSize: "32px", color: "#6e6053", maxWidth: "900px" }}
           >
             Local-first Chrome extension for Canvas &amp; Brightspace. Cited AI
             answers, PDF/OCR search, and two-way Lectra workflows.
@@ -96,10 +96,10 @@ export default function OpengraphImage() {
             alignItems: "center",
             gap: "12px",
             fontSize: "26px",
-            color: "#0e1116",
+            color: "#241e18",
           }}
         >
-          <span style={{ fontWeight: 700, color: "#e1121f" }}>canvascope.org</span>
+          <span style={{ fontWeight: 700, color: "#c42b26" }}>canvascope.org</span>
           <span style={{ opacity: 0.5 }}>· Free Chrome extension</span>
         </div>
       </div>

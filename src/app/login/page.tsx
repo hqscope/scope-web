@@ -8,7 +8,7 @@ import { sanitizeNextPath } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Sign in",
   description:
-    "Sign in to the Scope workspace to see synced courses, documents, and connected product activity.",
+    "One account across the Scope extension, Lectra, and everything that moves between them.",
 };
 
 const errorCopy: Record<string, string> = {
@@ -28,13 +28,14 @@ export default async function LoginPage({
 
   return (
     <PublicPageFrame>
-      <section className="page-wrap grid gap-10 py-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-20">
+      <section className="page-wrap legal-page legal-page--split">
         <div className="space-y-6">
           <p className="kicker">Sign in</p>
-          <h1 className="text-5xl sm:text-6xl">Use the same account across Scope, Lectra, and the web workspace.</h1>
-          <p className="section-copy text-lg">
-            Sign in once, then move between the extension, Lectra, and the web
-            workspace without losing access to your synced courses and documents.
+          <h1>One account, everywhere Scope runs.</h1>
+          <p className="section-copy">
+            Signing in is optional. Search, indexing, and reading all work
+            without it — an account is what lets your devices recognise each
+            other.
           </p>
 
           <div className="grid gap-3">
@@ -42,9 +43,10 @@ export default async function LoginPage({
               <div className="flex items-start gap-3">
                 <ShieldCheck className="mt-1 h-5 w-5 text-[var(--color-brand)]" />
                 <div>
-                  <p className="font-semibold">Shared identity</p>
+                  <p className="font-semibold">One sign-in</p>
                   <p className="mt-1 text-sm leading-7 text-[var(--color-ink-soft)]">
-                    One sign-in path for the web app, the extension, and Lectra.
+                    The same account across the extension, Lectra on iPad, and
+                    Lectra for Mac.
                   </p>
                 </div>
               </div>
@@ -53,10 +55,10 @@ export default async function LoginPage({
               <div className="flex items-start gap-3">
                 <Network className="mt-1 h-5 w-5 text-[var(--color-brand)]" />
                 <div>
-                  <p className="font-semibold">Real data access</p>
+                  <p className="font-semibold">Devices that find each other</p>
                   <p className="mt-1 text-sm leading-7 text-[var(--color-ink-soft)]">
-                    Signed-in users can inspect synced documents, course
-                    snapshots, and Course Brain artifacts as they actually exist.
+                    Send a reading from the browser and it lands on the right
+                    iPad, then comes back to the right upload.
                   </p>
                 </div>
               </div>
@@ -65,10 +67,10 @@ export default async function LoginPage({
               <div className="flex items-start gap-3">
                 <Lock className="mt-1 h-5 w-5 text-[var(--color-brand)]" />
                 <div>
-                  <p className="font-semibold">Still local-first where it matters</p>
+                  <p className="font-semibold">Still local-first</p>
                   <p className="mt-1 text-sm leading-7 text-[var(--color-ink-soft)]">
-                    Signing in does not turn the extension into a tracking product.
-                    Connected flows remain explicit.
+                    Your course index stays on your device. Signing in does not
+                    change that, and nothing leaves without you asking.
                   </p>
                 </div>
               </div>
@@ -79,14 +81,11 @@ export default async function LoginPage({
         <div className="public-panel rounded-[2rem] p-8 lg:p-10">
           <div className="space-y-6">
             <div className="space-y-3">
-              <p className="app-label text-[var(--color-brand-deep)]">Account access</p>
-              <h2 className="text-3xl">Open the Scope app shell</h2>
+              <p className="kicker">Sign in</p>
+              <h2>Continue with Google</h2>
               <p className="section-copy">
-                After sign-in, you will land in the authenticated workspace at{" "}
-                <span className="rounded-md bg-black/5 px-2 py-1 font-mono text-sm">
-                  {nextPath}
-                </span>
-                .
+                We use Google sign-in so there is no Scope password to store,
+                lose, or leak.
               </p>
             </div>
 
@@ -105,16 +104,16 @@ export default async function LoginPage({
             </a>
 
             <p className="text-sm leading-7 text-[var(--color-ink-soft)]">
-              Prefer to browse first? Head back to the{" "}
+              Nothing to sign in for yet? Head back to the{" "}
               <Link href="/" className="font-semibold text-[var(--color-brand-deep)]">
                 homepage
               </Link>{" "}
               or read the product pages for{" "}
-              <Link href="/product/scope" className="font-semibold text-[var(--color-brand-deep)]">
+              <Link href="/products/extension" className="font-semibold text-[var(--color-brand-deep)]">
                 Scope
               </Link>{" "}
               and{" "}
-              <Link href="/product/lectra" className="font-semibold text-[var(--color-brand-deep)]">
+              <Link href="/products/lectra" className="font-semibold text-[var(--color-brand-deep)]">
                 Lectra
               </Link>
               .
