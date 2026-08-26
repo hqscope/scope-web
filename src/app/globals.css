@@ -554,6 +554,16 @@ h6 {
   color: var(--color-brand);
 }
 
+/* The panel hangs below the nav bar with a gap. Without this bridge the
+   pointer crosses un-hovered space on its way down and the menu closes under
+   the cursor. */
+.nav-menu-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1.25rem 0 auto 0;
+  height: 1.25rem;
+}
+
 .nav-menu-panel {
   position: absolute;
   top: calc(100% + 1.125rem);
