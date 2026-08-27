@@ -159,7 +159,6 @@ export default function HomePage() {
         <div className="product-hero-grid">
           <div className="product-hero-copy" data-reveal>
             <p className="live-users" title={LIVE_USERS_BREAKDOWN}>
-              <span className="live-users-dot" aria-hidden="true" />
               <span className="live-users-label">Live users:</span>
               <span className="live-users-count">{formatUsers(LIVE_USERS)}</span>
             </p>
