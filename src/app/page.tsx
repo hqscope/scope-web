@@ -16,6 +16,7 @@ import {
 } from "@/lib/structured-data";
 import { getNewsroomArticlesBySlugs } from "@/lib/newsroom";
 import { CHROME_WEB_STORE_URL, LECTRA_APP_STORE_URL } from "@/lib/site";
+import { LIVE_USERS, LIVE_USERS_BREAKDOWN, formatUsers } from "@/lib/usage";
 
 export const metadata: Metadata = {
   title: {
@@ -157,6 +158,11 @@ export default function HomePage() {
       <section className="page-wrap product-hero">
         <div className="product-hero-grid">
           <div className="product-hero-copy" data-reveal>
+            <p className="live-users" title={LIVE_USERS_BREAKDOWN}>
+              <span className="live-users-dot" aria-hidden="true" />
+              <span className="live-users-label">Live users:</span>
+              <span className="live-users-count">{formatUsers(LIVE_USERS)}</span>
+            </p>
             <h1>
               The LMS where students <em>actually</em> do the work.
             </h1>

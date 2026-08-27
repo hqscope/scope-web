@@ -855,6 +855,85 @@ h6 {
   font-size: 1.125rem;
 }
 
+/* The live user count above the home headline. A framed plaque rather than
+   another line of copy: mono label, oversized numeral, and the one red dot on
+   the page that moves. Sized to read across the room without competing with
+   the h1 under it — the numeral is large, the label stays small. */
+.live-users {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.625rem 1.125rem 0.75rem;
+  border: 1px solid var(--color-line);
+  border-left: 2px solid var(--color-brand);
+  border-radius: var(--radius);
+  background: var(--color-brand-soft);
+  cursor: default;
+}
+
+.live-users-dot {
+  position: relative;
+  align-self: center;
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--color-brand);
+}
+
+/* The halo, not the dot itself — the dot stays a solid, legible mark while
+   the ring around it breathes. */
+.live-users-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--color-brand);
+  opacity: 0;
+  animation: live-users-pulse 2.4s ease-out infinite;
+}
+
+@keyframes live-users-pulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(0.6);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-users-dot::after {
+    animation: none;
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+.live-users-label {
+  font-family: var(--font-mono);
+  font-size: 0.71875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.live-users-count {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-brand);
+}
+
 /* The /mac and /receiver hero: single column, no mockup. */
 .companion-hero {
   display: flex;
