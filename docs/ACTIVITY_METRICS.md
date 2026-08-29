@@ -2,6 +2,26 @@
 
 Live counts of who is actually using each Scope product — signed in or not.
 
+## Public portfolio usage counter
+
+`GET /api/public/usage` exposes a deliberately narrow, cached aggregate for
+public sites. It returns the Chrome Web Store's public extension-user count,
+the number of Supabase Auth users with an Apple identity, their arithmetic sum,
+and a generation timestamp. It never returns auth rows or user identifiers.
+
+The combined number is a cross-product reach figure, not a deduplicated count
+of people: someone who uses both products may appear in both inputs. The route
+keeps the service-role key server-only, allows cross-origin reads of the public
+aggregate, and caches responses at the CDN for one hour. If either upstream
+source cannot be verified, it returns `503` rather than publishing a partial
+total.
+
+The portfolio keeps a last-verified static fallback and refreshes it from this
+endpoint in the browser. Deploy this backend route before deploying a portfolio
+change that depends on a newer response shape. Rollback is removal of the route
+and its `src/lib/data/publicUsage.ts` helper; there is no database migration or
+RLS change to reverse.
+
 ## Where the numbers come from
 
 | Piece | Lives in |

@@ -855,43 +855,6 @@ h6 {
   font-size: 1.125rem;
 }
 
-/* The live user count above the home headline. A framed plaque rather than
-   another line of copy: mono label, oversized numeral. Sized to read across
-   the room without competing with the h1 under it — the numeral is large, the
-   label stays small. */
-.live-users {
-  display: inline-flex;
-  align-self: flex-start;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0.625rem 1.125rem 0.75rem;
-  border: 1px solid var(--color-line);
-  border-left: 2px solid var(--color-brand);
-  border-radius: var(--radius);
-  background: var(--color-brand-soft);
-  cursor: default;
-}
-
-.live-users-label {
-  font-family: var(--font-mono);
-  font-size: 0.71875rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-}
-
-.live-users-count {
-  font-family: var(--font-mono);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-brand);
-}
-
 /* The /mac and /receiver hero: single column, no mockup. */
 .companion-hero {
   display: flex;
