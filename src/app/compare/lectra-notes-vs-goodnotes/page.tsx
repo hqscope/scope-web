@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import ComparisonTable from "@/components/public/ComparisonTable";
 import MethodologyNote from "@/components/public/MethodologyNote";
+import RelatedLinks from "@/components/public/RelatedLinks";
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
+import { comparePath, comparisonsFor, getComparison } from "@/lib/compare";
+import { getGuide, guidePath } from "@/lib/guides";
+import { publicPageMetadata } from "@/lib/seo";
+import { LECTRA_APP_STORE_CAMPAIGN_URL, LECTRA_DEFINITION } from "@/lib/site";
 import {
   breadcrumbSchema,
   comparisonArticleSchema,
@@ -12,46 +17,57 @@ import {
   faqSchema,
   type FaqEntry,
 } from "@/lib/structured-data";
-import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-const description =
-  "An honest comparison of Lectra Notes and Goodnotes for students: handwriting, PDF markup, audio, AI, pricing, and the computing environment only one of them has.";
+const comparison = getComparison("lectra-notes-vs-goodnotes");
+const annotateGuide = getGuide("annotate-lecture-slides-on-ipad");
 
-export const metadata: Metadata = {
-  title: "Lectra Notes vs Goodnotes",
-  description,
-  alternates: {
-    canonical: "/compare/lectra-notes-vs-goodnotes",
+export const metadata = publicPageMetadata({
+  title: comparison.title,
+  absoluteTitle: comparison.absoluteTitle,
+  description: comparison.description,
+  path: comparePath(comparison),
+  keywords: comparison.keywords,
+  type: "article",
+  publishedTime: comparison.datePublished,
+  modifiedTime: comparison.dateModified,
+});
+
+/* The other Lectra Notes comparisons, plus the iPad annotation guide. */
+const relatedLinks = [
+  ...comparisonsFor("lectra")
+    .filter((item) => item.slug !== comparison.slug)
+    .map((item) => ({
+      href: comparePath(item),
+      label: item.title,
+      copy: item.copy,
+    })),
+  {
+    href: guidePath(annotateGuide),
+    label: annotateGuide.title,
+    copy: annotateGuide.copy,
   },
-  keywords: [
-    "Lectra Notes vs Goodnotes",
-    "Goodnotes alternative",
-    "Goodnotes for students",
-    "iPad note taking comparison",
-    "free Goodnotes alternative",
-  ],
-};
+];
 
 const faqs: FaqEntry[] = [
   {
     question: "Is Lectra Notes better than Goodnotes?",
     answer:
-      "It depends on what you need. Goodnotes has the more mature handwriting engine — including handwriting-to-text conversion — plus audio recording synced to your notes, real-time collaboration, and apps on Windows, Android, and the web. Lectra Notes is completely free and adds a real computing environment: Jupyter notebooks with on-device Python, a terminal with Git, a code editor, and SSH. For STEM and CS students who write code, Lectra Notes does things Goodnotes cannot; for lecture audio or cross-platform sync, Goodnotes is the stronger pick today.",
+      "It depends on what you need. Goodnotes has the more mature handwriting engine — including handwriting-to-text conversion — plus audio recording synced to your notes, real-time collaboration, and apps on Windows, Android, and the web. Lectra Notes is free and adds a computing environment: Python notebooks (.ipynb) that run on the device, a terminal with Git, a code editor, and SSH. For STEM and CS students who write code, Lectra Notes does things Goodnotes cannot; for lecture audio or cross-platform sync, Goodnotes is the stronger pick today.",
   },
   {
     question: "Is Goodnotes free?",
     answer:
-      "Goodnotes has a free tier limited to 3 files with watermarked exports and limited AI, as of August 2026. Full use requires a subscription — Essential at $11.99/year or Pro at $35.99/year — with advanced AI available via a $9.99/month add-on, or a $35.99 one-time Apple-only edition that excludes cross-platform cloud sync.",
+      "Goodnotes has a free tier limited to 3 files with watermarked exports and limited AI, as of August 2026. Full use requires a subscription — Essential at $11.99/year or Pro at $35.99/year — with advanced AI available via an add-on of about $9.99 a month, or a $35.99 one-time Apple-only edition that excludes cross-platform cloud sync.",
   },
   {
     question: "Is Lectra Notes really free?",
     answer:
-      "Yes. Lectra Notes is free with no tiers, subscriptions, watermarks, file caps, ads, or analytics. The notebooks, terminal, Git, code editor, on-device AI study tools, and Lectra for Mac are all included.",
+      "Yes. Lectra Notes is free with no tiers, subscriptions, watermarks, file caps, ads, or third-party analytics. The notebooks, terminal, Git, code editor, on-device AI study tools, and Lectra for Mac are all included.",
   },
   {
     question: "Can Goodnotes run Python or code?",
     answer:
-      "No. Goodnotes has no code editor, computational notebook, or Python capability. Lectra Notes runs real Jupyter .ipynb notebooks with on-device CPython (numpy, pandas, matplotlib), plus a terminal with Git and an SSH client — all offline.",
+      "No. Goodnotes has no code editor, computational notebook, or Python capability. Lectra Notes runs Jupyter-format .ipynb notebooks with Python on the device (numpy, pandas, matplotlib), plus a terminal with Git and an SSH client, no server required.",
   },
   {
     question: "Does Lectra Notes record lectures like Goodnotes?",
@@ -62,23 +78,21 @@ const faqs: FaqEntry[] = [
 
 export default function LectraVsGoodnotesPage() {
   return (
-    <PublicPageFrame active="lectra" footerVariant="slim">
+    <PublicPageFrame active="compare" footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Compare", path: "/compare" },
-            {
-              name: "Lectra Notes vs Goodnotes",
-              path: "/compare/lectra-notes-vs-goodnotes",
-            },
+            { name: comparison.title, path: comparePath(comparison) },
           ]),
           comparisonArticleSchema(
-            "Lectra Notes vs Goodnotes",
-            "/compare/lectra-notes-vs-goodnotes",
-            description,
-            "2026-08-14",
-            "2026-08-14",
+            comparison.title,
+            comparePath(comparison),
+            comparison.description,
+            comparison.datePublished,
+            comparison.dateModified,
+            "#lectra-ipad",
           ),
           competitorAppNode("Goodnotes", "https://www.goodnotes.com"),
           faqSchema(faqs),
@@ -87,13 +101,18 @@ export default function LectraVsGoodnotesPage() {
 
       <section className="page-wrap centered-hero" id="hero">
         <div data-reveal>
-          <p className="kicker">Compare · Updated August 2026</p>
+          <p className="kicker">Compare · Updated September 2026</p>
           <h1>Lectra Notes vs Goodnotes</h1>
           <p className="centered-hero-lede">
-            Goodnotes is the most polished handwriting app on the iPad. Lectra
-            Notes is the only one with a real computing environment — and
-            it&apos;s free. Here&apos;s the honest breakdown, including where
-            Goodnotes wins.
+            Goodnotes has the more polished handwriting engine. Lectra Notes
+            is free and adds a computing environment: Python notebooks, a
+            terminal, and Git that run on the iPad. Here is where each one
+            wins, including where Goodnotes does.
+          </p>
+          <p className="hero-note">
+            {LECTRA_DEFINITION} Goodnotes is a handwriting and PDF note-taking
+            app with a free tier and paid plans, on iPad, Mac, Windows,
+            Android, and the web.
           </p>
         </div>
       </section>
@@ -121,14 +140,14 @@ export default function LectraVsGoodnotesPage() {
               {
                 label: "Handwriting",
                 cells: [
-                  "Custom vector ink engine — pressure-responsive pen, shape recognition, ruler, saved signatures. Handwriting is searchable, but there is no handwriting-to-text conversion.",
+                  "Pressure-responsive pen, shape recognition, ruler, and saved signatures. Handwriting is searchable, but there is no handwriting-to-text conversion.",
                   "Best-in-class: searchable handwriting plus convert-to-text, ink spellcheck, word complete, and handwriting reflow, much of it on-device.",
                 ],
               },
               {
                 label: "PDF markup",
                 cells: [
-                  "Full markup with page management; exports preserve the PDF's selectable text and add an invisible OCR layer. Hybrid PDFs open anywhere and re-import with editable ink.",
+                  "Full markup with page management. Exports keep the PDF's selectable text and make scanned pages searchable; the exported PDF opens anywhere and re-imports with editable ink.",
                   "Strong PDF import and annotation with searchable PDFs and outline support (multi-level outlines Apple-only as of early 2026).",
                 ],
               },
@@ -142,14 +161,14 @@ export default function LectraVsGoodnotesPage() {
               {
                 label: "AI / study tools",
                 cells: [
-                  "Entirely on-device: summaries, grounded Q&A, flashcards, and quizzes on supported devices. Free, with an opt-in consent model — nothing leaves the iPad.",
+                  "On the device: summaries, answers about the open document, flashcards, and quizzes on supported devices. Free, and opt-in.",
                   "Hybrid: on-device ink intelligence, while Ask Goodnotes, quizzes, and Create Mode run in the cloud and are credit-metered behind paid plans.",
                 ],
               },
               {
                 label: "Code & notebooks",
                 cells: [
-                  "Jupyter-compatible .ipynb notebooks with on-device Python (numpy, pandas, matplotlib), a code editor, a terminal with Git, and SSH — all offline.",
+                  "Jupyter-format .ipynb notebooks with Python on the device (numpy, pandas, matplotlib), a code editor, a terminal with Git, and SSH — no server required.",
                   "None.",
                 ],
               },
@@ -204,12 +223,11 @@ export default function LectraVsGoodnotesPage() {
                 <Link href="/mac">remote desktop to your Mac</Link>.
               </li>
               <li>
-                AI that never leaves the device, with a visible consent and
-                audit model.
+                AI study tools that run on the device and are opt-in.
               </li>
               <li>
-                Exports that keep the PDF&apos;s real text and stay
-                re-editable — your documents are never locked in.
+                Exports that keep the PDF&apos;s real text and re-import with
+                editable ink, so your documents are not locked into the app.
               </li>
             </ul>
           </div>
@@ -243,13 +261,15 @@ export default function LectraVsGoodnotesPage() {
         </div>
       </section>
 
+      <RelatedLinks title="More comparisons" links={relatedLinks} />
+
       <section className="page-wrap final-cta" id="download" data-reveal>
         <div>
           <h2>Try the free one first.</h2>
           <p>
-            <a href={LECTRA_APP_STORE_URL} target="_blank" rel="noreferrer">
+            <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
-            </a>{" "}
+            </StoreLink>{" "}
             — free with everything included. If you need lecture audio or
             Windows sync, Goodnotes remains a fine choice, and we said so
             above.

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -12,24 +11,16 @@ import {
 
 import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { CHROME_WEB_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Support",
   description:
     "Get help with Scope for Canvas, Lectra Notes, Agent Workspace, and your Scope account. Email canvascopeextension@gmail.com and a person will read it.",
-  alternates: {
-    canonical: "/support",
-  },
-  openGraph: {
-    title: "Support | Scope",
-    description:
-      "Contact Scope support, find help for each app, and manage your account and data.",
-    type: "website",
-    url: "/support",
-  },
-};
+  path: "/support",
+});
 
 const mailtoHref = `mailto:${SUPPORT_EMAIL}?subject=Scope%20support`;
 
@@ -46,7 +37,7 @@ const productHelp = [
     title: "Lectra Notes",
     copy:
       "Help for importing PDFs, annotating, exporting, and moving documents between Lectra and Scope lives on its own page.",
-    action: { href: "/support/lectra", label: "Lectra support" },
+    action: { href: "/support/lectra", label: "Lectra Notes support" },
   },
   {
     icon: Monitor,
@@ -65,7 +56,7 @@ const productHelp = [
 ];
 
 const emailChecklist = [
-  "Which app you were using: the Chrome extension, Lectra, or the website",
+  "Which app you were using: the Chrome extension, Lectra Notes, or the website",
   "Your school and the course, if it is a search or indexing problem",
   "What you expected to happen, and what happened instead",
   "A screenshot, if the problem is something you can see",

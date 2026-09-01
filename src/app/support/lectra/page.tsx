@@ -10,23 +10,28 @@ import {
 } from "lucide-react";
 
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
-import { LECTRA_APP_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
+import {
+  LECTRA_APP_STORE_URL,
+  LECTRA_DEFINITION,
+  SUPPORT_EMAIL,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Lectra Notes Support",
-  description:
-    "Support information for Lectra Notes, the Scope App Store app for reading, annotating, organizing, and handing off PDFs on iPhone and iPad.",
-  alternates: {
-    canonical: "/support/lectra",
-  },
-  openGraph: {
-    title: "Lectra Notes Support | Scope",
+  ...publicPageMetadata({
+    title: "Lectra Notes Support",
     description:
-      "Get help with Lectra Notes imports, annotations, account access, privacy, and Scope document handoff.",
-    type: "website",
-    url: "/support/lectra",
+      "Support information for Lectra Notes, the Scope App Store app for reading, annotating, organizing, and handing off PDFs on iPhone and iPad.",
+    path: "/support/lectra",
+  }),
+  // Safari's Smart App Banner on iPhone and iPad. The id is the one in
+  // LECTRA_APP_STORE_URL; the argument sends the banner tap back here.
+  itunes: {
+    appId: "6759754531",
+    appArgument: "https://www.canvascope.org/support/lectra",
   },
 };
 
@@ -35,25 +40,25 @@ const supportTopics = [
     icon: Download,
     title: "Importing documents",
     copy:
-      "Use the in-app import controls or the iOS share sheet to bring PDFs into Lectra. If a file does not appear, confirm the file is a PDF and retry from Files.",
+      "Use the in-app import controls or the iOS share sheet to bring PDFs into Lectra Notes. If a file does not appear, confirm the file is a PDF and retry from Files.",
   },
   {
     icon: RefreshCw,
     title: "Scope handoff",
     copy:
-      "For connected workflows, sign in with the same account in Lectra and Scope. Documents sent from Scope may take a moment to appear if realtime delivery falls back to polling.",
+      "For connected workflows, sign in with the same account in Lectra Notes and Scope. Documents sent from Scope may take a moment to appear.",
   },
   {
     icon: FileQuestion,
     title: "Annotations and exports",
     copy:
-      "If a finished PDF looks incomplete after export, reopen the document in Lectra, wait for the save state to settle, then export or send the file again.",
+      "If a finished PDF looks incomplete after export, reopen the document in Lectra Notes, wait for the save state to settle, then export or send the file again.",
   },
   {
     icon: Lock,
     title: "Account and privacy",
     copy:
-      "Lectra includes account deletion from inside the app. Privacy, data-use, and retention details are maintained in the Scope privacy policy.",
+      "Lectra Notes includes account deletion from inside the app. Privacy, data-use, and retention details are maintained in the Scope privacy policy.",
   },
 ];
 
@@ -65,7 +70,7 @@ export default function LectraSupportPage() {
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Support", path: "/support" },
-            { name: "Lectra support", path: "/support/lectra" },
+            { name: "Lectra Notes support", path: "/support/lectra" },
           ]),
         ]}
       />
@@ -76,10 +81,13 @@ export default function LectraSupportPage() {
             Help for Lectra Notes on iPhone and iPad.
           </h1>
           <p className="section-copy">
-            Lectra Notes is the Scope App Store app for importing course
-            PDFs, organizing readings, annotating with Apple Pencil where
-            supported, and moving finished files through connected Scope
-            workflows.
+            {LECTRA_DEFINITION} This page covers importing course PDFs,
+            organizing readings, annotating, exporting, and moving finished
+            files through connected Scope workflows.
+          </p>
+          <p className="section-copy">
+            If you are looking for Lectra SA&apos;s fashion software or a
+            different study app called Lectra, this page is not for them.
           </p>
         </div>
 
@@ -96,10 +104,9 @@ export default function LectraSupportPage() {
             </p>
           </a>
 
-          <a
+          <StoreLink
+            store="app-store"
             href={LECTRA_APP_STORE_URL}
-            target="_blank"
-            rel="noreferrer"
             className="public-panel rounded-[1.5rem] p-6"
           >
             <Download className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
@@ -108,7 +115,7 @@ export default function LectraSupportPage() {
               Download Lectra Notes, check availability, and review the current
               App Store product information.
             </p>
-          </a>
+          </StoreLink>
         </div>
 
         <section className="mt-14 space-y-6">
@@ -139,7 +146,7 @@ export default function LectraSupportPage() {
 
         <section className="mt-14 grid gap-4 sm:grid-cols-3">
           <Link href="/products/lectra" className="button-secondary justify-center">
-            Marketing page
+            About Lectra Notes
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link href="/privacy" className="button-secondary justify-center">

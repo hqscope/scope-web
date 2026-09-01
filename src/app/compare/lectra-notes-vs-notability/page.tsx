@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import ComparisonTable from "@/components/public/ComparisonTable";
 import MethodologyNote from "@/components/public/MethodologyNote";
+import RelatedLinks from "@/components/public/RelatedLinks";
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
+import { comparePath, comparisonsFor, getComparison } from "@/lib/compare";
+import { getGuide, guidePath } from "@/lib/guides";
+import { publicPageMetadata } from "@/lib/seo";
+import { LECTRA_APP_STORE_CAMPAIGN_URL, LECTRA_DEFINITION } from "@/lib/site";
 import {
   breadcrumbSchema,
   comparisonArticleSchema,
@@ -12,31 +17,42 @@ import {
   faqSchema,
   type FaqEntry,
 } from "@/lib/structured-data";
-import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-const description =
-  "An honest comparison of Lectra Notes and Notability: lecture audio, AI study tools, pricing, platforms, and the coding workspace only one of them has.";
+const comparison = getComparison("lectra-notes-vs-notability");
+const annotateGuide = getGuide("annotate-lecture-slides-on-ipad");
 
-export const metadata: Metadata = {
-  title: "Lectra Notes vs Notability",
-  description,
-  alternates: {
-    canonical: "/compare/lectra-notes-vs-notability",
+export const metadata = publicPageMetadata({
+  title: comparison.title,
+  absoluteTitle: comparison.absoluteTitle,
+  description: comparison.description,
+  path: comparePath(comparison),
+  keywords: comparison.keywords,
+  type: "article",
+  publishedTime: comparison.datePublished,
+  modifiedTime: comparison.dateModified,
+});
+
+/* The other Lectra Notes comparisons, plus the iPad annotation guide. */
+const relatedLinks = [
+  ...comparisonsFor("lectra")
+    .filter((item) => item.slug !== comparison.slug)
+    .map((item) => ({
+      href: comparePath(item),
+      label: item.title,
+      copy: item.copy,
+    })),
+  {
+    href: guidePath(annotateGuide),
+    label: annotateGuide.title,
+    copy: annotateGuide.copy,
   },
-  keywords: [
-    "Lectra Notes vs Notability",
-    "Notability alternative",
-    "Notability for students",
-    "iPad note taking comparison",
-    "free Notability alternative",
-  ],
-};
+];
 
 const faqs: FaqEntry[] = [
   {
     question: "Is Lectra Notes better than Notability?",
     answer:
-      "For lecture-heavy classes, Notability is genuinely hard to beat: audio recording synced to your notes is included on every tier, and paid tiers add transcription with AI summaries. Lectra Notes has no lecture recording today. But Lectra Notes is completely free without Notability's 5-note cap, its AI runs on-device instead of in the cloud, and it adds a computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — that Notability doesn't have. Pick by which of those matters more to your classes.",
+      "For lecture-heavy classes, Notability is hard to beat: audio recording synced to your notes is its signature feature, and paid tiers add transcription with AI summaries. Lectra Notes has no lecture recording today. But Lectra Notes is completely free without Notability's 5-note cap, its AI runs on-device instead of in the cloud, and it adds a computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — that Notability doesn't have. Pick by which of those matters more to your classes.",
   },
   {
     question: "Is Notability free?",
@@ -51,34 +67,32 @@ const faqs: FaqEntry[] = [
   {
     question: "Where does Lectra Notes' AI run?",
     answer:
-      "On the device, exclusively — summaries, grounded Q&A, flashcards, and quizzes run on supported iPads and iPhones without sending your documents anywhere, and the features are free. Notability's Learn AI features are processed on its servers (with a stated no-training policy) and require the Plus or Pro plan.",
+      "On the device. The study tools — summaries, answers about the open document, flashcards, and quizzes — run on supported iPads and iPhones without sending your documents off the device, and they are free. Notability's Learn AI features are processed on its servers (with a stated no-training policy) and require the Plus or Pro plan.",
   },
   {
     question: "Can Notability run Python or code?",
     answer:
-      "No. Notability has no code or notebook capability. Lectra Notes runs real Jupyter .ipynb notebooks with on-device Python, plus a terminal with Git and an SSH client, all offline and free.",
+      "No. Notability has no code or notebook capability. Lectra Notes runs Jupyter-format .ipynb notebooks with Python on the device, plus a terminal with Git and an SSH client, free and with no server required.",
   },
 ];
 
 export default function LectraVsNotabilityPage() {
   return (
-    <PublicPageFrame active="lectra" footerVariant="slim">
+    <PublicPageFrame active="compare" footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Compare", path: "/compare" },
-            {
-              name: "Lectra Notes vs Notability",
-              path: "/compare/lectra-notes-vs-notability",
-            },
+            { name: comparison.title, path: comparePath(comparison) },
           ]),
           comparisonArticleSchema(
-            "Lectra Notes vs Notability",
-            "/compare/lectra-notes-vs-notability",
-            description,
-            "2026-08-14",
-            "2026-08-14",
+            comparison.title,
+            comparePath(comparison),
+            comparison.description,
+            comparison.datePublished,
+            comparison.dateModified,
+            "#lectra-ipad",
           ),
           competitorAppNode("Notability", "https://notability.com"),
           faqSchema(faqs),
@@ -87,13 +101,18 @@ export default function LectraVsNotabilityPage() {
 
       <section className="page-wrap centered-hero" id="hero">
         <div data-reveal>
-          <p className="kicker">Compare · Updated August 2026</p>
+          <p className="kicker">Compare · Updated September 2026</p>
           <h1>Lectra Notes vs Notability</h1>
           <p className="centered-hero-lede">
             Notability owns lecture audio — recording synced to your notes is
-            its signature, and it&apos;s earned. Lectra Notes is free without
-            note caps and adds a real computing environment. The honest
-            breakdown:
+            its signature feature. Lectra Notes is free without note caps and
+            adds a computing environment: Python notebooks, a terminal, and
+            Git that run on the iPad. Here is where each one wins.
+          </p>
+          <p className="hero-note">
+            {LECTRA_DEFINITION} Notability is a handwriting and lecture-audio
+            note-taking app for iPhone, iPad, Mac, Android, and the web, with a
+            free Starter plan and paid tiers.
           </p>
         </div>
       </section>
@@ -118,38 +137,43 @@ export default function LectraVsNotabilityPage() {
                   "iPhone, iPad, Mac, Vision Pro, web, and a new native Android app (launched August 2026). No native Windows app.",
                 ],
               },
+              // verify: whether recording is included on the free Starter
+              // plan. Notability's pricing page on 2026-09-01 lists "Record &
+              // transcribe audio" under Plus and does not mention recording
+              // under Starter; the earlier "every tier, including free" claim
+              // was compiled on 2026-08-14, so the copy no longer asserts it.
               {
                 label: "Audio",
                 cells: [
-                  "None today.",
-                  "Recording synced to notes on every tier, including free. Transcription on Plus; unlimited live transcription with real-time AI summaries on Pro. Audio is processed on Notability's servers and deleted after transcription.",
+                  "None — Lectra Notes does not record lectures or sync audio to notes today.",
+                  "Recording synced to notes, its signature feature. As of September 1, 2026 its pricing page lists recording and transcription under Plus, with unlimited live transcription and real-time AI summaries on Pro; we could not confirm recording on the free Starter plan. Audio is processed on Notability's servers and deleted after transcription.",
                 ],
               },
               {
                 label: "Handwriting",
                 cells: [
-                  "Custom vector ink engine — pressure-responsive pen, shape recognition, ruler, saved signatures. Handwriting is searchable; no handwriting-to-text conversion.",
+                  "Pressure-responsive pen, shape recognition, ruler, and saved signatures. Handwriting is searchable; no handwriting-to-text conversion.",
                   "Mature ink engine incl. a tilt-responsive calligraphy pen. Handwriting recognition, search, and handwritten-math-to-LaTeX — on paid tiers, in the apps (not web).",
                 ],
               },
               {
                 label: "PDF markup",
                 cells: [
-                  "Full markup with page management; exports preserve the PDF's selectable text and add an OCR layer; hybrid PDFs re-import with editable ink.",
+                  "Full markup with page management. Exports keep the PDF's selectable text and make scanned pages searchable; the exported PDF re-imports with editable ink.",
                   "PDF, doc, and slide import with annotation and scanning on all tiers.",
                 ],
               },
               {
                 label: "AI / study tools",
                 cells: [
-                  "Entirely on-device and free: summaries, grounded Q&A, flashcards, quizzes on supported devices. Nothing leaves the iPad.",
+                  "On the device and free: summaries, answers about the open document, flashcards, and quizzes on supported devices.",
                   "Notability Learn (cloud-based, paid): summaries, quizzes, flashcards, YouTube-to-note, chat with your notes. Capped on Plus; unlimited on Pro at $99.99/yr.",
                 ],
               },
               {
                 label: "Code & notebooks",
                 cells: [
-                  "Jupyter-compatible .ipynb notebooks with on-device Python (numpy, pandas, matplotlib), a code editor, a terminal with Git, and SSH — all offline.",
+                  "Jupyter-format .ipynb notebooks with Python on the device (numpy, pandas, matplotlib), a code editor, a terminal with Git, and SSH — no server required.",
                   "None.",
                 ],
               },
@@ -171,8 +195,8 @@ export default function LectraVsNotabilityPage() {
             <p className="kicker kicker-muted">Where Notability wins</p>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-[0.95rem] leading-relaxed text-[var(--color-ink-soft)]">
               <li>
-                Lecture audio synced to your handwriting — free to record,
-                transcribed on paid tiers.
+                Lecture audio synced to your handwriting, transcribed on paid
+                tiers.
               </li>
               <li>Cross-device sync today, now including Android.</li>
               <li>
@@ -189,8 +213,8 @@ export default function LectraVsNotabilityPage() {
                 watermark, no subscription.
               </li>
               <li>
-                AI that is free and never leaves the device — no cloud
-                processing, no monthly question caps.
+                AI study tools that are free and run on the device, with no
+                monthly question caps.
               </li>
               <li>
                 The computing environment: Python notebooks, terminal, Git,
@@ -198,8 +222,8 @@ export default function LectraVsNotabilityPage() {
                 <Link href="/mac">remote desktop to your Mac</Link>.
               </li>
               <li>
-                Lock-in-free exports: real selectable text, an OCR layer, and
-                hybrid PDFs that stay editable.
+                Exports that keep the PDF&apos;s selectable text, make scanned
+                pages searchable, and re-import with editable ink.
               </li>
             </ul>
           </div>
@@ -233,13 +257,15 @@ export default function LectraVsNotabilityPage() {
         </div>
       </section>
 
+      <RelatedLinks title="More comparisons" links={relatedLinks} />
+
       <section className="page-wrap final-cta" id="download" data-reveal>
         <div>
           <h2>No note cap. No question cap. No bill.</h2>
           <p>
-            <a href={LECTRA_APP_STORE_URL} target="_blank" rel="noreferrer">
+            <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
-            </a>{" "}
+            </StoreLink>{" "}
             — free with everything included. If lecture recording is your
             workflow, Notability earns its place, and we said so above.
           </p>

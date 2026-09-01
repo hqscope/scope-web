@@ -1,5 +1,4 @@
 import { Fragment, type CSSProperties } from "react";
-import type { Metadata } from "next";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import JsonLd from "@/components/seo/JsonLd";
@@ -9,6 +8,7 @@ import ApprovalsScene from "@/components/public/agent-workspace/illustrations/Ap
 import FloorsStack from "@/components/public/agent-workspace/illustrations/FloorsStack";
 import InspectPanelMock from "@/components/public/agent-workspace/illustrations/InspectPanelMock";
 import TimeOfDayCards from "@/components/public/agent-workspace/illustrations/TimeOfDayCards";
+import { publicPageMetadata } from "@/lib/seo";
 import { AGENT_WORKSPACE_DOWNLOAD_URL } from "@/lib/site";
 import {
   agentWorkspaceSoftwareSchema,
@@ -20,13 +20,11 @@ import {
 import { awMono, awSans } from "./fonts";
 import "./agent-workspace.css";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Agent Workspace - Mission Control for AI Coding Agents",
   description:
     "Agent Workspace is a Mac app that turns every live AI coding session into a worker in an animated office. Claude Code, Codex, and Gemini agents appear the moment they start — typing, thinking, raising a hand when they need you. Join the early-access waitlist.",
-  alternates: {
-    canonical: "/products/agent-workspace",
-  },
+  path: "/products/agent-workspace",
   keywords: [
     "Agent Workspace",
     "AI coding agent dashboard",
@@ -37,7 +35,7 @@ export const metadata: Metadata = {
     "Mac menu bar app",
     "multi-agent coding",
   ],
-};
+});
 
 /* ------------------------------------------------------------------
    Launch-state CTA. Flip AGENT_WORKSPACE_DOWNLOAD_URL in src/lib/site.ts
@@ -144,7 +142,7 @@ const DETAILS = [
   },
   {
     title: "local-first",
-    body: "sessions, logs and costs never leave your Mac.",
+    body: "sessions, logs and costs stay on your Mac.",
   },
   {
     title: "⌘N from anywhere",
@@ -156,7 +154,7 @@ const DETAILS = [
   },
   {
     title: "every CLI welcome",
-    body: "Claude Code, Codex and Gemini today; adapters for more.",
+    body: "Claude Code, Codex and Gemini today; more to come.",
   },
   {
     title: "clean exits",
@@ -178,17 +176,17 @@ const FAQS: FaqEntry[] = [
   {
     question: "Do I need to set anything up?",
     answer:
-      "No. Run your agents exactly the way you always do and they walk in on their own. Point the office at a folder and that project gets its own floor.",
+      "Run your agents the way you already do and they walk in on their own. Point the office at a folder and that project gets its own floor.",
   },
   {
     question: "Will it slow my agents down?",
     answer:
-      "No. The office watches from the side and never stands between you and your agents — they work at exactly the speed they always did.",
+      "It is built to watch from the side rather than sit between you and your agents, so it should not change how fast they run.",
   },
   {
-    question: "Does anything leave my Mac?",
+    question: "Does Agent Workspace send anything off my Mac?",
     answer:
-      "No. Sessions, logs and costs are local-first: they stay on your machine.",
+      "Agent Workspace keeps sessions, logs and costs on your Mac. Your agents still talk to their own providers exactly as they do without it.",
   },
   {
     question: "When can I use it?",

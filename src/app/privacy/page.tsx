@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
+import Link from "next/link";
 import { Bot, CalendarPlus, Database, Lock, ShieldCheck, UserRound } from "lucide-react";
 
+import ComparisonTable from "@/components/public/ComparisonTable";
 import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Privacy Policy",
   description:
-    "How Scope and Lectra, operated by Scope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
-  alternates: {
-    canonical: "/privacy",
-  },
-};
+    "How Scope and Lectra Notes, operated by Scope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
+  path: "/privacy",
+});
 
-const LAST_UPDATED = "July 28, 2026";
+const LAST_UPDATED = "September 1, 2026";
 
 const highlights = [
   {
@@ -34,13 +34,13 @@ const highlights = [
     icon: Bot,
     title: "AI is local-first, with explicit fallback",
     copy:
-      "The extension tries Chrome's on-device model first. If cloud fallback is used, retrieved prompt context is sent through authenticated Scope endpoints only to generate the requested answer.",
+      "The extension tries Chrome's on-device model first. If cloud fallback is used, the retrieved course context is sent through Scope's own servers only to generate the requested answer.",
   },
   {
     icon: Lock,
     title: "Shared identity, scoped access",
     copy:
-      "The website uses the same shared account system as Scope and Lectra. Access to synced records stays scoped to the signed-in user, protected by secure access controls, and hardened by cross-account protection events.",
+      "The website uses the same shared account system as Scope and Lectra Notes. Access to synced records stays scoped to the signed-in user, protected by secure access controls, and hardened by cross-account protection events.",
   },
   {
     icon: CalendarPlus,
@@ -220,6 +220,89 @@ export default function PrivacyPage() {
           <section className="space-y-4">
             <h2 className="text-3xl">Scope browser extension and clipboard data</h2>
             <p className="section-copy">
+              <strong>Permissions at a glance.</strong> What the Scope browser
+              extension asks for and what each item is used for, in one place.
+              The paragraphs of this policy are the controlling description.
+              For what to check before installing any Canvas extension, see{" "}
+              <Link
+                href="/guides/canvas-extension-safety"
+                className="font-semibold text-[var(--color-brand-deep)] underline underline-offset-4"
+              >
+                Are Canvas extensions safe?
+              </Link>
+              .
+            </p>
+            <ComparisonTable
+              caption="Scope browser extension permissions at a glance"
+              columns={["Used for", "Optional?"]}
+              rows={[
+                {
+                  label: "Canvas and Brightspace course pages",
+                  cells: [
+                    "Reading the course pages you open to build the LMS search index, which is stored in browser-local storage. The extension’s page features are declared for Canvas, Brightspace, Gradescope, Kaltura lecture-video pages, and Berkeley’s course scheduler, and are not loaded on login, logout, or single-sign-on pages.",
+                    "Needed for search.",
+                  ],
+                },
+                {
+                  label: "All websites and local files",
+                  cells: [
+                    /* verify: why the all-sites host permission is declared */
+                    "The extension declares access to all websites and to local files, so Chrome’s install prompt shows that access.",
+                    "Granted at install. Site access can be narrowed afterwards in Chrome’s extension settings.",
+                  ],
+                },
+                {
+                  label: "Open tabs and navigation",
+                  cells: [
+                    "Lets the extension see the address and title of open tabs and when pages finish loading; Chrome describes this as reading browsing history. The Chrome Web Store listing discloses web history and user activity among the data handled.",
+                    "Granted at install.",
+                  ],
+                },
+                {
+                  label: "Browser-local storage",
+                  cells: [
+                    "Holding the core LMS search index and the clipboard entries described in this section.",
+                    "Needed.",
+                  ],
+                },
+                {
+                  label: "Google sign-in (openid, email, profile)",
+                  cells: [
+                    "Authenticating you and keeping synced course snapshots, documents, Course Brain artifacts, and student profile facts scoped to your account.",
+                    "Optional; requested only for account-linked product features.",
+                  ],
+                },
+                {
+                  label: "Google Calendar (calendar.events)",
+                  cells: [
+                    "Creating selected course schedule events in Google Calendar when you run the syllabus or planner calendar sync. OAuth tokens are kept until you disconnect access or they expire.",
+                    "Optional; requested only for that feature. Core search does not require it.",
+                  ],
+                },
+                {
+                  label: "Clipboard",
+                  cells: [
+                    "Capturing the raw text in your clipboard (capped at 4,000 characters per entry) when you copy, cut, or paste on Canvas, Brightspace, or other sites and applications, or when a page loads. It is stored in browser-local storage, synced under the same secure sync path as your grades, notes, and tasks, and processed locally into an assignment-engagement summary for your Student Profile, which never contains the raw text.",
+                    "Part of the extension, as described in the paragraphs below.",
+                  ],
+                },
+                {
+                  label: "AI answers",
+                  cells: [
+                    "Chrome’s on-device model first. If cloud fallback is used, or a full-course context question needs a larger cloud route, the retrieved course context is sent through Scope’s own servers to Google (Gemini) or Anthropic (Claude) solely to generate the requested answer.",
+                    "Cloud fallback is optional.",
+                  ],
+                },
+                {
+                  label: "Never used for",
+                  cells: [
+                    "Selling your data, advertising, data brokers, or training generalized AI or machine learning models. Scope does not take quizzes, write submissions, or interact with Canvas quiz logs.",
+                    "—",
+                  ],
+                },
+              ]}
+            />
+            <p className="section-copy">
               To support connected study workflows, help you organize assignments, and build your Student Profile, the Scope browser extension reads, stores, and syncs clipboard activity.
             </p>
             <p className="section-copy">
@@ -229,7 +312,7 @@ export default function PrivacyPage() {
               We keep the actual text because what you copy is the clearest signal of what you are working on. It lets Scope point you somewhere useful next &mdash; the course page, reading, or outside site that covers the passage you just copied &mdash; pull up related material already in your courses, and give you a fuller explanation of that specific excerpt instead of a generic one. It also helps Scope notice patterns in how you study, such as which passages or phrasing you keep returning to, and surface resources that match.
             </p>
             <p className="section-copy">
-              The raw text is processed locally on your device to derive a content-light, privacy-preserving <code>assignment_engagement</code> summary for your Student Profile. This derived summary itself never contains the raw clipboard text. We do not use the raw clipboard text or any other user content to train, develop, or improve generalized AI or machine learning models, and we never use it for advertising or share it with data brokers.
+              The raw text is processed locally on your device to derive a content-light, privacy-preserving assignment-engagement summary for your Student Profile. This derived summary itself never contains the raw clipboard text. We do not use the raw clipboard text or any other user content to train, develop, or improve generalized AI or machine learning models, and we never use it for advertising or share it with data brokers.
             </p>
           </section>
 
@@ -243,7 +326,7 @@ export default function PrivacyPage() {
             </p>
             <ul className="section-copy list-disc space-y-2 pl-6">
               <li>
-                <strong>Service providers / subprocessors:</strong> We use trusted
+                <strong>Service providers / subprocessors:</strong> We use
                 infrastructure providers, including Supabase (database and
                 authentication) and our hosting provider, to store and
                 process data strictly on our behalf and under contractual
@@ -254,9 +337,9 @@ export default function PrivacyPage() {
                 <strong>AI fallback providers:</strong> Scope tries Chrome&apos;s
                 on-device model first. If you use cloud AI fallback, or if a
                 full-course context question needs a larger cloud route,
-                retrieved prompt context may be sent through authenticated
-                Scope Supabase Edge Functions to Google Gemini or Anthropic
-                Claude APIs solely to generate the requested answer. This does
+                the retrieved course context may be sent through Scope&apos;s
+                own servers to Google (Gemini) or Anthropic (Claude) solely to
+                generate the requested answer. This does
                 not change the local-first search index, and we do not use this
                 data to train generalized AI models.
               </li>
@@ -363,7 +446,7 @@ export default function PrivacyPage() {
               To deliver documents in near real time, Lectra also registers an
               Apple Push Notification service (APNs) device token, your
               device&rsquo;s name (for example, &ldquo;Jordan&rsquo;s iPad&rdquo;),
-              and the device identifier above with our Supabase backend. These are
+              and the device identifier above with our servers. These are
               used solely to wake the app and fetch your pending documents.
             </p>
             <p className="section-copy">
@@ -428,7 +511,7 @@ export default function PrivacyPage() {
               this may include selected text, file contents, diffs, diagnostics,
               tool results, commands, and command output. Anthropic processes
               that data to return the requested response. Scope does not
-              proxy these requests through Scope or Supabase servers and
+              route these requests through its own servers and
               does not collect prompts, code, paths, commands, diffs, or agent
               responses as analytics or telemetry. Anthropic&rsquo;s processing is
               governed by its own{" "}
@@ -505,7 +588,7 @@ export default function PrivacyPage() {
             <p className="section-copy">
               <strong>iCloud.</strong> If you enable cloud sync or backup, Lectra
               can store recovery snapshots of your documents in your own private
-              iCloud (CloudDocuments) container and can sync structured Lectra
+              iCloud storage and can sync structured Lectra
               Agent conversation history. This data lives in your personal iCloud
               account under Apple&rsquo;s control; we do not separately collect or
               read your iCloud backups. Anthropic API keys and raw agent tool
@@ -542,6 +625,12 @@ export default function PrivacyPage() {
               Because Lectra does not track you, it does not present the App
               Tracking Transparency prompt.
             </p>
+            <p className="section-copy">
+              The canvascope.org website uses Vercel Web Analytics and Vercel
+              Speed Insights: first-party page-view and performance measurement
+              served from this site, with no cookies, no personal data, and no
+              tracking across other sites.
+            </p>
           </section>
 
           <section className="space-y-4">
@@ -549,9 +638,8 @@ export default function PrivacyPage() {
             <p className="section-copy">
               In line with Apple&rsquo;s account-deletion requirement, Lectra lets
               you permanently delete your account directly in the app from Account
-              Settings. Account deletion runs a secure server-side function that
-              removes your account and the associated server-side data, then signs
-              you out and clears Lectra&rsquo;s on-device data for that account,
+              Settings. Account deletion removes your account and the associated
+              server-side data, then signs you out and clears Lectra&rsquo;s on-device data for that account,
               including its Anthropic key and local coding-agent history. Synced
               coding-agent history in Lectra&rsquo;s private iCloud container is also
               removed through the app&rsquo;s account-deletion cleanup.

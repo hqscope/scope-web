@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 
 import NavMenu from "@/components/public/NavMenu";
 import ScopeMark from "@/components/public/ScopeMark";
+import StoreLink from "@/components/seo/StoreLink";
 import { CHROME_WEB_STORE_URL } from "@/lib/site";
 
 /** The products the "Products" menu opens onto, in shipping order. */
@@ -15,6 +16,8 @@ const productLinks: { href: string; label: string }[] = [
 ];
 
 const links: { href: string; label: string }[] = [
+  { href: "/compare", label: "Compare" },
+  { href: "/guides", label: "Guides" },
   { href: "/direction", label: "Direction" },
   { href: "/newsroom", label: "Newsroom" },
   { href: "/support", label: "Support" },
@@ -25,6 +28,8 @@ export type PublicNavSection =
   | "lectra"
   | "polya"
   | "agent-workspace"
+  | "compare"
+  | "guides"
   | "direction"
   | "newsroom"
   | "support"
@@ -35,6 +40,8 @@ const sectionByHref: Record<string, PublicNavSection> = {
   "/products/lectra": "lectra",
   "/products/polya": "polya",
   "/products/agent-workspace": "agent-workspace",
+  "/compare": "compare",
+  "/guides": "guides",
   "/direction": "direction",
   "/newsroom": "newsroom",
   "/support": "support",
@@ -61,10 +68,14 @@ const defaultCta: PublicHeaderCta = {
 
 function Cta({ cta, className }: { cta: PublicHeaderCta; className?: string }) {
   if (cta.external) {
+    const store = cta.href.includes("apps.apple.com")
+      ? "app-store"
+      : "chrome-web-store";
+
     return (
-      <a href={cta.href} target="_blank" rel="noreferrer" className={className}>
+      <StoreLink store={store} href={cta.href} className={className}>
         {cta.label}
-      </a>
+      </StoreLink>
     );
   }
 
@@ -132,7 +143,7 @@ export default function PublicHeader({
                   {link.label}
                 </Link>
               ))}
-              <span className="public-mobile-panel-label">Company</span>
+              <span className="public-mobile-panel-label">Explore</span>
               {links.map((link) => (
                 <Link key={link.href} href={link.href}>
                   {link.label}

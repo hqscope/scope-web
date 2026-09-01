@@ -2,7 +2,12 @@ import Link from "next/link";
 
 import PreferredSourceLink from "@/components/public/PreferredSourceLink";
 import ScopeMark from "@/components/public/ScopeMark";
-import { CHROME_WEB_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
+import StoreLink from "@/components/seo/StoreLink";
+import {
+  CHROME_WEB_STORE_URL,
+  SUPPORT_EMAIL,
+  TRADEMARK_DISCLAIMER,
+} from "@/lib/site";
 
 export type PublicFooterVariant = "full" | "slim";
 
@@ -10,17 +15,20 @@ const slimLinks = [
   { href: "/products/extension", label: "Extension" },
   { href: "/products/lectra", label: "Lectra Notes" },
   { href: "/products/polya", label: "Polya" },
-  { href: "/direction", label: "Direction" },
+  { href: "/compare", label: "Compare" },
+  { href: "/guides", label: "Guides" },
   { href: "/newsroom", label: "Newsroom" },
 ];
 
-/* The two lines that close every page. "Formerly Canvascope" gets exactly
-   two placements site-wide: here and the legal pages. */
+/* The lines that close every page. "Formerly Canvascope" gets exactly two
+   placements site-wide: here and the legal pages. The trademark line is the
+   nominative-use notice every page that names Canvas or Brightspace needs. */
 function Colophon() {
   return (
     <>
       <span>© 2026 Scope · formerly Canvascope</span>
       <span>Works with Canvas and Brightspace</span>
+      <span className="public-footer-disclaimer">{TRADEMARK_DISCLAIMER}</span>
     </>
   );
 }
@@ -67,14 +75,13 @@ export default function PublicFooter({
         <div className="public-footer-lede">
           <Brand />
           <p>The LMS where students actually do the work.</p>
-          <a
+          <StoreLink
+            store="chrome-web-store"
             href={CHROME_WEB_STORE_URL}
-            target="_blank"
-            rel="noreferrer"
             className="public-footer-store"
           >
             Chrome Web Store →
-          </a>
+          </StoreLink>
           {/* The lede column is the narrowest place the badge lands, so it
               takes the short label. */}
           <PreferredSourceLink
@@ -92,6 +99,12 @@ export default function PublicFooter({
             <Link href="/products/polya">Polya</Link>
             <Link href="/mac">Lectra for Mac</Link>
             <Link href="/products/agent-workspace">Agent Workspace</Link>
+          </div>
+          <div>
+            <p>Learn</p>
+            <Link href="/compare">Compare</Link>
+            <Link href="/guides">Guides</Link>
+            <Link href="/press">Press kit</Link>
           </div>
           <div>
             <p>Company</p>

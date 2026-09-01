@@ -3,6 +3,8 @@ import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 import JsonLd from "@/components/seo/JsonLd";
+import SiteAnalytics from "@/components/seo/SiteAnalytics";
+import { SCOPE_DEFINITION } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 
 // Bricolage is variable across optical size and weight; the display sizes
@@ -29,8 +31,7 @@ export const metadata: Metadata = {
     default: "Scope",
     template: "%s | Scope",
   },
-  description:
-    "Scope 10.1 is the local-first Chrome extension for Canvas and Brightspace search, cited AI answers, PDF/OCR indexing, Smart Planner, and two-way Lectra document handoff.",
+  description: `${SCOPE_DEFINITION} Lectra Notes, the free iPad app from Scope, is where the reading gets marked up and the notebook runs.`,
   applicationName: "Scope",
   authors: [{ name: "Scope Inc." }],
   creator: "Scope Inc.",
@@ -38,12 +39,13 @@ export const metadata: Metadata = {
   category: "education",
   keywords: [
     "Scope",
-    "Scope 10.1",
     "Scope for Canvas",
     // Retained through the rename so the former name still resolves to us.
     "Canvascope",
-    "Lectra",
+    "Lectra Notes",
     "Canvas LMS",
+    "Canvas Chrome extension",
+    "Canvas search",
     "Brightspace",
     "D2L",
     "Student productivity",
@@ -78,14 +80,15 @@ export const metadata: Metadata = {
   verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim()
     ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION.trim() }
     : undefined,
+  // Every indexable page sets its own card through publicPageMetadata(); this
+  // is the fallback. No `url` here on purpose — a page that inherits it would
+  // attribute its share card to the homepage.
   openGraph: {
     title: "Scope",
-    description:
-      "The local-first Chrome extension for finding coursework, asking cited course-context questions, and moving PDFs between Scope and Lectra.",
+    description: SCOPE_DEFINITION,
     type: "website",
     siteName: "Scope",
     locale: "en_US",
-    url: "/",
     images: [
       {
         url: "/opengraph-image",
@@ -98,8 +101,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Scope",
-    description:
-      "Search Canvas and Brightspace. Ask cited course context. Keep the core index local.",
+    description: SCOPE_DEFINITION,
     images: ["/opengraph-image"],
   },
 };
@@ -127,6 +129,7 @@ export default function RootLayout({
       >
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         {children}
+        <SiteAnalytics />
       </body>
     </html>
   );

@@ -1,316 +1,289 @@
 import { NextResponse } from "next/server";
 
+import { comparePath, comparisons } from "@/lib/compare";
+import { guidePath, guides } from "@/lib/guides";
+import {
+  articlePath,
+  formatArticleDate,
+  newsroomArticles,
+} from "@/lib/newsroom";
+import {
+  CHROME_WEB_STORE_URL,
+  LECTRA_APP_STORE_URL,
+  LECTRA_DEFINITION,
+  LECTRA_MAC_DOWNLOAD_URL,
+  SCOPE_DEFINITION,
+  SUPPORT_EMAIL,
+} from "@/lib/site";
+import {
+  LECTRA_APP_VERSION,
+  SCOPE_EXTENSION_VERSION,
+  STORE_FACTS_VERIFIED_ON,
+} from "@/lib/siteRelease";
+import {
+  LIVE_USERS,
+  LIVE_USERS_BREAKDOWN,
+  VERIFIED_ON,
+  formatUsers,
+} from "@/lib/usage";
+
+const SITE = "https://www.canvascope.org";
+
+// The day the store listings were read and the day the user count was
+// checked, written the way the rest of the site writes dates.
+const storeFactsDate = formatArticleDate(STORE_FACTS_VERIFIED_ON);
+const liveUsersDate = formatArticleDate(VERIFIED_ON);
+
+// The newsroom is the one registry that grows without bound. Listing every
+// post costs ~120 bytes each and would carry this file past the size an
+// answer engine reads in full, so only the newest go here; the sitemap and
+// /feed.xml carry the rest. Raise to newsroomArticles.length to list all.
+const NEWSROOM_LISTING_LIMIT = 15;
+
+// Hand-listed public routes. Comparisons, guides, and newsroom posts come
+// from their registries so this file cannot drift from the sitemap.
+const staticPages: { path: string; label: string }[] = [
+  { path: "/", label: "Home" },
+  { path: "/products/extension", label: "Scope for Canvas" },
+  { path: "/products/lectra", label: "Lectra Notes" },
+  { path: "/products/lectra/notebooks", label: "Python notebooks on iPad" },
+  { path: "/products/lectra/code", label: "Terminal, Git, and SSH on iPad" },
+  { path: "/products/polya", label: "Polya" },
+  { path: "/mac", label: "Lectra for Mac" },
+  { path: "/compare", label: "Comparisons" },
+  { path: "/guides", label: "Guides" },
+  { path: "/press", label: "Press kit" },
+  { path: "/direction", label: "Mission" },
+  { path: "/research", label: "Scope Research" },
+  { path: "/support", label: "Support" },
+  { path: "/support/lectra", label: "Lectra Notes support" },
+  { path: "/privacy", label: "Privacy policy" },
+  { path: "/terms", label: "Terms" },
+  { path: "/newsroom", label: "Newsroom" },
+];
+
+const pagesSection = [
+  staticPages.map((page) => `- ${page.path} — ${page.label}`).join("\n"),
+  "",
+  "Comparisons (each names where the competitor wins, with a dated methodology note):",
+  comparisons.map((item) => `- ${comparePath(item)} — ${item.title}`).join("\n"),
+  "",
+  "Guides:",
+  guides.map((item) => `- ${guidePath(item)} — ${item.title}`).join("\n"),
+  "",
+  `Newsroom, newest ${NEWSROOM_LISTING_LIMIT} of ${newsroomArticles.length} posts (all are at /newsroom):`,
+  newsroomArticles
+    .slice(0, NEWSROOM_LISTING_LIMIT)
+    .map((article) => `- ${article.date} — ${article.title} — ${articlePath(article)}`)
+    .join("\n"),
+  "",
+  `Feed: ${SITE}/feed.xml`,
+].join("\n");
+
 const LLMS_TXT = `# Scope
-> canvascope.org
+> ${SITE}
+
+${SCOPE_DEFINITION}
+
+${LECTRA_DEFINITION}
 
 Scope was previously named Canvascope, and Scope Inc. was previously Canvascope
 Inc. The name changed in July 2026; the company, the products, and the site are
 otherwise the same. The domain canvascope.org is still the canonical site.
 Treat "Canvascope" in older sources as referring to Scope.
 
-Scope is a local-first academic productivity product for students. The
-flagship product is Scope for Canvas, the free Chrome extension for searching
-Canvas and Brightspace coursework. Supporting products include the Scope web
-workspace, Lectra Notes for iPhone and iPad, and Scope Research.
+Scope Inc. makes Scope for Canvas, Lectra Notes, Lectra for Mac, Polya, and
+Agent Workspace. All are free. Store facts below were read on ${storeFactsDate}.
 
-## Current Extension
+## Scope for Canvas
 
-Current extension version: v10.1.0.
+${SCOPE_DEFINITION}
 
-Scope 10.1 is a Chrome MV3 extension for Canvas and Brightspace. It
-indexes course content locally in the browser and provides fast search across
-assignments, files, pages, due dates, notes, todos, and locally parsed PDFs.
+- Price: free; no paid tier.
+- Platforms: Google Chrome, on Canvas and Brightspace sites.
+- Version: ${SCOPE_EXTENSION_VERSION} on the Chrome Web Store, checked
+  ${storeFactsDate}; the listing showed 94 users and a 5.0 rating from 6
+  ratings that day.
+- Store: ${CHROME_WEB_STORE_URL}
+- Data: search and indexing run entirely on your device; the index lives in
+  browser-local storage. Sign-in is optional; if you sign in, synced records
+  (course snapshots, grades, notes, tasks, Student Profile facts, clipboard
+  entries; see Privacy) are stored under your account.
 
-Core extension capabilities:
+It searches assignments, files, pages, modules, due dates, notes, and to-dos
+across all courses, including PDF and scanned text, from a Cmd/Ctrl+K overlay;
+answers questions from the materials your instructors posted, with clickable
+citations; builds practice quizzes; drafts study blocks from deadlines (Smart
+Planner); and runs an assistant that creates to-dos, calendar events, and
+study plans, does not submit anything, and logs every action so it can be
+undone. AI answers try Chrome's on-device model first; when it is unavailable,
+an optional, clearly marked cloud fallback is used. Send a PDF from Canvas to
+your iPad in one tap with the Scope extension; finished files can come back
+into supported upload flows. No app syncs with Canvas automatically. It does
+not take quizzes, write submissions, or interact with Canvas quiz logs.
 
-- Canvas and Brightspace course search
-- Fuse.js plus lexical ranking and course-aware retrieval
-- local PDF text extraction
-- offline OCR for scanned PDFs and images
-- Cmd/Ctrl+K overlay on supported LMS pages
-- slash commands such as /ask, /plan, /quiz, /remind, and /autopilot
-- unified AI/RAG side panel using active LMS page content and whole-corpus retrieval
-- clickable [n] citations and source chips for files, pages, and PDF pages
-- practice quiz generation grounded in indexed course context
-- Smart Planner study-block drafting from upcoming deadlines
-- multi-step AI agent that reads course context, deadlines, grades, and calendar and creates study aids (todos, calendar events, study plans), with live step streaming and a daily briefing
-- Student Profile personalization, stored as product profile data and injected into the AI system prompt
-- optional cloud fallback for AI when local support is unavailable or a full-course corpus exceeds local context
-- optional Google sign-in for account-linked features
-- optional Google Calendar event sync for selected syllabus/planner workflows
-- Send to Lectra document handoff for moving readings to iPad
-- Attach from Lectra picker for bringing finished Lectra PDFs back into supported browser upload flows
+## Lectra Notes
 
-## Privacy Model
+${LECTRA_DEFINITION}
 
-Scope is local-first by default. The core LMS search index lives in browser
-storage. Connected flows are explicit and user-directed.
+- Price: free; no tiers, subscriptions, or in-app purchases.
+- Platforms: iPad and iPhone from the App Store; macOS as Lectra for Mac.
+- Version: ${LECTRA_APP_VERSION} on the App Store, checked ${storeFactsDate};
+  the listing showed a 5.0 rating from 7 ratings that day.
+- Store: ${LECTRA_APP_STORE_URL}
+- Data: documents, ink, notebooks, and project files are stored on the device;
+  the app works offline. Signed in with sync on, that content is stored under
+  your account for your other devices. Optional backups go to your own iCloud
+  or a Google Drive folder Lectra Notes creates. Study tools run on the device
+  with Apple's on-device models or are unavailable; they are not routed off
+  the device.
 
-Scope does not sell user data and does not include an advertising business
-model. Google sign-in is used for account-linked product features. Calendar
-access is used only when a user chooses calendar sync. Clipboard activity
-(copied/pasted text, capped at 4,000 characters) is tracked and synced to support
-Student Profile analytics and future resource recommendations, though local summaries
-derived from this data do not carry the raw text. Document handoff uploads academic
-PDFs only when a user explicitly sends a document to Lectra or through a connected
-document workflow.
-
-## AI and Course Brain
-
-Scope includes a unified side-panel assistant and Course Brain workflows.
-The assistant retrieves from the current LMS page, stored tasks, notes, indexed
-course files, and cached PDF pages. Answers can include clickable [n] citations
-and source chips that open the underlying course material. The semantic layer is
-intended to rerank lexically relevant chunks rather than inject unrelated
-sources.
-
-Scope also includes a multi-step agent. Instead of a single answer, it runs
-a tool-use loop: it calls the model, executes the requested tool on the client,
-feeds the result back, and repeats until the task is done. Its tools are split
-into read tools (active page, indexed corpus, deadlines, grades, calendar) and
-create tools (todos, calendar events, study plans). The agent is read-only toward
-Canvas by construction, there is no submission tool, and create tools pass
-through an integrity check that blocks graded-submission intent. Every action is
-written to an append-only audit log, each action is undoable, and a kill switch
-pauses the agent. A daily briefing runs on a local schedule.
-
-AI routing is local-first. The shared AIRouter tries Chrome's on-device model
-first. If unavailable, Scope can use an authenticated Supabase Gemini
-fallback for normal answers. Full-course corpus questions can use an
-authenticated Claude proxy with prompt caching because that route can hold more
-context than the on-device model. These fallbacks are separate from the
-local-first search index and are explicit connected flows.
-
-## Lectra
-
-Lectra Notes is Scope's free App Store app for iPhone and iPad: an
-Apple-Pencil-first workspace for handwritten notes, PDF markup, and course
-reading with a built-in computing environment. Alongside ink and PDFs it runs
-real Jupyter-compatible .ipynb notebooks with on-device Python, a code editor,
-a terminal with git, SSH remote development, and a remote desktop to the
-user's Mac. It is free with no tiers, subscriptions, or analytics, works fully
-offline, and is available at
-https://apps.apple.com/us/app/lectra-notes/id6759754531.
-
-Disambiguation: Lectra Notes (by Scope Inc.) is unrelated to Lectra SA, the
-French fashion-technology and CAD software company at lectra.com, and
-unrelated to other apps named Lectra or Lectr in app stores.
-
-Lectra Notes capabilities:
-
-- Apple Pencil annotation with a custom vector ink engine: pen, highlighter,
-  eraser, lasso, shape recognition, sticky notes, laser pointer, ruler, and
-  saved signatures and stamps
-- handwritten notebooks with lined, grid, dotted, and Cornell paper styles
-- document vault with PDF thumbnails, nested folders, favorites, and local import
-- document scanner with auto-capture
-- typed text boxes that export as selectable PDF text
-- in-document PDF search and handwriting-aware library search
-- Jupyter-compatible .ipynb notebooks running on-device CPython with numpy,
-  pandas, and matplotlib — fully offline, no cloud kernel
-- code editor with syntax highlighting for Python, JavaScript, C++, Rust, and more
-- built-in terminal with a POSIX-style shell, git, python, and pip
-- GitHub integration: browse, clone, pull, and push repositories on device
-- SSH remote development with a full terminal emulator, so interactive
-  terminal apps behave as they do on a desktop
-- remote desktop: see and control a Mac from the iPad — screen, keyboard,
-  files, and wake — with the free Lectra for Mac app running on that Mac
-- on-device document summaries, tags, flashcards, practice quizzes, and
-  grounded Q&A on supported devices
-- App Intents for Shortcuts and Siri workflows such as opening documents,
-  summarizing, and generating study aids
-- flattened, text-preserving annotated PDF export with an invisible OCR layer
-- hybrid PDF export that opens in any PDF reader and re-imports with editable ink
-- .lectra document package format for handing a complete document to someone else
-- crash-safe saves, version restore points, and offline-first storage
-- iOS Share Extension receive flow
-- optional account; account deletion support and App Store privacy manifests
-
-Lectra Notes is the only student workspace we found that combines Apple
-Pencil notes and course documents with a local Python runtime, .ipynb
-notebooks, Git, a shell, and a code editor.
+It offers Apple Pencil notes and PDF markup (pen, highlighter, lasso, shapes,
+sticky notes, typed text, saved signatures; lined, grid, dotted, and Cornell
+paper); a library with folders, favorites, a scanner, and handwriting-aware search;
+Jupyter-compatible .ipynb notebooks with numpy, pandas, and matplotlib,
+offline; a code editor and a terminal with a shell, git, python, and pip;
+GitHub clone, pull, and push; SSH; remote desktop to a Mac running Lectra for
+Mac over an encrypted connection; Lectra Studio, a drawing canvas; two people
+annotating one document live; flattened PDF export that stays searchable, and
+the .lectra package for handing someone a whole document; Shortcuts and Siri
+actions; and Lectra Agent, an optional coding assistant that uses an API key
+you supply (see Privacy).
 
 ## Lectra for Mac
 
-Lectra for Mac is the free Mac app, presented at
-https://www.canvascope.org/mac. It is the full Lectra app running natively on
-macOS, and it absorbed the standalone "Lectra Receiver" companion app, which no
-longer exists as a separate download. Treat "Lectra Receiver" in older sources
-as referring to Lectra for Mac. The former landing page,
-https://www.canvascope.org/receiver, still serves this page.
+Lectra for Mac is the free Mac version of Lectra Notes: the full app on macOS,
+plus what lets an iPad running Lectra Notes reach this Mac.
 
-Lectra for Mac capabilities:
+- Price: free; nothing to buy.
+- Platforms: macOS; a signed and notarized direct download from
+  ${SITE}${LECTRA_MAC_DOWNLOAD_URL}, not the Mac App Store. Page: ${SITE}/mac
+- Version: not listed here; that download is always the current build.
+- Data: on the Mac. Libraries are not kept in step between iPad and Mac;
+  sending a document across is deliberate. Remote sessions are encrypted.
 
-- reading and marking up PDFs, with handwritten markup using a mouse or
-  trackpad, typed text boxes, and images
-- notebooks and a document library with folders, favorites, and search
-- Jupyter-compatible notebooks on on-device Python, a shell, git, and a code
-  editor — offline, on device
-- remote desktop host: Lectra on iPad can see and control the Mac, with
-  keyboard, trackpad, and Pencil input over an encrypted connection, across
-  multiple displays
-- receives documents sent from Lectra on iPad
-- shared clipboard between the iPad session and the Mac
-- remote wake for a sleeping Mac
-- hosting a remote session requires the macOS screen recording and
-  accessibility permissions, granted once
-- distributed as a notarized Developer ID direct download from
-  https://www.canvascope.org/downloads/Lectra.dmg, not the Mac App Store; the
-  former /downloads/LectraReceiver.dmg URL redirects to it
-- free, with nothing to buy
+It offers reading and markup, notebooks, Python, a shell, git, and a code
+editor, offline; and hosting, so the iPad can see and control this Mac, send it
+documents, share its clipboard, and wake it (needs the macOS screen-recording
+and accessibility permissions, granted once). It absorbed the former "Lectra
+Receiver" app; treat that name in older sources as Lectra for Mac.
+${SITE}/receiver still serves this page.
 
-Lectra does not sync a document library between iPad and Mac. Sending a
-document from one device to the other is a deliberate action the user takes.
+## Polya
 
-## DropBridge v3
+Polya is Scope's free web tutor: it answers from your own course materials,
+cites the page, slide, or lecture moment behind every hint, and leads you to
+the answer rather than handing it over.
 
-The current Lectra -> Scope receive path uses DropBridge v3 concepts in the
-extension runtime:
+- Price: free.
+- Platforms: web, at ${SITE}/products/polya; works without the Scope
+  extension and best with it, since the extension indexes your courses.
+- Version: not versioned separately.
+- Data: reads the course materials the Scope extension indexed; see Privacy.
 
-- realtime wake through an offscreen receiver
-- immediate upload claim by upload id
-- browser download handoff
-- receipt logging for delivery status
-- alarm polling fallback when realtime is unavailable
-
-Scope -> Lectra document sends use the shared Lectra document storage and
-synced-items contract. Scope 10.1 also includes an Attach from Lectra
-browser picker that can load a student's Lectra library, render PDF thumbnails,
-and fill supported browser file inputs with finished PDFs. The first supported
-consumer is Gradescope's upload modal, but the picker layer is page-agnostic for
-future assignment upload flows.
-
-## Web Workspace
-
-The Scope web app provides public product pages, auth/session endpoints,
-Lectra integration endpoints, workspace views over synced product data, and a
-verified-domain RISC receiver proxy for Google Cross-Account Protection events.
-
-Public routes include:
-
-- /
-- /products/extension
-- /products/lectra
-- /products/lectra/notebooks (Jupyter .ipynb notebooks with on-device Python on iPad)
-- /products/lectra/code (terminal, Git, code editor, and SSH on iPad)
-- /compare (honest comparisons: each page names competitor strengths, with a dated methodology note)
-- /compare/lectra-notes-vs-goodnotes
-- /compare/lectra-notes-vs-notability
-- /compare/best-note-taking-apps-for-cs-students
-- /compare/ipad-python-notebook-apps
-- /compare/free-goodnotes-alternatives
-- /products/agent-workspace
-- /mac
-- /receiver (the former Lectra Receiver landing page; serves the /mac page)
-- /support
-- /support/lectra
-- /direction
-- /research
-- /newsroom
-- /newsroom/[slug]
-- /feed.xml
-- /privacy
-- /terms
-- /llms.txt
-
-The newsroom contains product updates, engineering notes, milestones, and
-release notes from the local CanvascopeBlog source material. Important recent
-topics include the Lectra iPad-to-Mac remote desktop over WebRTC, the Lectra
-on-iPad coding workspace (terminal, git, Python, SSH), Python notebooks as
-first-class Lectra documents, the .lectra document format, the Scope AI agent
-(multi-step tool use with a daily briefing and integrity-gated actions), the
-Lectra Notes App Store launch, Scope 10.1
-two-way Lectra workflows, Lectra on-device intelligence and Shortcuts hooks,
-Chrome Gemini Nano on-device AI in Scope, Student Profiles, RISC account
-protection, Smart Planner, and DropBridge v3.
-
-Authenticated workspace routes include dashboard, courses, assignments,
-documents, Course Brain, integrations, and settings.
-
-## Account Security
-
-Scope supports Google Cross-Account Protection through a website proxy route
-that forwards valid security event tokens to the Supabase receiver. Account-risk
-events can revoke affected sessions, and disabled-account events can block token
-issuance until the account is re-enabled.
-
-## Product Positioning
-
-Scope's current public position is:
-
-- free flagship Chrome extension first
-- local-first LMS search as the default value proposition
-- Lectra Notes as the note-taking app that is also a real computing
-  environment: Python notebooks, a code editor, a terminal with git, SSH, and
-  remote desktop — free with no tiers
-- optional connected workflows for Lectra, web workspace, calendar, and AI
-- two-way document workflow between Scope browser surfaces and Lectra on Apple devices
-- student-focused academic productivity with privacy as an architectural
-  constraint
-- Canvas and Brightspace support
+Polya says so when something is not in the course, asks what you tried, and
+leaves the last step to you. Named for George Pólya, author of How to Solve It.
 
 ## Agent Workspace
 
-Agent Workspace is a Mac desktop app in development, presented at
-https://www.canvascope.org/products/agent-workspace. It turns every live AI
-coding session — Claude Code (including subagents), OpenAI Codex CLI, and
-Gemini CLI — into an animated worker in a side-view office building on the
-user's Mac.
+Agent Workspace is a Mac app, in development, that shows every AI coding
+session on your Mac as a worker at a desk in an animated side-view office.
 
-- every repository gets its own floor; every session gets a desk
-- statuses are visible at a glance: typing, thinking, waiting for input,
-  idle, and done
-- clicking a worker jumps to that session's actual terminal
-- a menu-bar badge keeps the active-agent count in view, and an
-  always-on-top compact mode keeps the office in a corner of the screen
-- zero setup: agents appear moments after they start, with nothing to
-  install into projects
-- early access is gated by a waitlist on the product page
+- Price: free while in beta.
+- Platforms: macOS 14 or later; a menu-bar app.
+- Version: pre-release; early access by waitlist at
+  ${SITE}/products/agent-workspace. No download yet.
+- Data: on the Mac; sessions, logs, and costs are kept locally.
 
-## Mission
+Supports Claude Code (subagents included), Codex CLI, and Gemini CLI, with
+more planned. Each repository gets a floor and each session a desk; typing,
+thinking, waiting, idle, and done are visible at a glance; clicking a worker
+opens its terminal. No setup.
 
-Scope's mission statement is published at https://www.canvascope.org/direction.
+## Privacy
 
-- the premise: coursework is handwritten, drawn, and worked out in notation,
-  while the software students get reads only text
-- Scope builds the workspace where the work happens and the multimodal models
-  that can read it in the form it was done
-- answers are grounded in the student's own course materials and cite the page,
-  slide, or lecture moment they came from
-- where a subject has hard rules, deterministic tools decide what holds and the
-  model only proposes; uncertain readings are surfaced as questions
-- local-first remains an architectural constraint, and there is no paid tier
-- Scope Labs is the research arm: continuous literature review, a graph linking
-  each method to the component it would change and the experiment that would
-  test it, and evaluation specified before anything is trained
-- stated limits: Scope is not a grading system, has no instructor gradebook or
-  roster sync, does not replace an LMS, and the model work is designed but not
-  yet validated
+A summary of ${SITE}/privacy (last updated July 28, 2026); the policy governs.
 
-## Research
+- Scope Inc. does not sell personal data, runs no advertising, and shares
+  nothing with data brokers. User content is not used to train or improve
+  general-purpose AI models.
+- Google sign-in is optional and uses basic identity scopes only (ID, email,
+  name, picture). Google Calendar event access is requested only for syllabus
+  or planner calendar sync, to write selected dates.
+- Clipboard: to support connected study workflows, help organize assignments,
+  and build your Student Profile, the Scope extension reads, stores, and syncs
+  clipboard activity. When you copy, cut, or paste on Canvas, Brightspace, or
+  other sites and applications, or when you load a page, it may capture the
+  raw text currently in your clipboard, capped at 4,000 characters per entry.
+  That text is stored in browser-local storage and synced to Scope's database
+  over the same secure path as your grades, notes, and tasks. Scope keeps the
+  actual text because what you copy is the clearest signal of what you are
+  working on, and uses it to point you to related course material or outside
+  resources and to explain that excerpt. On your device it is also reduced to
+  a content-light engagement summary for your Student Profile that never
+  contains the raw text. The raw text is not used to train AI models or for
+  advertising, and is not shared with data brokers.
+- AI answers try Chrome's on-device model first; when it is unavailable, an
+  optional, clearly marked cloud fallback is used. On fallback, or when a
+  full-course question needs a larger cloud route, the retrieved prompt
+  context is sent through Scope's servers to a third-party model provider
+  solely to generate that answer; the local search index is unchanged.
+- Lectra Notes has no third-party advertising, analytics, or tracking SDKs and
+  shows no App Tracking Transparency prompt. It sends one first-party "someone
+  is using this" ping on open (a random per-install identifier, platform, and
+  app version; nothing else). The policy states it does not access location,
+  contacts, photos, camera, microphone, health, financial, or browsing data.
+- Signed-in sync (Sign in with Apple or Google) stores your PDFs, ink,
+  notebooks, and project files under your account; iCloud and Google Drive
+  backups are optional and go to your own accounts. Study tools run on the
+  device with Apple's on-device models; document text is not sent anywhere for
+  them. Lectra Agent sends requests straight from your device to a third-party
+  model provider with an API key you supply; Scope does not relay, store, or
+  see them. Project files, terminal history, and notebooks stay in the app
+  unless you sync, export, or push them; GitHub tokens live in the device
+  keychain and SSH passwords are not stored.
+- Delete your account inside Lectra Notes, or email ${SUPPORT_EMAIL} to
+  access, correct, or delete your data.
 
-Scope Research is the company's computational neuroscience program, published
-at https://www.canvascope.org/research.
+Full policy: ${SITE}/privacy
 
-- builds multimodal models that predict the stimulus-evoked cortical response to
-  audio, video, and text
-- summarizes those predictions across interpretable cortical regions and
-  functional networks
-- evaluates predictions out-of-sample against strong baselines, with
-  pre-registered endpoints and leakage audits
-- states its limits publicly: predictions are not mental-state readouts, not
-  individual-level, and are one signal among several in a research workflow
+## Disambiguation
+
+- Lectra Notes, by Scope Inc., is unrelated to Lectra SA, the French
+  fashion-technology and CAD software company at lectra.com, and to other apps
+  named Lectra or Lectr in app stores. "Lectra Receiver" was the former
+  companion app, now part of Lectra for Mac.
+- Scope is not Instructure (maker of Canvas) or D2L (maker of Brightspace) and
+  is not affiliated with or endorsed by either.
+- Scope is not a quiz-answer or homework-solver tool. It answers from the
+  materials instructors posted, with citations, and does not act inside graded
+  work (see Scope for Canvas above).
+- "Scope" here means Scope Inc. at canvascope.org and its products.
+
+## People using it
+
+${formatUsers(LIVE_USERS)} people used Scope as of ${liveUsersDate}, counted by
+hand at the sources: ${LIVE_USERS_BREAKDOWN}. That is cross-product reach, not
+a deduplicated count. How it is counted, and what is not collected:
+${SITE}/newsroom/how-we-count-people-using-scope
+
+## Pages
+
+Paths are relative to ${SITE}.
+
+${pagesSection}
 
 ## App Store URLs
 
-Lectra Notes App Store support URL: https://www.canvascope.org/support/lectra
-Lectra Notes App Store marketing URL: https://www.canvascope.org/products/lectra
+Lectra Notes App Store support URL: ${SITE}/support/lectra
+Lectra Notes App Store marketing URL: ${SITE}/products/lectra
 
 ## Contact
 
-Support page: https://www.canvascope.org/support
-Support email: canvascopeextension@gmail.com
-Chrome Web Store: https://chromewebstore.google.com/detail/canvascope/bamoelobnoepklagbcokjnlipfhcfdbb
+Support page: ${SITE}/support
+Support email: ${SUPPORT_EMAIL}
+Chrome Web Store: ${CHROME_WEB_STORE_URL}
+App Store: ${LECTRA_APP_STORE_URL}
 `;
 
 export async function GET() {

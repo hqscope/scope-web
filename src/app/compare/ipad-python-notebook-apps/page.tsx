@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import ComparisonTable from "@/components/public/ComparisonTable";
 import MethodologyNote from "@/components/public/MethodologyNote";
+import RelatedLinks from "@/components/public/RelatedLinks";
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
+import { comparePath, comparisonsFor, getComparison } from "@/lib/compare";
+import { getGuide, guidePath } from "@/lib/guides";
+import { publicPageMetadata } from "@/lib/seo";
+import { LECTRA_APP_STORE_CAMPAIGN_URL, LECTRA_DEFINITION } from "@/lib/site";
 import {
   breadcrumbSchema,
   comparisonArticleSchema,
@@ -12,37 +17,47 @@ import {
   faqSchema,
   type FaqEntry,
 } from "@/lib/structured-data";
-import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-const description =
-  "Every real way to run Python and Jupyter notebooks on an iPad in 2026 — Juno, Carnets, Pythonista, a-Shell, and Lectra Notes — compared honestly, including where each is the right choice.";
+const comparison = getComparison("ipad-python-notebook-apps");
+const annotateGuide = getGuide("annotate-lecture-slides-on-ipad");
 
-export const metadata: Metadata = {
-  title: "iPad Python Notebook Apps",
-  description,
-  alternates: {
-    canonical: "/compare/ipad-python-notebook-apps",
+export const metadata = publicPageMetadata({
+  title: comparison.title,
+  absoluteTitle: comparison.absoluteTitle,
+  description: comparison.description,
+  path: comparePath(comparison),
+  keywords: comparison.keywords,
+  type: "article",
+  publishedTime: comparison.datePublished,
+  modifiedTime: comparison.dateModified,
+});
+
+/* The other Lectra Notes comparisons, plus the iPad annotation guide. */
+const relatedLinks = [
+  ...comparisonsFor("lectra")
+    .filter((item) => item.slug !== comparison.slug)
+    .map((item) => ({
+      href: comparePath(item),
+      label: item.title,
+      copy: item.copy,
+    })),
+  {
+    href: guidePath(annotateGuide),
+    label: annotateGuide.title,
+    copy: annotateGuide.copy,
   },
-  keywords: [
-    "iPad Python notebook",
-    "Jupyter on iPad",
-    "run ipynb on iPad",
-    "Juno vs Carnets",
-    "Python IDE iPad",
-    "iPad data science apps",
-  ],
-};
+];
 
 const faqs: FaqEntry[] = [
   {
     question: "What is the best way to run Jupyter notebooks on an iPad?",
     answer:
-      "There are several genuinely good options. Carnets is free, open-source, and the most faithful Jupyter experience — an actual Jupyter server running locally. Juno ($39.99 one-time) is a polished native IDE with heavy compiled packages like SciPy and scikit-learn. Lectra Notes is free and runs .ipynb notebooks with on-device Python beside your Apple Pencil notes and PDFs — the right choice when the notebook belongs to a course, not just to itself.",
+      "There are several good options. Carnets is free, open-source, and the most faithful Jupyter experience — an actual Jupyter server running locally. Juno ($39.99 one-time) is a polished native IDE with heavy compiled packages like SciPy and scikit-learn. Lectra Notes is free and runs .ipynb notebooks with Python on the device, beside your Apple Pencil notes and PDFs — the right choice when the notebook belongs to a course, not just to itself.",
   },
   {
     question: "Can the iPad run Python offline?",
     answer:
-      "Yes — all five apps here run Python entirely on the device with no server. Apple's platform rules shape the limits: extra packages installed at runtime must be pure Python in every app; compiled packages like SciPy only work where the app bundled them in advance (Juno and Carnets bundle the most).",
+      "Yes — all five apps here run Python on the device itself, with no remote server. Apple's platform rules shape the limits: extra packages installed at runtime must be pure Python in every app; compiled packages like SciPy only work where the app bundled them in advance (Juno and Carnets bundle the most).",
   },
   {
     question: "Which app has the most Python packages?",
@@ -58,23 +73,21 @@ const faqs: FaqEntry[] = [
 
 export default function IpadPythonAppsPage() {
   return (
-    <PublicPageFrame active="lectra" footerVariant="slim">
+    <PublicPageFrame active="compare" footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Compare", path: "/compare" },
-            {
-              name: "iPad Python notebook apps",
-              path: "/compare/ipad-python-notebook-apps",
-            },
+            { name: comparison.title, path: comparePath(comparison) },
           ]),
           comparisonArticleSchema(
-            "iPad Python Notebook Apps",
-            "/compare/ipad-python-notebook-apps",
-            description,
-            "2026-08-14",
-            "2026-08-14",
+            comparison.title,
+            comparePath(comparison),
+            comparison.description,
+            comparison.datePublished,
+            comparison.dateModified,
+            "#lectra-ipad",
           ),
           competitorAppNode("Juno", "https://juno.sh"),
           competitorAppNode("Carnets", "https://github.com/holzschu/Carnets"),
@@ -89,12 +102,16 @@ export default function IpadPythonAppsPage() {
 
       <section className="page-wrap centered-hero" id="hero">
         <div data-reveal>
-          <p className="kicker">Compare · Updated August 2026</p>
-          <h1>Every real way to run Python on an iPad.</h1>
+          <p className="kicker">Compare · Updated September 2026</p>
+          <h1>Python on iPad: every notebook app, compared</h1>
           <p className="centered-hero-lede">
-            Five apps run Python natively on iPad, and they&apos;re genuinely
-            different tools. This is the honest map — including the two
-            excellent free, open-source options that aren&apos;t ours.
+            Five apps run Python on the iPad itself, and they are different
+            tools. Here is how they compare, including the two free,
+            open-source options that are not ours.
+          </p>
+          <p className="hero-note">
+            {LECTRA_DEFINITION} Juno, Carnets, Pythonista 3, and a-Shell are
+            dedicated Python and notebook tools without note-taking.
           </p>
         </div>
       </section>
@@ -124,7 +141,7 @@ export default function IpadPythonAppsPage() {
               {
                 label: ".ipynb notebooks",
                 cells: [
-                  "Yes — native documents with a persistent kernel",
+                  "Yes — notebooks are documents in the same library as your notes",
                   "Yes — polished native IDE",
                   "Yes — a real local Jupyter/JupyterLab server",
                   "No — .py scripts and console only",
@@ -164,7 +181,7 @@ export default function IpadPythonAppsPage() {
               {
                 label: "Terminal / Git / SSH",
                 cells: [
-                  "Yes — shell with git, python, pip; GitHub; SSH with full PTY",
+                  "Yes — a terminal with git, python, and pip; GitHub; SSH",
                   "No",
                   "No",
                   "No",
@@ -210,7 +227,7 @@ export default function IpadPythonAppsPage() {
           <div>
             <h3>Lectra Notes</h3>
             <p>
-              The only one that is also a note-taking app. Notebooks live
+              The one on this list that is also a note-taking app. Notebooks live
               beside the lecture PDF and your handwriting, with{" "}
               <Link href="/products/lectra/code">a terminal, Git, and SSH</Link>{" "}
               in the same place — free. When the notebook belongs to a course,
@@ -247,13 +264,15 @@ export default function IpadPythonAppsPage() {
         </div>
       </section>
 
+      <RelatedLinks title="More comparisons" links={relatedLinks} />
+
       <section className="page-wrap final-cta" id="download" data-reveal>
         <div>
           <h2>Notebooks that live with the coursework.</h2>
           <p>
-            <a href={LECTRA_APP_STORE_URL} target="_blank" rel="noreferrer">
+            <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
-            </a>{" "}
+            </StoreLink>{" "}
             — free .ipynb notebooks with on-device Python, beside your notes.
             And if you just need raw Jupyter, Carnets is free and excellent —
             we mean that.

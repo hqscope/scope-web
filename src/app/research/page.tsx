@@ -1,20 +1,18 @@
-import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { Fragment } from "react";
 import { Check } from "lucide-react";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import JsonLd from "@/components/seo/JsonLd";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Scope Research",
   description:
     "Scope Research builds computational tools that predict the cortical response a stimulus evokes, map those predictions onto interpretable brain regions, and hold them to held-out evaluation against strong baselines.",
-  alternates: {
-    canonical: "/research",
-  },
+  path: "/research",
   keywords: [
     "Scope Research",
     "computational neuroscience",
@@ -24,7 +22,7 @@ export const metadata: Metadata = {
     "held-out evaluation",
     "pre-registration",
   ],
-};
+});
 
 const method = [
   {
@@ -88,7 +86,7 @@ const standards = [
   {
     lead: "We predict responses, not states of mind.",
     copy:
-      "Reading a mental state back out of a response pattern is the inference that discredited this field. We don't make it.",
+      "Reading a mental state back out of a response pattern is the inference this field is most criticized for. We don't make it.",
   },
   {
     lead: "Out-of-distribution performance degrades.",
@@ -143,12 +141,12 @@ export default function ResearchPage() {
       <section className="page-wrap centered-hero">
         <div data-reveal>
           <p className="kicker">Scope Research</p>
-          <h1>Predicting how the cortex responds — and proving it.</h1>
+          <h1>Predicting how the cortex responds — and testing it.</h1>
           <p className="centered-hero-lede">
             We build computational tools that estimate the cortical response a
             stimulus evokes, map that estimate onto interpretable brain regions,
-            and hold it to the standard this field has rarely met: it has to
-            work on material it has never seen.
+            and hold it to one standard: it has to work on material it has
+            never seen.
           </p>
           <div className="pill-actions" aria-label="Primary actions">
             <a href={`mailto:${SUPPORT_EMAIL}`} className="button-primary">

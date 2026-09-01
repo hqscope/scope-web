@@ -1,38 +1,60 @@
-import type { Metadata } from "next";
-
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import MethodologyNote from "@/components/public/MethodologyNote";
+import RelatedLinks from "@/components/public/RelatedLinks";
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
 import {
+  comparePath,
+  comparisonsFor,
+  getComparison,
+  productEntityId,
+} from "@/lib/compare";
+import { getGuide, guidePath } from "@/lib/guides";
+import { publicPageMetadata } from "@/lib/seo";
+import { LECTRA_APP_STORE_CAMPAIGN_URL, LECTRA_DEFINITION } from "@/lib/site";
+import {
+  appListSchema,
   breadcrumbSchema,
   comparisonArticleSchema,
-  competitorAppNode,
   faqSchema,
-  itemListSchema,
+  type AppListItem,
   type FaqEntry,
 } from "@/lib/structured-data";
-import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-const description =
-  "The best iPad note-taking apps for computer science students in 2026 — Goodnotes, Notability, OneNote, Juno, and Lectra Notes, matched honestly to how CS coursework actually works.";
+const comparison = getComparison("best-note-taking-apps-for-cs-students");
+const annotateGuide = getGuide("annotate-lecture-slides-on-ipad");
 
-export const metadata: Metadata = {
-  title: "Best Note-Taking Apps for CS Students",
-  description,
-  alternates: {
-    canonical: "/compare/best-note-taking-apps-for-cs-students",
+export const metadata = publicPageMetadata({
+  title: comparison.title,
+  absoluteTitle: comparison.absoluteTitle,
+  description: comparison.description,
+  path: comparePath(comparison),
+  keywords: comparison.keywords,
+  type: "article",
+  publishedTime: comparison.datePublished,
+  modifiedTime: comparison.dateModified,
+});
+
+/* The other Lectra Notes comparisons, plus the iPad annotation guide. */
+const relatedLinks = [
+  ...comparisonsFor("lectra")
+    .filter((item) => item.slug !== comparison.slug)
+    .map((item) => ({
+      href: comparePath(item),
+      label: item.title,
+      copy: item.copy,
+    })),
+  {
+    href: guidePath(annotateGuide),
+    label: annotateGuide.title,
+    copy: annotateGuide.copy,
   },
-  keywords: [
-    "best note taking app for CS students",
-    "best iPad apps for computer science",
-    "note taking app for programming students",
-    "iPad for CS majors",
-    "student note apps 2026",
-  ],
-};
+];
 
 type AppPick = {
   name: string;
+  /** Official site of a third-party app; our own app is referenced by entity id instead. */
+  url?: string;
   role: string;
   copy: string;
   bestFor: string;
@@ -42,9 +64,8 @@ type AppPick = {
 const picks: AppPick[] = [
   {
     name: "Lectra Notes",
-    role: "Best when notes and code belong together",
-    copy:
-      "A CS problem set is a PDF, a notebook, and a repository at once, and this is the only note app that treats it that way: Apple Pencil markup beside real Jupyter .ipynb notebooks with on-device Python, a terminal with Git, a code editor, and SSH — free, offline, no tiers.",
+    role: "For notes and code in the same course",
+    copy: `${LECTRA_DEFINITION} A CS problem set is a PDF, a notebook, and a repository at once, and Lectra Notes keeps them together: Apple Pencil markup beside Jupyter-format .ipynb notebooks, a terminal with Git, a code editor, and SSH — free, no server required, no tiers.`,
     bestFor:
       "CS and data-science students who annotate readings and write code for the same course.",
     watchOut:
@@ -52,6 +73,7 @@ const picks: AppPick[] = [
   },
   {
     name: "Goodnotes",
+    url: "https://www.goodnotes.com",
     role: "Best handwriting engine",
     copy:
       "The most refined ink on the iPad: searchable handwriting, convert-to-text, spellcheck for ink, audio recording synced to notes, and real-time collaboration — across Apple, Windows, Android, and the web.",
@@ -62,9 +84,10 @@ const picks: AppPick[] = [
   },
   {
     name: "Notability",
+    url: "https://notability.com",
     role: "Best for lecture-heavy schedules",
     copy:
-      "Audio recording synced to your handwriting is included on every tier, with transcription and AI summaries on paid plans — the strongest record-and-review workflow anywhere, now on Android too.",
+      "Audio recording synced to your handwriting, with transcription and AI summaries on paid plans — the strongest record-and-review workflow on this list, now on Android too.",
     bestFor:
       "Students who replay lectures and study from recordings and AI summaries.",
     watchOut:
@@ -72,6 +95,7 @@ const picks: AppPick[] = [
   },
   {
     name: "Microsoft OneNote",
+    url: "https://www.microsoft.com/microsoft-365/onenote",
     role: "Best free cross-platform option",
     copy:
       "Feature-complete note-taking free of charge, synced across iPad, Windows, Android, Mac, and the web — the safe pick if your laptop isn't a Mac.",
@@ -82,6 +106,7 @@ const picks: AppPick[] = [
   },
   {
     name: "Juno",
+    url: "https://juno.sh",
     role: "Best dedicated Jupyter IDE",
     copy:
       "A polished native Jupyter IDE with embedded Python 3.13 and compiled packages Lectra Notes doesn't bundle — SciPy, scikit-learn, OpenCV — for a $39.99 one-time unlock.",
@@ -92,21 +117,28 @@ const picks: AppPick[] = [
   },
 ];
 
+/* Third-party apps carry their official site; Lectra Notes points at its own entity node. */
+const appList: AppListItem[] = picks.map((pick) =>
+  pick.url
+    ? { name: pick.name, url: pick.url }
+    : { name: pick.name, id: productEntityId.lectra },
+);
+
 const faqs: FaqEntry[] = [
   {
     question: "What is the best note-taking app for CS students?",
     answer:
-      "If your notes and your code belong to the same courses, Lectra Notes is the only iPad note app with a real computing environment — Jupyter notebooks with on-device Python, a terminal with Git, a code editor, and SSH — and it's free. If you mostly handwrite, Goodnotes has the best ink engine; if you record lectures, Notability's audio workflow is the strongest; if you need free cross-platform sync with a Windows laptop, OneNote is the safe pick.",
+      "If your notes and your code belong to the same courses, Lectra Notes pairs notes with a computing environment — Python notebooks that run on the device, a terminal with Git, a code editor, and SSH — and it is free. If you mostly handwrite, Goodnotes has the best ink engine; if you record lectures, Notability's audio workflow is the strongest; if you need free cross-platform sync with a Windows laptop, OneNote is the safe pick.",
   },
   {
     question: "Can any note-taking app run code on the iPad?",
     answer:
-      "Lectra Notes is the only student note-taking workspace we found that combines Apple Pencil notes and course documents with a local Python runtime, .ipynb notebooks, Git, a shell, and a code editor. Dedicated code apps like Juno and Carnets run Jupyter notebooks well but have no note-taking or PDF annotation features.",
+      "Of the apps we looked at, Lectra Notes is the one that combines Apple Pencil notes and course documents with Python on the device, .ipynb notebooks, Git, a shell, and a code editor. Dedicated code apps like Juno and Carnets run Jupyter notebooks well but have no note-taking or PDF annotation features.",
   },
   {
     question: "Do CS students need a paid note app?",
     answer:
-      "Not anymore. Lectra Notes and OneNote are genuinely free; Apple Notes is free and includes audio transcripts. Goodnotes and Notability are excellent but their free tiers cap at 3 files and 5 notes respectively, as of August 2026.",
+      "Not anymore. Lectra Notes and OneNote are free; Apple Notes is free and includes audio transcripts. Goodnotes and Notability are excellent but their free tiers cap at 3 files and 5 notes respectively, as of August 2026.",
   },
   {
     question: "What about Carnets or a-Shell?",
@@ -117,47 +149,31 @@ const faqs: FaqEntry[] = [
 
 export default function CsStudentsPage() {
   return (
-    <PublicPageFrame active="lectra" footerVariant="slim">
+    <PublicPageFrame active="compare" footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Compare", path: "/compare" },
-            {
-              name: "Best note-taking apps for CS students",
-              path: "/compare/best-note-taking-apps-for-cs-students",
-            },
+            { name: comparison.title, path: comparePath(comparison) },
           ]),
           comparisonArticleSchema(
-            "Best Note-Taking Apps for CS Students",
-            "/compare/best-note-taking-apps-for-cs-students",
-            description,
-            "2026-08-14",
-            "2026-08-14",
+            comparison.title,
+            comparePath(comparison),
+            comparison.description,
+            comparison.datePublished,
+            comparison.dateModified,
+            "#lectra-ipad",
           ),
-          itemListSchema(
-            "Best note-taking apps for CS students",
-            "/compare/best-note-taking-apps-for-cs-students",
-            picks.map((pick) => ({
-              name: pick.name,
-              path: "/compare/best-note-taking-apps-for-cs-students",
-            })),
-          ),
-          competitorAppNode("Goodnotes", "https://www.goodnotes.com"),
-          competitorAppNode("Notability", "https://notability.com"),
-          competitorAppNode(
-            "Microsoft OneNote",
-            "https://www.microsoft.com/microsoft-365/onenote",
-          ),
-          competitorAppNode("Juno", "https://juno.sh"),
+          appListSchema(comparison.title, comparePath(comparison), appList),
           faqSchema(faqs),
         ]}
       />
 
       <section className="page-wrap centered-hero" id="hero">
         <div data-reveal>
-          <p className="kicker">Compare · Updated August 2026</p>
-          <h1>The best note-taking apps for CS students.</h1>
+          <p className="kicker">Compare · Updated September 2026</p>
+          <h1>Best note-taking apps for CS students (2026)</h1>
           <p className="centered-hero-lede">
             CS coursework isn&apos;t just handwriting — it&apos;s lecture PDFs,
             problem-set notebooks, and repositories, usually for the same
@@ -223,13 +239,15 @@ export default function CsStudentsPage() {
         </div>
       </section>
 
+      <RelatedLinks title="More comparisons" links={relatedLinks} />
+
       <section className="page-wrap final-cta" id="download" data-reveal>
         <div>
           <h2>Notes and code, one app.</h2>
           <p>
-            <a href={LECTRA_APP_STORE_URL} target="_blank" rel="noreferrer">
+            <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
-            </a>{" "}
+            </StoreLink>{" "}
             — free, offline, and built for the courses where the reading and
             the repository are the same assignment.
           </p>

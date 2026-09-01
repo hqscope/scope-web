@@ -1,60 +1,64 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import JsonLd from "@/components/seo/JsonLd";
+import { comparePath, comparisons, comparisonsFor, type Comparison } from "@/lib/compare";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 
 const description =
-  "Honest comparisons of Lectra Notes with Goodnotes, Notability, and the iPad Python notebook apps — including where each competitor is stronger.";
+  "Honest comparisons of Scope for Canvas with BetterCampus and Tasks for Canvas, and of Lectra Notes with Goodnotes, Notability, and the iPad Python notebook apps — including where each competitor is stronger.";
 
-export const metadata: Metadata = {
-  title: "Compare Lectra Notes",
+export const metadata = publicPageMetadata({
+  title: "Compare Scope and Lectra Notes",
   description,
-  alternates: {
-    canonical: "/compare",
-  },
+  path: "/compare",
   keywords: [
+    "Scope vs Better Canvas",
+    "Scope vs Tasks for Canvas",
+    "best Canvas Chrome extensions",
     "Lectra Notes vs Goodnotes",
     "Lectra Notes vs Notability",
-    "best note taking app for CS students",
-    "iPad Python notebook apps",
     "free Goodnotes alternatives",
+    "iPad Python notebook apps",
   ],
-};
+});
 
-const comparisons = [
-  {
-    slug: "lectra-notes-vs-goodnotes",
-    title: "Lectra Notes vs Goodnotes",
-    copy: "Handwriting, PDFs, pricing, and the computing environment — where each app genuinely wins.",
-  },
-  {
-    slug: "lectra-notes-vs-notability",
-    title: "Lectra Notes vs Notability",
-    copy: "Notability owns lecture audio. Lectra Notes owns notes-plus-code. The honest breakdown.",
-  },
-  {
-    slug: "best-note-taking-apps-for-cs-students",
-    title: "Best note-taking apps for CS students",
-    copy: "Goodnotes, Notability, OneNote, Juno, and Lectra Notes — matched to how CS coursework actually works.",
-  },
-  {
-    slug: "ipad-python-notebook-apps",
-    title: "iPad Python notebook apps",
-    copy: "Juno, Carnets, Pythonista, a-Shell, and Lectra Notes — every real way to run Python on an iPad.",
-  },
-  {
-    slug: "free-goodnotes-alternatives",
-    title: "Free Goodnotes alternatives",
-    copy: "The genuinely free iPad note apps in 2026, and what each one gives up.",
-  },
-];
+function CompareCards({ items }: { items: Comparison[] }) {
+  return (
+    <div className="plain-grid" data-reveal>
+      {items.map((item) => (
+        <Link
+          key={item.slug}
+          href={comparePath(item)}
+          className="group block rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-6 transition-colors hover:border-[var(--color-line-strong)]"
+        >
+          <h3 className="text-[1.05rem] font-semibold text-[var(--color-ink)]">
+            {item.title}
+          </h3>
+          <p className="mt-2 text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
+            {item.copy}
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-brand)]">
+            Read the comparison
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 export default function ComparePage() {
+  const scopeComparisons = comparisonsFor("scope");
+  const lectraComparisons = comparisonsFor("lectra");
+
   return (
-    <PublicPageFrame active="lectra" footerVariant="slim">
+    <PublicPageFrame active="compare" footerVariant="slim">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -62,11 +66,11 @@ export default function ComparePage() {
             { name: "Compare", path: "/compare" },
           ]),
           itemListSchema(
-            "Lectra Notes comparisons",
+            "Scope and Lectra Notes comparisons",
             "/compare",
             comparisons.map((item) => ({
               name: item.title,
-              path: `/compare/${item.slug}`,
+              path: comparePath(item),
             })),
           ),
         ]}
@@ -78,36 +82,36 @@ export default function ComparePage() {
           <h1>Pick the right app, even if it isn&apos;t ours.</h1>
           <p className="centered-hero-lede">
             Every comparison here names what the other app does better — dated,
-            sourced, and corrected when we&apos;re wrong. If Lectra Notes wins,
-            we want it to win on the merits.
+            sourced, and corrected when we&apos;re wrong. If Scope for Canvas
+            or Lectra Notes wins, we want it to win on the merits.
           </p>
         </div>
       </section>
 
-      <section className="page-wrap section-pad" id="comparisons">
-        <h2 className="sr-only">All comparisons</h2>
-        <div className="plain-grid" data-reveal>
-          {comparisons.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/compare/${item.slug}`}
-              className="group block rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-6 transition-colors hover:border-[var(--color-line-strong)]"
-            >
-              <h3 className="text-[1.05rem] font-semibold text-[var(--color-ink)]">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
-                {item.copy}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-brand)]">
-                Read the comparison
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </span>
-            </Link>
-          ))}
+      <section className="page-wrap section-pad" id="scope">
+        <div className="section-heading" data-reveal>
+          <p className="kicker">Scope for Canvas</p>
+          <h2>Canvas Chrome extensions, compared.</h2>
+        </div>
+        <CompareCards items={scopeComparisons} />
+      </section>
+
+      <section className="page-wrap section-pad" id="lectra">
+        <div className="section-heading" data-reveal>
+          <p className="kicker">Lectra Notes</p>
+          <h2>iPad note-taking apps, compared.</h2>
+        </div>
+        <CompareCards items={lectraComparisons} />
+      </section>
+
+      <section className="page-wrap final-cta" id="guides" data-reveal>
+        <div>
+          <h2>Looking for a how-to instead?</h2>
+          <p>
+            The <Link href="/guides">guides</Link> cover the manual way first —
+            searching Canvas, checking an extension before you install it,
+            getting lecture slides onto an iPad — and only then mention ours.
+          </p>
         </div>
       </section>
     </PublicPageFrame>

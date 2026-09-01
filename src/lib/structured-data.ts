@@ -1,11 +1,19 @@
+import type { ProductEntityId } from "@/lib/compare";
+import type { NewsroomArticle } from "@/lib/newsroom";
 import {
   CHROME_WEB_STORE_URL,
+  GITHUB_ORG_URL,
   LECTRA_APP_STORE_URL,
+  LECTRA_DEFINITION,
   LECTRA_MAC_DOWNLOAD_URL,
+  LECTRA_PRODUCT_NAME,
+  LINKEDIN_COMPANY_URL,
+  SCOPE_DEFINITION,
+  SCOPE_PRODUCT_NAME,
   SUPPORT_EMAIL,
   getConfiguredSiteUrl,
 } from "@/lib/site";
-import type { NewsroomArticle } from "@/lib/newsroom";
+import { LECTRA_APP_VERSION, SCOPE_EXTENSION_VERSION } from "@/lib/siteRelease";
 
 const FALLBACK_SITE_URL = "https://www.canvascope.org";
 
@@ -38,7 +46,14 @@ export function organizationSchema() {
     // plaster ground — search engines and Google's brand review see one logo.
     logo: absoluteUrl("/brand/scope-mark-plaster-2048.png"),
     email: SUPPORT_EMAIL,
-    sameAs: [CHROME_WEB_STORE_URL],
+    // Every public profile that corroborates the entity. Nulls are profiles
+    // that do not exist yet (see src/lib/site.ts).
+    sameAs: [
+      CHROME_WEB_STORE_URL,
+      LECTRA_APP_STORE_URL,
+      LINKEDIN_COMPANY_URL,
+      GITHUB_ORG_URL,
+    ].filter((url): url is string => typeof url === "string"),
   };
 }
 
@@ -115,18 +130,20 @@ export function canvascopeSoftwareSchema() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "@id": `${origin}/#canvascope-extension`,
-    name: "Scope",
-    alternateName: ["Scope for Canvas", "Canvascope"],
+    name: SCOPE_PRODUCT_NAME,
+    alternateName: ["Scope", "Canvascope", "Scope for Canvas and Brightspace"],
     applicationCategory: "EducationalApplication",
     applicationSubCategory: "Student productivity",
     operatingSystem: "ChromeOS, macOS, Windows, Linux",
     browserRequirements: "Requires Google Chrome or a Chromium browser that supports Chrome extensions.",
     url: absoluteUrl("/products/extension"),
     downloadUrl: CHROME_WEB_STORE_URL,
+    installUrl: CHROME_WEB_STORE_URL,
+    sameAs: [CHROME_WEB_STORE_URL],
     image: absoluteUrl("/brand/canvascope-extension-screenshot.png"),
-    description:
-      "Scope is a local-first Chrome extension for Canvas and Brightspace search, cited course-context AI, PDF/OCR indexing, Smart Planner, and Lectra document handoff.",
-    softwareVersion: "10.1",
+    description: `${SCOPE_DEFINITION} It also indexes PDFs and scanned pages on the device, drafts a study plan from upcoming deadlines, and hands documents to Lectra Notes on iPad.`,
+    // Read off the Chrome Web Store listing; see src/lib/siteRelease.ts.
+    softwareVersion: SCOPE_EXTENSION_VERSION,
     featureList: [
       "Canvas and Brightspace course search",
       "local PDF text extraction and OCR search",
@@ -143,6 +160,7 @@ export function canvascopeSoftwareSchema() {
       url: CHROME_WEB_STORE_URL,
       availability: "https://schema.org/InStock",
     },
+    author: { "@id": `${origin}/#organization` },
     publisher: { "@id": `${origin}/#organization` },
   };
 }
@@ -154,18 +172,21 @@ export function lectraSoftwareSchema() {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "@id": `${origin}/#lectra-ipad`,
-    name: "Lectra Notes",
-    alternateName: "Lectra",
+    name: LECTRA_PRODUCT_NAME,
+    // "Lectra" alone is shared with unrelated apps and with Lectra SA; the
+    // qualified forms keep the entity attached to Scope.
+    alternateName: ["Lectra", "Lectra Notes by Scope"],
     applicationCategory: "EducationalApplication",
     applicationSubCategory: "Note-taking, PDF annotation, and computational notebooks",
     operatingSystem: "iOS 18+, iPadOS 18+",
     url: absoluteUrl("/products/lectra"),
     downloadUrl: LECTRA_APP_STORE_URL,
+    installUrl: LECTRA_APP_STORE_URL,
+    sameAs: [LECTRA_APP_STORE_URL],
     image: absoluteUrl("/brand/lectra-canvascope-lockup.png"),
-    description:
-      "Lectra Notes is the free App Store app from Scope: an Apple Pencil workspace for handwritten notes and PDF markup with a built-in computing environment — Jupyter-compatible .ipynb notebooks with on-device Python, a code editor, a terminal with git, SSH remote development, and remote desktop to your Mac — plus private on-device study intelligence and an offline-first library.",
-    // Matches the live App Store version, not the in-development build.
-    softwareVersion: "5.0",
+    description: `${LECTRA_DEFINITION} It also includes a code editor, SSH remote development, remote desktop to your Mac through the free Lectra for Mac app, private on-device study intelligence, and an offline-first library.`,
+    // Read off the App Store listing; see src/lib/siteRelease.ts.
+    softwareVersion: LECTRA_APP_VERSION,
     featureList: [
       "Apple Pencil PDF annotation with a custom vector ink engine",
       "handwritten notebooks with lined, grid, dotted, and Cornell paper styles",
@@ -193,19 +214,21 @@ export function lectraSoftwareSchema() {
       url: LECTRA_APP_STORE_URL,
       availability: "https://schema.org/InStock",
     },
+    author: { "@id": `${origin}/#organization` },
     publisher: { "@id": `${origin}/#organization` },
   };
 }
 
 /**
- * WebPage node for a Lectra feature subpage. References the single
- * `#lectra-ipad` entity by @id so every page describes one application —
- * never a second SoftwareApplication node with drifting facts.
+ * WebPage node for a product feature subpage. References the product entity
+ * by @id so every page describes one application — never a second
+ * SoftwareApplication node with drifting facts.
  */
-export function lectraFeaturePageSchema(
+export function productFeaturePageSchema(
   name: string,
   path: string,
   description: string,
+  aboutId: ProductEntityId,
 ) {
   const origin = siteOrigin();
 
@@ -218,9 +241,18 @@ export function lectraFeaturePageSchema(
     description,
     inLanguage: "en",
     isPartOf: { "@id": `${origin}/#website` },
-    about: { "@id": `${origin}/#lectra-ipad` },
+    about: { "@id": `${origin}/${aboutId}` },
     publisher: { "@id": `${origin}/#organization` },
   };
+}
+
+/** Lectra feature subpages (/products/lectra/*). */
+export function lectraFeaturePageSchema(
+  name: string,
+  path: string,
+  description: string,
+) {
+  return productFeaturePageSchema(name, path, description, "#lectra-ipad");
 }
 
 export function howToSchema(
@@ -254,6 +286,7 @@ export function comparisonArticleSchema(
   description: string,
   datePublished: string,
   dateModified: string,
+  aboutId: ProductEntityId = "#lectra-ipad",
 ) {
   const origin = siteOrigin();
 
@@ -268,9 +301,34 @@ export function comparisonArticleSchema(
     inLanguage: "en",
     url: absoluteUrl(path),
     mainEntityOfPage: absoluteUrl(path),
-    about: { "@id": `${origin}/#lectra-ipad` },
+    about: { "@id": `${origin}/${aboutId}` },
     author: { "@id": `${origin}/#organization` },
     publisher: { "@id": `${origin}/#organization` },
+  };
+}
+
+/**
+ * Article node for an evergreen /guides page. Same shape as a comparison;
+ * the section tells crawlers it is reference material, not a dated post.
+ */
+export function guideArticleSchema(
+  headline: string,
+  path: string,
+  description: string,
+  datePublished: string,
+  dateModified: string,
+  aboutId: ProductEntityId,
+) {
+  return {
+    ...comparisonArticleSchema(
+      headline,
+      path,
+      description,
+      datePublished,
+      dateModified,
+      aboutId,
+    ),
+    articleSection: "Guides",
   };
 }
 
@@ -403,7 +461,8 @@ export function articleSchema(article: NewsroomArticle) {
     inLanguage: "en",
     url: absoluteUrl(path),
     mainEntityOfPage: absoluteUrl(path),
-    image: absoluteUrl("/opengraph-image"),
+    // The per-article card rendered by src/app/newsroom/[slug]/opengraph-image.tsx.
+    image: absoluteUrl(`${path}/opengraph-image`),
     articleBody: newsroomArticlePlainText(article),
     isPartOf: {
       "@type": "Blog",
@@ -452,6 +511,42 @@ export function itemListSchema(
       position: index + 1,
       name: item.name,
       url: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export type AppListItem = {
+  name: string;
+  /** Official site of a third-party app. */
+  url?: string;
+  /** Our own product, referenced by entity @id instead of a new node. */
+  id?: ProductEntityId;
+};
+
+/**
+ * ItemList for an all-in-one round-up page, where every item is described on
+ * the page itself. Items carry the app inline (or point at our own entity),
+ * never a per-item URL that would repeat the page's own address.
+ */
+export function appListSchema(name: string, path: string, apps: AppListItem[]) {
+  const origin = siteOrigin();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    url: absoluteUrl(path),
+    numberOfItems: apps.length,
+    itemListElement: apps.map((app, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: app.id
+        ? { "@id": `${origin}/${app.id}` }
+        : {
+            "@type": "SoftwareApplication",
+            name: app.name,
+            ...(app.url ? { url: app.url } : {}),
+          },
     })),
   };
 }

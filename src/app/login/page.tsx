@@ -8,7 +8,16 @@ import { sanitizeNextPath } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Sign in",
   description:
-    "One account across the Scope extension, Lectra, and everything that moves between them.",
+    "One account across the Scope extension, Lectra Notes, and everything that moves between them.",
+  alternates: {
+    canonical: "/login",
+  },
+  // A sign-in form has no place in search results. Kept out of robots.txt
+  // so crawlers can still read this tag.
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const errorCopy: Record<string, string> = {

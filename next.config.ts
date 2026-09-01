@@ -31,7 +31,9 @@ const versionedDmgFile = RECEIVER_DMG_PATTERN.source
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [75, 100],
+    // Every quality a page passes to <Image> must be listed, or the optimizer
+    // answers 400 for that request. The product screenshots use 90.
+    qualities: [75, 90, 100],
   },
   async redirects() {
     return [

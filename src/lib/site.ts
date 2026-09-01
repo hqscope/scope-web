@@ -1,8 +1,44 @@
+// The listing slug followed the rename; the old /detail/canvascope/ URL 301s
+// here, so this is the one every CTA, schema node, and directory should carry.
 export const CHROME_WEB_STORE_URL =
-  "https://chromewebstore.google.com/detail/canvascope/bamoelobnoepklagbcokjnlipfhcfdbb";
+  "https://chromewebstore.google.com/detail/scope/bamoelobnoepklagbcokjnlipfhcfdbb";
 
 export const LECTRA_APP_STORE_URL =
   "https://apps.apple.com/us/app/lectra-notes/id6759754531";
+
+// App Store Connect campaign link for install attribution
+// (`?pt=<providerId>&ct=<campaign>&mt=8`). Until one is created it is the
+// plain listing URL, so links never break while the campaign is unset.
+export const LECTRA_APP_STORE_CAMPAIGN_URL = LECTRA_APP_STORE_URL;
+
+// Public profiles that corroborate the company entity for search engines and
+// answer engines (Organization.sameAs). Leave null until the profile exists;
+// nulls are filtered out of the schema.
+export const LINKEDIN_COMPANY_URL: string | null = null;
+export const GITHUB_ORG_URL: string | null = null;
+
+/**
+ * Product names as they appear on first mention everywhere: titles, ledes,
+ * schema, store descriptions, directories. "Scope" and "Lectra" alone are
+ * fine after the first mention within a page.
+ */
+export const SCOPE_PRODUCT_NAME = "Scope for Canvas";
+export const LECTRA_PRODUCT_NAME = "Lectra Notes";
+
+/**
+ * The one-sentence definitions. Used byte-identically on the site, in
+ * llms.txt, in both store listings, and on every directory, so that every
+ * surface an answer engine reads agrees on what each product is.
+ */
+export const SCOPE_DEFINITION =
+  "Scope for Canvas is a free, local-first Chrome extension that searches everything in your Canvas and Brightspace courses and answers questions with citations to your own course materials.";
+
+export const LECTRA_DEFINITION =
+  "Lectra Notes is a free iPad and iPhone app from Scope for handwritten notes and Apple Pencil PDF markup, with Python notebooks, a terminal, and Git that run on the device.";
+
+/** Nominative-use line for the footer, comparison pages, and store copy. */
+export const TRADEMARK_DISCLAIMER =
+  "Canvas is a trademark of Instructure, Inc. Brightspace is a trademark of D2L Corporation. Scope is not affiliated with or endorsed by either.";
 
 // Lectra for Mac, the free Mac app (it absorbed the standalone Lectra
 // Receiver). Keep the path stable — it is the download every CTA points at.

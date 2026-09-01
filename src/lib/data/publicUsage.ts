@@ -2,10 +2,10 @@ import "server-only";
 
 import type { User } from "@supabase/supabase-js";
 
+import { CHROME_WEB_STORE_URL } from "@/lib/site";
 import { createAdminSupabaseClient } from "@/lib/supabase/admin";
 
-const WEB_STORE_URL =
-  "https://chromewebstore.google.com/detail/scope/bamoelobnoepklagbcokjnlipfhcfdbb?hl=en";
+const WEB_STORE_URL = `${CHROME_WEB_STORE_URL}?hl=en`;
 const WEB_STORE_REVALIDATE_SECONDS = 60 * 60;
 const AUTH_PAGE_SIZE = 1_000;
 

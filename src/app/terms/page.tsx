@@ -1,20 +1,18 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Bot, GraduationCap, Lock, ShieldCheck, UserCheck } from "lucide-react";
 
 import JsonLd from "@/components/seo/JsonLd";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { SUPPORT_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Terms of Service",
   description:
     "The terms for using Scope, Lectra Notes, and the Scope web workspace: accounts, your content, academic integrity, AI features, third-party platforms, and the as-is nature of the product.",
-  alternates: {
-    canonical: "/terms",
-  },
-};
+  path: "/terms",
+});
 
 const LAST_UPDATED = "July 28, 2026";
 
@@ -138,7 +136,7 @@ export default function TermsPage() {
             <h2 className="text-3xl">3. What the Service is</h2>
             <p className="section-copy">
               {
-                "Scope is a local-first study tool. The browser extension can search your Canvas and Brightspace coursework, index and OCR PDFs on your device, answer questions grounded in your course context with citations, draft study plans, generate practice material, and move documents to and from Lectra Notes. Lectra lets you read and annotate course PDFs with Apple Pencil where supported, run on-device study tools, and, in its Projects workspace, edit notebooks and run a terminal, git, and Python on supported Apple devices. The web workspace shows connected product data such as synced documents and course coverage for the signed-in user."
+                "Scope is a local-first study tool. The browser extension can search your Canvas and Brightspace coursework, index PDFs, including scanned ones, on your device, answer questions grounded in your course context with citations, draft study plans, generate practice material, and move documents to and from Lectra Notes. Lectra lets you read and annotate course PDFs with Apple Pencil where supported, run on-device study tools, and, in its Projects workspace, edit notebooks and run a terminal, git, and Python on supported Apple devices. The web workspace shows connected product data such as synced documents and course coverage for the signed-in user."
               }
             </p>
             <p className="section-copy">

@@ -1,19 +1,17 @@
-import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import JsonLd from "@/components/seo/JsonLd";
+import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 import { CHROME_WEB_STORE_URL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = publicPageMetadata({
   title: "Direction",
   description:
     "Learning management systems became systems of record: files in, grades out. The actual work of learning happens somewhere else. We think the course itself should be the workspace — and we're building toward that in the open.",
-  alternates: {
-    canonical: "/direction",
-  },
+  path: "/direction",
   keywords: [
     "Scope direction",
     "Scope mission",
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
     "local-first student software",
     "LMS replacement",
   ],
-};
+});
 
 const roadmap = [
   {
@@ -30,7 +28,7 @@ const roadmap = [
     when: "Today",
     status: "Shipping · free",
     copy:
-      "The student layer. The extension puts search, cited answers, practice exams, and a planner inside the LMS. Lectra Notes is the workspace — ink, notebooks, an offline library. Polya tutors from the course itself. DropBridge carries files between all of it.",
+      "The student layer. Scope for Canvas, the extension, puts search, cited answers, practice exams, and a planner inside the LMS. Lectra Notes is the workspace — ink, notebooks, an offline library. Polya tutors from the course itself. DropBridge carries files between all of it.",
   },
   {
     stage: "next" as const,
@@ -51,9 +49,9 @@ const roadmap = [
 const principles = [
   {
     n: "01",
-    title: "Students first, always free",
+    title: "Students first, free",
     copy:
-      "The student layer stays free. We charge institutions, never the people doing the homework.",
+      "The student layer is free. We charge institutions, not the people doing the homework.",
   },
   {
     n: "02",
@@ -118,9 +116,9 @@ export default function DirectionPage() {
             </h2>
             <p className="section-copy">
               Procurement cycles run years. Students are enrolled now. So Scope
-              enters from the side: a layer on top of Canvas and Brightspace that
-              students install themselves, free, in a minute. Every feature works
-              with the systems your school already runs.
+              enters from the side: Scope for Canvas, a free extension on top of
+              Canvas and Brightspace that students install themselves in a
+              minute. It works with the systems your school already runs.
             </p>
           </div>
           <div>

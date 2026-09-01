@@ -9,7 +9,9 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/",
     display: "standalone",
     background_color: "#f6f1e7",
-    theme_color: "#c42b26",
+    // Matches viewport.themeColor in layout.tsx, so an installed shortcut and
+    // the browser chrome paint the same plaster ground.
+    theme_color: "#f6f1e7",
     categories: ["education", "productivity"],
     icons: [
       {

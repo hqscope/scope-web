@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,23 +9,26 @@ import CommandPaletteMock from "@/components/public/mocks/CommandPaletteMock";
 import DropBridgeStrip from "@/components/public/mocks/DropBridgeStrip";
 import PolyaChatMock from "@/components/public/mocks/PolyaChatMock";
 import JsonLd from "@/components/seo/JsonLd";
+import StoreLink from "@/components/seo/StoreLink";
 import {
   breadcrumbSchema,
   canvascopeSoftwareSchema,
 } from "@/lib/structured-data";
 import { getNewsroomArticlesBySlugs } from "@/lib/newsroom";
-import { CHROME_WEB_STORE_URL, LECTRA_APP_STORE_URL } from "@/lib/site";
+import { publicPageMetadata } from "@/lib/seo";
+import {
+  CHROME_WEB_STORE_URL,
+  LECTRA_APP_STORE_CAMPAIGN_URL,
+  SCOPE_DEFINITION,
+} from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "Scope | The LMS where students actually do the work",
-  },
+export const metadata = publicPageMetadata({
+  title: "Scope for Canvas | Local-First Canvas Search Extension",
+  absoluteTitle: true,
   description:
-    "Scope works with the LMS your school already runs — and puts your reading, notes, code, and questions in one place, tied to the course. Local-first search for Canvas and Brightspace, cited course answers, and an iPad workspace.",
-  alternates: {
-    canonical: "/",
-  },
-};
+    "Scope for Canvas is a free, local-first Chrome extension that searches your Canvas and Brightspace courses and cites its answers. Plus Lectra Notes, the free Apple Pencil iPad app.",
+  path: "/",
+});
 
 const paletteRows = [
   {
@@ -74,21 +76,21 @@ const loop = [
   },
   {
     step: "03 — Back",
-    title: "Into any upload flow",
+    title: "Into supported upload flows",
     copy:
-      "Finished files return to the browser and attach wherever the course collects work. DropBridge carries them.",
+      "Finished files come back to the browser and into supported upload flows. DropBridge carries them.",
   },
 ];
 
 const extensionFeatures = [
   {
     title: "Instant, local search",
-    copy: "Indexed on your device, including OCR on scanned PDFs.",
+    copy: "Indexed on your device, including the text in scanned PDFs.",
   },
   {
     title: "Cited course answers",
     copy:
-      "Ask about the course; every answer points back to the page it came from.",
+      "Ask about the course; every answer points back to the page it came from. Scope does not take quizzes, write submissions, or interact with Canvas quiz logs.",
   },
   {
     title: "Practice exams and a planner",
@@ -157,23 +159,25 @@ export default function HomePage() {
       <section className="page-wrap product-hero">
         <div className="product-hero-grid">
           <div className="product-hero-copy" data-reveal>
+            <p className="kicker">
+              Scope for Canvas · free Chrome extension for Canvas and Brightspace
+            </p>
             <h1>
               The LMS where students <em>actually</em> do the work.
             </h1>
             <p className="section-copy">
-              Scope works with the LMS your school already runs — and puts your
-              reading, notes, code, and questions in one place, tied to the
-              course.
+              {SCOPE_DEFINITION}{" "}
+              Lectra Notes, its free iPad app, is where you mark up the reading
+              with Apple Pencil and run the notebook.
             </p>
             <div className="pill-actions">
-              <a
+              <StoreLink
+                store="chrome-web-store"
                 href={CHROME_WEB_STORE_URL}
-                target="_blank"
-                rel="noreferrer"
                 className="button-primary"
               >
                 Add Scope to Chrome — free
-              </a>
+              </StoreLink>
               <Link href="/products/lectra" className="button-secondary">
                 Get Lectra Notes →
               </Link>
@@ -188,7 +192,7 @@ export default function HomePage() {
               query="practice midterm"
               scope="Math 53 · Fall"
               rows={paletteRows}
-              footnote="Local index · ⌘L send to Lectra"
+              footnote="Local index · ⌘L send to Lectra Notes"
             />
           </div>
         </div>
@@ -209,7 +213,7 @@ export default function HomePage() {
           </div>
           <div className="pull-quote">
             <p>
-              GoodNotes knows the notebook but not the course. Canvas knows the
+              Goodnotes knows the notebook but not the course. Canvas knows the
               course but not the work. We connect them.
             </p>
           </div>
@@ -250,8 +254,8 @@ export default function HomePage() {
       <section className="section-band">
         <div className="page-wrap split-section split-section--center" data-reveal>
           <div>
-            <p className="kicker">Scope extension — Chrome</p>
-            <h2>Your courses, one keystroke away.</h2>
+            <p className="kicker">Scope for Canvas — Chrome</p>
+            <h2>Search every Canvas and Brightspace course, one keystroke away.</h2>
             <ul className="check-list">
               {extensionFeatures.map((feature) => (
                 <li key={feature.title}>
@@ -260,9 +264,17 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/products/extension" className="text-link">
-              Explore the extension →
-            </Link>
+            <div className="link-row">
+              <Link href="/products/extension" className="text-link">
+                Explore the extension →
+              </Link>
+              <Link
+                href="/compare/best-canvas-chrome-extensions"
+                className="text-link"
+              >
+                Best Canvas Chrome extensions, compared →
+              </Link>
+            </div>
           </div>
 
           <div className="mock-column">
@@ -280,8 +292,8 @@ export default function HomePage() {
       <section className="page-wrap strip-section" data-reveal="fade">
         <DropBridgeStrip />
         <p className="strip-note">
-          DropBridge — files move between browser and iPad, and back into any
-          upload flow
+          DropBridge — files move between browser and iPad, and back into
+          supported upload flows
         </p>
       </section>
 
@@ -312,14 +324,19 @@ export default function HomePage() {
               ))}
             </ul>
             <div className="link-row">
-              <a
-                href={LECTRA_APP_STORE_URL}
-                target="_blank"
-                rel="noreferrer"
+              <StoreLink
+                store="app-store"
+                href={LECTRA_APP_STORE_CAMPAIGN_URL}
                 className="text-link"
               >
                 Get Lectra Notes →
-              </a>
+              </StoreLink>
+              <Link
+                href="/guides/annotate-lecture-slides-on-ipad"
+                className="text-link"
+              >
+                Annotate Canvas lecture slides on iPad →
+              </Link>
               <Link href="/mac" className="link-quiet">
                 Also on Mac →
               </Link>
@@ -406,10 +423,13 @@ export default function HomePage() {
             <p className="kicker">Privacy</p>
             <h2>Local-first isn&rsquo;t a feature. It&rsquo;s the whole point.</h2>
             <p className="section-copy">
-              Your course index is built and searched on your device. Anything
-              that reaches the cloud is explicit and optional — and off by
-              default.
+              Search and indexing run entirely on your device. AI answers try
+              Chrome&rsquo;s on-device model first; when it is unavailable, an
+              optional, clearly marked cloud fallback is used.
             </p>
+            <Link href="/guides/canvas-extension-safety" className="text-link">
+              How to check any Canvas extension before installing it →
+            </Link>
           </div>
           <div className="privacy-stats">
             <div>
@@ -418,7 +438,7 @@ export default function HomePage() {
             </div>
             <div>
               <span className="stat-zero">0</span>
-              <span className="stat-label">Ad trackers</span>
+              <span className="stat-label">Subscriptions</span>
             </div>
           </div>
         </div>
@@ -440,14 +460,13 @@ export default function HomePage() {
           a course, press ⌘K.
         </p>
         <div className="pill-actions">
-          <a
+          <StoreLink
+            store="chrome-web-store"
             href={CHROME_WEB_STORE_URL}
-            target="_blank"
-            rel="noreferrer"
             className="button-primary"
           >
             Add Scope to Chrome — free
-          </a>
+          </StoreLink>
           <Link href="/products/lectra" className="button-secondary">
             Get Lectra Notes →
           </Link>

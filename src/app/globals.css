@@ -693,7 +693,7 @@ h6 {
 
 .public-footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
   gap: 3rem;
   padding-top: 4rem;
 }
@@ -2728,4 +2728,12 @@ h6 {
 
 .legal-page .border {
   border-color: var(--color-line);
+}
+
+/* Nominative-use notice in the footer colophon: same mono voice as the two
+   lines beside it, on its own row so it never crowds them. */
+.public-footer-disclaimer {
+  flex-basis: 100%;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
 }
