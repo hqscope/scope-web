@@ -14,7 +14,8 @@ export const LECTRA_APP_STORE_CAMPAIGN_URL = LECTRA_APP_STORE_URL;
 // Public profiles that corroborate the company entity for search engines and
 // answer engines (Organization.sameAs). Leave null until the profile exists;
 // nulls are filtered out of the schema.
-export const LINKEDIN_COMPANY_URL: string | null = null;
+export const LINKEDIN_COMPANY_URL: string | null =
+  "https://www.linkedin.com/company/hqscope/";
 export const GITHUB_ORG_URL: string | null = null;
 
 /**

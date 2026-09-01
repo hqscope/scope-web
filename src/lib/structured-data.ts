@@ -201,6 +201,7 @@ export function lectraSoftwareSchema() {
       "SSH remote development with a full terminal emulator",
       "remote desktop to your Mac, using the free Lectra for Mac app",
       "on-device AI summaries, flashcards, quizzes, and grounded Q&A on supported devices",
+      "lecture recording with playback tied to your handwriting and on-device transcription (version 8.0)",
       "flattened, text-preserving PDF export with an invisible OCR layer",
       "hybrid PDF export that opens in any PDF reader and re-imports with editable ink",
       "Shortcuts and Siri App Intents",

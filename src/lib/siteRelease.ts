@@ -11,7 +11,7 @@
 export const SCOPE_EXTENSION_VERSION = "11.0.5";
 
 /** Lectra Notes, as published on the App Store. */
-export const LECTRA_APP_VERSION = "7.0";
+export const LECTRA_APP_VERSION = "8.0";
 
 /** The day both versions above were last confirmed against the listings. */
 export const STORE_FACTS_VERIFIED_ON = "2026-09-01";

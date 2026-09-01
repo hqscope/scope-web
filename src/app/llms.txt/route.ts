@@ -141,6 +141,9 @@ ${LECTRA_DEFINITION}
 It offers Apple Pencil notes and PDF markup (pen, highlighter, lasso, shapes,
 sticky notes, typed text, saved signatures; lined, grid, dotted, and Cornell
 paper); a library with folders, favorites, a scanner, and handwriting-aware search;
+lecture recording, added in version 8.0 on September 1, 2026, which records
+the lecture while you write — tap a stroke to hear what was said at that
+moment — with transcription that runs on the device;
 Jupyter-compatible .ipynb notebooks with numpy, pandas, and matplotlib,
 offline; a code editor and a terminal with a shell, git, python, and pip;
 GitHub clone, pull, and push; SSH; remote desktop to a Mac running Lectra for

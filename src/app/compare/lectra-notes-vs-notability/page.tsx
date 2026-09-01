@@ -52,7 +52,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Is Lectra Notes better than Notability?",
     answer:
-      "For lecture-heavy classes, Notability is hard to beat: audio recording synced to your notes is its signature feature, and paid tiers add transcription with AI summaries. Lectra Notes has no lecture recording today. But Lectra Notes is completely free without Notability's 5-note cap, its AI runs on-device instead of in the cloud, and it adds a computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — that Notability doesn't have. Pick by which of those matters more to your classes.",
+      "For lecture-heavy classes, Notability is hard to beat: audio recording synced to your notes has been its signature feature for years, and paid tiers add transcription with AI summaries. Lectra Notes added lecture recording in version 8.0 on September 1, 2026 — it records while you write, a tap on a stroke plays what was said at that moment, and transcription runs on the device — but it is brand new and has not been through a full semester yet. Lectra Notes is also completely free without Notability's 5-note cap, its AI runs on-device instead of in the cloud, and it adds a computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — that Notability doesn't have. Pick by which of those matters more to your classes.",
   },
   {
     question: "Is Notability free?",
@@ -62,7 +62,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Does Lectra Notes record lectures?",
     answer:
-      "No. Audio recording synced to notes is Notability's signature feature and a real advantage today. If recording lectures is central to how you study, Notability is the stronger choice right now.",
+      "Yes, since version 8.0 on September 1, 2026. Lectra Notes records the lecture while you write; tap a handwritten stroke to hear what was said at that moment, or drag the playhead and watch the page fill back in stroke by stroke. Transcription runs on the device, and it is free. It is also brand new and has not been through a full semester yet. Notability has years of polish on lecture audio, and its paid tiers add transcription with AI summaries, so if recording is central to how you study, Notability is the more proven choice today.",
   },
   {
     question: "Where does Lectra Notes' AI run?",
@@ -104,10 +104,12 @@ export default function LectraVsNotabilityPage() {
           <p className="kicker">Compare · Updated September 2026</p>
           <h1>Lectra Notes vs Notability</h1>
           <p className="centered-hero-lede">
-            Notability owns lecture audio — recording synced to your notes is
-            its signature feature. Lectra Notes is free without note caps and
-            adds a computing environment: Python notebooks, a terminal, and
-            Git that run on the iPad. Here is where each one wins.
+            Notability has years of polish on lecture audio — recording synced
+            to your notes is its signature feature. Lectra Notes now records
+            lectures too (new in version 8.0, September 1, 2026), is free
+            without note caps, and adds a computing environment: Python
+            notebooks, a terminal, and Git that run on the iPad. Here is where
+            each one wins.
           </p>
           <p className="hero-note">
             {LECTRA_DEFINITION} Notability is a handwriting and lecture-audio
@@ -120,7 +122,7 @@ export default function LectraVsNotabilityPage() {
       <section className="page-wrap section-pad-sm" id="table">
         <div data-reveal>
           <ComparisonTable
-            caption="Feature comparison of Lectra Notes and Notability, August 2026"
+            caption="Feature comparison of Lectra Notes and Notability, September 2026"
             columns={["Lectra Notes", "Notability"]}
             rows={[
               {
@@ -145,7 +147,7 @@ export default function LectraVsNotabilityPage() {
               {
                 label: "Audio",
                 cells: [
-                  "None — Lectra Notes does not record lectures or sync audio to notes today.",
+                  "New in version 8.0 (September 1, 2026): records the lecture while you write. Tap a handwritten stroke to hear what was said at that moment; transcription runs on the device. Free, and not yet through a full semester.",
                   "Recording synced to notes, its signature feature. As of September 1, 2026 its pricing page lists recording and transcription under Plus, with unlimited live transcription and real-time AI summaries on Pro; we could not confirm recording on the free Starter plan. Audio is processed on Notability's servers and deleted after transcription.",
                 ],
               },
@@ -195,8 +197,9 @@ export default function LectraVsNotabilityPage() {
             <p className="kicker kicker-muted">Where Notability wins</p>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-[0.95rem] leading-relaxed text-[var(--color-ink-soft)]">
               <li>
-                Lecture audio synced to your handwriting, transcribed on paid
-                tiers.
+                Years of polish on lecture audio synced to your handwriting,
+                with transcription and AI summaries on paid tiers. Lectra Notes
+                only added recording in version 8.0 (September 1, 2026).
               </li>
               <li>Cross-device sync today, now including Android.</li>
               <li>
@@ -266,8 +269,10 @@ export default function LectraVsNotabilityPage() {
             <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
             </StoreLink>{" "}
-            — free with everything included. If lecture recording is your
-            workflow, Notability earns its place, and we said so above.
+            — free with everything included, now with lecture recording (new
+            in version 8.0). If recording is central to your workflow,
+            Notability&apos;s years of polish still earn its place, and we said
+            so above.
           </p>
         </div>
       </section>

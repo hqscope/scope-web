@@ -66,11 +66,11 @@ const alternatives: Alternative[] = [
   {
     name: "Lectra Notes",
     free:
-      "Everything — unlimited documents, Apple Pencil markup, scanner, on-device AI study tools, Python notebooks, terminal with Git, SSH, and the Mac app. No tiers, watermarks, ads, or third-party analytics.",
+      "Everything — unlimited documents, Apple Pencil markup, scanner, lecture recording (new in version 8.0, September 1, 2026), on-device AI study tools, Python notebooks, terminal with Git, SSH, and the Mac app. No tiers, watermarks, ads, or third-party analytics.",
     strength:
       "The one on this list with a computing environment: Python notebooks that run on the device, a code editor, and a terminal beside your notes.",
     tradeoff:
-      "No lecture audio recording, no cross-device annotation sync yet, and it's the newest app here (2026). iPad drawing is Apple Pencil-only.",
+      "Lecture recording is new (version 8.0, September 1, 2026) and untested over a full term; no cross-device annotation sync yet; and it's the newest app here (2026). iPad drawing is Apple Pencil-only.",
   },
   {
     name: "Apple Notes",
@@ -152,7 +152,7 @@ const faqs: FaqEntry[] = [
   {
     question: "What do free apps give up compared to Goodnotes?",
     answer:
-      "Goodnotes still leads on handwriting-to-text conversion, ink intelligence, its template marketplace, and years of cross-platform polish. Honest examples from this list: Lectra Notes lacks lecture audio and cross-device annotation sync; Apple Notes lacks a paged PDF workflow; OneNote flattens PDFs; Flexcil's free caps are tight.",
+      "Goodnotes still leads on handwriting-to-text conversion, ink intelligence, its template marketplace, and years of cross-platform polish. Honest examples from this list: Lectra Notes' lecture recording is brand new (version 8.0, September 1, 2026) and it lacks cross-device annotation sync; Apple Notes lacks a paged PDF workflow; OneNote flattens PDFs; Flexcil's free caps are tight.",
   },
 ];
 
@@ -232,8 +232,9 @@ export default function FreeAlternativesPage() {
           />
           <p className="mt-4 text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
             Checked on September 1, 2026 against Goodnotes&apos; pricing page.
-            The rest of this page was compiled on August 14, 2026 — see the
-            note below.
+            The rest of this page was compiled on August 14, 2026, with the
+            Lectra Notes facts updated on September 1, 2026 for version 8.0 —
+            see the note below.
           </p>
         </div>
       </section>

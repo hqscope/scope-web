@@ -117,9 +117,14 @@ const faqs: FaqEntry[] = [
       "Yes. Lectra Notes runs Python on the device — standard .ipynb notebooks with numpy, pandas, and matplotlib, plus python in the built-in terminal. Everything runs offline; nothing is sent to a server to execute.",
   },
   {
+    question: "Does Lectra Notes record lectures?",
+    answer:
+      "Yes — added in version 8.0 on September 1, 2026. Lectra Notes records the lecture while you write; tap a stroke to hear what was said at that moment, and transcription runs on the device. It is new and has not been through a full semester of use yet. Notability and Goodnotes have years of polish on audio, and Notability offers transcription and AI summaries on its paid tiers.",
+  },
+  {
     question: "How is Lectra Notes different from other note-taking apps?",
     answer:
-      "Goodnotes and Notability are stronger today at lecture-audio recording and cross-platform availability (checked September 1, 2026). Lectra Notes adds what they don't have: a real computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — beside your handwritten notes, and it's free with no subscription. The Lectra Notes vs Goodnotes and Lectra Notes vs Notability comparisons have the feature-by-feature version.",
+      "Goodnotes and Notability run on more platforms and have had years longer to mature — including their lecture-audio features, where Notability also offers transcription and AI summaries on paid tiers (checked September 1, 2026). Lectra Notes adds what they don't have: a real computing environment — Python notebooks, a terminal with Git, a code editor, and SSH — beside your handwritten notes, and it's free with no subscription. The Lectra Notes vs Goodnotes and Lectra Notes vs Notability comparisons have the feature-by-feature version.",
   },
   {
     question: "Does Lectra Notes work offline?",

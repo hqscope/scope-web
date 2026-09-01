@@ -18,7 +18,7 @@ const sourceNote: Record<MethodologyProduct, string> = {
    a comparison that never names where we lose is not worth reading. */
 const defaultConcessions: Record<MethodologyProduct, string[]> = {
   lectra: [
-    "Audio: Lectra Notes does not record lectures or sync audio to notes today.",
+    "Audio: lecture recording arrived in version 8.0 on September 1, 2026. It is new and has not been through a full term of use; Notability and Goodnotes have years of polish here.",
     "Cross-device: annotations do not yet sync between devices — documents are backed up, not mirrored.",
     "Maturity: Lectra Notes shipped in 2026; the apps compared here have had years longer to polish.",
   ],

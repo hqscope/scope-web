@@ -52,7 +52,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Is Lectra Notes better than Goodnotes?",
     answer:
-      "It depends on what you need. Goodnotes has the more mature handwriting engine — including handwriting-to-text conversion — plus audio recording synced to your notes, real-time collaboration, and apps on Windows, Android, and the web. Lectra Notes is free and adds a computing environment: Python notebooks (.ipynb) that run on the device, a terminal with Git, a code editor, and SSH. For STEM and CS students who write code, Lectra Notes does things Goodnotes cannot; for lecture audio or cross-platform sync, Goodnotes is the stronger pick today.",
+      "It depends on what you need. Goodnotes has the more mature handwriting engine — including handwriting-to-text conversion — plus years of polish on audio recording synced to your notes, real-time collaboration, and apps on Windows, Android, and the web. Lectra Notes is free, added lecture recording in version 8.0 on September 1, 2026, and adds a computing environment: Python notebooks (.ipynb) that run on the device, a terminal with Git, a code editor, and SSH. For STEM and CS students who write code, Lectra Notes does things Goodnotes cannot; for cross-platform sync or a lecture-audio workflow proven over years, Goodnotes is the stronger pick today.",
   },
   {
     question: "Is Goodnotes free?",
@@ -62,7 +62,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Is Lectra Notes really free?",
     answer:
-      "Yes. Lectra Notes is free with no tiers, subscriptions, watermarks, file caps, ads, or third-party analytics. The notebooks, terminal, Git, code editor, on-device AI study tools, and Lectra for Mac are all included.",
+      "Yes. Lectra Notes is free with no tiers, subscriptions, watermarks, file caps, ads, or third-party analytics. The notebooks, terminal, Git, code editor, on-device AI study tools, lecture recording (new in version 8.0), and Lectra for Mac are all included.",
   },
   {
     question: "Can Goodnotes run Python or code?",
@@ -72,7 +72,7 @@ const faqs: FaqEntry[] = [
   {
     question: "Does Lectra Notes record lectures like Goodnotes?",
     answer:
-      "No. Goodnotes records audio time-synced to your notes with a transcription option, and that is a genuine advantage today. Lectra Notes does not offer lecture recording yet.",
+      "Yes, since version 8.0 on September 1, 2026. Lectra Notes records the lecture while you write; tap a handwritten stroke to hear what was said at that moment, and transcription runs on the device. It is brand new and has not been through a full semester yet. Goodnotes has years of polish on time-synced recording and offers transcription on paid plans, so if lecture audio is central to how you study, Goodnotes is the more proven choice today.",
   },
 ];
 
@@ -120,7 +120,7 @@ export default function LectraVsGoodnotesPage() {
       <section className="page-wrap section-pad-sm" id="table">
         <div data-reveal>
           <ComparisonTable
-            caption="Feature comparison of Lectra Notes and Goodnotes, August 2026"
+            caption="Feature comparison of Lectra Notes and Goodnotes, September 2026"
             columns={["Lectra Notes", "Goodnotes"]}
             rows={[
               {
@@ -154,8 +154,8 @@ export default function LectraVsGoodnotesPage() {
               {
                 label: "Audio",
                 cells: [
-                  "None today.",
-                  "Recording time-synced to your notes, with on-device or cloud transcription. Unlimited recording requires a paid plan.",
+                  "New in version 8.0 (September 1, 2026): records the lecture while you write. Tap a handwritten stroke to hear what was said at that moment; transcription runs on the device. Free, and not yet through a full semester.",
+                  "Recording time-synced to your notes, with on-device or cloud transcription, refined over years. Unlimited recording requires a paid plan.",
                 ],
               },
               {
@@ -200,7 +200,11 @@ export default function LectraVsGoodnotesPage() {
                 Handwriting-to-text conversion and the most refined ink
                 intelligence on iPad.
               </li>
-              <li>Audio recording synced to the moment you wrote.</li>
+              <li>
+                Years of polish on audio recording synced to the moment you
+                wrote; Lectra Notes only added recording in version 8.0
+                (September 1, 2026).
+              </li>
               <li>
                 Windows, Android, and web apps, plus real-time collaboration.
               </li>
@@ -270,9 +274,9 @@ export default function LectraVsGoodnotesPage() {
             <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL}>
               Lectra Notes on the App Store
             </StoreLink>{" "}
-            — free with everything included. If you need lecture audio or
-            Windows sync, Goodnotes remains a fine choice, and we said so
-            above.
+            — free with everything included, now with lecture recording (new
+            in version 8.0). If you need Windows sync or years of audio polish,
+            Goodnotes remains a fine choice, and we said so above.
           </p>
         </div>
       </section>

@@ -65,11 +65,11 @@ const picks: AppPick[] = [
   {
     name: "Lectra Notes",
     role: "For notes and code in the same course",
-    copy: `${LECTRA_DEFINITION} A CS problem set is a PDF, a notebook, and a repository at once, and Lectra Notes keeps them together: Apple Pencil markup beside Jupyter-format .ipynb notebooks, a terminal with Git, a code editor, and SSH — free, no server required, no tiers.`,
+    copy: `${LECTRA_DEFINITION} A CS problem set is a PDF, a notebook, and a repository at once, and Lectra Notes keeps them together: Apple Pencil markup beside Jupyter-format .ipynb notebooks, a terminal with Git, a code editor, and SSH — free, no server required, no tiers. Version 8.0 (September 1, 2026) added lecture recording: tap a stroke to hear what was said at that moment.`,
     bestFor:
       "CS and data-science students who annotate readings and write code for the same course.",
     watchOut:
-      "No lecture audio recording, no cross-device annotation sync yet, and it shipped in 2026 — the newest app on this list.",
+      "Lecture recording is new (version 8.0, September 1, 2026) and untested over a full term; no cross-device annotation sync yet; and it shipped in 2026 — the newest app on this list.",
   },
   {
     name: "Goodnotes",
@@ -128,7 +128,7 @@ const faqs: FaqEntry[] = [
   {
     question: "What is the best note-taking app for CS students?",
     answer:
-      "If your notes and your code belong to the same courses, Lectra Notes pairs notes with a computing environment — Python notebooks that run on the device, a terminal with Git, a code editor, and SSH — and it is free. If you mostly handwrite, Goodnotes has the best ink engine; if you record lectures, Notability's audio workflow is the strongest; if you need free cross-platform sync with a Windows laptop, OneNote is the safe pick.",
+      "If your notes and your code belong to the same courses, Lectra Notes pairs notes with a computing environment — Python notebooks that run on the device, a terminal with Git, a code editor, and SSH — and it is free. If you mostly handwrite, Goodnotes has the best ink engine; if you record lectures, Notability's audio workflow is the most proven (Lectra Notes added recording in version 8.0 on September 1, 2026); if you need free cross-platform sync with a Windows laptop, OneNote is the safe pick.",
   },
   {
     question: "Can any note-taking app run code on the iPad?",

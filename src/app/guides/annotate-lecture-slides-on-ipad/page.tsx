@@ -279,7 +279,7 @@ export default function AnnotateLectureSlidesGuidePage() {
                      described on Apple's iPadOS feature pages, not re-read on
                      September 1, 2026. */
                   "Yes on recent iPadOS versions, with automatic transcripts.",
-                  "No. If you record lectures, use Notability or Goodnotes — we do not do this today.",
+                  "Yes — added in version 8.0 on September 1, 2026. Records the lecture while you write; tap a stroke to hear what was said at that moment, and transcription runs on the device. It is new and has not been through a full term of use; Notability and Goodnotes have years of polish here.",
                 ],
               },
               {
@@ -427,7 +427,7 @@ export default function AnnotateLectureSlidesGuidePage() {
           {
             href: "/compare/lectra-notes-vs-goodnotes",
             label: "Lectra Notes vs Goodnotes",
-            copy: "The full comparison, including the handwriting and audio features where Goodnotes is still ahead.",
+            copy: "The full comparison, including handwriting-to-text, where Goodnotes is ahead, and lecture audio, where Goodnotes has years more polish.",
           },
           {
             href: "/compare/free-goodnotes-alternatives",
@@ -451,9 +451,10 @@ export default function AnnotateLectureSlidesGuidePage() {
             </StoreLink>{" "}
             with no tiers or file caps. For the one-tap route from the course
             page, add{" "}
-            <Link href="/products/extension">Scope for Canvas</Link> too. If you
-            need lecture audio, Notability and Goodnotes still do that better,
-            and we said so above.
+            <Link href="/products/extension">Scope for Canvas</Link> too. Lecture
+            recording arrived in Lectra Notes version 8.0 on September 1, 2026;
+            it is new, and Notability and Goodnotes have years more polish on
+            audio, as the table above says.
           </p>
         </div>
       </section>

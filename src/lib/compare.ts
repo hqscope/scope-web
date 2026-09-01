@@ -107,9 +107,9 @@ export const comparisons: readonly Comparison[] = [
     slug: "lectra-notes-vs-notability",
     product: "lectra",
     title: "Lectra Notes vs Notability",
-    copy: "Notability owns lecture audio. Lectra Notes owns notes-plus-code. The honest breakdown.",
+    copy: "Notability has years of audio polish; Lectra Notes now records too, and adds notes-plus-code. The honest breakdown.",
     description:
-      "An honest comparison of Lectra Notes and Notability: lecture audio, AI study tools, pricing, platforms, and the coding workspace only one of them has.",
+      "An honest comparison of Lectra Notes and Notability: lecture recording (new in Lectra Notes 8.0), AI study tools, pricing, platforms, and the coding workspace only one of them has.",
     keywords: [
       "Lectra Notes vs Notability",
       "Notability alternative",
