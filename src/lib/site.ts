@@ -61,3 +61,22 @@ export function resolveAuthCallbackBaseUrl(rawOrigin: string): string {
 
   return getConfiguredSiteUrl() ?? requestUrl.origin;
 }
+
+/**
+ * Google's Preferred Sources deeplink. A reader who follows it lands in
+ * Google's source picker with Scope already queried, and marking us keeps our
+ * pages higher in their Search, News, and Discover results.
+ * https://developers.google.com/search/docs/appearance/preferred-sources
+ *
+ * `q` takes the registrable domain rather than a full URL — the picker matches
+ * the site, and `canvascope.org` covers the `www.` host this site is served
+ * from. See the naming note in README.md for why the domain is still that one.
+ *
+ * Google also documents a scripted button that adds the source in place. This
+ * is the plain deeplink instead: it works with JavaScript off, it is the same
+ * link in a footer, an email, or a post, and it keeps a third-party script off
+ * every page on the site — which the privacy copy two clicks away would have
+ * to start qualifying.
+ */
+export const GOOGLE_PREFERRED_SOURCE_URL =
+  "https://www.google.com/preferences/source?q=canvascope.org";

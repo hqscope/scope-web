@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import PreferredSourceLink from "@/components/public/PreferredSourceLink";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import ScopeMark from "@/components/public/ScopeMark";
 import JsonLd from "@/components/seo/JsonLd";
@@ -154,11 +155,12 @@ export default async function NewsroomPage({
           ))}
         </div>
 
-        <p className="page-wrap stack-top">
+        <div className="page-wrap stack-top link-row">
           <a href="/feed.xml" className="text-link">
             Subscribe by RSS →
           </a>
-        </p>
+          <PreferredSourceLink />
+        </div>
       </section>
     </PublicPageFrame>
   );

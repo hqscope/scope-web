@@ -712,6 +712,60 @@ h6 {
   color: var(--color-paper);
 }
 
+/* --- Google preferred sources ------------------------------
+   The badge that opens Google's source picker with Scope in
+   it. Bordered rather than filled: it is an offer, not the
+   page's call to action, and it must never read as one of
+   Google's own controls. The star is the only colour it gets.
+   ------------------------------------------------------------ */
+
+.preferred-source {
+  display: inline-flex;
+  /* It sits in flex columns (the footer lede, the article aside) as well as in
+     rows, and a stretched badge reads as a button it isn't. */
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9375rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  /* The slim footer row is mono, uppercase and letter-spaced. The badge sits
+     inside it and must not inherit any of that. */
+  font-family: var(--font-sans);
+  font-size: 0.84375rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-ink);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.preferred-source > svg {
+  flex: none;
+  color: var(--color-brand);
+}
+
+.preferred-source:hover {
+  border-color: var(--color-ink);
+  background: var(--color-brand-soft);
+}
+
+/* On the espresso footer band, where the hairline and the ink both invert. */
+.preferred-source--on-deep {
+  border-color: var(--color-shell-line);
+  color: var(--color-shell-copy);
+}
+
+.preferred-source--on-deep > svg {
+  color: var(--color-brand-on-dark);
+}
+
+.preferred-source--on-deep:hover {
+  border-color: rgba(246, 241, 231, 0.45);
+  background: rgba(246, 241, 231, 0.06);
+  color: var(--color-paper);
+}
+
 .public-footer-links {
   display: contents;
 }

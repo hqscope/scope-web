@@ -15,6 +15,129 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "what-we-wont-claim-about-lecture-recording",
+    title: "What we won't claim about lecture recording, and why",
+    date: "2026-08-31",
+    category: "Engineering",
+    description:
+      "Lectra records audio alongside your notes. Capture passed its first checks on a real iPad this week — playback, transcription, and ink sync did not, so this post does not claim them.",
+    lede:
+      "Built and proven are different words. We have started writing them down separately.",
+    keywords: [
+      "Lectra lecture recording",
+      "audio verification",
+      "on-device transcription",
+      "claims ledger",
+      "Lectra",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Lectra's next build records audio while you take notes. That sentence is true, and it is very nearly the only sentence about audio we are willing to print today.",
+      },
+      {
+        type: "paragraph",
+        text: "The reason is a file we keep called the claims ledger. It exists because an audit of this codebase against its own documentation found nine claims — in the README, in the docs, in the App Store description — that were false against the code. Not aspirational. False. The ledger now lists every factual statement Lectra makes about itself, what backs it, and whether it is true today, with three possible answers: true, partial, and false. The rule attached to it is deliberately awkward: a claim may not appear in copy at or above its audience level while its status is false. This page is copy. So a false row is a thing you will not read here.",
+      },
+      {
+        type: "paragraph",
+        text: "Every part of the audio subsystem — the capture engine, the segmented writer, compaction, playback, transcription, the links between ink and sound — was written, unit-tested, and verified by compilation. None of it had ever met a microphone. The iOS simulator has no meaningful audio in or out, which means every test that had ever passed was a test about arithmetic.",
+      },
+      {
+        type: "paragraph",
+        text: "So the subsystem got two things instead of a launch. The first is a runbook of scenarios that need a real iPad, a real incoming phone call, and a wired headset somebody can physically yank out. The second is a script, because the parts a person is bad at judging should not be left to a person's ear. Hand it a recording pulled off the device and it checks:",
+      },
+      {
+        type: "list",
+        items: [
+          "Whether the recording's manifest and the files on disk agree — in both directions, a file with no entry and an entry with no file.",
+          "Whether each sealed segment is the size the writer claims, and whether its recorded byte count matches the bytes.",
+          "Whether a compacted segment decodes to the frame count the manifest wrote down.",
+          "Whether the wall clock holds more time than there are frames, which means audio was dropped and nothing noticed.",
+          "Whether there is a gap in the timeline that no interruption accounts for.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "It has a self-test that builds recordings containing each of those defects and asserts the script catches them, so a pass means something. And it never writes into, renames, or deletes anything inside a recording directory. That directory may be the only copy of somebody's lecture.",
+      },
+      {
+        type: "paragraph",
+        text: "On 27 August it ran against real hardware for the first time. Sixty seconds of speech came off the iPad and was intelligible — in Lectra, and independently in ffplay, which read the file as AAC-LC, 16 kHz, mono. Then ninety minutes: 180 segments, 178 of them exactly 480,000 frames, every file byte-identical to what the manifest said it should be. Compaction measured 15.01 MB per hour, against roughly 115 uncompacted.",
+      },
+      {
+        type: "paragraph",
+        text: "It also found the thing we built it to find. About three seconds of audio is missing from the middle of that ninety-minute recording. Not from the start — a segment is stamped from its first sample, so a slow start would show up somewhere else entirely. An audio route change tears down and rebuilds the engine, that costs roughly three seconds on a device, and the audio during it is simply gone. The bug is open. A ninety-minute file that plays back beautifully hides it completely; a script comparing wall clock against frame counts does not.",
+      },
+      {
+        type: "paragraph",
+        text: "There is a second defect nobody can hear at all. Apple's AAC encoder prepends 2,112 frames of priming to every compacted segment. Trust the decoder's reported duration instead of the manifest's frame count and a recording drifts about sixteen seconds an hour — inaudible while you listen, and fatal for anything that maps a moment of ink to a moment of sound.",
+      },
+      {
+        type: "paragraph",
+        text: "Which brings us to what this post is not telling you. Playback, transcription, tapping a stroke to hear what was being said when you wrote it, scrubbing a recording and watching the page fill back in — all built, all under unit tests, none of it ever run on a real device. They are false rows in the ledger. When someone has sat down with an iPad and done it, we will say so here, with the date.",
+      },
+      {
+        type: "paragraph",
+        text: "Two decisions hold regardless, because they are structural rather than behavioural. Transcription has one code path and it is on-device: the flag that pins recognition to the device is set true everywhere and false nowhere, and a test reads the source to keep it that way. And it will not fetch a speech model on its own — if the assets are absent it stops and tells you how large they are before anything downloads. A device still has to prove both behave the way the source reads, which is the entire point of the paragraph above this one.",
+      },
+      {
+        type: "paragraph",
+        text: "The ledger does not block a merge on a claim being true. A false row with a link to the work that would fix it is a healthy state. Gating on truth would only ever teach us to delete rows, which is the exact failure the file exists to prevent.",
+      },
+    ],
+  },
+  {
+    slug: "the-user-count-is-checked-by-hand",
+    title: "The user count is checked by hand",
+    date: "2026-08-29",
+    category: "Engineering",
+    description:
+      "104 people use Scope. It is two figures added together, typed into a source file with the date somebody checked them — and it is no longer in the hero, because a bare numeral cannot carry its own caveats.",
+    lede: "A number nobody looked at is not a number.",
+    keywords: [
+      "Scope users",
+      "usage metrics",
+      "active users",
+      "public API",
+      "Scope",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Ten days ago we wrote about what Scope's usage ping contains, and at rather more length about what it doesn't. This is the other half: the number itself, and why a person types it in.",
+      },
+      {
+        type: "paragraph",
+        text: "Scope has 104 users. That is two measurements added together — 80 weekly users of the Chrome extension, and 24 Apple accounts on the Lectra side — and neither of them is a query this website can run for itself. Google publishes the extension figure on the Web Store listing page and nowhere else: no API, no webhook. The account count is a real query, but it runs against an auth schema behind a service-role key that has no business anywhere near a marketing page.",
+      },
+      {
+        type: "paragraph",
+        text: "So both are checked at their sources by hand, written into a source file, and committed with the date they were checked. That is not a shortcut around building a scraper. A number that goes through code review is a number somebody actually looked at, and a page that reads its headline figure from a constant cannot quietly render a zero at three in the morning because a listing page changed its markup.",
+      },
+      {
+        type: "paragraph",
+        text: "For two days the count sat above the headline on the home page, in a framed plaque with an oversized numeral. It is not there any more. Nothing about it was wrong — it was in the one position on the site where a number cannot carry its own qualifications, and this number has several.",
+      },
+      {
+        type: "list",
+        items: [
+          "It is cross-product reach, not a deduplicated count of people. Anyone who uses both the extension and Lectra is counted in both halves.",
+          "The products do not measure the same event, so the halves are not cleanly addable. Lectra for Mac, for one, counts hosts online rather than interactions — a background receiver has nothing to interact with.",
+          "Idle does not count. A browser extension is technically running for as long as Chrome is open, so a ping on a timer would report every install as active every day: a flattering number, and a worthless one.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The figure now lives at /api/public/usage, which returns the three integers and the date they were verified. It is unauthenticated and readable from any origin on purpose: they are the same integers published on this page, so there is nothing to gate, and locking it to one domain would mean a deploy every time the number gets quoted somewhere new. The CDN holds the response for an hour, and a deploy is what changes it.",
+      },
+      {
+        type: "paragraph",
+        text: "104 is a small number. It is also correct as of 27 August 2026, which is a claim not many numbers on a startup's website can make.",
+      },
+    ],
+  },
+  {
     slug: "lectra-v7-keyboard-commands-and-a-signature-that-saves",
     title: "Keyboard commands, a new tool picker, and a signature that finally saves",
     date: "2026-08-24",
