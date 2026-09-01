@@ -226,7 +226,10 @@ export default function PrivacyPage() {
               Specifically, when you copy, cut, or paste content on Canvas, Brightspace, or other sites and applications, or when you load a page, the extension may capture the raw text currently in your clipboard (capped at 4,000 characters per entry for storage and sync limits). This raw text is stored securely in your browser-local storage and synced to our database under the same secure sync path used for your grades, notes, and tasks.
             </p>
             <p className="section-copy">
-              We capture the actual text so that future features can reason over how you copy and study (such as which excerpts or phrasing you reference) to suggest similar resources later. The raw text is processed locally on your device to derive a content-light, privacy-preserving <code>assignment_engagement</code> summary for your Student Profile. This derived summary itself never contains the raw clipboard text. We do not use the raw clipboard text or any other user content to train, develop, or improve generalized AI or machine learning models.
+              We keep the actual text because what you copy is the clearest signal of what you are working on. It lets Scope point you somewhere useful next &mdash; the course page, reading, or outside site that covers the passage you just copied &mdash; pull up related material already in your courses, and give you a fuller explanation of that specific excerpt instead of a generic one. It also helps Scope notice patterns in how you study, such as which passages or phrasing you keep returning to, and surface resources that match.
+            </p>
+            <p className="section-copy">
+              The raw text is processed locally on your device to derive a content-light, privacy-preserving <code>assignment_engagement</code> summary for your Student Profile. This derived summary itself never contains the raw clipboard text. We do not use the raw clipboard text or any other user content to train, develop, or improve generalized AI or machine learning models, and we never use it for advertising or share it with data brokers.
             </p>
           </section>
 
