@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 
+import PreferredSourceLink from "@/components/public/PreferredSourceLink";
 import PublicPageFrame from "@/components/public/PublicPageFrame";
 import JsonLd from "@/components/seo/JsonLd";
 import {
@@ -159,6 +160,7 @@ export default async function NewsroomArticlePage({
               All updates
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
+            <PreferredSourceLink label="Prefer Scope on Google" />
           </aside>
         </div>
       </article>

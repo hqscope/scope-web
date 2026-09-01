@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import PreferredSourceLink from "@/components/public/PreferredSourceLink";
 import ScopeMark from "@/components/public/ScopeMark";
 import { CHROME_WEB_STORE_URL, SUPPORT_EMAIL } from "@/lib/site";
 
@@ -50,6 +51,8 @@ export default function PublicFooter({
               </Link>
             ))}
           </nav>
+          {/* Both variants carry it, so every page offers it exactly once. */}
+          <PreferredSourceLink tone="on-deep" />
         </div>
         <div className="page-wrap public-footer-slim-bottom">
           <Colophon />
@@ -72,6 +75,9 @@ export default function PublicFooter({
           >
             Chrome Web Store →
           </a>
+          {/* The lede column is the narrowest place the badge lands, so it
+              takes the short label. */}
+          <PreferredSourceLink tone="on-deep" label="Prefer Scope on Google" />
         </div>
 
         <div className="public-footer-links" aria-label="Footer links">
