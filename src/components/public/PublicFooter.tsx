@@ -77,7 +77,11 @@ export default function PublicFooter({
           </a>
           {/* The lede column is the narrowest place the badge lands, so it
               takes the short label. */}
-          <PreferredSourceLink tone="on-deep" label="Prefer Scope on Google" />
+          <PreferredSourceLink
+            tone="on-deep"
+            label="Prefer Scope on Google"
+            markedLabel="Preferred on Google"
+          />
         </div>
 
         <div className="public-footer-links" aria-label="Footer links">

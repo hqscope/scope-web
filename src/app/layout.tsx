@@ -107,6 +107,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // The sticky header paints into the status-bar strip via safe-area
+  // padding; without cover, iOS leaves that strip outside the layout
+  // viewport and page content shows through above the header.
+  viewportFit: "cover",
   themeColor: "#f6f1e7",
   colorScheme: "light",
 };

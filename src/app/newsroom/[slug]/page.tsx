@@ -160,7 +160,10 @@ export default async function NewsroomArticlePage({
               All updates
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
-            <PreferredSourceLink label="Prefer Scope on Google" />
+            <PreferredSourceLink
+              label="Prefer Scope on Google"
+              markedLabel="Preferred on Google"
+            />
           </aside>
         </div>
       </article>
