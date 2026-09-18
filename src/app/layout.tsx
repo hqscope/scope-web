@@ -1,27 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
+import "@/styles/site.css";
 
+import MotionRoot from "@/components/motion/MotionRoot";
 import JsonLd from "@/components/seo/JsonLd";
 import SiteAnalytics from "@/components/seo/SiteAnalytics";
 import { SCOPE_DEFINITION } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
-
-// Bricolage is variable across optical size and weight; the display sizes
-// need the full 200-800 range, so it is deliberately not pinned to a weight.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+import { schibsted } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -109,13 +94,23 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  // The sticky header paints into the status-bar strip via safe-area
-  // padding; without cover, iOS leaves that strip outside the layout
-  // viewport and page content shows through above the header.
+  // The sticky header paints into the status-bar strip and the landscape
+  // notch through safe-area padding, which only works with cover.
   viewportFit: "cover",
-  themeColor: "#f6f1e7",
-  colorScheme: "light",
+  // The desk the pages sit on. The site has one scheme: cream paper on an
+  // espresso desk reads the same in light and dark system settings.
+  themeColor: "#14100c",
+  colorScheme: "dark",
 };
+
+/**
+ * Runs before first paint. Entrance motion (headings that write themselves
+ * in, pen marks that draw) is opt-in through html[data-motion="on"], so a
+ * visitor without JavaScript, or with reduced motion on, sees finished pages
+ * from the first frame. If the observer never reports in, the attribute is
+ * withdrawn so nothing can stay hidden.
+ */
+const motionBootstrap = `(function(){try{var d=document.documentElement;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.setAttribute('data-motion','on');setTimeout(function(){if(!d.hasAttribute('data-focus-ready'))d.removeAttribute('data-motion')},3500)}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -123,12 +118,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body
-        className={`${bricolage.variable} ${plexMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={schibsted.variable}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
+      </head>
+      <body>
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        {children}
+        <MotionRoot>{children}</MotionRoot>
         <SiteAnalytics />
       </body>
     </html>

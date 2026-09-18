@@ -8,10 +8,10 @@ export default function manifest(): MetadataRoute.Manifest {
       "Local-first Chrome extension for Canvas and Brightspace search, cited AI answers, PDF/OCR indexing, Smart Planner, and two-way Lectra document handoff.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f6f1e7",
+    background_color: "#14100c",
     // Matches viewport.themeColor in layout.tsx, so an installed shortcut and
-    // the browser chrome paint the same plaster ground.
-    theme_color: "#f6f1e7",
+    // the browser chrome paint the same espresso desk.
+    theme_color: "#14100c",
     categories: ["education", "productivity"],
     icons: [
       {

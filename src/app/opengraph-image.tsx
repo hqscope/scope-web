@@ -1,109 +1,15 @@
-import { ImageResponse } from "next/og";
+import { OG_CONTENT_TYPE, OG_SIZE, renderCard } from "@/lib/og-card";
 
-export const runtime = "edge";
-
-export const alt =
-  "Scope: local-first Canvas and Brightspace search with cited AI answers";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const alt = "Scope: local-first Canvas and Brightspace search with cited AI answers";
+export const size = OG_SIZE;
+export const contentType = OG_CONTENT_TYPE;
 
 export default function OpengraphImage() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          backgroundColor: "#f6f1e7",
-          backgroundImage:
-            "radial-gradient(900px 520px at 88% -10%, rgba(196,43,38,0.16), transparent 60%)",
-          padding: "80px",
-          fontFamily: "sans-serif",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          {/* The Scope mark, drawn as bars so Satori can render it without an
-              external asset fetch. */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "7px",
-              width: "58px",
-              height: "56px",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{
-                width: "32px",
-                height: "14px",
-                borderRadius: "7px",
-                backgroundColor: "#c42b26",
-              }}
-            />
-            <div
-              style={{
-                width: "46px",
-                height: "14px",
-                borderRadius: "7px",
-                backgroundColor: "#241e18",
-              }}
-            />
-            <div
-              style={{
-                width: "58px",
-                height: "14px",
-                borderRadius: "7px",
-                backgroundColor: "#241e18",
-              }}
-            />
-          </div>
-          <span
-            style={{ fontSize: "40px", fontWeight: 700, color: "#241e18" }}
-          >
-            Scope
-          </span>
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          <span
-            style={{
-              fontSize: "68px",
-              fontWeight: 800,
-              lineHeight: 1.05,
-              color: "#241e18",
-              maxWidth: "920px",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Search, ask, and move coursework in seconds.
-          </span>
-          <span
-            style={{ fontSize: "32px", color: "#6e6053", maxWidth: "900px" }}
-          >
-            Local-first Chrome extension for Canvas &amp; Brightspace. Cited AI
-            answers, PDF/OCR search, and two-way Lectra workflows.
-          </span>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            fontSize: "26px",
-            color: "#241e18",
-          }}
-        >
-          <span style={{ fontWeight: 700, color: "#c42b26" }}>canvascope.org</span>
-          <span style={{ opacity: 0.5 }}>· Free Chrome extension</span>
-        </div>
-      </div>
-    ),
-    { ...size },
-  );
+  return renderCard({
+    label: "Scope for Canvas",
+    title: "Search, ask, and move coursework in seconds.",
+    subtitle: "A local-first Chrome extension for Canvas and Brightspace, with cited AI answers, search inside PDFs and scans, and two-way Lectra Notes workflows.",
+    footer: "canvascope.org",
+    note: "Free Chrome extension",
+  });
 }

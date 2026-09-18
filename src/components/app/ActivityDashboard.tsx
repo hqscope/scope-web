@@ -47,8 +47,8 @@ function useDailySeries(snapshot: ActivitySnapshot) {
 function Sparkline({ points }: { points: { bucket: string; actives: number }[] }) {
   if (points.length < 2) {
     return (
-      <p className="text-sm text-[var(--color-shell-copy-muted)]">
-        Not enough history yet — the chart fills in as days accumulate.
+      <p className="admin-muted" style={{ marginTop: 12 }}>
+        Not enough history yet. The chart fills in as days accumulate.
       </p>
     );
   }
@@ -63,30 +63,29 @@ function Sparkline({ points }: { points: { bucket: string; actives: number }[] }
     .join(" ");
 
   return (
-    <div className="overflow-x-auto">
+    <div className="admin-spark">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="none"
         role="img"
         aria-label={`Daily active users over the last ${points.length} days, peak ${max}`}
-        className="h-[120px] w-full min-w-[420px]"
       >
         <polyline
           points={`0,${height} ${line} ${width},${height}`}
-          fill="rgba(255,255,255,0.06)"
+          fill="rgba(196,43,38,0.08)"
           stroke="none"
         />
         <polyline
           points={line}
           fill="none"
           stroke="currentColor"
-          strokeWidth={2}
+          strokeWidth={2.4}
           strokeLinejoin="round"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      <div className="mt-2 flex justify-between text-xs text-[var(--color-shell-copy-muted)]">
+      <div className="admin-spark-axis admin-muted">
         <span>{points[0].bucket.slice(0, 10)}</span>
         <span>peak {max}</span>
         <span>{points[points.length - 1].bucket.slice(0, 10)}</span>
@@ -127,113 +126,97 @@ export default function ActivityDashboard({
   const daily = useDailySeries(snapshot);
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
+    <div className="admin">
+      <header className="admin-head">
         <div>
-          <p className="app-label">Internal</p>
-          <h1 className="mt-2 text-3xl">Activity</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--color-shell-copy-muted)]">
-            People who actually used a Scope product, signed in or not. Counted
-            per install; someone signed in on two devices counts once, someone
+          <p className="admin-label">Internal</p>
+          <h1>Activity</h1>
+          <p className="copy">
+            People who actually used a Scope product, signed in or not. Counted per
+            install, so someone signed in on two devices counts once, and someone
             anonymous on two devices counts twice.
           </p>
         </div>
-        <p className="text-sm text-[var(--color-shell-copy-muted)]">
-          {isStale ? "Reconnecting… " : ""}
+        <p className="admin-muted">
+          {isStale ? <span className="admin-stale">Reconnecting. </span> : null}
           Updated {formatTime(snapshot.generatedAt)}
         </p>
       </header>
 
       {snapshot.error ? (
-        <section className="app-card rounded-[1.75rem] p-6">
-          <p className="app-label">Not available</p>
-          <p className="mt-3 text-sm leading-7">{snapshot.error}</p>
+        <section className="plane admin-panel admin-error">
+          <p className="admin-label">Not available</p>
+          <p style={{ marginTop: 10 }}>{snapshot.error}</p>
         </section>
       ) : null}
 
-      <section className="app-card rounded-[1.75rem] p-6 sm:p-7">
-        <div className="flex items-baseline gap-3">
-          <span
-            className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400"
-            aria-hidden
-          />
-          <p className="app-label">Live now</p>
+      <section className="plane admin-panel">
+        <div className="admin-live">
+          <span className="admin-live-dot" aria-hidden />
+          <p className="admin-label">Live now</p>
         </div>
-        <p className="mt-3 text-5xl tabular-nums">{snapshot.total.live}</p>
-        <p className="mt-2 text-sm text-[var(--color-shell-copy-muted)]">
+        <p className="admin-big">{snapshot.total.live}</p>
+        <p className="admin-muted" style={{ marginTop: 8 }}>
           Active in the last 10 minutes, across every product.
         </p>
 
-        <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="admin-windows">
           {WINDOWS.map((window) => (
-            <article key={window.key} className="app-card-soft rounded-[1.25rem] p-4">
-              <p className="app-label">{window.label}</p>
-              <p className="mt-2 text-2xl tabular-nums">{snapshot.total[window.key]}</p>
-              <p className="mt-1 text-xs leading-5 text-[var(--color-shell-copy-muted)]">
-                {window.hint}
-              </p>
+            <article key={window.key} className="admin-window">
+              <p className="admin-label">{window.label}</p>
+              <p className="admin-window-value">{snapshot.total[window.key]}</p>
+              <p className="admin-muted">{window.hint}</p>
             </article>
           ))}
         </div>
 
-        <p className="mt-5 text-sm text-[var(--color-shell-copy-muted)]">
-          {snapshot.total.installs} installs all time · {snapshot.total.new_today} new
-          today · {snapshot.total.all_time} have ever been active
+        <p className="admin-muted admin-foot">
+          {snapshot.total.installs} installs all time, {snapshot.total.new_today} new
+          today, and {snapshot.total.all_time} have ever been active.
         </p>
       </section>
 
-      <section className="app-card rounded-[1.75rem] p-6 sm:p-7">
-        <p className="app-label">Daily actives, last 30 days</p>
-        <div className="mt-4 text-[var(--color-shell-copy)]">
-          <Sparkline points={daily} />
-        </div>
+      <section className="plane admin-panel">
+        <p className="admin-label">Daily actives, last 30 days</p>
+        <Sparkline points={daily} />
       </section>
 
-      <section className="app-card rounded-[1.75rem] p-6 sm:p-7">
-        <p className="app-label">By product</p>
+      <section className="plane admin-panel">
+        <p className="admin-label">By product</p>
 
         {snapshot.products.length === 0 ? (
-          <p className="mt-4 text-sm text-[var(--color-shell-copy-muted)]">
+          <p className="admin-muted" style={{ marginTop: 12 }}>
             No activity recorded yet.
           </p>
         ) : (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[720px] text-sm">
+          <div className="admin-table-wrap">
+            <table className="admin-table">
               <thead>
-                <tr className="text-left text-[var(--color-shell-copy-muted)]">
-                  <th className="pb-3 font-normal">Product</th>
-                  <th className="pb-3 text-right font-normal">Live</th>
+                <tr>
+                  <th>Product</th>
+                  <th>Live</th>
                   {WINDOWS.map((window) => (
-                    <th key={window.key} className="pb-3 text-right font-normal">
-                      {window.label}
-                    </th>
+                    <th key={window.key}>{window.label}</th>
                   ))}
-                  <th className="pb-3 text-right font-normal">Installs</th>
+                  <th>Installs</th>
                 </tr>
               </thead>
               <tbody>
                 {snapshot.products.map((row) => {
                   const meta = ACTIVITY_PRODUCTS[row.product];
                   return (
-                    <tr
-                      key={row.product}
-                      className="border-t border-[var(--color-shell-line)]"
-                    >
-                      <td className="py-3 pr-4">
+                    <tr key={row.product}>
+                      <td>
                         <span>{meta?.label ?? row.product}</span>
                         {meta?.note ? (
-                          <span className="mt-1 block text-xs leading-5 text-[var(--color-shell-copy-muted)]">
-                            {meta.note}
-                          </span>
+                          <span className="admin-muted">{meta.note}</span>
                         ) : null}
                       </td>
-                      <td className="py-3 text-right tabular-nums">{row.live}</td>
+                      <td>{row.live}</td>
                       {WINDOWS.map((window) => (
-                        <td key={window.key} className="py-3 text-right tabular-nums">
-                          {row[window.key]}
-                        </td>
+                        <td key={window.key}>{row[window.key]}</td>
                       ))}
-                      <td className="py-3 text-right tabular-nums">{row.installs}</td>
+                      <td>{row.installs}</td>
                     </tr>
                   );
                 })}
@@ -242,11 +225,10 @@ export default function ActivityDashboard({
           </div>
         )}
 
-        <p className="mt-5 text-xs leading-6 text-[var(--color-shell-copy-muted)]">
-          Products measure different things and should not be summed. The
-          extension, Lectra on iPad, the Receiver, and Polya count real
-          interaction. Lectra for Mac counts hosts online, because a background
-          receiver has no interaction to count.
+        <p className="admin-muted admin-foot">
+          Products measure different things and should not be summed. The extension,
+          Lectra on iPad, the Receiver, and Polya count real interaction. Lectra for Mac
+          counts hosts online, because a background receiver has no interaction to count.
         </p>
       </section>
     </div>

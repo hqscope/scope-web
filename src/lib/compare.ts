@@ -36,9 +36,9 @@ export const comparisons: readonly Comparison[] = [
     slug: "best-canvas-chrome-extensions",
     product: "scope",
     title: "Best Canvas Chrome Extensions for Students (2026)",
-    copy: "BetterCampus, Tasks for Canvas, the Canvas downloaders, and Scope — sorted by the job you need done, with where each one wins.",
+    copy: "BetterCampus, Tasks for Canvas, the Canvas downloaders, and Scope, sorted by the job you need done, with where each one wins.",
     description:
-      "BetterCampus, Tasks for Canvas, Canvas Course Downloader & Exporter, Canvas Files Downloader, Canvas LMS Mods, and Scope compared by what each is for — with install counts, ratings, and update dates, and where each one wins.",
+      "BetterCampus, Tasks for Canvas, Canvas Course Downloader & Exporter, Canvas Files Downloader, Canvas LMS Mods, and Scope compared by what each is for, with install counts, ratings, update dates, and where each one wins.",
     keywords: [
       "best Canvas extension",
       "best Canvas Chrome extensions",
@@ -54,9 +54,9 @@ export const comparisons: readonly Comparison[] = [
     slug: "scope-vs-bettercampus",
     product: "scope",
     title: "Scope for Canvas vs BetterCampus (Better Canvas)",
-    copy: "BetterCampus restyles Canvas. Scope searches it. Different jobs — and why most students can run both.",
+    copy: "BetterCampus restyles Canvas and Scope searches it. They do different jobs, which is why most students can run both.",
     description:
-      "BetterCampus restyles Canvas — dark mode, themes, GPA on the grades page — for two million students. Scope searches it. An honest comparison, and why most people should run both.",
+      "BetterCampus restyles Canvas for two million students with dark mode, themes, and GPA on the grades page. Scope searches it. An honest comparison, and why most people should run both.",
     keywords: [
       "Scope vs Better Canvas",
       "Better Canvas alternative",
@@ -73,7 +73,7 @@ export const comparisons: readonly Comparison[] = [
     title: "Scope for Canvas vs Tasks for Canvas",
     copy: "Tasks for Canvas is the better to-do list. Scope is search plus a planner. Which to install, or whether to run both.",
     description:
-      "Tasks for Canvas is the to-do list for Canvas, Blackboard, and Brightspace, used by a million students. Scope is search plus a planner. Which to install — or whether to run both.",
+      "Tasks for Canvas is the to-do list for Canvas, Blackboard, and Brightspace, used by a million students. Scope is search plus a planner. Which to install, or whether to run both.",
     keywords: [
       "Tasks for Canvas alternative",
       "Canvas assignment tracker extension",
@@ -90,7 +90,7 @@ export const comparisons: readonly Comparison[] = [
     slug: "lectra-notes-vs-goodnotes",
     product: "lectra",
     title: "Lectra Notes vs Goodnotes",
-    copy: "Handwriting, PDFs, pricing, and the computing environment — where each app genuinely wins.",
+    copy: "Handwriting, PDFs, pricing, and the computing environment, and where each app genuinely wins.",
     description:
       "An honest comparison of Lectra Notes and Goodnotes for students: handwriting, PDF markup, audio, AI, pricing, and the computing environment only one of them has.",
     keywords: [
@@ -107,7 +107,7 @@ export const comparisons: readonly Comparison[] = [
     slug: "lectra-notes-vs-notability",
     product: "lectra",
     title: "Lectra Notes vs Notability",
-    copy: "Notability has years of audio polish; Lectra Notes now records too, and adds notes-plus-code. The honest breakdown.",
+    copy: "Notability has years of audio polish. Lectra Notes now records too, and it keeps notes and code in one app. Here is the honest breakdown.",
     description:
       "An honest comparison of Lectra Notes and Notability: lecture recording (new in Lectra Notes 8.0), AI study tools, pricing, platforms, and the coding workspace only one of them has.",
     keywords: [
@@ -124,9 +124,9 @@ export const comparisons: readonly Comparison[] = [
     slug: "best-note-taking-apps-for-cs-students",
     product: "lectra",
     title: "Best Note-Taking Apps for CS Students (2026)",
-    copy: "Goodnotes, Notability, OneNote, Juno, and Lectra Notes — matched to how CS coursework actually works.",
+    copy: "Goodnotes, Notability, OneNote, Juno, and Lectra Notes, matched to how CS coursework actually works.",
     description:
-      "The best iPad note-taking apps for computer science students in 2026 — Goodnotes, Notability, OneNote, Juno, and Lectra Notes, matched honestly to how CS coursework actually works.",
+      "The best iPad note-taking apps for computer science students in 2026: Goodnotes, Notability, OneNote, Juno, and Lectra Notes, matched honestly to how CS coursework actually works.",
     keywords: [
       "best note taking app for CS students",
       "best iPad apps for computer science",
@@ -141,9 +141,9 @@ export const comparisons: readonly Comparison[] = [
     slug: "ipad-python-notebook-apps",
     product: "lectra",
     title: "Python on iPad: Every Notebook App Compared (2026)",
-    copy: "Juno, Carnets, Pythonista, a-Shell, and Lectra Notes — every real way to run Python on an iPad.",
+    copy: "Every real way to run Python on an iPad: Juno, Carnets, Pythonista, a-Shell, and Lectra Notes.",
     description:
-      "Every real way to run Python and Jupyter notebooks on an iPad in 2026 — Juno, Carnets, Pythonista, a-Shell, and Lectra Notes — compared honestly, including where each is the right choice.",
+      "Every real way to run Python and Jupyter notebooks on an iPad in 2026, from Juno, Carnets, Pythonista, and a-Shell to Lectra Notes, compared honestly, including where each is the right choice.",
     keywords: [
       "Python on iPad",
       "iPad Python notebook",
@@ -161,7 +161,7 @@ export const comparisons: readonly Comparison[] = [
     title: "Free Goodnotes Alternatives for iPad (2026)",
     copy: "The genuinely free iPad note apps in 2026, and what each one gives up.",
     description:
-      "The genuinely free Goodnotes alternatives for iPad in 2026 — what each one actually includes without paying, and what it gives up.",
+      "The genuinely free Goodnotes alternatives for iPad in 2026: what each one actually includes without paying, and what it gives up.",
     keywords: [
       "free Goodnotes alternatives",
       "free note taking app iPad",

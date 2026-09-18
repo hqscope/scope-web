@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import PreferredSourceLink from "@/components/public/PreferredSourceLink";
-import PublicPageFrame from "@/components/public/PublicPageFrame";
-import ScopeMark from "@/components/public/ScopeMark";
+import Sheet from "@/components/motion/Sheet";
+import PenMark from "@/components/motion/PenMark";
 import JsonLd from "@/components/seo/JsonLd";
+import NewsList from "@/components/site/NewsList";
+import PageHead from "@/components/site/PageHead";
+import PageShell from "@/components/site/PageShell";
+import PreferredSource from "@/components/site/PreferredSource";
 import {
   breadcrumbSchema,
   itemListSchema,
@@ -12,9 +15,12 @@ import {
 } from "@/lib/structured-data";
 import {
   articlePath,
+  articleReadingMinutes,
   formatArticleDate,
   newsroomArticles,
 } from "@/lib/newsroom";
+
+import "./newsroom.css";
 
 export const metadata: Metadata = {
   title: "Scope Newsroom",
@@ -73,7 +79,7 @@ export default async function NewsroomPage({
   const [featured, ...rest] = visibleArticles;
 
   return (
-    <PublicPageFrame active="newsroom" footerVariant="slim">
+    <PageShell active="newsroom">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -92,76 +98,99 @@ export default async function NewsroomPage({
         ]}
       />
 
-      {/* --- Hero --- */}
-      <section className="page-wrap news-hero" data-reveal>
-        <p className="kicker">Newsroom</p>
-        <h1>Building in the open.</h1>
-        <p className="section-copy">
-          Releases, format announcements, and the occasional argument about
-          where course software should go.
-        </p>
-        <div className="news-filter-row">
-          <Link
-            href="/newsroom"
-            className={activeCategory ? undefined : "is-active"}
-          >
-            All
-          </Link>
-          {categories.map((name) => (
-            <Link
-              key={name}
-              href={`/newsroom?category=${encodeURIComponent(name)}`}
-              className={activeCategory === name ? "is-active" : undefined}
-            >
-              {name}
-            </Link>
-          ))}
-        </div>
-      </section>
+      <Sheet className="newsroom-top" labelledBy="newsroom-title">
+        <PageHead
+          crumbs={[{ href: "/", label: "Home" }]}
+          context="The Scope newsroom"
+          title={<span id="newsroom-title">Building in the open.</span>}
+          lede={
+            <p>
+              Releases, format announcements, and the occasional argument about where
+              course software should go.
+            </p>
+          }
+        />
 
-      {/* --- The lead --- */}
-      {featured ? (
-        <section className="page-wrap strip-section" data-reveal>
-          <Link href={articlePath(featured)} className="news-featured">
-            <span className="news-featured-plate">
-              <ScopeMark size={72} />
-              <span>{featured.category}</span>
-            </span>
-            <span className="news-featured-copy">
-              <span className="news-meta">
-                {formatArticleDate(featured.date)} · {featured.category}
+        <div className="shell newsroom-body">
+          {categories.length > 1 ? (
+            <nav className="newsroom-filter" aria-label="Filter posts by topic">
+              <Link
+                href="/newsroom"
+                aria-current={activeCategory ? undefined : "page"}
+                scroll={false}
+              >
+                All posts
+              </Link>
+              {categories.map((name) => (
+                <Link
+                  key={name}
+                  href={`/newsroom?category=${encodeURIComponent(name)}`}
+                  aria-current={activeCategory === name ? "page" : undefined}
+                  scroll={false}
+                >
+                  {name}
+                </Link>
+              ))}
+            </nav>
+          ) : null}
+
+          {featured ? (
+            <Link href={articlePath(featured)} className="newsroom-lead plane">
+              <span className="newsroom-lead-meta">
+                <span className="chip chip-pen">{featured.category}</span>
+                <time dateTime={featured.date}>{formatArticleDate(featured.date)}</time>
+                <span>{articleReadingMinutes(featured)} minute read</span>
               </span>
-              <strong>{featured.title}</strong>
-              <span className="section-copy">{featured.description}</span>
-              <span className="text-link">Read the post →</span>
-            </span>
-          </Link>
-        </section>
-      ) : null}
-
-      {/* --- The archive --- */}
-      <section className="section-band">
-        <div className="page-wrap newsroom-archive-list">
-          {rest.map((article) => (
-            <Link
-              key={article.slug}
-              href={articlePath(article)}
-              className="newsroom-archive-row"
-            >
-              <span>{formatArticleDate(article.date)}</span>
-              <span>{article.title}</span>
-              <span>{article.category}</span>
+              <span className="newsroom-lead-title">{featured.title}</span>
+              <span className="newsroom-lead-copy">{featured.description}</span>
+              <span className="newsroom-lead-cta">
+                Read the post
+                <PenMark kind="circle" inset="-10px -18px -12px -16px" delay={0.8} />
+              </span>
             </Link>
-          ))}
+          ) : (
+            <div className="note">
+              <h2>No posts yet</h2>
+              <p style={{ marginTop: 8 }}>
+                The first one is on its way. Subscribe below and it will reach you when
+                it is published.
+              </p>
+            </div>
+          )}
         </div>
+      </Sheet>
 
-        <div className="page-wrap stack-top link-row">
-          <a href="/feed.xml" className="text-link">
-            Subscribe by RSS →
-          </a>
-          <PreferredSourceLink />
+      <Sheet className="section newsroom-archive" labelledBy="archive-title">
+        <div className="shell">
+          <div className="newsroom-archive-head">
+            <h2 id="archive-title" className="t-head" data-focus>
+              {activeCategory ? `Earlier posts in ${activeCategory}` : "Earlier posts"}
+            </h2>
+            <p className="margin-note">
+              {visibleArticles.length === 1
+                ? "One post so far."
+                : `${visibleArticles.length} posts, newest first.`}
+            </p>
+          </div>
+
+          {rest.length > 0 ? (
+            <NewsList articles={rest} showDescription={false} />
+          ) : (
+            <p className="copy">
+              {featured
+                ? "The post above is the only one here so far."
+                : "Nothing here yet."}
+            </p>
+          )}
+
+          <div className="newsroom-follow">
+            <a href="/feed.xml" className="link">
+              Subscribe by RSS
+            </a>
+            <PreferredSource />
+          </div>
         </div>
-      </section>
-    </PublicPageFrame>
+      </Sheet>
+    </PageShell>
   );
 }

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 
-import LectraForMacPage from "@/components/public/LectraForMacPage";
+import LectraForMac from "../mac/LectraForMac";
 
 // Lectra Receiver was absorbed into Lectra for Mac. /mac is the canonical URL,
 // but this one is compiled into shipped Receiver builds and the iPad app, so it
-// renders the same page rather than redirecting — a 200 here can never be a
+// renders the same page rather than redirecting. A 200 here can never be a
 // dead end for an app that cannot be updated to point somewhere else.
 export const metadata: Metadata = {
   title: "Lectra for Mac",
   description:
-    "Lectra Receiver is now part of Lectra for Mac — one free download with the whole Lectra app, plus your Mac on your iPad, documents sent from iPad, and a shared clipboard.",
+    "Lectra Receiver is now part of Lectra for Mac. It is one free download with the whole Lectra app, plus your Mac on your iPad, documents sent from iPad, and a shared clipboard.",
   alternates: {
     canonical: "/mac",
   },
@@ -46,5 +46,5 @@ export const metadata: Metadata = {
 };
 
 export default function ReceiverPage() {
-  return <LectraForMacPage />;
+  return <LectraForMac />;
 }

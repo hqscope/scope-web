@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 
-import PreferredSourceLink from "@/components/public/PreferredSourceLink";
-import PublicPageFrame from "@/components/public/PublicPageFrame";
+import Sheet from "@/components/motion/Sheet";
 import JsonLd from "@/components/seo/JsonLd";
+import Mark from "@/components/site/Mark";
+import NewsList from "@/components/site/NewsList";
+import PageShell from "@/components/site/PageShell";
+import PreferredSource from "@/components/site/PreferredSource";
 import {
   articleSchema,
   breadcrumbSchema,
@@ -18,6 +20,8 @@ import {
   getNewsroomArticle,
   newsroomArticles,
 } from "@/lib/newsroom";
+
+import "../newsroom.css";
 
 type NewsroomArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -89,8 +93,10 @@ export default async function NewsroomArticlePage({
   const surfacedRelatedArticles =
     relatedArticles.length > 0 ? relatedArticles : fallbackRelatedArticles;
 
+  const readingMinutes = articleReadingMinutes(article);
+
   return (
-    <PublicPageFrame>
+    <PageShell active="newsroom">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -110,23 +116,54 @@ export default async function NewsroomArticlePage({
         ]}
       />
 
-      <article className="article-page">
-        <header className="page-wrap article-header">
-          <Link href="/newsroom" className="article-back-link">
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            Newsroom
-          </Link>
-          <p className="newsroom-card-meta">
-            <CalendarDays className="h-4 w-4" aria-hidden="true" />
-            {formatArticleDate(article.date)} · {article.category} ·{" "}
-            {articleReadingMinutes(article)} min read
-          </p>
-          <h1>{article.title}</h1>
-          <p>{article.lede ?? article.description}</p>
-        </header>
+      <Sheet as="article" className="post" labelledBy="post-title">
+        <div className="shell post-column">
+          <header className="post-head">
+            <nav aria-label="Breadcrumb">
+              <ol className="crumbs">
+                <li>
+                  <Link href="/">Home</Link>
+                </li>
+                <li>
+                  <Link href="/newsroom">Newsroom</Link>
+                </li>
+              </ol>
+            </nav>
 
-        <div className="page-wrap article-layout">
-          <div className="article-body">
+            <h1 id="post-title" className="t-title post-title" data-focus>
+              {article.title}
+            </h1>
+
+            <p className="lede post-lede">{article.lede ?? article.description}</p>
+
+            <dl className="post-meta">
+              <div>
+                <dt>Published</dt>
+                <dd>
+                  <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+                </dd>
+              </div>
+              <div>
+                <dt>Topic</dt>
+                <dd>
+                  <Link
+                    href={`/newsroom?category=${encodeURIComponent(article.category)}`}
+                    className="link"
+                  >
+                    {article.category}
+                  </Link>
+                </dd>
+              </div>
+              <div>
+                <dt>Reading time</dt>
+                <dd>
+                  {readingMinutes} {readingMinutes === 1 ? "minute" : "minutes"}
+                </dd>
+              </div>
+            </dl>
+          </header>
+
+          <div className="prose post-body">
             {article.body.map((block, index) => {
               if (block.type === "list") {
                 return (
@@ -142,31 +179,40 @@ export default async function NewsroomArticlePage({
             })}
           </div>
 
-          <aside className="article-related" aria-label="Related updates">
-            <p className="kicker">Related</p>
-            <div>
-              {surfacedRelatedArticles.map((relatedArticle) => (
-                <Link
-                  key={relatedArticle.slug}
-                  href={articlePath(relatedArticle)}
-                  className="article-related-link"
-                >
-                  <span>{formatArticleDate(relatedArticle.date)}</span>
-                  <strong>{relatedArticle.title}</strong>
-                </Link>
-              ))}
-            </div>
-            <Link href="/newsroom" className="article-all-link">
-              All updates
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <footer className="post-sign">
+            <Mark size={26} />
+            <Link href="/newsroom" className="link">
+              Back to the newsroom
             </Link>
-            <PreferredSourceLink
-              label="Prefer Scope on Google"
-              markedLabel="Preferred on Google"
-            />
-          </aside>
+          </footer>
         </div>
-      </article>
-    </PublicPageFrame>
+      </Sheet>
+
+      <Sheet className="section-tight post-more" labelledBy="post-more-title">
+        <div className="shell post-more-inner">
+          <div className="newsroom-archive-head">
+            <h2 id="post-more-title" className="t-head" data-focus>
+              {relatedArticles.length > 0
+                ? `More in ${article.category}`
+                : "More from the newsroom"}
+            </h2>
+            <Link href="/newsroom" className="link">
+              All posts
+            </Link>
+          </div>
+
+          {surfacedRelatedArticles.length > 0 ? (
+            <NewsList articles={surfacedRelatedArticles} showDescription={false} />
+          ) : null}
+
+          <div className="newsroom-follow">
+            <a href="/feed.xml" className="link">
+              Subscribe by RSS
+            </a>
+            <PreferredSource label="Prefer Scope on Google" markedLabel="Preferred on Google" />
+          </div>
+        </div>
+      </Sheet>
+    </PageShell>
   );
 }

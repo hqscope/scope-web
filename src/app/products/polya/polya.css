@@ -1,0 +1,133 @@
+/* ==================================================================
+   /products/polya
+   ================================================================== */
+
+.polya-scene-band {
+  overflow: clip;
+}
+
+.polya-scene-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-bottom: clamp(28px, 4vw, 56px);
+}
+
+.hint-scene {
+  display: grid;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .hint-scene {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+}
+
+/* The student's page, on the desk. */
+.hint-work {
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 8px;
+  box-shadow: var(--shadow-float);
+  rotate: -1.4deg;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 39px,
+    rgb(36 30 24 / 0.07) 39px,
+    rgb(36 30 24 / 0.07) 40px
+  );
+}
+
+.hint-work-title {
+  font-size: var(--step-2);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.hint-work-given {
+  margin-top: 4px;
+  color: var(--fg-soft);
+}
+
+.hint-work ol {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  font-size: var(--step-1);
+  font-weight: 550;
+}
+
+.hint-work-wrong {
+  position: relative;
+  display: inline-block;
+}
+
+.hint-work-pencil {
+  color: var(--graphite);
+}
+
+/* Polya's answer, on the desk. */
+.hint-chat {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: clamp(18px, 2.4vw, 26px);
+  border-radius: var(--r-panel);
+  background: var(--desk-panel);
+  box-shadow: var(--shadow-float), inset 0 0 0 1px var(--rule);
+}
+
+.hint-chat-course {
+  color: var(--fg-faint);
+  font-size: var(--step--1);
+}
+
+.hint-q {
+  justify-self: end;
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--plaster);
+  color: var(--espresso);
+  font-weight: 550;
+}
+
+.hint-a {
+  display: grid;
+  gap: 12px;
+  max-width: 94%;
+  padding: 14px 16px;
+  border-radius: 14px 14px 14px 4px;
+  background: rgb(246 241 231 / 0.08);
+}
+
+.hint-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hint-reply {
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+.polya-principles {
+  margin-top: clamp(36px, 5vw, 64px);
+}
+
+.polya-faq-head {
+  margin-bottom: 28px;
+}
+
+.polya-closing {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}

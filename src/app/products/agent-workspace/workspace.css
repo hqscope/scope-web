@@ -1,0 +1,730 @@
+/* ==================================================================
+   AGENT WORKSPACE
+   A page of paper sheets, with one scene on the desk: a project floor
+   shown as live session cards that the red pen circles when a session
+   needs you. Every class here starts with aw- so nothing leaks.
+   ================================================================== */
+
+.aw-hero {
+  margin-top: clamp(6px, 1.4vw, 18px);
+  overflow: clip;
+}
+
+.aw-hero-copy {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.aw-hero-copy .page-head h1,
+.aw-hero-copy h1 {
+  max-width: 14ch;
+}
+
+.aw-hero-note {
+  margin-top: 14px;
+}
+
+@media (min-width: 900px) {
+  .aw-hero-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+}
+
+/* The Mac menu bar, with the office's menu dropped open. */
+.aw-menubar {
+  width: min(100%, 420px);
+  justify-self: start;
+  margin-bottom: clamp(40px, 6vw, 88px);
+}
+
+@media (min-width: 900px) {
+  .aw-menubar {
+    justify-self: end;
+    margin-bottom: 0;
+  }
+}
+
+.aw-menubar-strip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 10px 10px 0 0;
+  background: var(--desk);
+  color: var(--plaster);
+  font-size: 0.85rem;
+  font-weight: 600;
+  --mark-accent: var(--red-bright);
+  --mark-ink: var(--plaster);
+}
+
+.aw-menubar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgb(246 241 231 / 0.16);
+}
+
+.aw-menubar-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.aw-menubar-clock {
+  color: rgb(246 241 231 / 0.72);
+}
+
+.aw-menubar-drop {
+  margin: 6px 8px 0 auto;
+  width: calc(100% - 16px);
+  padding: 16px 16px 12px;
+  border-radius: 12px;
+  rotate: 0.8deg;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.8) inset,
+    0 0 0 1px rgb(36 30 24 / 0.1),
+    0 30px 50px -26px rgb(36 30 24 / 0.6);
+}
+
+.aw-menubar-title {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 700;
+}
+
+.aw-menubar-drop ul {
+  display: grid;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+}
+
+.aw-menubar-drop li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 0;
+}
+
+.aw-menubar-drop li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.aw-menubar-drop li span {
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+}
+
+.aw-menubar-drop li[data-waiting] span {
+  color: var(--pen);
+  font-weight: 600;
+}
+
+.aw-menubar-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+}
+
+.aw-menubar-foot kbd {
+  padding: 2px 8px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  font-family: var(--font-ui);
+  font-weight: 650;
+}
+
+/* ---------------------------------------------------------------
+   The demo, on the desk
+   --------------------------------------------------------------- */
+
+.aw-demo {
+  padding-top: calc(var(--section) * 0.8);
+  padding-bottom: calc(var(--section) * 0.7);
+  scroll-margin-top: var(--header-h);
+}
+
+.aw-demo:focus {
+  outline: none;
+}
+
+.aw-demo-head {
+  display: grid;
+  gap: 16px 48px;
+  margin-bottom: clamp(32px, 4vw, 52px);
+}
+
+.aw-demo-head h2 {
+  max-width: 22ch;
+}
+
+@media (min-width: 1000px) {
+  .aw-demo-head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    align-items: end;
+  }
+}
+
+.aw-board-wrap {
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.aw-board {
+  padding: clamp(14px, 2.4vw, 28px);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.7) inset,
+    0 40px 80px -36px rgb(0 0 0 / 0.9);
+}
+
+.aw-board-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding-bottom: clamp(14px, 2vw, 20px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.aw-floors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aw-board-count {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--fg-soft);
+}
+
+.aw-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+  margin: 0;
+  padding: clamp(22px, 3vw, 34px) clamp(4px, 1vw, 12px);
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .aw-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* A session card is a slip of paper, set down a little crooked. */
+.aw-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  min-height: 176px;
+  padding: 18px 20px 16px;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.8) inset,
+    0 0 0 1px rgb(36 30 24 / 0.08),
+    0 16px 28px -20px rgb(36 30 24 / 0.55);
+  rotate: -0.6deg;
+  transition: box-shadow 400ms var(--ease-out), translate 500ms var(--ease-snap);
+}
+
+.aw-card:nth-child(2) {
+  rotate: 0.8deg;
+}
+
+.aw-card:nth-child(3) {
+  rotate: 0.4deg;
+}
+
+.aw-card:nth-child(4) {
+  rotate: -0.9deg;
+}
+
+.aw-card[data-status="waiting"] {
+  translate: 0 -4px;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.8) inset,
+    0 0 0 1px rgb(196 43 38 / 0.18),
+    0 22px 36px -22px rgb(36 30 24 / 0.6);
+}
+
+.aw-card .pen-mark {
+  z-index: 2;
+}
+
+.aw-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.aw-card-agent {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.aw-card-agent strong {
+  font-weight: 700;
+  letter-spacing: -0.012em;
+}
+
+.aw-card-agent span {
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+.aw-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  min-height: 28px;
+  padding: 0 11px;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--fg-soft);
+  white-space: nowrap;
+}
+
+.aw-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--espresso);
+}
+
+.aw-status[data-status="thinking"] .aw-status-dot {
+  background: var(--graphite);
+}
+
+.aw-status[data-status="waiting"] {
+  color: var(--pen);
+  box-shadow: inset 0 0 0 1.5px var(--pen);
+}
+
+.aw-status[data-status="waiting"] .aw-status-dot {
+  background: var(--pen);
+}
+
+.aw-status[data-status="done"] .aw-status-dot {
+  width: 12px;
+  height: 9px;
+  border-radius: 0;
+  background: var(--pen);
+  -webkit-mask: var(--aw-tick) center / contain no-repeat;
+  mask: var(--aw-tick) center / contain no-repeat;
+}
+
+.aw-card-line {
+  align-self: center;
+  font-size: var(--step-1);
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.014em;
+  color: var(--fg);
+}
+
+.aw-card[data-status="thinking"] .aw-card-line {
+  color: var(--graphite);
+}
+
+.aw-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  min-height: 32px;
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+.aw-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 140px;
+}
+
+.aw-progress-bar {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--plaster-deep);
+  overflow: hidden;
+}
+
+.aw-progress-bar span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--espresso);
+  transition: width 900ms var(--ease-out);
+}
+
+.aw-progress-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--fg-soft);
+  min-width: 3ch;
+  text-align: right;
+}
+
+.aw-ask {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.aw-ask span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  font-weight: 650;
+}
+
+.aw-ask-yes {
+  background: var(--red);
+  color: var(--plaster);
+}
+
+.aw-ask-no {
+  box-shadow: inset 0 0 0 1.5px var(--rule-strong);
+  color: var(--fg);
+}
+
+.aw-card-done {
+  font-weight: 600;
+  color: var(--fg-soft);
+}
+
+.aw-card-note {
+  color: var(--pen);
+  font-weight: 600;
+}
+
+/* Thinking: three pencil dots taking turns. */
+.aw-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.aw-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--graphite);
+  opacity: 0.35;
+}
+
+html[data-motion="on"] .aw-board[data-running="true"] .aw-dots i {
+  animation: aw-think 1.2s ease-in-out infinite;
+}
+
+html[data-motion="on"] .aw-board[data-running="true"] .aw-dots i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+html[data-motion="on"] .aw-board[data-running="true"] .aw-dots i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes aw-think {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* The log along the bottom of the board: newest first. */
+.aw-log {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: clamp(14px, 2vw, 20px) 0 0;
+  border-top: 1px solid var(--rule);
+  list-style: none;
+  min-height: calc(3 * 1.5em + 12px + clamp(14px, 2vw, 20px));
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+}
+
+.aw-log li {
+  display: grid;
+  grid-template-columns: 3.4em minmax(0, 1fr);
+  gap: 10px;
+}
+
+.aw-log li:first-child {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.aw-log li:not(:first-child) {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .aw-log li:not(:first-child) {
+    display: grid;
+  }
+}
+
+@media (max-width: 639px) {
+  .aw-log {
+    min-height: 0;
+  }
+}
+
+.aw-log-time {
+  color: var(--fg-faint);
+}
+
+.aw-vendors {
+  max-width: 1080px;
+  margin: 22px auto 0;
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+/* ---------------------------------------------------------------
+   Sheets
+   --------------------------------------------------------------- */
+
+.aw-ideas-title {
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.aw-dives {
+  display: grid;
+  margin-top: clamp(28px, 4vw, 48px);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.aw-dive {
+  padding-block: clamp(28px, 4vw, 48px);
+}
+
+.aw-dive + .aw-dive {
+  border-top: 1px solid var(--rule);
+}
+
+.aw-dive h3 {
+  max-width: 22ch;
+}
+
+.aw-dive-lede {
+  margin-top: 16px;
+}
+
+.aw-points {
+  margin-top: 0;
+}
+
+.aw-points span {
+  color: var(--fg);
+}
+
+.aw-hand {
+  position: relative;
+  display: inline;
+}
+
+.aw-hand .pen-mark {
+  height: 22px;
+}
+
+.aw-faq {
+  margin-top: clamp(64px, 8vw, 120px);
+}
+
+/* ---------------------------------------------------------------
+   Close, on the desk, with the waitlist on a slip of paper
+   --------------------------------------------------------------- */
+
+.aw-closing {
+  display: grid;
+  justify-items: start;
+  gap: 20px;
+  scroll-margin-top: var(--header-h);
+}
+
+.aw-closing:focus {
+  outline: none;
+}
+
+.aw-closing .context-line {
+  margin-top: 6px;
+}
+
+.aw-slip {
+  width: min(100%, 560px);
+  margin-top: 8px;
+  padding: clamp(18px, 3vw, 26px);
+  border-radius: 14px;
+  rotate: -0.6deg;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.7) inset,
+    0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.aw-waitlist-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aw-waitlist-input {
+  flex: 1 1 220px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--r-control);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--rule-strong);
+  color: var(--fg);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.aw-waitlist-input::placeholder {
+  color: var(--fg-faint);
+}
+
+.aw-waitlist-input:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--pen);
+}
+
+.aw-waitlist-input[aria-invalid="true"] {
+  box-shadow: inset 0 0 0 2px var(--pen);
+}
+
+.aw-waitlist-submit {
+  flex: 0 0 auto;
+}
+
+.aw-waitlist-submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+@media (max-width: 420px) {
+  .aw-waitlist-submit {
+    flex: 1 1 100%;
+  }
+}
+
+.aw-waitlist-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.aw-waitlist-micro {
+  margin-top: 12px;
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+/* Reserved height, so the message appears without a jump. */
+.aw-waitlist-status {
+  min-height: 1.5em;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.aw-waitlist-status:empty {
+  margin-top: 0;
+}
+
+.aw-waitlist-status[data-tone="error"] {
+  color: var(--pen);
+}
+
+.aw-waitlist-status[data-tone="done"] {
+  font-size: var(--step-1);
+  color: var(--fg);
+}
+
+/* ---------------------------------------------------------------
+   Confirmation page
+   --------------------------------------------------------------- */
+
+.aw-confirmed {
+  margin-top: clamp(6px, 1.4vw, 18px);
+}
+
+.aw-confirmed .page-head {
+  padding-bottom: clamp(56px, 8vw, 120px);
+}
+
+.aw-confirmed-title {
+  position: relative;
+  display: inline-block;
+}
+
+.aw-confirmed-title .pen-mark {
+  height: 26px;
+}
+
+.aw-board {
+  --aw-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14'%3E%3Cpath d='M2 7.5c2 1.2 3.6 2.8 5 5C10 7 13.5 3.6 18.5 1.5' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-card,
+  .aw-progress-bar span {
+    transition: none;
+  }
+}
+
+/* PenMark draws with a non-scaling stroke, and Chrome then measures its
+   pathLength dashes in the wrong space, so marks much wider than their
+   200 by 60 box draw with a gap. On this page the marks scale with their
+   box instead, with stroke widths chosen for each box so the line still
+   reads as about 2.4px. */
+.aw-card .pen-mark path,
+.aw-hand .pen-mark path,
+.aw-confirmed-title .pen-mark path {
+  vector-effect: none;
+}
+
+.aw-card .pen-mark {
+  stroke-width: 0.65;
+}
+
+.aw-hand .pen-mark {
+  stroke-width: 6.5;
+}
+
+.aw-confirmed-title .pen-mark {
+  stroke-width: 5.5;
+}
