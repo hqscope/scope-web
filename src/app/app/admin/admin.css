@@ -1,0 +1,213 @@
+/* The internal admin surface: the desk, one paper sheet, red pen accents.
+   Reads the role variables from src/styles/site.css. */
+
+.admin-page {
+  min-height: 100svh;
+  padding: 0 0 calc(env(safe-area-inset-bottom) + 40px);
+}
+
+.admin-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--header-h);
+}
+
+.admin-bar-button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--rule-strong);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-bar-button:hover {
+  box-shadow: inset 0 0 0 1.5px var(--pen);
+}
+
+.admin-sheet {
+  padding-block: clamp(28px, 4vw, 56px);
+}
+
+.admin {
+  display: grid;
+  gap: clamp(28px, 3.6vw, 44px);
+}
+
+.admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-head h1 {
+  font-size: var(--step-4);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.admin-head .copy {
+  margin-top: 12px;
+  max-width: 60ch;
+}
+
+.admin-muted {
+  color: var(--fg-soft);
+  font-size: var(--step--1);
+}
+
+.admin-stale {
+  color: var(--pen);
+  font-weight: 600;
+}
+
+.admin-label {
+  font-weight: 650;
+  color: var(--fg-soft);
+}
+
+.admin-panel {
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.admin-error {
+  box-shadow: inset 3px 0 0 var(--pen);
+}
+
+.admin-live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pen);
+  box-shadow: 0 0 0 4px rgb(196 43 38 / 0.16);
+}
+
+.admin-big {
+  margin-top: 8px;
+  font-size: clamp(3rem, 2rem + 4vw, 5rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-windows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+@media (min-width: 640px) {
+  .admin-windows {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .admin-windows {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.admin-window {
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--plane-sunk);
+}
+
+.admin-window-value {
+  margin-top: 6px;
+  font-size: var(--step-2);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-window .admin-muted {
+  margin-top: 4px;
+}
+
+.admin-foot {
+  margin-top: 20px;
+}
+
+.admin-spark {
+  margin-top: 16px;
+  overflow-x: auto;
+  color: var(--pen);
+}
+
+.admin-spark svg {
+  width: 100%;
+  min-width: 420px;
+  height: 120px;
+}
+
+.admin-spark-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  min-width: 420px;
+}
+
+.admin-table-wrap {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.admin-table th {
+  padding-bottom: 12px;
+  font-weight: 600;
+  color: var(--fg-soft);
+  text-align: right;
+}
+
+.admin-table th:first-child,
+.admin-table td:first-child {
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 12px 0 12px 12px;
+  border-top: 1px solid var(--rule);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  vertical-align: top;
+}
+
+.admin-table td:first-child {
+  padding-left: 0;
+  padding-right: 16px;
+  font-weight: 650;
+}
+
+.admin-table td:first-child .admin-muted {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+}

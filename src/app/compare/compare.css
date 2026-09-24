@@ -1,0 +1,384 @@
+/* ==================================================================
+   COMPARE: the hub and the eight comparison articles.
+   Every comparison is one tall sheet: the head, a reading column with an
+   outline beside it on wide screens, then related links. The closing
+   call to action sits on the desk below it.
+   ================================================================== */
+
+/* ---------------------------------------------------------------
+   The article sheet
+   --------------------------------------------------------------- */
+
+.compare-article {
+  padding-bottom: clamp(24px, 4vw, 56px);
+}
+
+.compare-article .page-head {
+  padding-bottom: clamp(36px, 5vw, 72px);
+}
+
+.compare-article .page-head h1 {
+  max-width: 22ch;
+}
+
+.compare-lede > * + * {
+  margin-top: 16px;
+}
+
+.compare-def {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--fg-soft);
+  max-width: 62ch;
+}
+
+.compare-reading {
+  padding-bottom: clamp(56px, 7vw, 104px);
+}
+
+.compare-body {
+  min-width: 0;
+}
+
+.compare-body > section {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.compare-body > section + section {
+  margin-top: clamp(64px, 8vw, 112px);
+}
+
+.compare-body > section > h2 {
+  max-width: 22ch;
+  margin-bottom: clamp(20px, 2.4vw, 30px);
+}
+
+.compare-body > section > * + * {
+  margin-top: 28px;
+}
+
+.compare-body > section > h2 + * {
+  margin-top: 0;
+}
+
+.compare-aside {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--fg-faint);
+  max-width: 68ch;
+}
+
+/* A phrase the pen underlines once. */
+.compare-pen {
+  position: relative;
+  display: inline-block;
+  color: var(--fg);
+}
+
+.compare-pen .pen-mark {
+  width: calc(100% + 8px);
+  height: 11px;
+}
+
+/* ---------------------------------------------------------------
+   Where each one wins: two columns, ours marked in pen.
+   --------------------------------------------------------------- */
+
+.compare-wins {
+  display: grid;
+  gap: 36px 48px;
+}
+
+@media (min-width: 720px) {
+  .compare-wins {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.compare-wins > div {
+  padding-top: 18px;
+  border-top: 1.5px solid var(--rule-strong);
+}
+
+.compare-wins > div[data-ours="true"] {
+  border-top-color: var(--pen);
+}
+
+.compare-wins h3 {
+  font-size: var(--step-1);
+  line-height: 1.25;
+}
+
+.compare-wins ul {
+  margin: 14px 0 0;
+  padding-left: 1.2em;
+}
+
+.compare-wins li {
+  color: var(--fg-soft);
+  line-height: 1.6;
+}
+
+.compare-wins li + li {
+  margin-top: 10px;
+}
+
+.compare-wins li::marker {
+  color: var(--pen);
+}
+
+/* ---------------------------------------------------------------
+   A pick in a round-up: name, what it is, then the facts as a
+   short definition list.
+   --------------------------------------------------------------- */
+
+.compare-pick {
+  padding-top: 26px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.compare-pick + .compare-pick {
+  margin-top: clamp(40px, 5vw, 56px);
+}
+
+.compare-pick h3 {
+  font-size: var(--step-2);
+  line-height: 1.14;
+  letter-spacing: -0.024em;
+}
+
+.compare-pick-role {
+  margin-top: 6px;
+  font-weight: 600;
+  color: var(--pen);
+}
+
+.compare-pick > p:not(.compare-pick-role) {
+  margin-top: 14px;
+  color: var(--fg-soft);
+  max-width: 68ch;
+}
+
+.compare-facts {
+  display: grid;
+  gap: 4px 28px;
+  margin: 20px 0 0;
+}
+
+.compare-facts dt {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.compare-facts dd {
+  margin: 0 0 12px;
+  color: var(--fg-soft);
+  max-width: 64ch;
+}
+
+@media (min-width: 760px) {
+  .compare-facts {
+    grid-template-columns: 11rem minmax(0, 1fr);
+  }
+
+  .compare-facts dd {
+    margin-bottom: 10px;
+  }
+}
+
+.compare-facts a,
+.compare-pick > p a,
+.compare-wins a,
+.compare-aside a,
+.table-wrap td a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--rule-strong);
+}
+
+.compare-facts a:hover,
+.compare-pick > p a:hover,
+.compare-wins a:hover,
+.compare-aside a:hover,
+.table-wrap td a:hover {
+  color: var(--pen);
+  text-decoration-color: var(--pen);
+}
+
+/* Parallel verdicts in columns. */
+.compare-verdicts {
+  display: grid;
+  gap: 32px 40px;
+}
+
+@media (min-width: 720px) {
+  .compare-verdicts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.compare-verdicts > div {
+  padding-top: 18px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.compare-verdicts > div[data-ours="true"] {
+  border-top: 1.5px solid var(--pen);
+}
+
+.compare-verdicts h3 {
+  font-size: var(--step-1);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.compare-verdicts p {
+  color: var(--fg-soft);
+}
+
+/* The related links live inside the sheet, under a rule. */
+.compare-article .compare-related {
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------
+   Closing, on the desk
+   --------------------------------------------------------------- */
+
+.compare-closing {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.compare-closing h2 {
+  max-width: 18ch;
+}
+
+.compare-closing .lede {
+  margin-top: -4px;
+  max-width: 60ch;
+}
+
+/* ---------------------------------------------------------------
+   The hub
+   --------------------------------------------------------------- */
+
+.compare-hub-head {
+  padding-top: clamp(48px, 7vw, 108px);
+  padding-bottom: clamp(56px, 8vw, 120px);
+}
+
+.compare-hub-head h1 {
+  max-width: 14ch;
+}
+
+.compare-hub-head .lede {
+  margin-top: 24px;
+}
+
+.compare-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--fg-soft);
+}
+
+.compare-hub-group h2 {
+  max-width: 20ch;
+}
+
+.compare-hub-group .lede {
+  margin-top: 20px;
+}
+
+.compare-hub-group .index-list {
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+/* The scorecard: a sheet of notes on where the other apps win. */
+.scorecard {
+  position: relative;
+  margin: 0;
+  padding: clamp(22px, 3vw, 34px);
+  background: var(--surface);
+  rotate: -1.2deg;
+}
+
+.scorecard-title {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: -0.016em;
+}
+
+.scorecard ul {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.scorecard li {
+  display: grid;
+  gap: 2px 20px;
+  padding: 13px 0;
+  border-top: 1px solid var(--rule);
+}
+
+@media (min-width: 480px) {
+  .scorecard li {
+    grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.scorecard-app {
+  font-weight: 650;
+  color: var(--fg);
+}
+
+.scorecard-win {
+  color: var(--fg-soft);
+}
+
+.scorecard-win span {
+  position: relative;
+  display: inline-block;
+}
+
+.scorecard-win .pen-mark {
+  width: calc(100% + 26px);
+  height: calc(100% + 20px);
+}
+
+.scorecard figcaption {
+  margin-top: 16px;
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+/* Tailwind also emits a utility named .outline (outline-style: solid),
+   which draws a box around the table of contents. Cancel it here. */
+.compare-reading .outline {
+  outline: none;
+}
+
+/* Tables with five or six apps: a narrower label column and tighter
+   cells, so each app gets room before the table has to scroll. */
+.compare-table-wide .table-wrap table {
+  min-width: 860px;
+  font-size: 0.9rem;
+}
+
+.compare-table-wide .table-wrap th,
+.compare-table-wide .table-wrap td {
+  padding: 12px 12px;
+}
+
+.compare-table-wide .table-wrap tbody th {
+  width: 14%;
+}

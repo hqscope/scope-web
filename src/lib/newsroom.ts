@@ -15,6 +15,93 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "lectra-9-a-tool-wheel-and-a-quieter-dock",
+    title: "Lectra 9: a tool wheel, a quieter dock, and documents that open with their pages",
+    date: "2026-09-17",
+    category: "Release",
+    description: "Lectra Notes 9.0 puts a ring of tools under a two-finger long press, strips the tool dock back to plain icons, and makes documents sent from Scope open with their pages already there.",
+    lede: "Most of this release is about reaching the right tool without leaving the page.",
+    keywords: [
+      "Lectra Notes 9",
+      "Lectra tool wheel",
+      "iPad annotation",
+      "Apple Pencil tools",
+      "Lectra"
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Lectra Notes 9.0 is on the App Store as of today. The biggest change is how you switch tools. Press and hold with two fingers anywhere on the page and a ring of tools opens around where your fingers landed, so going from pen to highlighter halfway down a page no longer means a trip to the dock and back."
+      },
+      {
+        type: "paragraph",
+        text: "We chose that gesture because it was the last one the editor had free. One finger draws or opens the context menu, a two-finger tap undoes, three fingers redo, and a double tap fits the page, and we were not willing to take any of those away to make room for a shortcut. The wheel shows the same tools as the dock, in the same order and with the same icons, so there is nothing new to learn. If you open it by accident, a tap anywhere outside the ring closes it."
+      },
+      {
+        type: "paragraph",
+        text: "The dock itself got quieter. It used to be a row of bordered, tinted squares sitting inside a bordered, tinted capsule, which was two layers of decoration around one row of tools. Now each tool is just its icon, and the only thing with an outline is the tool you are holding. The ink and weight choices scroll sideways inside the dock, and they look smaller than before, but every one of them is still a full-size touch target."
+      },
+      {
+        type: "paragraph",
+        text: "Documents sent from Scope now open properly the first time. A document shows up in your library a second or two before its pages finish downloading, and if you tapped it in that gap Lectra used to open a panel saying the pages were not on this iPad. A tap now waits for the pages and then opens the document."
+      },
+      {
+        type: "paragraph",
+        text: "Also in this build:"
+      },
+      {
+        type: "list",
+        items: [
+          "The top bar and the floating tool picker were rebuilt, and the paper setup sheet was redesigned.",
+          "The sheet for moving documents between folders was reworked.",
+          "You can name a folder Imported again. The name was reserved for an old system folder that no longer exists, so it was blocking an ordinary folder name for no reason.",
+          "While a lecture is recording, the recording pill no longer sits on top of the page number, the hints, and the pages rail. They move up by exactly the height of the pill."
+        ]
+      }
+    ]
+  },
+  {
+    slug: "the-copy-scope-sees-is-the-one-you-marked-up",
+    title: "The copy Scope sees is now the one you marked up",
+    date: "2026-09-17",
+    category: "Engineering",
+    description: "Lectra Notes 9.0 keeps the marked-up copy of every shared document current, including one left open on the iPad, so what goes back through Scope has your ink on it. The extension's half is not out yet.",
+    lede: "A file sent back without its annotations looks exactly like one sent back with them, until someone opens it.",
+    keywords: [
+      "Lectra Notes 9",
+      "Scope extension",
+      "annotated PDF",
+      "DropBridge",
+      "Lectra"
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "When you mark up a document in Lectra Notes and send it back through Scope, what travels is a PDF with your ink drawn onto the pages. Until this release that PDF was only rebuilt at one moment, which was when you tapped Back to leave the document. Anything that skipped that moment left the old copy in place."
+      },
+      {
+        type: "paragraph",
+        text: "There were a lot of ways to skip it. You could leave the document open on the iPad, the app could be suspended halfway through saving, you could switch tabs, or a run of uploads could fail. Each of those left your ink saved on the iPad but the shared copy out of date, and the file picker in the Scope extension would then attach the original, unannotated PDF without saying anything. Nothing looked wrong until someone opened what you handed in."
+      },
+      {
+        type: "paragraph",
+        text: "Lectra 9 stops relying on the Back button. Every time the app launches, comes to the foreground, refreshes the library, or wakes up to receive a file, it checks each document it shares with Scope and asks whether the shared copy includes everything on this iPad. If it does not, Lectra rebuilds the copy and sends it. A document that is open in an editor right now gets saved in place without closing, so you do not have to leave the page for your work to count."
+      },
+      {
+        type: "paragraph",
+        text: "Telling whether a copy is out of date took some care. Every save rewrites the file that holds your ink, so comparing file dates would call a copy stale forever even when nothing had changed. Lectra now records when each copy was last built and what it covered, and it compares against that."
+      },
+      {
+        type: "paragraph",
+        text: "One related fix: a document you created on the iPad and then shared used to come back from the server looking like something Scope had sent you. It landed in the Scope inbox, could not be moved, and lost its favourite. It now stays where you put it."
+      },
+      {
+        type: "paragraph",
+        text: "The other half of this belongs to the Scope extension, which will ask the iPad for its freshest pages at the moment you pick a file, instead of taking whatever was uploaded last. That part is built but not released. Scope for Canvas is still on version 11.0.5, and we will say here when the update is out."
+      }
+    ]
+  },
+  {
     slug: "what-we-wont-claim-about-lecture-recording",
     title: "What we won't claim about lecture recording, and why",
     date: "2026-08-31",

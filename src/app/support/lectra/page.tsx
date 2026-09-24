@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Download,
-  FileQuestion,
-  LifeBuoy,
-  Lock,
-  RefreshCw,
-} from "lucide-react";
 
+import Sheet from "@/components/motion/Sheet";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
-import PublicPageFrame from "@/components/public/PublicPageFrame";
+import DeviceFrame from "@/components/site/DeviceFrame";
+import PageHead from "@/components/site/PageHead";
+import PageShell from "@/components/site/PageShell";
 import { publicPageMetadata } from "@/lib/seo";
+import { LECTRA_APP_STORE_URL, LECTRA_DEFINITION, SUPPORT_EMAIL } from "@/lib/site";
 import { breadcrumbSchema } from "@/lib/structured-data";
-import {
-  LECTRA_APP_STORE_URL,
-  LECTRA_DEFINITION,
-  SUPPORT_EMAIL,
-} from "@/lib/site";
+
+import "../../_company/company.css";
 
 export const metadata: Metadata = {
   ...publicPageMetadata({
@@ -37,34 +30,26 @@ export const metadata: Metadata = {
 
 const supportTopics = [
   {
-    icon: Download,
     title: "Importing documents",
-    copy:
-      "Use the in-app import controls or the iOS share sheet to bring PDFs into Lectra Notes. If a file does not appear, confirm the file is a PDF and retry from Files.",
+    copy: "Use the in-app import controls or the iOS share sheet to bring PDFs into Lectra Notes. If a file does not appear, check that it is a PDF and try again from Files.",
   },
   {
-    icon: RefreshCw,
     title: "Scope handoff",
-    copy:
-      "For connected workflows, sign in with the same account in Lectra Notes and Scope. Documents sent from Scope may take a moment to appear.",
+    copy: "For connected workflows, sign in with the same account in Lectra Notes and Scope. Documents sent from Scope may take a moment to appear.",
   },
   {
-    icon: FileQuestion,
     title: "Annotations and exports",
-    copy:
-      "If a finished PDF looks incomplete after export, reopen the document in Lectra Notes, wait for the save state to settle, then export or send the file again.",
+    copy: "If a finished PDF looks incomplete after export, reopen the document in Lectra Notes, wait for it to finish saving, then export or send the file again.",
   },
   {
-    icon: Lock,
     title: "Account and privacy",
-    copy:
-      "Lectra Notes includes account deletion from inside the app. Privacy, data-use, and retention details are maintained in the Scope privacy policy.",
+    copy: "You can delete your account from inside Lectra Notes. Privacy, data use, and retention details are in the Scope privacy policy.",
   },
 ];
 
 export default function LectraSupportPage() {
   return (
-    <PublicPageFrame>
+    <PageShell active="support">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -74,89 +59,93 @@ export default function LectraSupportPage() {
           ]),
         ]}
       />
-      <section className="page-wrap legal-page">
-        <div className="space-y-6">
-          <p className="kicker">Lectra Notes support</p>
-          <h1>
-            Help for Lectra Notes on iPhone and iPad.
-          </h1>
-          <p className="section-copy">
-            {LECTRA_DEFINITION} This page covers importing course PDFs,
-            organizing readings, annotating, exporting, and moving finished
-            files through connected Scope workflows.
-          </p>
-          <p className="section-copy">
-            If you are looking for Lectra SA&apos;s fashion software or a
-            different study app called Lectra, this page is not for them.
-          </p>
-        </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          <a
-            href={`mailto:${SUPPORT_EMAIL}?subject=Lectra%20Notes%20support`}
-            className="public-panel rounded-[1.5rem] p-6"
-          >
-            <LifeBuoy className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4">Contact support</h2>
-            <p className="mt-3 section-copy">
-              Email {SUPPORT_EMAIL} with your device model, iOS or iPadOS
-              version, and a short description of the issue.
-            </p>
-          </a>
-
-          <StoreLink
-            store="app-store"
-            href={LECTRA_APP_STORE_URL}
-            className="public-panel rounded-[1.5rem] p-6"
-          >
-            <Download className="h-5 w-5 text-[var(--color-brand)]" aria-hidden="true" />
-            <h2 className="mt-4">App Store listing</h2>
-            <p className="mt-3 section-copy">
-              Download Lectra Notes, check availability, and review the current
-              App Store product information.
-            </p>
-          </StoreLink>
-        </div>
-
-        <section className="mt-14 space-y-6">
-          <div>
-            <p className="kicker">Common help topics</p>
-            <h2 className="mt-3 text-4xl">Start here.</h2>
+      <Sheet labelledBy="lectra-support-title">
+        <PageHead
+          crumbs={[
+            { href: "/support", label: "Support" },
+            { href: "/support/lectra", label: "Lectra Notes" },
+          ]}
+          title={
+            <span id="lectra-support-title">Help for Lectra Notes on iPhone and iPad.</span>
+          }
+          lede={
+            <>
+              <p>
+                {LECTRA_DEFINITION} This page covers importing course PDFs, organizing
+                readings, annotating, exporting, and moving finished files through
+                connected Scope workflows.
+              </p>
+              <p className="small" style={{ marginTop: 14 }}>
+                Looking for Lectra SA&rsquo;s fashion software or a different study app
+                called Lectra? This page is only about Lectra Notes.
+              </p>
+            </>
+          }
+        />
+        <div className="shell split" style={{ paddingBottom: "var(--section)" }}>
+          <div className="co-stack">
+            <a
+              href={`mailto:${SUPPORT_EMAIL}?subject=Lectra%20Notes%20support`}
+              className="co-card plane"
+            >
+              <h2>Contact support</h2>
+              <p className="co-card-line">{SUPPORT_EMAIL}</p>
+              <p>
+                Write with your device model, iOS or iPadOS version, and a short
+                description of the issue.
+              </p>
+            </a>
+            <StoreLink store="app-store" href={LECTRA_APP_STORE_URL} className="co-card plane">
+              <h2>App Store listing</h2>
+              <p>
+                Download Lectra Notes, check availability, and read the current App Store
+                product information.
+              </p>
+            </StoreLink>
           </div>
-          <div className="grid gap-4">
-            {supportTopics.map((topic) => {
-              const Icon = topic.icon;
+          <DeviceFrame
+            src="/brand/lectra-library-ipad.png"
+            alt="The Lectra Notes document library on iPad, with Documents, Scope Inbox, Studio, Projects, and Remote Desktop in the sidebar."
+            width={2064}
+            height={1548}
+            priority
+          />
+        </div>
+      </Sheet>
 
-              return (
-                <article key={topic.title} className="public-panel rounded-[1.5rem] p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-2xl bg-[var(--color-brand-soft)] p-3 text-[var(--color-brand)]">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="">{topic.title}</h3>
-                      <p className="mt-3 section-copy">{topic.copy}</p>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+      <Sheet className="section" labelledBy="topics-title">
+        <div className="shell">
+          <h2 id="topics-title" className="t-head" data-focus style={{ marginBottom: 40 }}>
+            Start here.
+          </h2>
+          <div className="co-help">
+            {supportTopics.map((topic) => (
+              <div key={topic.title}>
+                <h3>{topic.title}</h3>
+                <p>{topic.copy}</p>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </Sheet>
 
-        <section className="mt-14 grid gap-4 sm:grid-cols-3">
-          <Link href="/products/lectra" className="button-secondary justify-center">
+      <section className="on-desk shell section co-closing" aria-labelledby="closing-title">
+        <h2 id="closing-title" className="t-title" data-focus>
+          More about Lectra Notes.
+        </h2>
+        <div className="actions">
+          <Link href="/products/lectra" className="btn btn-primary">
             About Lectra Notes
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
-          <Link href="/privacy" className="button-secondary justify-center">
+          <Link href="/privacy" className="btn btn-line">
             Privacy policy
           </Link>
-          <Link href="/terms" className="button-secondary justify-center">
+          <Link href="/terms" className="btn btn-line">
             Terms
           </Link>
-        </section>
+        </div>
       </section>
-    </PublicPageFrame>
+    </PageShell>
   );
 }

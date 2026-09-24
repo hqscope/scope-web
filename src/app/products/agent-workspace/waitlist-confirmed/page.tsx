@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import PublicPageFrame from "@/components/public/PublicPageFrame";
+import PenMark from "@/components/motion/PenMark";
+import Sheet from "@/components/motion/Sheet";
+import PageHead from "@/components/site/PageHead";
+import PageShell from "@/components/site/PageShell";
 
-import { awMono, awSans } from "../fonts";
-import "../agent-workspace.css";
-import "@/components/public/agent-workspace/waitlist.css";
+import "../workspace.css";
 
 export const metadata: Metadata = {
   title: "You're on the list",
@@ -16,28 +17,34 @@ export const metadata: Metadata = {
 
 export default function WaitlistConfirmedPage() {
   return (
-    <PublicPageFrame
+    <PageShell
       active="agent-workspace"
-      footerVariant="slim"
-      tone="dark"
-      headerCta={{
+      cta={{
         label: "Get early access",
         href: "/products/agent-workspace#early-access",
       }}
     >
-      <div className={`aw-page ${awSans.variable} ${awMono.variable}`}>
-        <section className="aw-confirmed">
-          <p className="aw-confirmed-eyebrow">EARLY ACCESS</p>
-          <h1 className="aw-confirmed-title">You&apos;re on the list.</h1>
-          <p className="aw-confirmed-copy">
-            We&apos;ll email your invite when a desk is ready — that&apos;s the
-            only email we&apos;ll send.
-          </p>
-          <Link className="aw-confirmed-back" href="/products/agent-workspace">
+      <Sheet className="aw-confirmed" labelledBy="aw-confirmed-title">
+        <PageHead
+          context="Agent Workspace early access"
+          title={
+            <span id="aw-confirmed-title" className="aw-confirmed-title">
+              You&rsquo;re on the list.
+              <PenMark kind="underline" inset="auto -6px -18px -6px" delay={0.9} />
+            </span>
+          }
+          lede={
+            <p>
+              We&rsquo;ll email your invite when a desk is ready, and that&rsquo;s the
+              only email we&rsquo;ll send.
+            </p>
+          }
+        >
+          <Link className="btn btn-line" href="/products/agent-workspace">
             Back to Agent Workspace
           </Link>
-        </section>
-      </div>
-    </PublicPageFrame>
+        </PageHead>
+      </Sheet>
+    </PageShell>
   );
 }

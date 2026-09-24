@@ -1,0 +1,145 @@
+/* Guides: long-form documents on one tall sheet. See docs/DESIGN.md. */
+
+.guide {
+  padding-bottom: clamp(40px, 6vw, 88px);
+}
+
+.guide .page-head {
+  padding-bottom: clamp(36px, 5vw, 72px);
+}
+
+.guide .page-head .lede {
+  max-width: 62ch;
+}
+
+.guide-reading {
+  padding-top: clamp(28px, 4vw, 48px);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.guide-body {
+  min-width: 0;
+}
+
+.guide-section {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.guide-section + .guide-section {
+  margin-top: clamp(64px, 8vw, 112px);
+}
+
+.guide-section > h2 {
+  font-size: var(--step-3);
+  line-height: 1.06;
+  max-width: 24ch;
+}
+
+.guide-section > * + * {
+  margin-top: 26px;
+}
+
+.guide-section > h2 + * {
+  margin-top: 22px;
+}
+
+.guide-section .prose h3 {
+  margin-top: 1.6em;
+}
+
+.guide-section .prose > h3:first-child {
+  margin-top: 0;
+}
+
+/* Lists of title plus description keep to the reading measure. */
+.guide-section > .feature-list,
+.guide-section > .note,
+.guide-section > .faq {
+  max-width: 76ch;
+}
+
+.guide-section > .feature-list {
+  margin-top: 30px;
+}
+
+.guide-section .table-wrap table {
+  min-width: 720px;
+}
+
+.guide-figure {
+  margin: 36px 0 0;
+  max-width: 400px;
+}
+
+.guide-figure figcaption {
+  margin-top: 14px;
+}
+
+.guide-checked {
+  margin-top: 16px;
+  max-width: 76ch;
+}
+
+.guide-end {
+  margin-top: clamp(40px, 6vw, 72px);
+}
+
+.guide-end .section-tight {
+  padding-bottom: 0;
+}
+
+.guide-closing {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.guide-closing h2 {
+  max-width: 18ch;
+}
+
+.guide-closing .lede {
+  max-width: 60ch;
+}
+
+.guide-closing .actions {
+  margin-top: 8px;
+}
+
+/* A phrase the pen underlines. */
+.pen-phrase {
+  position: relative;
+  white-space: nowrap;
+}
+
+/* An absolutely placed SVG keeps its intrinsic width even with left and
+   right set, so the underline gets its width explicitly. */
+.pen-phrase .pen-line {
+  width: calc(100% + 8px);
+  height: 18px;
+}
+
+/* ---- The hub ------------------------------------------------------ */
+
+.guides-hub .index-list .index-meta {
+  white-space: normal;
+}
+
+.guides-hub-note {
+  margin-top: clamp(48px, 6vw, 80px);
+}
+
+/* Tailwind's `outline` utility shares the outline's class name and would
+   draw a box around it. */
+.guide .outline {
+  outline: none;
+}
+
+/* The reset strips list markers. Long-form lists keep them. */
+.guide .prose ul {
+  list-style: disc;
+}
+
+.guide .prose ol {
+  list-style: decimal;
+}

@@ -1,14 +1,18 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
-import PublicPageFrame from "@/components/public/PublicPageFrame";
+import PenMark from "@/components/motion/PenMark";
+import Sheet from "@/components/motion/Sheet";
+import Mark from "@/components/site/Mark";
+import PageShell from "@/components/site/PageShell";
 import JsonLd from "@/components/seo/JsonLd";
 import { comparePath, comparisons, comparisonsFor, type Comparison } from "@/lib/compare";
 import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 
+import "./compare.css";
+
 const description =
-  "Honest comparisons of Scope for Canvas with BetterCampus and Tasks for Canvas, and of Lectra Notes with Goodnotes, Notability, and the iPad Python notebook apps — including where each competitor is stronger.";
+  "Honest comparisons of Scope for Canvas with BetterCampus and Tasks for Canvas, and of Lectra Notes with Goodnotes, Notability, and the iPad Python notebook apps, including where each competitor is stronger.";
 
 export const metadata = publicPageMetadata({
   title: "Compare Scope and Lectra Notes",
@@ -25,31 +29,39 @@ export const metadata = publicPageMetadata({
   ],
 });
 
-function CompareCards({ items }: { items: Comparison[] }) {
+/* Where the other apps win, each one taken from its comparison page. */
+const theirWins = [
+  { app: "BetterCampus", win: "Dark mode, themes, and custom course cards" },
+  { app: "Tasks for Canvas", win: "A to-do list on the Canvas dashboard" },
+  { app: "Goodnotes", win: "Handwriting-to-text conversion", marked: true },
+  { app: "Notability", win: "Years of polish on lecture audio" },
+  { app: "Juno and Carnets", win: "SciPy and scikit-learn built in" },
+];
+
+function formatDate(iso: string): string {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+function CompareIndex({ items }: { items: Comparison[] }) {
   return (
-    <div className="plain-grid" data-reveal>
+    <ul className="index-list">
       {items.map((item) => (
-        <Link
-          key={item.slug}
-          href={comparePath(item)}
-          className="group block rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-6 transition-colors hover:border-[var(--color-line-strong)]"
-        >
-          <h3 className="text-[1.05rem] font-semibold text-[var(--color-ink)]">
-            {item.title}
-          </h3>
-          <p className="mt-2 text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
-            {item.copy}
-          </p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-brand)]">
-            Read the comparison
-            <ArrowRight
-              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-              aria-hidden="true"
-            />
-          </span>
-        </Link>
+        <li key={item.slug}>
+          <Link href={comparePath(item)}>
+            <span className="index-title">
+              <span>{item.title}</span>
+            </span>
+            <span className="index-copy">{item.copy}</span>
+            <span className="index-meta">Updated {formatDate(item.dateModified)}</span>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
@@ -58,7 +70,7 @@ export default function ComparePage() {
   const lectraComparisons = comparisonsFor("lectra");
 
   return (
-    <PublicPageFrame active="compare" footerVariant="slim">
+    <PageShell active="compare">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -76,44 +88,100 @@ export default function ComparePage() {
         ]}
       />
 
-      <section className="page-wrap centered-hero" id="hero">
-        <div data-reveal>
-          <p className="kicker">Compare</p>
-          <h1>Pick the right app, even if it isn&apos;t ours.</h1>
-          <p className="centered-hero-lede">
-            Every comparison here names what the other app does better — dated,
-            sourced, and corrected when we&apos;re wrong. If Scope for Canvas
-            or Lectra Notes wins, we want it to win on the merits.
+      <Sheet labelledBy="compare-title">
+        <div className="shell split compare-hub-head">
+          <div>
+            <p className="context-line">
+              Comparisons for Scope for Canvas and Lectra Notes
+            </p>
+            <h1 id="compare-title" className="t-title" data-focus style={{ marginTop: 18 }}>
+              Pick the right app, even if it isn&apos;t ours.
+            </h1>
+            <p className="lede">
+              Every comparison here names what the other app does better. Each one
+              is dated, sourced, and corrected when we&apos;re wrong. If Scope for
+              Canvas or Lectra Notes wins, we want it to win on the merits.
+            </p>
+            <div className="link-row">
+              <a href="#scope" className="link">
+                Canvas extensions
+              </a>
+              <a href="#lectra" className="link">
+                iPad note-taking apps
+              </a>
+            </div>
+          </div>
+
+          <figure className="scorecard plane">
+            <p className="scorecard-title">Where they win</p>
+            <ul>
+              {theirWins.map((item) => (
+                <li key={item.app}>
+                  <span className="scorecard-app">{item.app}</span>
+                  <span className="scorecard-win">
+                    {item.marked ? (
+                      <span>
+                        {item.win}
+                        <PenMark kind="circle" inset="-10px -14px -10px -12px" delay={0.4} />
+                      </span>
+                    ) : (
+                      item.win
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <figcaption>Each page says where the other app is the better pick.</figcaption>
+          </figure>
+        </div>
+      </Sheet>
+
+      <Sheet className="section compare-hub-group" id="scope" labelledBy="scope-title">
+        <div className="shell">
+          <p className="compare-tag">
+            <Mark size={18} /> Scope for Canvas
           </p>
-        </div>
-      </section>
-
-      <section className="page-wrap section-pad" id="scope">
-        <div className="section-heading" data-reveal>
-          <p className="kicker">Scope for Canvas</p>
-          <h2>Canvas Chrome extensions, compared.</h2>
-        </div>
-        <CompareCards items={scopeComparisons} />
-      </section>
-
-      <section className="page-wrap section-pad" id="lectra">
-        <div className="section-heading" data-reveal>
-          <p className="kicker">Lectra Notes</p>
-          <h2>iPad note-taking apps, compared.</h2>
-        </div>
-        <CompareCards items={lectraComparisons} />
-      </section>
-
-      <section className="page-wrap final-cta" id="guides" data-reveal>
-        <div>
-          <h2>Looking for a how-to instead?</h2>
-          <p>
-            The <Link href="/guides">guides</Link> cover the manual way first —
-            searching Canvas, checking an extension before you install it,
-            getting lecture slides onto an iPad — and only then mention ours.
+          <h2 id="scope-title" className="t-head" data-focus>
+            Canvas Chrome extensions, compared.
+          </h2>
+          <p className="lede">
+            BetterCampus, Tasks for Canvas, the downloaders, and Scope. Most
+            students can run more than one, so each page says which job each
+            extension does best.
           </p>
+          <CompareIndex items={scopeComparisons} />
+        </div>
+      </Sheet>
+
+      <Sheet className="section compare-hub-group" id="lectra" labelledBy="lectra-title">
+        <div className="shell">
+          <p className="compare-tag">Lectra Notes</p>
+          <h2 id="lectra-title" className="t-head" data-focus>
+            iPad note-taking apps, compared.
+          </h2>
+          <p className="lede">
+            Goodnotes, Notability, OneNote, and the iPad Python apps, set against
+            Lectra Notes on price, handwriting, audio, and code.
+          </p>
+          <CompareIndex items={lectraComparisons} />
+        </div>
+      </Sheet>
+
+      <section className="on-desk shell section compare-closing" aria-labelledby="guides-title">
+        <h2 id="guides-title" className="t-title" data-focus>
+          Looking for a how-to instead?
+        </h2>
+        <p className="lede">
+          The guides cover the manual way first, like searching Canvas, checking an
+          extension before you install it, and getting lecture slides onto an
+          iPad, and only then mention ours.
+        </p>
+        <div className="actions">
+          <Link href="/guides" className="btn btn-primary">
+            Read the guides
+          </Link>
         </div>
       </section>
-    </PublicPageFrame>
+    </PageShell>
   );
 }

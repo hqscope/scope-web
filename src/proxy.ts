@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { copyResponseCookies } from "@/lib/supabase/server";
 import { sanitizeNextPath } from "@/lib/site";
+import { isAuthOutage } from "@/lib/auth/outage";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -48,6 +49,7 @@ export async function proxy(request: NextRequest) {
   });
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser();
 
   if (hasAuthCode && pathname !== "/auth/callback") {
@@ -62,6 +64,16 @@ export async function proxy(request: NextRequest) {
       supabaseResponse,
       NextResponse.redirect(callbackUrl),
     );
+  }
+
+  if (isAuthOutage(error)) {
+    // We couldn't confirm the session — a 5xx, a 402 (over quota) or a
+    // network failure, not GoTrue saying the session is invalid. A failed
+    // refresh in this state may have already queued cookie-clearing writes
+    // on `supabaseResponse`; return the request untouched instead, so
+    // outage never redirects to /login or persists a wiped session. The
+    // destination page shows its own retry state.
+    return NextResponse.next({ request });
   }
 
   if (isAppRoute && !user) {

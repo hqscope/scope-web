@@ -1,0 +1,211 @@
+/* Newsroom index and posts. See docs/DESIGN.md. */
+
+/* ---- Index ---------------------------------------------------------- */
+
+.newsroom-top {
+  padding-bottom: clamp(48px, 7vw, 104px);
+}
+
+.newsroom-body {
+  display: grid;
+  gap: clamp(28px, 4vw, 44px);
+}
+
+.newsroom-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.newsroom-filter a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  color: var(--fg-soft);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--t-quick), box-shadow var(--t-quick);
+}
+
+.newsroom-filter a:hover {
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1.5px var(--fg-soft);
+}
+
+.newsroom-filter a[aria-current="page"] {
+  color: var(--pen);
+  box-shadow: inset 0 0 0 1.5px var(--pen);
+}
+
+/* The newest post, as a page lying on the sheet. */
+.newsroom-lead {
+  display: grid;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 48px);
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  .newsroom-lead:hover {
+    box-shadow: var(--shadow-float);
+    transform: translateY(-2px);
+  }
+
+  .newsroom-lead:hover .newsroom-lead-cta {
+    background-size: 100% 2px, 100% 1.5px;
+    color: var(--pen);
+  }
+}
+
+.newsroom-lead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  color: var(--fg-faint);
+  font-size: var(--step--1);
+}
+
+.newsroom-lead-title {
+  display: block;
+  max-width: 26ch;
+  font-size: var(--step-3);
+  font-weight: 750;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.newsroom-lead-copy {
+  display: block;
+  max-width: 62ch;
+  color: var(--fg-soft);
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+.newsroom-lead-cta {
+  position: relative;
+  justify-self: start;
+  margin-top: 6px;
+  font-weight: 650;
+  padding-bottom: 3px;
+  background-image:
+    linear-gradient(var(--pen), var(--pen)),
+    linear-gradient(var(--rule-strong), var(--rule-strong));
+  background-repeat: no-repeat;
+  background-size: 0% 2px, 100% 1.5px;
+  background-position: 0 100%, 0 100%;
+  transition: background-size 420ms var(--ease-pen), color var(--t-quick);
+}
+
+/* An absolutely placed SVG keeps its intrinsic size even with every inset
+   set, so the pen loop gets its size explicitly. */
+.newsroom-lead-cta .pen-mark {
+  width: calc(100% + 34px);
+  height: calc(100% + 22px);
+}
+
+.newsroom-archive-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-bottom: 28px;
+}
+
+.newsroom-follow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  margin-top: 36px;
+}
+
+.newsroom-follow .preferred-source {
+  margin-top: 0;
+}
+
+/* ---- A post ---------------------------------------------------------- */
+
+.post {
+  padding-bottom: clamp(56px, 8vw, 120px);
+}
+
+.post-column {
+  max-width: calc(760px + 2 * var(--gutter));
+}
+
+.post-head {
+  padding-top: clamp(48px, 8vw, 120px);
+  padding-bottom: clamp(32px, 4vw, 52px);
+  margin-bottom: clamp(32px, 4vw, 52px);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.post-title {
+  max-width: 22ch;
+  font-size: clamp(2.1rem, 1.5rem + 2.8vw, 3.7rem);
+  line-height: 1.02;
+}
+
+.post-lede {
+  margin-top: 24px;
+  max-width: 58ch;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: 32px 0 0;
+}
+
+.post-meta dt {
+  font-size: var(--step--1);
+  color: var(--fg-faint);
+}
+
+.post-meta dd {
+  margin: 2px 0 0;
+  font-weight: 650;
+}
+
+.post-body {
+  max-width: 66ch;
+}
+
+.post-sign {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(40px, 6vw, 72px);
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-soft);
+}
+
+.post-sign svg {
+  flex: none;
+}
+
+.post-more {
+  padding-top: clamp(56px, 7vw, 96px);
+  padding-bottom: clamp(56px, 7vw, 96px);
+}
+
+.post-more-inner {
+  max-width: calc(1080px + 2 * var(--gutter));
+}
+
+/* The reset strips list markers. Post lists keep them. */
+.post-body ul {
+  list-style: disc;
+}

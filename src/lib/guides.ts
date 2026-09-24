@@ -22,9 +22,9 @@ export const guides: readonly Guide[] = [
     slug: "how-to-search-canvas",
     product: "scope",
     title: "How to Search Canvas: Every Course, Every File (2026)",
-    copy: "Canvas search is per course and often switched off. Every way to find a file, page, or old assignment across all your courses.",
+    copy: "Canvas search works one course at a time, and many schools leave it switched off. Here is every way to find a file, page, or old assignment across all your courses.",
     description:
-      "Canvas search is per course and often switched off. Every way to find a file, page, or old assignment across all your Canvas courses — Smart Search, the Ctrl+F trick, downloaders, and the Scope extension.",
+      "Canvas search is per course and often switched off. Here is every way to find a file, page, or old assignment across all your Canvas courses, from Smart Search and the Ctrl+F trick to downloaders and the Scope extension.",
     keywords: [
       "how to search in Canvas",
       "Canvas search all courses",
@@ -40,9 +40,9 @@ export const guides: readonly Guide[] = [
     slug: "canvas-extension-safety",
     product: "scope",
     title: "Are Canvas Chrome Extensions Safe? A 2026 Checklist",
-    copy: "After the 2026 Canvas data breach, what a browser extension can see, what to check before installing one, and what Scope does and doesn't do.",
+    copy: "After the 2026 Canvas data breach, here is what a browser extension can see, what to check before you install one, and what Scope does and doesn't do.",
     description:
-      "After the 2026 Canvas data breach, students are right to ask what a browser extension can see. A plain checklist — permissions, where data goes, who publishes it — and what Scope does and doesn't do.",
+      "After the 2026 Canvas data breach, students are right to ask what a browser extension can see. Here is a plain checklist for permissions, where data goes, and who publishes it, plus what Scope does and doesn't do.",
     keywords: [
       "are Canvas extensions safe",
       "Canvas extension permissions",
@@ -51,14 +51,14 @@ export const guides: readonly Guide[] = [
       "Canvas Chrome extension privacy",
     ],
     datePublished: "2026-09-01",
-    dateModified: "2026-09-01",
+    dateModified: "2026-09-17",
   },
   {
     slug: "annotate-lecture-slides-on-ipad",
     product: "lectra",
-    title: "Annotate Canvas Lecture Slides on iPad — Apple Pencil Guide (2026)",
+    title: "Annotate Canvas Lecture Slides on iPad: Apple Pencil Guide (2026)",
     absoluteTitle: true,
-    copy: "Get a lecture PDF from Canvas onto your iPad and mark it up with Apple Pencil — the share-sheet route and the one-tap route.",
+    copy: "Get a lecture PDF from Canvas onto your iPad and mark it up with Apple Pencil, by the share-sheet route or the one-tap route.",
     description:
       "Get a lecture PDF from Canvas onto your iPad and mark it up with Apple Pencil: the Goodnotes and Notability share-sheet route step by step, and the one-tap route with Scope and Lectra Notes.",
     keywords: [

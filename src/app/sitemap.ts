@@ -117,13 +117,13 @@ const publicRoutes: {
     path: "/privacy",
     priority: 0.35,
     changeFrequency: "yearly",
-    lastModified: MARKETING_LAST_MODIFIED,
+    lastModified: "2026-09-17",
   },
   {
     path: "/terms",
     priority: 0.35,
     changeFrequency: "yearly",
-    lastModified: MARKETING_LAST_MODIFIED,
+    lastModified: "2026-09-17",
   },
 ];
 

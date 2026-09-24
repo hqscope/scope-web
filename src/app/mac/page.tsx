@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-import LectraForMacPage from "@/components/public/LectraForMacPage";
+import LectraForMac from "./LectraForMac";
 
 const description =
-  "Lectra for Mac is the free Mac app: read and mark up documents, run notebooks, Python, and a terminal — and let Lectra on your iPad see and control this Mac, receive documents you send, and share its clipboard.";
+  "Lectra for Mac is the free Mac app: read and mark up documents, run notebooks, Python, and a terminal, and let Lectra on your iPad see and control this Mac, receive documents you send, and share its clipboard.";
 
 export const metadata: Metadata = {
   title: "Lectra for Mac",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lectra for Mac",
     description:
-      "The whole of Lectra on macOS — readings, markup, notebooks, Python, and a terminal — plus your Mac on your iPad whenever you want it.",
+      "The whole of Lectra on macOS, with readings, markup, notebooks, Python, and a terminal, plus your Mac on your iPad whenever you want it.",
     type: "website",
     url: "/mac",
     images: [
@@ -41,11 +41,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lectra for Mac",
     description:
-      "The whole of Lectra on macOS — readings, markup, notebooks, Python, and a terminal — plus your Mac on your iPad whenever you want it.",
+      "The whole of Lectra on macOS, with readings, markup, notebooks, Python, and a terminal, plus your Mac on your iPad whenever you want it.",
     images: ["/brand/lectra-canvascope-lockup.png"],
   },
 };
 
 export default function MacPage() {
-  return <LectraForMacPage />;
+  return <LectraForMac />;
 }

@@ -1,0 +1,190 @@
+/* ==================================================================
+   /mac and /receiver: Lectra for Mac
+   ================================================================== */
+
+.mac-hero {
+  padding-top: clamp(40px, 7vw, 104px);
+  padding-bottom: clamp(48px, 7vw, 104px);
+  overflow: clip;
+}
+
+.mac-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 72px);
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .mac-hero-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+}
+
+.mac-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+
+.mac-hero-copy .context-line {
+  margin-bottom: 14px;
+}
+
+.mac-hero-copy h1 {
+  max-width: 12ch;
+}
+
+.mac-hero-copy .lede {
+  margin-top: 24px;
+}
+
+.mac-hero-copy .actions {
+  margin-top: 32px;
+}
+
+.mac-hero-copy .btn-note {
+  margin-top: 14px;
+}
+
+.mac-notice {
+  margin-top: 22px;
+  max-width: 52ch;
+  padding: 16px 20px;
+  color: var(--fg-soft);
+}
+
+/* --- the Mac and iPad scene ---------------------------------------- */
+
+.mirror {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+  width: min(100%, 640px);
+  justify-self: center;
+}
+
+.mirror-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.mirror-bezel {
+  fill: #0c0a08;
+}
+
+.mirror-ipad {
+  filter: drop-shadow(0 18px 24px rgb(36 30 24 / 0.35));
+}
+
+.mirror-base {
+  fill: #cfc5b5;
+}
+
+.mirror-desktop {
+  fill: var(--plaster-deep);
+}
+
+.mirror-bar {
+  fill: #e4d9c7;
+}
+
+.mirror-dot {
+  fill: #cabda9;
+}
+
+.mirror-page {
+  fill: var(--surface);
+  stroke: rgb(36 30 24 / 0.1);
+}
+
+.mirror-head {
+  fill: var(--espresso);
+}
+
+.mirror-line {
+  fill: rgb(36 30 24 / 0.22);
+}
+
+.mirror-ink {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mirror-pencil {
+  fill: #f3efe8;
+  stroke: rgb(36 30 24 / 0.25);
+}
+
+.mirror-pencil-tip {
+  fill: var(--espresso);
+}
+
+.mirror .margin-note {
+  max-width: 44ch;
+}
+
+/* --- setup and questions ------------------------------------------- */
+
+.mac-one-app h3 {
+  font-size: var(--step-1);
+}
+
+.mac-steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.mac-steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 20px 0 20px 64px;
+  border-top: 1px solid var(--rule);
+}
+
+.mac-steps li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.mac-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-size: var(--step-3);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--pen);
+}
+
+.mac-steps p {
+  margin-top: 6px;
+  color: var(--fg-soft);
+}
+
+.mac-faq {
+  margin-top: var(--section);
+}
+
+/* --- close, on the desk ------------------------------------------- */
+
+.mac-closing {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .mirror {
+    width: min(100%, 460px);
+  }
+}

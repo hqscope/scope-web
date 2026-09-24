@@ -52,7 +52,9 @@ export async function getSocialSnapshot(): Promise<SocialSnapshot> {
     admin
       .from("synced_items")
       .select("id", { count: "exact", head: true })
-      .in("item_type", ["document", "pdf_document"]),
+      // Lectra documents only. "document" rows were Scope's search-index copy
+      // (removed per D-12), not synced documents.
+      .eq("item_type", "pdf_document"),
     admin
       .from("devices")
       .select("id", { count: "exact", head: true })

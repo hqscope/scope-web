@@ -107,8 +107,9 @@ ${SCOPE_DEFINITION}
 - Store: ${CHROME_WEB_STORE_URL}
 - Data: search and indexing run entirely on your device; the index lives in
   browser-local storage. Sign-in is optional; if you sign in, synced records
-  (course snapshots, grades, notes, tasks, Student Profile facts, clipboard
-  entries; see Privacy) are stored under your account.
+  (course snapshots, grades, notes, tasks, Student Profile facts; see
+  Privacy) are stored under your account. The extension does not read your
+  clipboard.
 
 It searches assignments, files, pages, modules, due dates, notes, and to-dos
 across all courses, including PDF and scanned text, from a Cmd/Ctrl+K overlay;
@@ -205,7 +206,7 @@ opens its terminal. No setup.
 
 ## Privacy
 
-A summary of ${SITE}/privacy (last updated July 28, 2026); the policy governs.
+A summary of ${SITE}/privacy (last updated September 17, 2026); the policy governs.
 
 - Scope Inc. does not sell personal data, runs no advertising, and shares
   nothing with data brokers. User content is not used to train or improve
@@ -213,19 +214,7 @@ A summary of ${SITE}/privacy (last updated July 28, 2026); the policy governs.
 - Google sign-in is optional and uses basic identity scopes only (ID, email,
   name, picture). Google Calendar event access is requested only for syllabus
   or planner calendar sync, to write selected dates.
-- Clipboard: to support connected study workflows, help organize assignments,
-  and build your Student Profile, the Scope extension reads, stores, and syncs
-  clipboard activity. When you copy, cut, or paste on Canvas, Brightspace, or
-  other sites and applications, or when you load a page, it may capture the
-  raw text currently in your clipboard, capped at 4,000 characters per entry.
-  That text is stored in browser-local storage and synced to Scope's database
-  over the same secure path as your grades, notes, and tasks. Scope keeps the
-  actual text because what you copy is the clearest signal of what you are
-  working on, and uses it to point you to related course material or outside
-  resources and to explain that excerpt. On your device it is also reduced to
-  a content-light engagement summary for your Student Profile that never
-  contains the raw text. The raw text is not used to train AI models or for
-  advertising, and is not shared with data brokers.
+- The Scope extension does not read, store, or sync your clipboard.
 - AI answers try Chrome's on-device model first; when it is unavailable, an
   optional, clearly marked cloud fallback is used. On fallback, or when a
   full-course question needs a larger cloud route, the retrieved prompt

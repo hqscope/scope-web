@@ -2,7 +2,7 @@
 
 Project-specific guidance for AI coding agents.
 
-Canvascope web already has an established Tailwind 4/global CSS design language. Treat ASTRYX as an opt-in system for new or intentionally migrated app-workspace surfaces; do not rewrite existing public pages or shared components just to satisfy ASTRYX conventions.
+Public pages use the design system in `docs/DESIGN.md` (paper sheets on a desk, red pen, Schibsted Grotesk), implemented in `src/styles/site.css`, `src/components/site`, and `src/components/motion`. Follow it for any public page. Treat ASTRYX as an opt-in system for new or intentionally migrated app-workspace surfaces; do not rewrite public pages or shared components just to satisfy ASTRYX conventions.
 
 <!-- ASTRYX:START -->
 Astryx v0.1.2 · 148 components
