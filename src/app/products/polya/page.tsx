@@ -13,7 +13,7 @@ import {
   faqSchema,
   type FaqEntry,
 } from "@/lib/structured-data";
-import { CHROME_WEB_STORE_URL } from "@/lib/site";
+import { CHROME_WEB_STORE_URL, POLYA_LOGIN_URL } from "@/lib/site";
 
 import "./polya.css";
 import HintScene from "./HintScene";
@@ -110,7 +110,7 @@ export default function PolyaPage() {
             </p>
           }
         >
-          <Link href="/products/polya#try" className="btn btn-primary">
+          <Link href={POLYA_LOGIN_URL} className="btn btn-primary">
             Try Polya for free
           </Link>
           <Link href="/products/extension" className="btn btn-line">
@@ -181,10 +181,13 @@ export default function PolyaPage() {
           Get unstuck without getting carried.
         </h2>
         <div className="actions">
+          <Link href={POLYA_LOGIN_URL} className="btn btn-primary">
+            Try Polya for free
+          </Link>
           <StoreLink
             store="chrome-web-store"
             href={CHROME_WEB_STORE_URL}
-            className="btn btn-primary"
+            className="btn btn-line"
           >
             Add Scope to Chrome for free
           </StoreLink>

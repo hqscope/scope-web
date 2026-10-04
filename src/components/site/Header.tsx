@@ -146,6 +146,7 @@ function MenuSheet({
   pathname: string;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const previous = document.body.style.overflow;
@@ -153,7 +154,27 @@ function MenuSheet({
     closeRef.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      // The sheet is aria-modal and covers the page, so Tab wraps inside it
+      // instead of walking into the hidden page behind.
+      const sheet = sheetRef.current;
+      if (event.key !== "Tab" || !sheet) return;
+      const focusable = sheet.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      const inside = active instanceof Node && sheet.contains(active);
+      if (event.shiftKey && (active === first || !inside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || !inside)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
 
@@ -172,6 +193,7 @@ function MenuSheet({
 
   return (
     <m.div
+      ref={sheetRef}
       className="menu-sheet paper"
       role="dialog"
       aria-modal="true"
@@ -243,6 +265,7 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false);
   const [sheetOpenOn, setSheetOpenOn] = useState<string | null>(null);
   const sheetOpen = sheetOpenOn === pathname;
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   // True only in the browser, so the portal never renders on the server.
   const mounted = useSyncExternalStore(
     noopSubscribe,
@@ -257,7 +280,13 @@ export default function Header({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeSheet = useCallback(() => setSheetOpenOn(null), []);
+  const closeSheet = useCallback(() => {
+    setSheetOpenOn(null);
+    // The Products dropdown returns focus to its own opener on close; the
+    // mobile sheet's close button and Escape handler need the same, or
+    // keyboard focus is dropped to <body> once the sheet unmounts.
+    menuToggleRef.current?.focus();
+  }, []);
   const productsActive = active !== null && productSections.includes(active);
 
   return (
@@ -284,6 +313,7 @@ export default function Header({
         <div className="site-header-actions">
           <Cta cta={cta} className="btn btn-primary site-header-cta" />
           <button
+            ref={menuToggleRef}
             type="button"
             className="menu-toggle"
             aria-label="Open menu"

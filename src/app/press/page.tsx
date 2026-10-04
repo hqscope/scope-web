@@ -383,7 +383,7 @@ export default function PressPage() {
                 <div className="co-asset-thumb" data-dark={asset.dark || undefined}>
                   <Image
                     src={asset.path}
-                    alt=""
+                    alt={asset.description}
                     width={asset.width}
                     height={asset.height}
                     sizes="(max-width: 640px) 90vw, (max-width: 1100px) 45vw, 400px"

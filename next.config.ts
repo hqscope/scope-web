@@ -17,8 +17,12 @@ const publishedMacApp = publishedReleaseFromAppcast(
 );
 
 if (!publishedMacApp) {
-  console.warn(
-    "[mac] appcast.xml has no entries — /downloads/Lectra.dmg will 404 until the first release",
+  // A silent fallback here would ship a site whose /mac page still says
+  // "Download for Mac" while /downloads/Lectra.dmg 404s. Fail the build
+  // instead so an empty or malformed appcast can't reach production.
+  throw new Error(
+    "[mac] appcast.xml has no entries — /downloads/Lectra.dmg would 404. " +
+      "Publish a release (scripts/publish-receiver-release.sh) before building.",
   );
 }
 
@@ -67,6 +71,15 @@ const nextConfig: NextConfig = {
       // The student workspace was retired; its entry points now land on the
       // marketing home rather than dead-ending.
       { source: "/account", destination: "/", permanent: true },
+      // The shared Supabase project's OAuth consent step (Polya's ChatGPT /
+      // Claude connector) lands on <Site URL>/app/authorize. Polya owns that
+      // page; forward it with the query string intact. Temporary so it can be
+      // dropped if the Site URL ever moves.
+      {
+        source: "/app/authorize",
+        destination: "https://askpolya.com/app/authorize",
+        permanent: false,
+      },
 
       // --- Lectra for Mac downloads (see src/lib/receiver-release.ts) ---
       //

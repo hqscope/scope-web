@@ -90,7 +90,7 @@
   --bg: var(--plaster);
   --fg: var(--espresso);
   --fg-soft: var(--espresso-soft);
-  --fg-faint: #8f8275;
+  --fg-faint: #756a5f; /* was #8f8275 (~3.3:1 on paper); this is ~4.7:1 */
   --plane: var(--surface);
   --plane-sunk: var(--plaster-deep);
   --rule: rgb(36 30 24 / 0.14);

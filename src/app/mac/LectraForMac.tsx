@@ -156,7 +156,7 @@ export default function LectraForMac() {
           <header className="mac-hero-copy">
             <Image
               src="/brand/lectra-mark.png"
-              alt="Lectra"
+              alt="Lectra logo"
               width={56}
               height={56}
               className="mac-mark"

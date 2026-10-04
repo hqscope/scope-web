@@ -3,8 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getSupabaseConfig } from "@/lib/supabase/config";
 import { copyResponseCookies } from "@/lib/supabase/server";
+import { createFailFastAuthFetch } from "@/lib/supabase/fail-fast-auth-fetch";
 import { sanitizeNextPath } from "@/lib/site";
-import { isAuthOutage } from "@/lib/auth/outage";
+import { AUTH_UNREACHABLE_HEADER, isAuthOutage } from "@/lib/auth/outage";
+
+// An expired session during an auth outage used to hold every /login and
+// /app/admin request for ~26 s while auth-js retried the refresh (P-36).
+const failFastAuthFetch = createFailFastAuthFetch();
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -23,11 +28,19 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next({ request });
   }
 
+  // Only this proxy may say auth is unreachable.
+  request.headers.delete(AUTH_UNREACHABLE_HEADER);
+
+  // `setAll` below rewrites the request's cookies. Keep what the browser sent,
+  // so an outage can pass it on untouched.
+  const originalCookieHeader = request.headers.get("cookie");
+
   let supabaseResponse = NextResponse.next({
     request,
   });
   const { url, anonKey } = getSupabaseConfig();
   const supabase = createServerClient(url, anonKey, {
+    global: { fetch: failFastAuthFetch },
     cookies: {
       getAll() {
         return request.cookies.getAll();
@@ -70,10 +83,18 @@ export async function proxy(request: NextRequest) {
     // We couldn't confirm the session — a 5xx, a 402 (over quota) or a
     // network failure, not GoTrue saying the session is invalid. A failed
     // refresh in this state may have already queued cookie-clearing writes
-    // on `supabaseResponse`; return the request untouched instead, so
-    // outage never redirects to /login or persists a wiped session. The
-    // destination page shows its own retry state.
-    return NextResponse.next({ request });
+    // on `supabaseResponse` and emptied the cookies on `request`; drop the
+    // former and pass on the cookies the browser actually sent, so an outage
+    // never redirects to /login or wipes the session. The destination page
+    // shows its own retry state, told not to try auth a second time.
+    const headers = new Headers(request.headers);
+    if (originalCookieHeader === null) {
+      headers.delete("cookie");
+    } else {
+      headers.set("cookie", originalCookieHeader);
+    }
+    headers.set(AUTH_UNREACHABLE_HEADER, "1");
+    return NextResponse.next({ request: { headers } });
   }
 
   if (isAppRoute && !user) {
@@ -91,16 +112,11 @@ export async function proxy(request: NextRequest) {
     );
   }
 
-  // Nothing under /app is reachable to an ordinary account any more — the only
-  // page left there gates on admin membership — so a signed-in visitor who
-  // lands back on /login goes to the marketing home. Admins arrive at the
-  // dashboard through the `next` parameter set by the gate above.
-  if (isLoginRoute && user) {
-    return copyResponseCookies(
-      supabaseResponse,
-      NextResponse.redirect(new URL("/", request.url)),
-    );
-  }
+  // A signed-in visitor can still land on /login (a bookmark, the back
+  // button, a stale tab). Previously this silently bounced to the marketing
+  // home with no sign of what happened; now /login itself checks the
+  // session and renders a "you're signed in" state instead, so leave the
+  // route alone here.
 
   return supabaseResponse;
 }

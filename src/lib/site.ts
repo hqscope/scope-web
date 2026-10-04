@@ -6,6 +6,11 @@ export const CHROME_WEB_STORE_URL =
 export const LECTRA_APP_STORE_URL =
   "https://apps.apple.com/us/app/lectra-notes/id6759754531";
 
+// Polya is a separate web app that this site doesn't host — every "try
+// Polya" CTA has to leave this site and land a visitor on Polya's own sign-in,
+// not on a page that only re-offers the Chrome extension.
+export const POLYA_LOGIN_URL = "https://askpolya.com/login";
+
 // App Store Connect campaign link for install attribution
 // (`?pt=<providerId>&ct=<campaign>&mt=8`). Until one is created it is the
 // plain listing URL, so links never break while the campaign is unset.
@@ -60,14 +65,38 @@ export const AGENT_WORKSPACE_WAITLIST_SOURCE = "agent-workspace";
 
 export const SUPPORT_EMAIL = "canvascopeextension@gmail.com";
 
+// Any origin works as a parsing base; only whether the result stays on it matters.
+const NEXT_PATH_PARSE_BASE = "https://next-path.invalid";
+
 export function sanitizeNextPath(raw: string | null): string {
   // The student workspace this used to default into no longer exists, so an
   // absent or hostile `next` lands on the marketing home instead.
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) {
+  if (!raw || raw.length > 2048 || !raw.startsWith("/") || raw.startsWith("//")) {
     return "/";
   }
 
-  return raw;
+  // Browsers drop tabs and newlines and read `\` as `/`, so `/\evil.com` or
+  // "/<tab>/evil.com" would land on another site as `//evil.com`.
+  if (/[\\\s\u0000-\u001f\u007f]/.test(raw)) {
+    return "/";
+  }
+
+  // Resolve against a dummy origin and require it to stay there; return the
+  // resolved form so what was checked is what gets used.
+  let resolved: URL;
+  try {
+    resolved = new URL(raw, NEXT_PATH_PARSE_BASE);
+  } catch {
+    return "/";
+  }
+  if (resolved.origin !== NEXT_PATH_PARSE_BASE) {
+    return "/";
+  }
+
+  // Dot segments can resolve to a path that itself starts with `//`
+  // (`/a/..//evil.com`), which a browser would read as another site.
+  const result = `${resolved.pathname}${resolved.search}${resolved.hash}`;
+  return result.startsWith("//") ? "/" : result;
 }
 
 export function getConfiguredSiteUrl(): string | null {

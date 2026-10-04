@@ -189,6 +189,10 @@
   display: none;
 }
 
+.palette-input input::placeholder {
+  color: var(--fg-faint);
+}
+
 .palette-input:focus-within {
   box-shadow: 0 2px 0 0 var(--pen);
 }

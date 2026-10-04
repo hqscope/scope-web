@@ -111,10 +111,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const forwardedFor = request.headers.get("x-forwarded-for") ?? "";
   const ip = forwardedFor.split(",")[0]?.trim() || "unknown";
   if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Try again in a minute." },
-      { status: 429 },
-    );
+    return isJson
+      ? NextResponse.json(
+          { error: "Too many requests. Try again in a minute." },
+          { status: 429 },
+        )
+      : redirectTo(FORM_RETRY_PATH);
   }
 
   let submission: WaitlistSubmission;
@@ -181,10 +183,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ? NextResponse.json({ status: "already_subscribed" }, { status: 200 })
         : redirectTo(CONFIRMED_PATH);
     }
-    return NextResponse.json(
-      { error: "Unable to join the waitlist right now." },
-      { status: 502 },
-    );
+    // Like every other branch: a plain form post (no JavaScript) gets a
+    // page back, never raw JSON.
+    return isJson
+      ? NextResponse.json(
+          { error: "Unable to join the waitlist right now." },
+          { status: 502 },
+        )
+      : redirectTo(FORM_RETRY_PATH);
   }
 
   return isJson

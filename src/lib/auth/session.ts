@@ -1,5 +1,7 @@
 import { cache } from "react";
+import { headers } from "next/headers";
 
+import { AUTH_UNREACHABLE_HEADER } from "@/lib/auth/outage";
 import { createServerSupabaseClient } from "@/lib/supabase/server-component";
 
 export interface AuthenticatedAppUser {
@@ -10,6 +12,13 @@ export interface AuthenticatedAppUser {
 }
 
 export const getAuthenticatedAppUser = cache(async () => {
+  // The proxy already couldn't reach auth for this request; don't wait out a
+  // second timeout here (P-36). Checked before creating the client, because
+  // creating one with an expired session starts a refresh on its own.
+  if ((await headers()).has(AUTH_UNREACHABLE_HEADER)) {
+    return { supabase: null, user: null as AuthenticatedAppUser | null, error: null };
+  }
+
   const supabase = await createServerSupabaseClient();
   const {
     data: { user },
