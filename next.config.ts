@@ -80,6 +80,14 @@ const nextConfig: NextConfig = {
         destination: "https://askpolya.com/app/authorize",
         permanent: false,
       },
+      // Short link to the application form. Temporary so the form can be
+      // swapped without browsers caching the old destination.
+      {
+        source: "/apply",
+        destination:
+          "https://docs.google.com/forms/d/e/1FAIpQLSfmFGGjGXVczTvyuBmnASPoqsP4o5I-I3_YQ7rzEGZ7GbChiw/viewform",
+        permanent: false,
+      },
 
       // --- Lectra for Mac downloads (see src/lib/receiver-release.ts) ---
       //
