@@ -15,6 +15,260 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "polya-reads-scanned-pages-now",
+    title: "Polya reads scanned pages now, and a pass over the rough edges",
+    date: "2026-10-12",
+    category: "Product",
+    description:
+      "Polya can now read course PDFs that are pictures of pages, one bad character no longer sinks a whole file, and a sweep through the app as a student fixed a run of small dead ends.",
+    lede: "A course is only as useful to a tutor as the parts of it the tutor can read.",
+    keywords: ["Polya", "scanned PDFs", "course materials", "study tutor", "Polya import"],
+    body: [
+      {
+        type: "paragraph",
+        text: "A lot of course material is not really text. Scanned readings, slides exported as images, and handwritten worked examples all arrive as PDFs, but the pages are pictures. Until today Polya brought those files in and then had nothing to say about them, because there were no words to search.",
+      },
+      {
+        type: "paragraph",
+        text: "Polya now reads those pages. When a page has no text in it, Polya transcribes that page on its own, so a passage it later cites still points at the right page number. Pages that already have text cost nothing extra and are read the way they always were. Very large scans are handled as one file instead of page by page, so a large scanned reader no longer stalls the import.",
+      },
+      {
+        type: "paragraph",
+        text: "Two days ago we fixed a quieter failure. A single malformed character in a PDF, or in a lecture transcript, could make the whole file fail to save, and you would see a source that never finished. Polya now cleans those characters out before saving, so one bad glyph costs you one glyph. Imports that ran long were also being cut off partway; they now pick up where they stopped.",
+      },
+      {
+        type: "paragraph",
+        text: "We also walked through Polya as a student would, on a phone and on a laptop, and fixed what got in the way:",
+      },
+      {
+        type: "list",
+        items: [
+          "A New conversation button. Before, the only way to start over after a question was to reload the page.",
+          "The question box grows as you type, so a pasted problem stays visible.",
+          "A long course name no longer pushes Study and the options menu off the edge of a phone screen.",
+          "Long links and code wrap inside a chat message, and your own line breaks are kept.",
+          "A cited PDF always has an Open the PDF link, because phone browsers do not show PDFs inside the page.",
+          "If your courses fail to load, you see a retry notice instead of an empty list telling you to bring in your first course.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "coming-to-lectra-recently-deleted",
+    title: "Coming to Lectra: Recently Deleted, and documents that say when they are arriving",
+    date: "2026-10-06",
+    category: "Product",
+    description:
+      "The next Lectra Notes build keeps deleted documents for 30 days, shows when a document from Scope is still on its way, and replaces raw error text with plain sentences. It is built and not yet on the App Store.",
+    lede: "Deleting something should never be the last thing you can do about it.",
+    keywords: ["Lectra Notes", "Recently Deleted", "iPad notes", "Scope to Lectra", "Lectra"],
+    body: [
+      {
+        type: "paragraph",
+        text: "Lectra Notes on the App Store is still version 9.0. Everything below is in the next build, which is finished in code and not yet released. We will say here when it is out.",
+      },
+      {
+        type: "paragraph",
+        text: "The biggest change is Recently Deleted. In Lectra 9, Move to Trash deleted a document right away, with no confirmation and no undo. In the next build, Lectra asks first, then moves the document to Recently Deleted and shows an Undo button. You can open Recently Deleted from the library menu, restore one document or all of them, and see how many days each one has left.",
+      },
+      {
+        type: "list",
+        items: [
+          "Documents stay in Recently Deleted for 30 days. The count is kept by our server, so an iPad with the wrong date cannot clear them early.",
+          "A document that was never backed up is never cleared on its own. It stays until you delete it yourself.",
+          "Restoring on one iPad restores everywhere you use Lectra.",
+          "Delete Now asks again, and the warning is stronger when the document is the only copy.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Documents sent from Scope now tell you where they are. While the pages download, the document says Arriving. If the download fails, it says so and offers a retry, instead of looking like every other document and failing quietly. The arrival is also faster, because Lectra now fetches the one document you sent instead of checking the whole library.",
+      },
+      {
+        type: "paragraph",
+        text: "Check for New Files used to say you were up to date even when it could not reach us. It now says it could not check, and that your documents are still here.",
+      },
+      {
+        type: "paragraph",
+        text: "Error messages got the same treatment everywhere. Instead of whatever the system happened to report, Lectra now says one of a few plain things: it cannot reach Lectra right now and your work is safe on this iPad, you need to sign in, things are busier than usual, or something did not go through and nothing was changed.",
+      },
+      {
+        type: "paragraph",
+        text: "Split view also got easier to use without dragging. A tab's menu now has Move Left and Move Right, VoiceOver and Switch Control can open a document in either pane, and the divider moves in steps and reads out the split.",
+      },
+    ],
+  },
+  {
+    slug: "polya-in-claude-and-chatgpt",
+    title: "Polya now works inside Claude and ChatGPT, with your study mode attached",
+    date: "2026-10-04",
+    category: "Product",
+    description:
+      "Connect Polya to Claude or ChatGPT and the assistant can search your course materials and see the study mode you chose for each course. It checks that mode again before every new question.",
+    lede: "A study mode that only works in one app is a study mode you can step around.",
+    keywords: ["Polya", "Claude connector", "ChatGPT", "study modes", "course-grounded tutor"],
+    body: [
+      {
+        type: "paragraph",
+        text: "Polya lets you choose how much help you want in each course: Open for full worked answers, Guided for hints first, Practice for quiz-style questions, and Review. Until this week those choices only applied inside askpolya.com. Plenty of students already have Claude or ChatGPT open, and that is where the questions go.",
+      },
+      {
+        type: "paragraph",
+        text: "Polya now connects to both. In Claude, add it under Customize, then Connectors, as a custom connector, and sign in to Polya. Once connected, the assistant can do three things, all read-only:",
+      },
+      {
+        type: "list",
+        items: [
+          "List the courses you have added to Polya.",
+          "Read the study mode you chose for a course, with what it allows and what it does not.",
+          "Search that course's readings, slides, pages, and lecture transcripts, and cite the passages it used.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Nothing in Polya or in your school's systems is changed by the connection. In Practice mode the search never returns answer keys.",
+      },
+      {
+        type: "paragraph",
+        text: "Most of the work went into making the outside assistant follow your choice the way Polya does. Two things came out of testing it ourselves. First, after we switched a course from Practice to Open mid-conversation, the assistant kept using the old mode until we told it to check again. The connector now tells it to re-read the mode before every new coursework question. Second, the assistant would refuse to give away part (a) of a problem, then answer the rest when asked \"what about the rest.\" Each part of a problem is now its own question under the same rules.",
+      },
+      {
+        type: "paragraph",
+        text: "In every mode, the assistant is told to teach: name the course concept, show how it applies step by step, cite the passages it used, and end with a quick check you can reuse. A bare answer is not the help Polya is for, even in Open.",
+      },
+      {
+        type: "paragraph",
+        text: "One honest limit: Polya can tell the assistant what you chose, but it cannot force another company's model to obey. We tightened the instructions each time our own testing found a gap. If you see it slip, tell us.",
+      },
+    ],
+  },
+  {
+    slug: "scope-11-0-10-plain-errors-and-a-calmer-browser",
+    title: "Scope 11.0.8 and 11.0.10: a clear first step, plain errors, and a calmer browser",
+    date: "2026-10-04",
+    category: "Release",
+    description:
+      "Two updates to Scope for Canvas: a welcome page that takes you straight to your school, error messages in plain words, a way to clear Scope's data from a browser, and a fix for Scope slowing Chrome down while it read course PDFs.",
+    lede: "Most of these changes are about what Scope does when something is not working.",
+    keywords: ["Scope 11.0.10", "Scope for Canvas", "Chrome extension", "Canvas search", "Scope"],
+    body: [
+      {
+        type: "paragraph",
+        text: "Scope for Canvas 11.0.10 is on the Chrome Web Store as of today. It follows 11.0.8 from two days earlier. Here is what the two of them changed.",
+      },
+      {
+        type: "paragraph",
+        text: "A new install now opens a page that says Scope is ready and gives you one button. Scope cannot find anything until you open your school's Canvas once, and a fresh install does not know which school that is. The button opens a Canvas tab you already have, or your school's Canvas if Scope can tell from your account, or Canvas's own find-your-school page if it cannot.",
+      },
+      {
+        type: "paragraph",
+        text: "Errors now read as a few calm sentences instead of whatever the browser or network reported. If sending a PDF to Lectra fails while you are offline, Scope says you are offline and that your PDF is still here. If something else goes wrong, it says nothing was changed and to try again in a moment. The same goes for asking a question, bringing in a course, and attaching a file from Lectra on Gradescope.",
+      },
+      {
+        type: "paragraph",
+        text: "Settings has a control to clear Scope's data from this browser, as our privacy policy describes.",
+      },
+      {
+        type: "paragraph",
+        text: "11.0.10 fixes a slowdown some of you may have felt without knowing the cause. While Scope read the text out of a course's PDFs, every save was announced to every open Canvas tab, and on a big course that could keep Chrome noticeably busy. Scope now keeps that text in its own storage, where saving it is invisible to your other tabs.",
+      },
+      {
+        type: "paragraph",
+        text: "Also in these builds:",
+      },
+      {
+        type: "list",
+        items: [
+          "The search bar works properly with screen readers: it is announced as a dialog, and status changes are read out.",
+          "The agenda's filters work: the type chips filter, a course filter shows a pill you can clear, and dismissing an overdue item updates the count.",
+          "Searching the text inside images has been removed. Text inside PDFs is still searchable.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "scope-11-0-6-your-search-index-stays-on-your-computer",
+    title: "Scope 11.0.6: your search index stays on your computer, and the side panel is gone",
+    date: "2026-09-25",
+    category: "Release",
+    description:
+      "Scope for Canvas 11.0.6 stops saving a copy of your course index to your account, moves everything into one search bar, and keeps search responsive while you type.",
+    lede: "The search was already local. Now the copy is too.",
+    keywords: ["Scope 11.0.6", "local search", "privacy", "Chrome extension", "Scope"],
+    body: [
+      {
+        type: "paragraph",
+        text: "Scope for Canvas 11.0.6 is on the Chrome Web Store as of today. The change that matters most is one you will not see.",
+      },
+      {
+        type: "paragraph",
+        text: "Scope builds its index of your courses, meaning assignments, pages, files, and announcements, on your computer, and search has always run there. But earlier versions also saved a copy of that index to your Scope account after each scan and each sign-in. Nothing read it back for search, and keeping it meant holding your course list on a server for no good reason. 11.0.6 stops sending it.",
+      },
+      {
+        type: "paragraph",
+        text: "Two things still go through your account, because they have to. PDFs you send to Lectra travel that way, since that is how they reach your iPad, and the small set of search preferences you tune follows you between browsers. Older versions already uploaded copies of the index. We will delete those once the installs still on the old version have updated, and we will note it here when that is done.",
+      },
+      {
+        type: "paragraph",
+        text: "The side panel is gone. Everything it did, the assistant, the daily briefing, and opening a set of results, now lives in the search bar you already use: press Cmd+K on a Mac or Ctrl+K elsewhere. One place to look is easier to learn than two that half overlap. When you open a set of results together, Scope can group them into a named tab group, if you allow it.",
+      },
+      {
+        type: "paragraph",
+        text: "Search also stays smooth while you type. Building the index and ranking results now happen in the background, so a large course no longer makes the search bar stutter, and a result from an older query cannot be opened by mistake after you have typed something new.",
+      },
+      {
+        type: "paragraph",
+        text: "Last, Scope no longer runs on your school's sign-in and sign-out pages. It had no reason to be there.",
+      },
+    ],
+  },
+  {
+    slug: "letting-an-assistant-use-your-mac-limits-first",
+    title: "Letting an assistant use your Mac from Lectra, and the limits we built first",
+    date: "2026-09-23",
+    category: "Engineering",
+    description:
+      "Lectra can now hand a task to an assistant that works your Mac's screen from the iPad, and the Mac can let an outside assistant do the same. Both are built, unreleased, and switched off. Here is how they are fenced.",
+    lede: "An assistant that can click on your computer can also click the wrong thing. We started with that sentence.",
+    keywords: ["Lectra", "remote desktop", "computer use", "AI agent safety", "Lectra for Mac"],
+    body: [
+      {
+        type: "paragraph",
+        text: "Lectra can already show your Mac's screen on your iPad and let you control it. This week we built two things on top of that. Neither is on the App Store, and the outside connector is switched off. This post is about how they work and what stops them.",
+      },
+      {
+        type: "paragraph",
+        text: "The first is an assistant inside a remote session. You type or say a task, such as opening a file and exporting it as a PDF, and the assistant looks at the screen, moves, clicks, and types until it is done or has a question for you. Dictation for it runs on the iPad, so what you say is not uploaded.",
+      },
+      {
+        type: "paragraph",
+        text: "Every action it takes is sorted by how much it can change: looking, moving the pointer, changing something on screen, or committing something, like pressing Return or double-clicking. Anything that commits waits for you to approve it. There is an auto-approve switch, and it is off. The assistant stops on its own if the connection drops, if the Mac locks, or if Lectra's own session lock is on, which covers the session after five minutes idle and needs Face ID to lift.",
+      },
+      {
+        type: "paragraph",
+        text: "The second is a connector that lets an outside assistant, such as Meta's Muse, use your Mac through Lectra. It is the most powerful thing Lectra can do, so it has the most fences:",
+      },
+      {
+        type: "list",
+        items: [
+          "It can only be turned on at the Mac itself, with a confirmation there. Nobody holding your account can switch it on from somewhere else.",
+          "You choose a ceiling: look only, control without Return, double-clicks, or shortcuts, or full control. New keys start at look only, and the Mac's ceiling overrides every key.",
+          "Each key is shown once, is made on the Mac, and expires, after 30 days by default. Withdrawing a key works from the next request, and one button withdraws them all and turns the connector off.",
+          "Nothing happens while the Mac is locked. It has no access to your files, your terminal, or your login password, and it cannot wake a sleeping Mac.",
+          "Every action and every refusal is logged. Typed text is not; the log records only how long it was.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "We also changed how a Mac decides to trust an iPad. Before, any iPad signed into the same account was trusted. Now each iPad holds its own key, signs a fresh challenge on every connection after a Face ID check, and has to be approved once at the Mac. You can revoke it later.",
+      },
+      {
+        type: "paragraph",
+        text: "What we are not claiming: the Mac side of the connector, including its confirmation prompt and its refusal while locked, has been built but not yet tested on real hardware. And the hardest problem is not solved, only limited. A web page or email on your screen can contain text written to steer an assistant. The ceilings above decide how much damage that can do, which is why the default is look only. We will turn this on when the testing is done, and we will say so here.",
+      },
+    ],
+  },
+  {
     slug: "lectra-9-a-tool-wheel-and-a-quieter-dock",
     title: "Lectra 9: a tool wheel, a quieter dock, and documents that open with their pages",
     date: "2026-09-17",
