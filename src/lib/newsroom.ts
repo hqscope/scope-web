@@ -206,7 +206,7 @@ export const newsroomArticles: NewsroomArticle[] = [
       },
       {
         type: "paragraph",
-        text: "Two things still go through your account, because they have to. PDFs you send to Lectra travel that way, since that is how they reach your iPad, and the small set of search preferences you tune follows you between browsers. Older versions already uploaded copies of the index. We will delete those once the installs still on the old version have updated, and we will note it here when that is done.",
+        text: "Two things still go through your account, because they have to. PDFs you send to Lectra travel that way, since that is how they reach your iPad, and the small set of search preferences you tune follows you between browsers. Older versions already uploaded copies of the index. We deleted all of them on 12 October 2026. An install that has not updated yet may upload its copy again until it does, and we will clear those as well.",
       },
       {
         type: "paragraph",
