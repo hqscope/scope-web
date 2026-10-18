@@ -15,6 +15,98 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "the-notebook-is-where-learning-happens",
+    title:
+      "The notebook is where learning happens. Polya should meet you there.",
+    date: "2026-10-17",
+    category: "Notes",
+    description:
+      "We're exploring what happens when a place to work through problems and a tutor that understands your course come closer together.",
+    lede: "We're exploring what happens when a place to work through problems and a tutor that understands your course come closer together.",
+    keywords: [
+      "Polya",
+      "Lectra Notes",
+      "notebooks",
+      "AI tutoring",
+      "learning",
+      "Scope",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "Most AI study tools are built around a simple interaction: ask a question, get an answer.",
+      },
+      {
+        type: "paragraph",
+        text: "But that's not how learning usually happens.",
+      },
+      {
+        type: "paragraph",
+        text: "When you're working through a difficult problem, your notebook is full of incomplete ideas, mistakes, corrections, and questions. Those steps matter just as much as the final answer.",
+      },
+      {
+        type: "paragraph",
+        text: "That's the thinking behind bringing notebooks and Polya closer together.",
+      },
+      {
+        type: "paragraph",
+        text: "Your work should come first",
+      },
+      {
+        type: "paragraph",
+        text: "Lectra Notes gives you a place to write, annotate course PDFs, and work through ideas on your own terms.",
+      },
+      {
+        type: "paragraph",
+        text: "Polya approaches the other side of studying. It connects to your actual course materials, cites the sources behind its explanations, and adjusts how much assistance it provides based on your course's study mode.",
+      },
+      {
+        type: "paragraph",
+        text: "The experience we want is simple: start a problem yourself, get stuck, ask for a targeted hint, and return to your notebook with a better understanding of what to try next.",
+      },
+      {
+        type: "paragraph",
+        text: "Not an AI that finishes your homework. An AI that helps you become better at doing it.",
+      },
+      {
+        type: "paragraph",
+        text: "A record of how you learned",
+      },
+      {
+        type: "paragraph",
+        text: "A notebook should be more than a collection of completed answers. It should reflect your reasoning, including the attempts that didn't work.",
+      },
+      {
+        type: "paragraph",
+        text: "That's valuable context for a tutor. If an assistant can understand where your reasoning started going wrong, it can help address the underlying misconception rather than repeat an explanation you already understand.",
+      },
+      {
+        type: "paragraph",
+        text: "We're not claiming that Polya currently reads every handwritten step in Lectra Notes or provides automatic notebook-wide feedback. Connecting these experiences more deeply is a direction we're exploring, not a feature we're announcing as shipped today.",
+      },
+      {
+        type: "paragraph",
+        text: "What we're building toward",
+      },
+      {
+        type: "paragraph",
+        text: "Our goal with Scope is straightforward:",
+      },
+      {
+        type: "paragraph",
+        text: "Automate everything around learning. Don't automate learning itself.",
+      },
+      {
+        type: "paragraph",
+        text: "Notebooks are where you think. Polya is there to help you think better.",
+      },
+      {
+        type: "paragraph",
+        text: "We're working toward a future where those two experiences feel like parts of the same learning process.",
+      },
+    ],
+  },
+  {
     slug: "polya-reads-scanned-pages-now",
     title: "Polya reads scanned pages now, and a pass over the rough edges",
     date: "2026-10-12",
