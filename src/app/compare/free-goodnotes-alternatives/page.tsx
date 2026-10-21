@@ -1,3 +1,4 @@
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -17,6 +18,7 @@ import {
 } from "@/lib/structured-data";
 
 import CompareArticle, {
+  Aside,
   lectraCta,
   lectraRelatedLinks,
   Pen,
@@ -187,11 +189,11 @@ export default function FreeAlternativesPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Get Lectra Notes for free
             </StoreLink>
-            <a href="#picks" className="btn btn-line">
+            <a href="#picks" className={buttonClasses("secondary", "lg")}>
               See the six apps
             </a>
           </>
@@ -203,14 +205,12 @@ export default function FreeAlternativesPage() {
             outline: "The baseline",
             content: (
               <>
-                <div className="prose">
-                  <p>
-                    Goodnotes&apos; free tier is capped at 3 files with
-                    watermarked exports. The paid plans are Essential at $11.99 a
-                    year and Pro at $35.99 a year. Lectra Notes has no file cap, no
-                    watermark, and no subscription.
-                  </p>
-                </div>
+                <p>
+                  Goodnotes&apos; free tier is capped at 3 files with
+                  watermarked exports. The paid plans are Essential at $11.99 a
+                  year and Pro at $35.99 a year. Lectra Notes has no file cap, no
+                  watermark, and no subscription.
+                </p>
                 <ComparisonTable
                   caption="Goodnotes pricing against Lectra Notes, checked September 1, 2026"
                   columns={["Goodnotes", "Lectra Notes"]}
@@ -232,12 +232,12 @@ export default function FreeAlternativesPage() {
                     },
                   ]}
                 />
-                <p className="compare-aside">
+                <Aside>
                   Checked on September 1, 2026 against Goodnotes&apos; pricing
                   page. The rest of this page was compiled on August 14, 2026, with
                   the Lectra Notes facts updated on September 1, 2026 for version
                   8.0. The note below has the details.
-                </p>
+                </Aside>
               </>
             ),
           },
@@ -293,7 +293,7 @@ export default function FreeAlternativesPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Lectra Notes on the App Store
             </StoreLink>

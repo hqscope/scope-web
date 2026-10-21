@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import PenMark from "@/components/motion/PenMark";
-import Sheet from "@/components/motion/Sheet";
+import { buttonClasses } from "@/components/buttons";
+import { ChromeIcon } from "@/components/icons";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import Mark from "@/components/site/Mark";
@@ -11,8 +11,7 @@ import { publicPageMetadata } from "@/lib/seo";
 import { CHROME_WEB_STORE_URL } from "@/lib/site";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 
-import "../_company/company.css";
-import DirectionRoadmap, { type DirectionStage } from "./DirectionRoadmap";
+import DirectionRoadmap, { RAIL_INK, RAIL_PENCIL, type DirectionStage } from "./DirectionRoadmap";
 
 export const metadata = publicPageMetadata({
   title: "Direction",
@@ -75,6 +74,12 @@ const principles = [
   },
 ];
 
+const container = "mx-auto max-w-[1200px] px-5 sm:px-8";
+const sectionTitle =
+  "text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em] text-balance";
+const onInkSecondary =
+  "inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-5 text-[15.5px] font-semibold tracking-[-0.01em] text-white ring-1 ring-inset ring-white/30 transition-colors hover:bg-white/10";
+
 export default function DirectionPage() {
   return (
     <PageShell active="direction">
@@ -92,108 +97,130 @@ export default function DirectionPage() {
         ]}
       />
 
-      <Sheet labelledBy="direction-title">
-        <PageHead
-          context="Where Scope is going. Only the first stage ships today."
-          title={
-            <span id="direction-title">
-              The next LMS should not be a better{" "}
-              <span className="co-penned">
-                filing cabinet.
-                <PenMark kind="strike" inset="0 -6px" delay={0.9} />
-              </span>
-            </span>
-          }
-          lede="Learning management systems became systems of record: files in, grades out. The actual work of learning happens somewhere else. We think the course itself should be the workspace, and we're building toward that in the open."
-        />
-      </Sheet>
+      <PageHead
+        context="Where Scope is going. Only the first stage ships today."
+        wide
+        title={
+          <>
+            The next LMS should not be a better{" "}
+            <span className="line-through decoration-red decoration-[0.07em]">filing cabinet.</span>
+          </>
+        }
+        lede={
+          <p>
+            Learning management systems became systems of record: files in, grades out. The
+            actual work of learning happens somewhere else. We think the course itself should be
+            the workspace, and we&apos;re building toward that in the open.
+          </p>
+        }
+      />
 
-      <Sheet className="section" labelledBy="wedge-title">
-        <div className="shell split split--even split--top">
+      <section aria-labelledby="wedge-title" className={`${container} pb-20 sm:pb-28`}>
+        <div className="grid grid-cols-1 gap-12 border-t border-line pt-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 id="wedge-title" className="t-head" data-focus>
+            <h2 id="wedge-title" className={sectionTitle}>
               You don&rsquo;t replace an LMS by asking a university to switch.
             </h2>
-            <p className="copy co-copy-gap">
-              Procurement cycles run for years, and students are enrolled now. So Scope
-              enters from the side with Scope for Canvas, a free extension on top of
-              Canvas and Brightspace that students install themselves in a minute. It
-              works with the systems your school already runs.
+            <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.65] text-ink-soft">
+              Procurement cycles run for years, and students are enrolled now. So Scope enters
+              from the side with Scope for Canvas, a free extension on top of Canvas and
+              Brightspace that students install themselves in a minute. It works with the
+              systems your school already runs.
             </p>
           </div>
           <div>
-            <h2 className="t-head" data-focus>
+            <h2 className={sectionTitle}>
               If students do their work in Scope, the record follows the work.
             </h2>
-            <p className="copy co-copy-gap">
-              When reading, notes, code, questions, and submissions all pass through one
-              place, that place becomes the real system of record. The old LMS underneath
-              turns into an export target, and replacing it becomes a migration.
+            <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.65] text-ink-soft">
+              When reading, notes, code, questions, and submissions all pass through one place,
+              that place becomes the real system of record. The old LMS underneath turns into an
+              export target, and replacing it becomes a migration.
             </p>
           </div>
         </div>
-      </Sheet>
+      </section>
 
-      <Sheet className="section" labelledBy="path-title">
-        <div className="shell">
-          <div className="co-head-split">
-            <h2 id="path-title" className="t-title" data-focus>
+      <section aria-labelledby="path-title" className="bg-wash">
+        <div className={`${container} py-20 sm:py-28`}>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <h2
+              id="path-title"
+              className="text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.03] tracking-[-0.04em]"
+            >
               The path, plainly labeled.
             </h2>
-            <p className="margin-note">
-              What ships today is written in ink. Plans are in pencil, because plans
-              change.
+            <p className="max-w-[40ch] text-[15.5px] leading-[1.6] text-stone">
+              What ships today is written in ink. Plans are in pencil, because plans change.
             </p>
           </div>
-          <p className="co-legend" aria-hidden="true">
-            <span>
-              <i /> Shipping
+          <p
+            aria-hidden="true"
+            className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium text-stone"
+          >
+            <span className="inline-flex items-center gap-2">
+              <i className={`inline-block w-6 border-t-2 ${RAIL_INK}`} /> Shipping
             </span>
-            <span>
-              <i data-pencil /> Planned
+            <span className="inline-flex items-center gap-2">
+              <i className={`inline-block w-6 border-t-2 ${RAIL_PENCIL}`} /> Planned
             </span>
           </p>
           <DirectionRoadmap stages={stages} />
         </div>
-      </Sheet>
+      </section>
 
-      <Sheet className="section" labelledBy="rules-title">
-        <div className="shell split split--top">
+      <section aria-labelledby="rules-title" className={`${container} py-20 sm:py-28`}>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
           <div>
-            <h2 id="rules-title" className="t-head" data-focus>
+            <h2 id="rules-title" className={sectionTitle}>
               Rules we&rsquo;re holding ourselves to.
             </h2>
-            <p className="copy co-copy-gap">
+            <p className="mt-4 max-w-[36ch] text-[17px] leading-[1.6] text-stone">
               These hold at every stage of the path, including the ones still in pencil.
             </p>
           </div>
-          <ul className="feature-list feature-list--wide" style={{ marginTop: 0 }}>
+          <ul className="divide-y divide-line border-y border-line">
             {principles.map((principle) => (
-              <li key={principle.title}>
-                <strong>{principle.title}</strong>
-                <span>{principle.copy}</span>
+              <li
+                key={principle.title}
+                className="grid grid-cols-1 gap-1 py-5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6"
+              >
+                <strong className="text-[16.5px] font-semibold tracking-[-0.01em] text-ink">
+                  {principle.title}
+                </strong>
+                <span className="text-[15.5px] leading-[1.6] text-stone">{principle.copy}</span>
               </li>
             ))}
           </ul>
         </div>
-      </Sheet>
+      </section>
 
-      <section className="on-desk shell section co-closing" aria-labelledby="closing-title">
-        <Mark size={48} />
-        <h2 id="closing-title" className="t-title" data-focus>
-          The first piece is free. Try it today.
-        </h2>
-        <div className="actions">
-          <StoreLink
-            store="chrome-web-store"
-            href={CHROME_WEB_STORE_URL}
-            className="btn btn-primary"
-          >
-            Add Scope to Chrome for free
-          </StoreLink>
-          <Link href="/newsroom" className="btn btn-line">
-            Follow along in the Newsroom
-          </Link>
+      <section aria-labelledby="closing-title" className="bg-ink text-white">
+        <div
+          className={`${container} flex flex-col gap-8 py-20 sm:py-24 md:flex-row md:items-end md:justify-between`}
+        >
+          <div>
+            <Mark size={48} className="[--mark-ink:#ffffff]" />
+            <h2
+              id="closing-title"
+              className="mt-6 max-w-[18ch] text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]"
+            >
+              The first piece is free. Try it today.
+            </h2>
+          </div>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <StoreLink
+              store="chrome-web-store"
+              href={CHROME_WEB_STORE_URL}
+              className={buttonClasses("inverted", "lg")}
+            >
+              <ChromeIcon className="size-[18px]" />
+              Add Scope to Chrome for free
+            </StoreLink>
+            <Link href="/newsroom" className={onInkSecondary}>
+              Follow along in the Newsroom
+            </Link>
+          </div>
         </div>
       </section>
     </PageShell>

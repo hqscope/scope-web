@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import Sheet from "@/components/motion/Sheet";
+import { ButtonLink, buttonClasses } from "@/components/buttons";
+import { AppleIcon } from "@/components/icons";
+import { ClosingCta, FeatureGrid } from "@/components/page-parts";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import FaqList, { type FaqItem } from "@/components/site/FaqList";
@@ -14,8 +16,7 @@ import {
 } from "@/lib/structured-data";
 import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-import "../lectra.css";
-import NotebookSheet, { NotebookBars } from "../_visuals/NotebookSheet";
+import NotebookSheet, { Kw, NotebookBars, Str } from "../_visuals/NotebookSheet";
 
 const title = "Lectra Notes: Jupyter Notebooks on iPad, Offline";
 
@@ -54,27 +55,27 @@ export const metadata: Metadata = {
 const features = [
   {
     title: "Real .ipynb files",
-    copy: "Notebooks are genuine Jupyter documents. Import one from class and work it, and it round-trips with its cells, outputs, and metadata preserved.",
+    body: "Notebooks are genuine Jupyter documents. Import one from class and work it, and it round-trips with its cells, outputs, and metadata preserved.",
   },
   {
     title: "A live kernel, on the iPad",
-    copy: "Code cells run real CPython on the device, and state persists across cells, so a variable you define in one cell is there in the next.",
+    body: "Code cells run real CPython on the device, and state persists across cells, so a variable you define in one cell is there in the next.",
   },
   {
     title: "Charts where you made them",
-    copy: "numpy, pandas, matplotlib, and Pillow ship built in. Plots render inline in the notebook and are computed entirely on the iPad.",
+    body: "numpy, pandas, matplotlib, and Pillow ship built in. Plots render inline in the notebook and are computed entirely on the iPad.",
   },
   {
     title: "More packages when you need them",
-    copy: "Install many pure-Python packages from PyPI in a cell. Installs are kept locally, so the notebook still runs next time, offline.",
+    body: "Install many pure-Python packages from PyPI in a cell. Installs are kept locally, so the notebook still runs next time, offline.",
   },
   {
     title: "No cloud kernel and no account",
-    copy: "Nothing executes on a server. Airplane mode in lecture, a basement lab, or a flight home makes no difference to the notebook.",
+    body: "Nothing executes on a server. Airplane mode in lecture, a basement lab, or a flight home makes no difference to the notebook.",
   },
   {
     title: "Beside your handwriting",
-    copy: "Notebooks live in the same library as your PDFs and Pencil notes, so the reading, the derivation, and the computation stay together.",
+    body: "Notebooks live in the same library as your PDFs and Pencil notes, so the reading, the derivation, and the computation stay together.",
   },
 ];
 
@@ -125,19 +126,30 @@ const howToSteps = [
   },
 ];
 
-function StoreActions() {
+/** A secondary button for the dark closing band. */
+const onDarkSecondary =
+  "inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-5 text-[15.5px] font-semibold tracking-[-0.01em] text-white ring-1 ring-inset ring-white/25 transition-colors hover:bg-white/10";
+
+function StoreActions({ onDark = false }: { onDark?: boolean }) {
   return (
     <>
       <StoreLink
         store="app-store"
         href={LECTRA_APP_STORE_URL}
-        className="btn btn-primary"
+        className={buttonClasses(onDark ? "inverted" : "primary", "lg")}
       >
+        <AppleIcon className="size-[18px] -translate-y-px" />
         Download on the App Store
       </StoreLink>
-      <Link href="/products/lectra" className="btn btn-line">
-        All of Lectra Notes
-      </Link>
+      {onDark ? (
+        <Link href="/products/lectra" className={onDarkSecondary}>
+          All of Lectra Notes
+        </Link>
+      ) : (
+        <ButtonLink href="/products/lectra" variant="secondary" size="lg">
+          All of Lectra Notes
+        </ButtonLink>
+      )}
     </>
   );
 }
@@ -174,148 +186,157 @@ export default function LectraNotebooksPage() {
         ]}
       />
 
-      <Sheet labelledBy="notebooks-title">
-        <header className="shell page-head lx-hero" id="hero">
-          <div>
+      <header
+        id="hero"
+        className="mx-auto max-w-[1200px] px-5 pb-16 pt-12 sm:px-8 sm:pb-24 sm:pt-16"
+      >
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
+          <div className="min-w-0">
             <nav aria-label="Breadcrumb">
-              <ol className="crumbs">
+              <ol className="flex flex-wrap items-center gap-x-2 text-[14px] text-stone">
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" className="hover:text-ink">
+                    Home
+                  </Link>
                 </li>
-                <li>
-                  <Link href="/products/lectra">Lectra Notes</Link>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">/</span>
+                  <Link href="/products/lectra" className="hover:text-ink">
+                    Lectra Notes
+                  </Link>
                 </li>
               </ol>
             </nav>
-            <h1 id="notebooks-title" className="t-title" data-focus>
+            <h1 className="mt-6 max-w-[18ch] text-[clamp(2.4rem,5vw,3.9rem)] font-semibold leading-[1] tracking-[-0.045em] text-balance">
               Jupyter notebooks that run on your iPad. Offline.
             </h1>
-            <div className="lede">
+            <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-ink-soft">
               Lectra Notes gives you real .ipynb files, a real Python kernel,
               and inline charts, in the same library as your readings and
               handwritten notes. There is no cloud kernel and no account, and
               you don&rsquo;t need a connection.
-            </div>
-            <div className="actions">
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <StoreActions />
             </div>
-            <p className="btn-note">Free, for iPadOS 18 and later.</p>
+            <p className="mt-4 text-[14px] text-stone">Free, for iPadOS 18 and later.</p>
           </div>
-          <NotebookSheet
-            label="A Lectra Notes notebook called growth.ipynb, running Python on the iPad. One cell loads a CSV with pandas, the next plots the mean for each treatment as a bar chart, and a red pen note points at the tallest bar."
-            file="growth.ipynb"
-            kernel="Python 3.11, local"
-            cells={[
-              {
-                n: 1,
-                code: (
-                  <>
-                    <span className="k">import</span> pandas{" "}
-                    <span className="k">as</span> pd
-                    {"\n"}df = pd.read_csv(
-                    <span className="s">&quot;growth.csv&quot;</span>)
-                  </>
-                ),
-              },
-              {
-                n: 2,
-                code: (
-                  <>
-                    df.groupby(<span className="s">&quot;treatment&quot;</span>
-                    ).od.mean().plot.bar()
-                  </>
-                ),
-                out: (
-                  <NotebookBars
-                    label="Bar chart of mean growth by treatment: control, low, mid, and high, with mid the tallest."
-                    bars={[
-                      { name: "control", value: 0.42 },
-                      { name: "low", value: 0.61 },
-                      { name: "mid", value: 0.93 },
-                      { name: "high", value: 0.74 },
-                    ]}
-                  />
-                ),
-              },
-            ]}
-            note="plotted on the iPad, in airplane mode"
-          />
-        </header>
-      </Sheet>
-
-      <Sheet className="section" id="features" labelledBy="features-title">
-        <div className="shell">
-          <h2 id="features-title" className="t-head lx-intro" data-focus>
-            A real notebook, with nothing running somewhere else.
-          </h2>
-          <div className="idea-grid idea-grid--3">
-            {features.map((item) => (
-              <div key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
-            ))}
+          <div className="min-w-0">
+            <NotebookSheet
+              label="A Lectra Notes notebook called growth.ipynb, running Python on the iPad. One cell loads a CSV with pandas, the next plots the mean for each treatment as a bar chart, and a red pen note points at the tallest bar."
+              file="growth.ipynb"
+              kernel="Python 3.11, local"
+              cells={[
+                {
+                  n: 1,
+                  code: (
+                    <>
+                      <Kw>import</Kw> pandas <Kw>as</Kw> pd
+                      {"\n"}df = pd.read_csv(<Str>&quot;growth.csv&quot;</Str>)
+                    </>
+                  ),
+                },
+                {
+                  n: 2,
+                  code: (
+                    <>
+                      df.groupby(<Str>&quot;treatment&quot;</Str>).od.mean().plot.bar()
+                    </>
+                  ),
+                  out: (
+                    <NotebookBars
+                      label="Bar chart of mean growth by treatment: control, low, mid, and high, with mid the tallest."
+                      bars={[
+                        { name: "control", value: 0.42 },
+                        { name: "low", value: 0.61 },
+                        { name: "mid", value: 0.93 },
+                        { name: "high", value: 0.74 },
+                      ]}
+                    />
+                  ),
+                },
+              ]}
+              note="plotted on the iPad, in airplane mode"
+            />
           </div>
         </div>
-      </Sheet>
+      </header>
 
-      <Sheet className="section" id="how" labelledBy="how-title">
-        <div className="shell split split--top">
+      <FeatureGrid
+        id="features"
+        title="A real notebook, with nothing running somewhere else."
+        features={features}
+      />
+
+      <section id="how" aria-labelledby="how-title" className="bg-wash">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-20">
           <div>
-            <h2 id="how-title" className="t-head" data-focus>
+            <h2
+              id="how-title"
+              className="max-w-[18ch] text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.03] tracking-[-0.04em]"
+            >
               Import, run, hand back.
             </h2>
-            <p className="copy lx-body">
+            <p className="mt-5 max-w-[48ch] text-[17px] leading-[1.65] text-stone">
               Import an .ipynb through the Files app or the share sheet, or
               start a fresh notebook, and run the cells against on-device
               Python. When you&rsquo;re done, export a standard notebook that
               opens in Jupyter anywhere. For scripts, a shell, and version
               control, see{" "}
-              <Link href="/products/lectra/code">the coding workspace</Link>.
-              For handwritten work on paper styles, that is what{" "}
-              <Link href="/products/lectra">the rest of Lectra Notes</Link> is
-              for.
+              <Link href="/products/lectra/code" className="link">
+                the coding workspace
+              </Link>
+              . For handwritten work on paper styles, that is what{" "}
+              <Link href="/products/lectra" className="link">
+                the rest of Lectra Notes
+              </Link>{" "}
+              is for.
             </p>
           </div>
           <ol
-            className="lx-steps"
             aria-label="How to run a Jupyter notebook on an iPad"
+            className="divide-y divide-line border-y border-line"
           >
-            {howToSteps.map((step) => (
-              <li key={step.name}>
-                <strong>{step.name}</strong>
-                <span>{step.text}</span>
+            {howToSteps.map((step, index) => (
+              <li key={step.name} className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-3 py-5">
+                <span aria-hidden="true" className="text-[17px] font-semibold tabular-nums text-stone">
+                  {index + 1}
+                </span>
+                <div>
+                  <strong className="block text-[17px] font-semibold tracking-[-0.015em] text-ink">
+                    {step.name}
+                  </strong>
+                  <span className="mt-1.5 block text-[15.5px] leading-[1.6] text-stone">{step.text}</span>
+                </div>
               </li>
             ))}
           </ol>
         </div>
-      </Sheet>
+      </section>
 
-      <Sheet className="section" id="faq" labelledBy="faq-title">
-        <div className="shell shell-narrow">
-          <h2 id="faq-title" className="t-head lx-faq-head" data-focus>
+      <section
+        id="faq"
+        aria-labelledby="faq-title"
+        className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-24"
+      >
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+          <h2
+            id="faq-title"
+            className="text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em]"
+          >
             Notebooks on iPad, answered.
           </h2>
           <FaqList items={faqs} />
         </div>
-      </Sheet>
-
-      <section
-        className="on-desk shell section lx-closing"
-        id="download"
-        aria-labelledby="closing-title"
-      >
-        <h2 id="closing-title" className="t-title" data-focus>
-          Run your first cell today.
-        </h2>
-        <p className="lede">
-          Lectra Notes is on the App Store. It is free, it works offline, and it
-          is ready for the problem set.
-        </p>
-        <div className="actions">
-          <StoreActions />
-        </div>
       </section>
+
+      <div id="download">
+        <ClosingCta
+          title="Run your first cell today."
+          body="Lectra Notes is on the App Store. It is free, it works offline, and it is ready for the problem set."
+          actions={<StoreActions onDark />}
+        />
+      </div>
     </PageShell>
   );
 }

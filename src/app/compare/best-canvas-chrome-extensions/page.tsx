@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList, { type FaqItem } from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -17,7 +18,13 @@ import {
 } from "@/lib/structured-data";
 import { LIVE_USERS } from "@/lib/usage";
 
-import CompareArticle, { Pen, type ArticleSection } from "../CompareArticle";
+import CompareArticle, {
+  Aside,
+  FactList,
+  Pen,
+  WideTable,
+  type ArticleSection,
+} from "../CompareArticle";
 
 const comparison = getComparison("best-canvas-chrome-extensions");
 const path = comparePath(comparison);
@@ -422,17 +429,17 @@ const pickSections: ArticleSection[] = picks.map((pick) => ({
   outline: pick.outline,
   content: (
     <>
-      <div className="prose">
-        <p>{pick.body}</p>
-      </div>
-      <dl className="compare-facts">
-        <dt>Who it is for</dt>
-        <dd>{pick.whoFor}</dd>
-        <dt>Watch out</dt>
-        <dd>{pick.watchOut}</dd>
-        <dt>{pick.id === "scope" ? "Where the others win" : "Where Scope does not compete"}</dt>
-        <dd>{pick.scopeNote}</dd>
-      </dl>
+      <p>{pick.body}</p>
+      <FactList
+        facts={[
+          { label: "Who it is for", value: pick.whoFor },
+          { label: "Watch out", value: pick.watchOut },
+          {
+            label: pick.id === "scope" ? "Where the others win" : "Where Scope does not compete",
+            value: pick.scopeNote,
+          },
+        ]}
+      />
     </>
   ),
 }));
@@ -489,10 +496,10 @@ export default function BestCanvasChromeExtensionsPage() {
         }
         actions={
           <>
-            <a href="#short-answer" className="btn btn-primary">
+            <a href="#short-answer" className={buttonClasses("primary", "lg")}>
               Get the short answer
             </a>
-            <a href="#table" className="btn btn-line">
+            <a href="#table" className={buttonClasses("secondary", "lg")}>
               See the table
             </a>
           </>
@@ -504,18 +511,21 @@ export default function BestCanvasChromeExtensionsPage() {
             outline: "The short answer",
             content: (
               <>
-                <ul className="feature-list feature-list--wide">
+                <ul className="my-6 list-none divide-y divide-line border-y border-line pl-0">
                   {shortAnswer.map((item) => (
-                    <li key={item.job}>
-                      <strong>{item.job}</strong>
-                      <span>{item.pick}</span>
+                    <li
+                      key={item.job}
+                      className="my-0 grid gap-1 py-4 pl-0 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:gap-6"
+                    >
+                      <strong className="text-[17px] leading-[1.4] tracking-[-0.015em]">{item.job}</strong>
+                      <span className="text-[16px] leading-[1.6]">{item.pick}</span>
                     </li>
                   ))}
                 </ul>
-                <p className="compare-aside">
+                <Aside>
                   Looking for a deadline extension on an assignment? That is a
                   request to your instructor, and no browser extension can make it.
-                </p>
+                </Aside>
               </>
             ),
           },
@@ -524,112 +534,112 @@ export default function BestCanvasChromeExtensionsPage() {
             title: `What each listing said on ${CHECKED_ON}.`,
             outline: "Side by side",
             content: (
-              <div className="compare-table-wide">
-              <ComparisonTable
-                caption={`Canvas Chrome extensions compared on Chrome Web Store facts, ${CHECKED_ON}`}
-                columns={[
-                  "BetterCampus",
-                  "Tasks for Canvas",
-                  "Canvas Course Downloader & Exporter",
-                  "Canvas Files Downloader",
-                  "Canvas LMS Mods (Basic)",
-                  "Scope for Canvas (ours)",
-                ]}
-                ours={5}
-                rows={[
-                  {
-                    label: "Best for",
-                    cells: [
-                      "Customizing Canvas: dark mode, themes, dashboard, GPA calculator.",
-                      "A to-do list with progress rings in the dashboard sidebar.",
-                      "Backing up a whole course to folders.",
-                      "Downloading the attachments in one tab.",
-                      "Instructor and admin tools: reports, rubrics, grade export.",
-                      "Searching every course, with answers that cite their sources.",
-                    ],
-                  },
-                  {
-                    label: `Users (Chrome Web Store, ${CHECKED_ON})`,
-                    cells: [
-                      "2,000,000",
-                      "1,000,000",
-                      "8,000",
-                      "3,000",
-                      "5,000",
-                      <>
-                        94. Our own count, which adds Lectra Notes accounts, was{" "}
-                        {LIVE_USERS} on August 27, 2026 (
-                        <Link href="/newsroom/how-we-count-people-using-scope">
-                          how we count
-                        </Link>
-                        ).
-                      </>,
-                    ],
-                  },
-                  {
-                    label: `Rating (${CHECKED_ON})`,
-                    cells: [
-                      "4.7 from about 4,300 ratings",
-                      "4.6 from about 700 ratings",
-                      "4.8 from 12 ratings",
-                      "3.4 from 23 ratings",
-                      "5.0 from 12 ratings",
-                      "5.0 from 6 ratings",
-                    ],
-                  },
-                  {
-                    label: `Last updated (as of ${CHECKED_ON})`,
-                    cells: [
-                      "August 27, 2026 (version 9.8.6)",
-                      "August 17, 2026 (version 1.6.3)",
-                      "August 30, 2026 (version 2.10.2)",
-                      "September 27, 2025 (version 1.3.0)",
-                      "August 28, 2025 (version 7.5.1)",
-                      `August 30, 2026 (version ${SCOPE_EXTENSION_VERSION})`,
-                    ],
-                  },
-                  {
-                    label: "Price",
-                    cells: [
-                      `Free, with in-app purchases. Pro was $19 a month or $119 a year on its help center on ${CHECKED_ON}. The listing does not show a price.`,
-                      "Free.",
-                      "Free and open source.",
-                      "Free.",
-                      "Free.",
-                      "Free.",
-                    ],
-                  },
-                  {
-                    label: "Where your course data goes",
-                    cells: [
-                      "Store disclosure: collects user activity, not sold to third parties.",
-                      "Store disclosure: user activity. The listing says it does not collect or share user data and only talks to your school's Canvas.",
-                      "The listing says it talks only to your Canvas site, and data is not sold to third parties.",
-                      "The developer states it will not collect or use your data.",
-                      "The developer states it will not collect or use your data.",
-                      <>
-                        Search and indexing run entirely on your device. The store
-                        disclosure lists personal information, web history, user
-                        activity, and website content, which is the course content
-                        it reads to index, and none of it is sold to third parties.
-                        Details are on the <Link href="/privacy">privacy page</Link>.
-                      </>,
-                    ],
-                  },
-                  {
-                    label: "Brightspace support",
-                    cells: [
-                      "Not on the listing, which describes it as an extension for Canvas. Its help center says yes, along with Blackboard, Moodle, and Google Classroom.",
-                      "Yes. Canvas, Blackboard, and D2L Brightspace.",
-                      "No, Canvas only.",
-                      "No, Canvas only.",
-                      "No, Canvas only.",
-                      "Yes. Canvas and Brightspace.",
-                    ],
-                  },
-                ]}
-              />
-              </div>
+              <WideTable>
+                <ComparisonTable
+                  caption={`Canvas Chrome extensions compared on Chrome Web Store facts, ${CHECKED_ON}`}
+                  columns={[
+                    "BetterCampus",
+                    "Tasks for Canvas",
+                    "Canvas Course Downloader & Exporter",
+                    "Canvas Files Downloader",
+                    "Canvas LMS Mods (Basic)",
+                    "Scope for Canvas (ours)",
+                  ]}
+                  ours={5}
+                  rows={[
+                    {
+                      label: "Best for",
+                      cells: [
+                        "Customizing Canvas: dark mode, themes, dashboard, GPA calculator.",
+                        "A to-do list with progress rings in the dashboard sidebar.",
+                        "Backing up a whole course to folders.",
+                        "Downloading the attachments in one tab.",
+                        "Instructor and admin tools: reports, rubrics, grade export.",
+                        "Searching every course, with answers that cite their sources.",
+                      ],
+                    },
+                    {
+                      label: `Users (Chrome Web Store, ${CHECKED_ON})`,
+                      cells: [
+                        "2,000,000",
+                        "1,000,000",
+                        "8,000",
+                        "3,000",
+                        "5,000",
+                        <>
+                          94. Our own count, which adds Lectra Notes accounts, was{" "}
+                          {LIVE_USERS} on August 27, 2026 (
+                          <Link href="/newsroom/how-we-count-people-using-scope">
+                            how we count
+                          </Link>
+                          ).
+                        </>,
+                      ],
+                    },
+                    {
+                      label: `Rating (${CHECKED_ON})`,
+                      cells: [
+                        "4.7 from about 4,300 ratings",
+                        "4.6 from about 700 ratings",
+                        "4.8 from 12 ratings",
+                        "3.4 from 23 ratings",
+                        "5.0 from 12 ratings",
+                        "5.0 from 6 ratings",
+                      ],
+                    },
+                    {
+                      label: `Last updated (as of ${CHECKED_ON})`,
+                      cells: [
+                        "August 27, 2026 (version 9.8.6)",
+                        "August 17, 2026 (version 1.6.3)",
+                        "August 30, 2026 (version 2.10.2)",
+                        "September 27, 2025 (version 1.3.0)",
+                        "August 28, 2025 (version 7.5.1)",
+                        `August 30, 2026 (version ${SCOPE_EXTENSION_VERSION})`,
+                      ],
+                    },
+                    {
+                      label: "Price",
+                      cells: [
+                        `Free, with in-app purchases. Pro was $19 a month or $119 a year on its help center on ${CHECKED_ON}. The listing does not show a price.`,
+                        "Free.",
+                        "Free and open source.",
+                        "Free.",
+                        "Free.",
+                        "Free.",
+                      ],
+                    },
+                    {
+                      label: "Where your course data goes",
+                      cells: [
+                        "Store disclosure: collects user activity, not sold to third parties.",
+                        "Store disclosure: user activity. The listing says it does not collect or share user data and only talks to your school's Canvas.",
+                        "The listing says it talks only to your Canvas site, and data is not sold to third parties.",
+                        "The developer states it will not collect or use your data.",
+                        "The developer states it will not collect or use your data.",
+                        <>
+                          Search and indexing run entirely on your device. The store
+                          disclosure lists personal information, web history, user
+                          activity, and website content, which is the course content
+                          it reads to index, and none of it is sold to third parties.
+                          Details are on the <Link href="/privacy">privacy page</Link>.
+                        </>,
+                      ],
+                    },
+                    {
+                      label: "Brightspace support",
+                      cells: [
+                        "Not on the listing, which describes it as an extension for Canvas. Its help center says yes, along with Blackboard, Moodle, and Google Classroom.",
+                        "Yes. Canvas, Blackboard, and D2L Brightspace.",
+                        "No, Canvas only.",
+                        "No, Canvas only.",
+                        "No, Canvas only.",
+                        "Yes. Canvas and Brightspace.",
+                      ],
+                    },
+                  ]}
+                />
+              </WideTable>
             ),
           },
           ...pickSections,
@@ -638,7 +648,7 @@ export default function BestCanvasChromeExtensionsPage() {
             title: "What we left out, and why.",
             outline: "What we left out",
             content: (
-              <div className="prose">
+              <>
                 <p>
                   We left out every extension whose purpose is answering quizzes
                   for you or hiding what you do from your instructor. They may be
@@ -663,14 +673,14 @@ export default function BestCanvasChromeExtensionsPage() {
                   checked on {CHECKED_ON}, or that it falls into the category
                   above.
                 </p>
-              </div>
+              </>
             ),
           },
           {
             id: "how-we-picked",
             title: "How we picked.",
             content: (
-              <div className="prose">
+              <>
                 <ul>
                   <li>
                     Every user count, rating, version, update date, and data
@@ -697,7 +707,7 @@ export default function BestCanvasChromeExtensionsPage() {
                     a competitor is the better install.
                   </li>
                 </ul>
-              </div>
+              </>
             ),
           },
           {
@@ -759,7 +769,7 @@ export default function BestCanvasChromeExtensionsPage() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Scope for Canvas on the Chrome Web Store
             </StoreLink>

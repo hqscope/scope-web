@@ -53,6 +53,7 @@ const staticPages: { path: string; label: string }[] = [
   { path: "/compare", label: "Comparisons" },
   { path: "/guides", label: "Guides" },
   { path: "/press", label: "Press kit" },
+  { path: "/about", label: "About Scope" },
   { path: "/direction", label: "Mission" },
   { path: "/research", label: "Scope Research" },
   { path: "/support", label: "Support" },

@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-import Sheet from "@/components/motion/Sheet";
-import PenMark from "@/components/motion/PenMark";
+import { ButtonLink } from "@/components/buttons";
 import JsonLd from "@/components/seo/JsonLd";
 import PageHead from "@/components/site/PageHead";
 import PageShell from "@/components/site/PageShell";
@@ -9,8 +8,6 @@ import { guidePath, guides } from "@/lib/guides";
 import { formatArticleDate } from "@/lib/newsroom";
 import { publicPageMetadata } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
-
-import "./_guide/guides.css";
 
 const description =
   "Step-by-step guides for students on Canvas and iPad: how to search every course, what to check before installing a Canvas extension, and how to annotate lecture slides with Apple Pencil.";
@@ -48,60 +45,68 @@ export default function GuidesPage() {
         ]}
       />
 
-      <Sheet className="guides-hub" labelledBy="guides-title">
-        <PageHead
-          crumbs={[{ href: "/", label: "Home" }]}
-          context="Guides for Canvas, Brightspace, and iPad"
-          title={<span id="guides-title">The manual way first. Then ours.</span>}
-          lede={
-            <p>
-              Answers to the questions students actually search, like how to find
-              something in Canvas, whether an extension is safe, and how to get a
-              lecture deck onto an iPad. Each one covers what works{" "}
-              <span className="pen-phrase">
-                without installing anything
-                <PenMark kind="underline" inset="auto -4px -12px -4px" delay={0.9} className="pen-line" />
-              </span>{" "}
-              before it mentions Scope for Canvas or Lectra Notes.
-            </p>
-          }
-        />
+      <PageHead
+        crumbs={[{ href: "/", label: "Home" }]}
+        context="Guides for Canvas, Brightspace, and iPad"
+        title={<span id="guides-title">The manual way first. Then ours.</span>}
+        lede={
+          <p>
+            Answers to the questions students actually search, like how to find
+            something in Canvas, whether an extension is safe, and how to get a
+            lecture deck onto an iPad. Each one covers what works without
+            installing anything before it mentions Scope for Canvas or Lectra
+            Notes.
+          </p>
+        }
+      />
 
-        <section className="shell section-tight" aria-labelledby="all-guides-title" style={{ paddingTop: 0 }}>
-          <h2 id="all-guides-title" className="sr-only">
-            All guides
-          </h2>
-          <ul className="index-list">
-            {guides.map((guide) => (
-              <li key={guide.slug}>
-                <Link href={guidePath(guide)}>
-                  <span className="index-title">
-                    <span>{guide.title}</span>
-                  </span>
-                  <span className="index-copy">{guide.copy}</span>
-                  <time className="index-meta" dateTime={guide.dateModified}>
-                    {formatArticleDate(guide.dateModified)}
-                  </time>
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <section
+        aria-labelledby="all-guides-title"
+        className="mx-auto max-w-[1200px] px-5 pb-24 sm:px-8 sm:pb-32"
+      >
+        <h2 id="all-guides-title" className="sr-only">
+          All guides
+        </h2>
+        <ul className="divide-y divide-line border-y border-line">
+          {guides.map((guide) => (
+            <li key={guide.slug}>
+              <Link
+                href={guidePath(guide)}
+                className="group grid gap-2 py-7 sm:py-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)_8.5rem] md:gap-10"
+              >
+                <span className="text-[clamp(1.25rem,2.2vw,1.5rem)] font-semibold leading-[1.2] tracking-[-0.025em] text-ink group-hover:text-red">
+                  {guide.title}
+                </span>
+                <span className="text-[16px] leading-[1.6] text-stone">{guide.copy}</span>
+                <time
+                  dateTime={guide.dateModified}
+                  className="text-[14px] text-stone md:pt-1 md:text-right"
+                >
+                  {formatArticleDate(guide.dateModified)}
+                </time>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-          <div className="note guides-hub-note">
-            <h2>Deciding between apps?</h2>
-            <p style={{ marginTop: 10 }}>
+        <div className="mt-16 grid gap-8 rounded-[22px] bg-wash p-8 sm:mt-20 sm:p-12 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-end">
+          <div>
+            <h2 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-semibold leading-[1.05] tracking-[-0.035em]">
+              Deciding between apps?
+            </h2>
+            <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.55] text-stone">
               The comparisons put Scope and Lectra Notes next to BetterCampus, Tasks for
               Canvas, Goodnotes, and Notability, and they say where the other app is
               better.
             </p>
-            <div className="link-row" style={{ marginTop: 18 }}>
-              <Link href="/compare" className="link">
-                See the comparisons
-              </Link>
-            </div>
           </div>
-        </section>
-      </Sheet>
+          <div className="md:justify-self-end">
+            <ButtonLink href="/compare" variant="secondary" size="lg">
+              See the comparisons
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
     </PageShell>
   );
 }

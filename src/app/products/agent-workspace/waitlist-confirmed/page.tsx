@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import PenMark from "@/components/motion/PenMark";
-import Sheet from "@/components/motion/Sheet";
+import { ButtonLink } from "@/components/buttons";
 import PageHead from "@/components/site/PageHead";
 import PageShell from "@/components/site/PageShell";
-
-import "../workspace.css";
 
 export const metadata: Metadata = {
   title: "You're on the list",
@@ -24,27 +20,26 @@ export default function WaitlistConfirmedPage() {
         href: "/products/agent-workspace#early-access",
       }}
     >
-      <Sheet className="aw-confirmed" labelledBy="aw-confirmed-title">
+      <div className="pb-16 sm:pb-24">
         <PageHead
           context="Agent Workspace early access"
           title={
-            <span id="aw-confirmed-title" className="aw-confirmed-title">
+            <span className="underline decoration-red decoration-[0.06em] underline-offset-[0.14em]">
               You&rsquo;re on the list.
-              <PenMark kind="underline" inset="auto -6px -18px -6px" delay={0.9} />
             </span>
           }
           lede={
             <p>
-              We&rsquo;ll email your invite when a desk is ready, and that&rsquo;s the
-              only email we&rsquo;ll send.
+              We&rsquo;ll email your invite when a desk is ready, and that&rsquo;s the only
+              email we&rsquo;ll send.
             </p>
           }
         >
-          <Link className="btn btn-line" href="/products/agent-workspace">
+          <ButtonLink href="/products/agent-workspace" variant="secondary" size="lg">
             Back to Agent Workspace
-          </Link>
+          </ButtonLink>
         </PageHead>
-      </Sheet>
+      </div>
     </PageShell>
   );
 }

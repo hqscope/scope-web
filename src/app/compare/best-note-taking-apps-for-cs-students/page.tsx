@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -22,6 +23,7 @@ import CompareArticle, {
   lectraRelatedLinks,
   Pen,
   PickList,
+  WideTable,
 } from "../CompareArticle";
 
 const comparison = getComparison("best-note-taking-apps-for-cs-students");
@@ -173,11 +175,11 @@ export default function CsStudentsPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Get Lectra Notes for free
             </StoreLink>
-            <a href="#picks" className="btn btn-line">
+            <a href="#picks" className={buttonClasses("secondary", "lg")}>
               See the picks
             </a>
           </>
@@ -188,17 +190,17 @@ export default function CsStudentsPage() {
             title: "At a glance.",
             outline: "At a glance",
             content: (
-              <div className="compare-table-wide">
-              <ComparisonTable
-                caption="Note-taking apps for CS students at a glance, August 2026"
-                columns={picks.map((pick) => pick.name)}
-                ours={0}
-                rows={[
-                  { label: "Where it is strongest", cells: picks.map((pick) => pick.role) },
-                  { label: "Best for", cells: picks.map((pick) => pick.bestFor) },
-                ]}
-              />
-              </div>
+              <WideTable>
+                <ComparisonTable
+                  caption="Note-taking apps for CS students at a glance, August 2026"
+                  columns={picks.map((pick) => pick.name)}
+                  ours={0}
+                  rows={[
+                    { label: "Where it is strongest", cells: picks.map((pick) => pick.role) },
+                    { label: "Best for", cells: picks.map((pick) => pick.bestFor) },
+                  ]}
+                />
+              </WideTable>
             ),
           },
           {
@@ -277,7 +279,7 @@ export default function CsStudentsPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Lectra Notes on the App Store
             </StoreLink>

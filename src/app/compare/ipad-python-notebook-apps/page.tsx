@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -16,7 +17,14 @@ import {
   type FaqEntry,
 } from "@/lib/structured-data";
 
-import CompareArticle, { lectraCta, lectraRelatedLinks, Pen } from "../CompareArticle";
+import CompareArticle, {
+  lectraCta,
+  lectraRelatedLinks,
+  Pen,
+  Verdict,
+  VerdictGrid,
+  WideTable,
+} from "../CompareArticle";
 
 const comparison = getComparison("ipad-python-notebook-apps");
 
@@ -102,11 +110,11 @@ export default function IpadPythonAppsPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Get Lectra Notes for free
             </StoreLink>
-            <a href="#table" className="btn btn-line">
+            <a href="#table" className={buttonClasses("secondary", "lg")}>
               See the comparison
             </a>
           </>
@@ -117,75 +125,75 @@ export default function IpadPythonAppsPage() {
             title: "All five, side by side.",
             outline: "Side by side",
             content: (
-              <div className="compare-table-wide">
-              <ComparisonTable
-                caption="iPad Python and Jupyter notebook apps compared, August 2026"
-                columns={["Lectra Notes", "Juno", "Carnets", "Pythonista 3", "a-Shell"]}
-                ours={0}
-                rows={[
-                  {
-                    label: "Price",
-                    cells: [
-                      "Free, everything included",
-                      "Free to browse, $39.99 one-time to run code",
-                      "Free, open source",
-                      "$9.99 one-time",
-                      "Free, open source",
-                    ],
-                  },
-                  {
-                    label: ".ipynb notebooks",
-                    cells: [
-                      "Yes. Notebooks are documents in the same library as your notes",
-                      "Yes, in a polished native IDE",
-                      "Yes, on a real local Jupyter and JupyterLab server",
-                      "No. .py scripts and console only",
-                      "No. Command line only",
-                    ],
-                  },
-                  {
-                    label: "Bundled scientific stack",
-                    cells: [
-                      "numpy, pandas, matplotlib, Pillow",
-                      "NumPy, pandas, Matplotlib, SciPy, scikit-learn, OpenCV",
-                      "20+ packages, and the scipy edition adds SciPy, scikit-learn, seaborn",
-                      "NumPy, Matplotlib, pandas, plus unique iOS automation modules",
-                      "Python 3.13 with NumPy and Matplotlib, plus clang, git, ssh, and TeX",
-                    ],
-                  },
-                  {
-                    label: "Extra packages",
-                    cells: [
-                      "Pure-Python from PyPI, kept for offline reuse",
-                      "Pure-Python via its package manager",
-                      "Pure-Python via %pip",
-                      "Effectively none official",
-                      "Pure-Python via pip",
-                    ],
-                  },
-                  {
-                    label: "Notes, PDFs, and Pencil",
-                    cells: [
-                      "Yes. Full Apple Pencil markup, a PDF library, and a scanner beside the notebooks",
-                      "None",
-                      "None",
-                      "None",
-                      "None",
-                    ],
-                  },
-                  {
-                    label: "Terminal, Git, and SSH",
-                    cells: [
-                      "Yes. A terminal with git, python, and pip, plus GitHub and SSH",
-                      "No",
-                      "No",
-                      "No",
-                      "Yes. The most complete Unix toolbox on iOS, including C and C++ via clang",
-                    ],
-                  },
-                ]}
-              />
-              </div>
+              <WideTable>
+                <ComparisonTable
+                  caption="iPad Python and Jupyter notebook apps compared, August 2026"
+                  columns={["Lectra Notes", "Juno", "Carnets", "Pythonista 3", "a-Shell"]}
+                  ours={0}
+                  rows={[
+                    {
+                      label: "Price",
+                      cells: [
+                        "Free, everything included",
+                        "Free to browse, $39.99 one-time to run code",
+                        "Free, open source",
+                        "$9.99 one-time",
+                        "Free, open source",
+                      ],
+                    },
+                    {
+                      label: ".ipynb notebooks",
+                      cells: [
+                        "Yes. Notebooks are documents in the same library as your notes",
+                        "Yes, in a polished native IDE",
+                        "Yes, on a real local Jupyter and JupyterLab server",
+                        "No. .py scripts and console only",
+                        "No. Command line only",
+                      ],
+                    },
+                    {
+                      label: "Bundled scientific stack",
+                      cells: [
+                        "numpy, pandas, matplotlib, Pillow",
+                        "NumPy, pandas, Matplotlib, SciPy, scikit-learn, OpenCV",
+                        "20+ packages, and the scipy edition adds SciPy, scikit-learn, seaborn",
+                        "NumPy, Matplotlib, pandas, plus unique iOS automation modules",
+                        "Python 3.13 with NumPy and Matplotlib, plus clang, git, ssh, and TeX",
+                      ],
+                    },
+                    {
+                      label: "Extra packages",
+                      cells: [
+                        "Pure-Python from PyPI, kept for offline reuse",
+                        "Pure-Python via its package manager",
+                        "Pure-Python via %pip",
+                        "Effectively none official",
+                        "Pure-Python via pip",
+                      ],
+                    },
+                    {
+                      label: "Notes, PDFs, and Pencil",
+                      cells: [
+                        "Yes. Full Apple Pencil markup, a PDF library, and a scanner beside the notebooks",
+                        "None",
+                        "None",
+                        "None",
+                        "None",
+                      ],
+                    },
+                    {
+                      label: "Terminal, Git, and SSH",
+                      cells: [
+                        "Yes. A terminal with git, python, and pip, plus GitHub and SSH",
+                        "No",
+                        "No",
+                        "No",
+                        "Yes. The most complete Unix toolbox on iOS, including C and C++ via clang",
+                      ],
+                    },
+                  ]}
+                />
+              </WideTable>
             ),
           },
           {
@@ -193,47 +201,35 @@ export default function IpadPythonAppsPage() {
             title: "Pick by what the notebook is for.",
             outline: "Honest verdicts",
             content: (
-              <div className="compare-verdicts">
-                <div>
-                  <h3>Carnets</h3>
-                  <p>
-                    The most faithful Jupyter on iPad, free and open source, with
-                    an actual local Jupyter server and a big compiled-package
-                    library. The UI is the stock Jupyter web interface, and heavy
-                    notebooks hit iOS memory limits, but it&apos;s a remarkable
-                    zero-cost tool.
-                  </p>
-                </div>
-                <div>
-                  <h3>Juno</h3>
-                  <p>
-                    The most polished dedicated notebook IDE, with SciPy,
-                    scikit-learn, and OpenCV built in. It is worth its $39.99
-                    unlock if your coursework leans on the heavier stack.
-                  </p>
-                </div>
-                <div>
-                  <h3>Pythonista and a-Shell</h3>
-                  <p>
-                    These do different jobs. Pythonista is the iOS-automation
-                    specialist (no notebooks, aging Python 3.10), and a-Shell is a
-                    free, full Unix toolbox that is terminal-first with no notebook
-                    interface.
-                  </p>
-                </div>
-                <div data-ours="true">
-                  <h3>Lectra Notes</h3>
-                  <p>
-                    The one on this list that is also a note-taking app. Notebooks
-                    live beside the lecture PDF and your handwriting, with{" "}
-                    <Link className="link" href="/products/lectra/code">
-                      a terminal, Git, and SSH
-                    </Link>{" "}
-                    in the same place, for free. When the notebook belongs to a
-                    course, this is the point.
-                  </p>
-                </div>
-              </div>
+              <VerdictGrid>
+                <Verdict title="Carnets">
+                  The most faithful Jupyter on iPad, free and open source, with
+                  an actual local Jupyter server and a big compiled-package
+                  library. The UI is the stock Jupyter web interface, and heavy
+                  notebooks hit iOS memory limits, but it&apos;s a remarkable
+                  zero-cost tool.
+                </Verdict>
+                <Verdict title="Juno">
+                  The most polished dedicated notebook IDE, with SciPy,
+                  scikit-learn, and OpenCV built in. It is worth its $39.99
+                  unlock if your coursework leans on the heavier stack.
+                </Verdict>
+                <Verdict title="Pythonista and a-Shell">
+                  These do different jobs. Pythonista is the iOS-automation
+                  specialist (no notebooks, aging Python 3.10), and a-Shell is a
+                  free, full Unix toolbox that is terminal-first with no notebook
+                  interface.
+                </Verdict>
+                <Verdict title="Lectra Notes" ours>
+                  The one on this list that is also a note-taking app. Notebooks
+                  live beside the lecture PDF and your handwriting, with{" "}
+                  <Link className="link" href="/products/lectra/code">
+                    a terminal, Git, and SSH
+                  </Link>{" "}
+                  in the same place, for free. When the notebook belongs to a
+                  course, this is the point.
+                </Verdict>
+              </VerdictGrid>
             ),
           },
           {
@@ -273,7 +269,7 @@ export default function IpadPythonAppsPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Lectra Notes on the App Store
             </StoreLink>

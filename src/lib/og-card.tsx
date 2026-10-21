@@ -14,9 +14,9 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
 const INK = "#241e18";
-const INK_SOFT = "#6e6053";
-const PAPER = "#f6f1e7";
-const DESK = "#14100c";
+const INK_SOFT = "#6b635b";
+const PAPER = "#ffffff";
+const DESK = "#f6f5f2";
 const RED = "#c42b26";
 
 type Font = {

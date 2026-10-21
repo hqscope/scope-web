@@ -46,9 +46,9 @@ export default function MethodologyNote({
   const concessions = [...defaultConcessions[product], ...extraConcessions];
 
   return (
-    <aside className="note" aria-label="How this comparison was made">
-      <h2>How this comparison was made</h2>
-      <p style={{ marginTop: 10 }}>
+    <aside className="my-10 rounded-[18px] bg-wash p-6 sm:p-8" aria-label="How this comparison was made">
+      <h2 className="m-0 text-[19px] font-semibold tracking-[-0.02em] text-ink">How this comparison was made</h2>
+      <p className="mt-3 text-[15.5px] leading-[1.65] text-ink-soft">
         {productName[product]} is our product. Competitor facts were compiled on{" "}
         {dateChecked} {sourceNote[product]} If something here is out of date,{" "}
         <a className="link" href={`mailto:${SUPPORT_EMAIL}`}>
@@ -56,10 +56,10 @@ export default function MethodologyNote({
         </a>{" "}
         and we&apos;ll correct it.
       </p>
-      <p style={{ marginTop: 16, fontWeight: 620, color: "var(--fg)" }}>
+      <p className="mt-5 text-[15.5px] font-semibold text-ink">
         Where {productName[product]} falls short today:
       </p>
-      <ul>
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-[15.5px] leading-[1.6] text-ink-soft marker:text-red">
         {concessions.map((item) => (
           <li key={item}>{item}</li>
         ))}

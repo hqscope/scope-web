@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -106,11 +107,11 @@ export default function LectraVsGoodnotesPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Get Lectra Notes for free
             </StoreLink>
-            <a href="#table" className="btn btn-line">
+            <a href="#table" className={buttonClasses("secondary", "lg")}>
               See the comparison
             </a>
           </>
@@ -264,7 +265,7 @@ export default function LectraVsGoodnotesPage() {
             <StoreLink
               store="app-store"
               href={LECTRA_APP_STORE_CAMPAIGN_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Lectra Notes on the App Store
             </StoreLink>

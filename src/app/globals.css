@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #241e18;
+  --color-ink-soft: #3d352d;
+  --color-paper: #ffffff;
+  --color-wash: #f6f5f2;
+  --color-stone: #6b635b;
+  --color-line: #e7e3dd;
+  --color-red: #c42b26;
+  --color-red-deep: #a3221e;
+  --color-red-tint: #fbeceb;
+  --color-pen: #2447c9;
+  --color-marker: #fde68a;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), "Bradley Hand", cursive;
+
+  --animate-caret: caret 1.05s steps(1) infinite;
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-red-tint);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  kbd {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  /* Inline text link. */
+  .link {
+    color: var(--color-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 150ms;
+  }
+  .link:hover {
+    text-decoration-color: var(--color-red);
+  }
+
+  /* Long-form reading text: guides, comparisons, newsroom posts, legal pages.
+     Wrap plain semantic markup in .prose-scope and it is styled here. */
+  .prose-scope {
+    color: var(--color-ink-soft);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .prose-scope > :first-child {
+    margin-top: 0;
+  }
+  .prose-scope h2 {
+    margin: 3.25rem 0 1rem;
+    color: var(--color-ink);
+    font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    scroll-margin-top: 6rem;
+  }
+  .prose-scope h3 {
+    margin: 2.25rem 0 0.75rem;
+    color: var(--color-ink);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    scroll-margin-top: 6rem;
+  }
+  .prose-scope h4 {
+    margin: 1.75rem 0 0.5rem;
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .prose-scope p,
+  .prose-scope ul,
+  .prose-scope ol,
+  .prose-scope blockquote,
+  .prose-scope dl {
+    margin: 0 0 1.15rem;
+  }
+  .prose-scope ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .prose-scope ol {
+    padding-left: 1.4rem;
+    list-style: decimal;
+  }
+  .prose-scope li {
+    margin: 0.4rem 0;
+    padding-left: 0.2rem;
+  }
+  .prose-scope li::marker {
+    color: var(--color-red);
+  }
+  .prose-scope a:not([class]) {
+    color: var(--color-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-line);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .prose-scope a:not([class]):hover {
+    text-decoration-color: var(--color-red);
+  }
+  .prose-scope strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .prose-scope code {
+    border-radius: 6px;
+    background: var(--color-wash);
+    padding: 0.1em 0.35em;
+    color: var(--color-ink);
+    font-size: 0.9em;
+  }
+  .prose-scope blockquote {
+    border-left: 3px solid var(--color-red);
+    padding-left: 1.1rem;
+    color: var(--color-ink);
+  }
+  .prose-scope hr {
+    margin: 2.5rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .prose-scope table:not([class]) {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .prose-scope table:not([class]) th,
+  .prose-scope table:not([class]) td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.6rem 0.75rem 0.6rem 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-scope table:not([class]) th {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

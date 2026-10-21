@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import PenMark from "@/components/motion/PenMark";
+import { PenCircle, PenNote } from "./pen";
 
 export type NotebookCell = {
   /** Execution count shown in the margin. */
@@ -12,10 +12,22 @@ export type NotebookCell = {
   circled?: boolean;
 };
 
+const panel =
+  "overflow-hidden rounded-[22px] bg-paper shadow-[0_24px_60px_-24px_rgba(36,30,24,0.35)] ring-1 ring-line";
+
+/** A keyword inside a notebook code cell. */
+export function Kw({ children }: { children: ReactNode }) {
+  return <span className="text-pen">{children}</span>;
+}
+
+/** A string literal inside a notebook code cell. */
+export function Str({ children }: { children: ReactNode }) {
+  return <span className="text-red-deep">{children}</span>;
+}
+
 /**
- * A page of notebook paper with code cells on it, the way a Lectra Notes
- * notebook sits beside handwritten work. The red margin rule, the circled
- * output, and the note in the margin are the pen.
+ * A Lectra Notes notebook with a couple of code cells and what they drew,
+ * marked up in pen the way it sits beside handwritten work.
  */
 export default function NotebookSheet({
   file,
@@ -31,48 +43,36 @@ export default function NotebookSheet({
   label: string;
 }) {
   return (
-    <figure className="nb" aria-label={label} style={{ margin: 0 }}>
-      <div className="paper nb-paper">
-        <div className="nb-bar">
-          <span className="nb-file">{file}</span>
-          <span className="nb-kernel">{kernel}</span>
+    <figure aria-label={label} className="m-0">
+      <div className={panel}>
+        <div className="flex items-center justify-between gap-3 border-b border-line bg-wash px-5 py-3 sm:px-6">
+          <span className="min-w-0 truncate text-[13px] font-semibold text-ink">{file}</span>
+          <span className="shrink-0 text-[12.5px] text-stone">{kernel}</span>
         </div>
 
-        {cells.map((cell) => (
-          <div key={cell.n}>
-            <div className="nb-row">
-              <span className="nb-n">[{cell.n}]</span>
-              <pre className="nb-code">
-                <code>{cell.code}</code>
-              </pre>
-            </div>
-            {cell.out ? (
-              <div className="nb-row">
-                <span className="nb-n" aria-hidden="true" />
-                <div className="nb-out">
-                  {cell.out}
-                  {cell.circled ? (
-                    <PenMark
-                      kind="circle"
-                      inset="-10px -34px -13px -14px"
-                      delay={0.35}
-                    />
-                  ) : null}
-                </div>
+        <div className="space-y-4 px-4 pb-1 pt-5 sm:px-5">
+          {cells.map((cell) => (
+            <div key={cell.n} className="space-y-3">
+              <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-2">
+                <span className="pt-2.5 font-mono text-[12px] text-stone">[{cell.n}]</span>
+                <pre className="min-w-0 whitespace-pre-wrap rounded-[10px] bg-wash px-3.5 py-2.5 font-mono text-[12.5px] leading-[1.6] text-ink [overflow-wrap:anywhere] sm:text-[13px]">
+                  <code>{cell.code}</code>
+                </pre>
               </div>
-            ) : null}
-          </div>
-        ))}
+              {cell.out ? (
+                <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-2">
+                  <span aria-hidden="true" />
+                  <div className="relative min-w-0">
+                    {cell.out}
+                    {cell.circled ? <PenCircle /> : null}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
 
-        {note ? (
-          <p className="nb-note">
-            <svg viewBox="0 0 34 30" aria-hidden="true">
-              <path d="M31 27C22 26 12 20 7 5" />
-              <path d="M2.5 10.5 6.8 4.2l6 3.4" />
-            </svg>
-            <span>{note}</span>
-          </p>
-        ) : null}
+        {note ? <PenNote>{note}</PenNote> : <div className="h-5" />}
       </div>
     </figure>
   );
@@ -95,29 +95,34 @@ export function NotebookBars({
   const barWidth = slot * 0.52;
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className="rounded-[10px] px-1 py-2 ring-1 ring-inset ring-line">
       <svg
-        className="nb-chart"
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-label={label}
+        className="mx-auto block h-auto w-full max-w-[340px]"
       >
-        <line className="axis" x1="24" y1={base} x2={width} y2={base} />
-        <line className="axis" x1="24" y1="8" x2="24" y2={base} />
+        <line x1="24" y1={base} x2={width} y2={base} className="stroke-line" strokeWidth="1.5" />
+        <line x1="24" y1="8" x2="24" y2={base} className="stroke-line" strokeWidth="1.5" />
         {bars.map((bar, index) => {
           const h = (bar.value / max) * (base - 18);
           const x = 30 + index * slot + (slot - barWidth) / 2;
           return (
             <g key={bar.name}>
               <rect
-                className={index === top ? "bar bar-hi" : "bar"}
                 x={x}
                 y={base - h}
                 width={barWidth}
                 height={h}
                 rx="2"
+                className={index === top ? "fill-ink" : "fill-[#ddd6cc]"}
               />
-              <text x={x + barWidth / 2} y={base + 16} textAnchor="middle">
+              <text
+                x={x + barWidth / 2}
+                y={base + 17}
+                textAnchor="middle"
+                className="fill-stone font-sans text-[11px]"
+              >
                 {bar.name}
               </text>
             </g>

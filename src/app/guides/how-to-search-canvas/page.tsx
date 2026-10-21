@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import PenMark from "@/components/motion/PenMark";
+import { buttonClasses } from "@/components/buttons";
+import { ChromeIcon } from "@/components/icons";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import ComparisonTable from "@/components/site/ComparisonTable";
@@ -18,7 +19,7 @@ import {
 import { LIVE_USERS, VERIFIED_ON } from "@/lib/usage";
 import { breadcrumbSchema, guideArticleSchema } from "@/lib/structured-data";
 
-import GuideArticle, { GuideClosing, GuideSection } from "../_guide/GuideArticle";
+import GuideArticle, { GuideClosing, GuideSection, GuideWide } from "../_guide/GuideArticle";
 
 const guide = getGuide("how-to-search-canvas");
 const path = guidePath(guide);
@@ -129,15 +130,11 @@ export default function HowToSearchCanvasGuidePage() {
         lede={
           <p>
             Canvas has no built-in search across courses. Canvas Smart Search, where
-            your school has turned it on, searches{" "}
-            <span className="pen-phrase">
-              one course at a time
-              <PenMark kind="underline" inset="auto -4px -12px -4px" delay={0.6} className="pen-line" />
-            </span>
-            . This guide covers what Canvas can find today, the manual routine that
-            works without installing anything, how to dig an old assignment or grade
-            out of a finished course, and the two kinds of extension people reach for
-            once the manual routine gets too slow.
+            your school has turned it on, searches one course at a time. This guide
+            covers what Canvas can find today, the manual routine that works without
+            installing anything, how to dig an old assignment or grade out of a
+            finished course, and the two kinds of extension people reach for once
+            the manual routine gets too slow.
           </p>
         }
         outline={outline}
@@ -170,317 +167,307 @@ export default function HowToSearchCanvasGuidePage() {
         }
       >
         <GuideSection id="methods" title="Five ways to find something, side by side">
-          <ComparisonTable
-            caption={`Ways to search Canvas course content, compared on cross-course reach, PDF contents, institutional setup, and cost, checked ${CHECKED_ON}`}
-            columns={[
-              "Searches across courses?",
-              "Searches inside PDFs?",
-              "Needs your school to enable it?",
-              "Cost",
-            ]}
-            rows={[
-              {
-                label: "Canvas Smart Search",
-                cells: [
-                  "No. It lives in one course's navigation and searches that course.",
-                  "No. It covers assignments, announcements, discussions, and pages, and files are not on Instructure's list.",
-                  "Yes. An admin has to opt the account or sub-account in.",
-                  // verify: whether IgniteAI carries an add-on cost for the
-                  // institution is discussed but not settled in Instructure's
-                  // community; nothing indicates a student-side charge.
-                  "Nothing for you. Whether the institution pays for it is between the institution and Instructure.",
-                ],
-              },
-              {
-                label: "All Courses and Find on page",
-                cells: [
-                  "Only the list of course names, not what is inside them.",
-                  "No. Find on page reads what is drawn on screen and nothing more.",
-                  "No.",
-                  "Free.",
-                ],
-              },
-              {
-                label: "Per-course Files search",
-                cells: [
-                  "No, though the All My Files view widens it to file names across your courses.",
-                  "No, it searches file names only.",
-                  "No.",
-                  "Free.",
-                ],
-              },
-              {
-                label: "Bulk-download extension",
-                cells: [
-                  "It downloads course by course, and the searching happens on your computer afterwards.",
-                  "Whatever your computer's own file search can read once the files are local.",
-                  "No, but check your institution's policy on bulk downloading.",
-                  "Free listings exist.",
-                ],
-              },
-              {
-                label: SCOPE_PRODUCT_NAME,
-                cells: [
-                  "Yes, across the courses you have indexed.",
-                  "Yes, including scanned pages.",
-                  "No.",
-                  "Free.",
-                ],
-              },
-            ]}
-          />
+          <GuideWide>
+            <ComparisonTable
+              caption={`Ways to search Canvas course content, compared on cross-course reach, PDF contents, institutional setup, and cost, checked ${CHECKED_ON}`}
+              columns={[
+                "Searches across courses?",
+                "Searches inside PDFs?",
+                "Needs your school to enable it?",
+                "Cost",
+              ]}
+              rows={[
+                {
+                  label: "Canvas Smart Search",
+                  cells: [
+                    "No. It lives in one course's navigation and searches that course.",
+                    "No. It covers assignments, announcements, discussions, and pages, and files are not on Instructure's list.",
+                    "Yes. An admin has to opt the account or sub-account in.",
+                    // verify: whether IgniteAI carries an add-on cost for the
+                    // institution is discussed but not settled in Instructure's
+                    // community; nothing indicates a student-side charge.
+                    "Nothing for you. Whether the institution pays for it is between the institution and Instructure.",
+                  ],
+                },
+                {
+                  label: "All Courses and Find on page",
+                  cells: [
+                    "Only the list of course names, not what is inside them.",
+                    "No. Find on page reads what is drawn on screen and nothing more.",
+                    "No.",
+                    "Free.",
+                  ],
+                },
+                {
+                  label: "Per-course Files search",
+                  cells: [
+                    "No, though the All My Files view widens it to file names across your courses.",
+                    "No, it searches file names only.",
+                    "No.",
+                    "Free.",
+                  ],
+                },
+                {
+                  label: "Bulk-download extension",
+                  cells: [
+                    "It downloads course by course, and the searching happens on your computer afterwards.",
+                    "Whatever your computer's own file search can read once the files are local.",
+                    "No, but check your institution's policy on bulk downloading.",
+                    "Free listings exist.",
+                  ],
+                },
+                {
+                  label: SCOPE_PRODUCT_NAME,
+                  cells: [
+                    "Yes, across the courses you have indexed.",
+                    "Yes, including scanned pages.",
+                    "No.",
+                    "Free.",
+                  ],
+                },
+              ]}
+            />
+          </GuideWide>
         </GuideSection>
 
         <GuideSection id="what-canvas-can-search" title="What Canvas can search today">
-          <div className="prose">
-            <p>
-              Canvas ships with two search boxes, and neither one crosses a course
-              boundary.
-            </p>
-            <p>
-              Smart Search, which Instructure now lists as IgniteAI Search for Courses,
-              appears as a link in a course&apos;s navigation menu. Type a phrase and it
-              returns assignments, announcements, discussions, and pages from that
-              course, ranked by meaning so the exact wording does not have to match,
-              with a filter for narrowing to one content type. Two things limit it.
-              The first is that it is opt-in. Instructure&apos;s guide states that it
-              applies to institutions that have opted in to the Search for Courses
-              feature option, and that if your interface looks different, the feature
-              has not been enabled at your school. The second is that it covers one
-              course. Instructure&apos;s developer documentation describes a single
-              course-scoped search endpoint with no account-wide equivalent, and it
-              still marks the feature as beta with limited availability.
-            </p>
-            <p>
-              The Files page in each course has its own search box, which you reach
-              from the Files link in course navigation. Canvas documents Files as
-              searchable by file name, so it will find &ldquo;lecture12.pdf&rdquo; and
-              it will not find the word &ldquo;chemiosmosis&rdquo; printed on page four
-              of it. The All My Files button widens that view to the file names across
-              every course you are enrolled in, plus your own uploads. That is the
-              closest thing Canvas has to a cross-course search, and it is still names
-              only.
-            </p>
-            <p>
-              Neither one reaches the text inside a PDF, a slide deck, or a scanned
-              handout, which is where most of the answers you are looking for
-              actually live.
-            </p>
-          </div>
+          <p>
+            Canvas ships with two search boxes, and neither one crosses a course
+            boundary.
+          </p>
+          <p>
+            Smart Search, which Instructure now lists as IgniteAI Search for Courses,
+            appears as a link in a course&apos;s navigation menu. Type a phrase and it
+            returns assignments, announcements, discussions, and pages from that
+            course, ranked by meaning so the exact wording does not have to match,
+            with a filter for narrowing to one content type. Two things limit it.
+            The first is that it is opt-in. Instructure&apos;s guide states that it
+            applies to institutions that have opted in to the Search for Courses
+            feature option, and that if your interface looks different, the feature
+            has not been enabled at your school. The second is that it covers one
+            course. Instructure&apos;s developer documentation describes a single
+            course-scoped search endpoint with no account-wide equivalent, and it
+            still marks the feature as beta with limited availability.
+          </p>
+          <p>
+            The Files page in each course has its own search box, which you reach
+            from the Files link in course navigation. Canvas documents Files as
+            searchable by file name, so it will find &ldquo;lecture12.pdf&rdquo; and
+            it will not find the word &ldquo;chemiosmosis&rdquo; printed on page four
+            of it. The All My Files button widens that view to the file names across
+            every course you are enrolled in, plus your own uploads. That is the
+            closest thing Canvas has to a cross-course search, and it is still names
+            only.
+          </p>
+          <p>
+            Neither one reaches the text inside a PDF, a slide deck, or a scanned
+            handout, which is where most of the answers you are looking for
+            actually live.
+          </p>
         </GuideSection>
 
         <GuideSection id="manual" title="The manual way: All Courses, then Find on page">
-          <div className="prose">
-            <p>
-              This needs no installs and no permissions, and it works on every Canvas
-              instance. It is also slow, and it helps to know why before you start.
-            </p>
-            <ol>
-              <li>
-                Click <strong>Courses</strong> in the global navigation menu on the
-                left, then <strong>All Courses</strong>.
-              </li>
-              <li>
-                Read past the current term. Canvas groups this page into All Courses,{" "}
-                <strong>Past Enrollments</strong>, Future Enrollments, and Groups, so
-                last spring&apos;s course is under Past Enrollments and not at the top.
-              </li>
-              <li>
-                Open the course you think holds the file. A past-enrollment course
-                opens as a read-only archive, which means you can read it but you
-                cannot post in it.
-              </li>
-              <li>
-                Go to <strong>Files</strong> or <strong>Modules</strong>, whichever
-                your instructor actually used. Many instructors post everything in
-                Modules and never touch Files.
-              </li>
-              <li>
-                Expand every collapsed module, then press <strong>Ctrl+F</strong> (
-                <strong>Cmd+F</strong> on a Mac) and search the page.
-              </li>
-              <li>Repeat for the next course.</li>
-            </ol>
-            <p>
-              The friction is real. Find on page only matches text the browser has
-              already drawn, so a collapsed module, a folder you have not opened, and
-              the contents of every attachment are all invisible to it. In practice
-              you are searching a table of contents, and the material itself stays
-              out of reach. For one half-remembered assignment title this is fine.
-              For &ldquo;which week did she define the effective population
-              size&rdquo; it takes hours.
-            </p>
-          </div>
+          <p>
+            This needs no installs and no permissions, and it works on every Canvas
+            instance. It is also slow, and it helps to know why before you start.
+          </p>
+          <ol>
+            <li>
+              Click <strong>Courses</strong> in the global navigation menu on the
+              left, then <strong>All Courses</strong>.
+            </li>
+            <li>
+              Read past the current term. Canvas groups this page into All Courses,{" "}
+              <strong>Past Enrollments</strong>, Future Enrollments, and Groups, so
+              last spring&apos;s course is under Past Enrollments and not at the top.
+            </li>
+            <li>
+              Open the course you think holds the file. A past-enrollment course
+              opens as a read-only archive, which means you can read it but you
+              cannot post in it.
+            </li>
+            <li>
+              Go to <strong>Files</strong> or <strong>Modules</strong>, whichever
+              your instructor actually used. Many instructors post everything in
+              Modules and never touch Files.
+            </li>
+            <li>
+              Expand every collapsed module, then press <strong>Ctrl+F</strong> (
+              <strong>Cmd+F</strong> on a Mac) and search the page.
+            </li>
+            <li>Repeat for the next course.</li>
+          </ol>
+          <p>
+            The friction is real. Find on page only matches text the browser has
+            already drawn, so a collapsed module, a folder you have not opened, and
+            the contents of every attachment are all invisible to it. In practice
+            you are searching a table of contents, and the material itself stays
+            out of reach. For one half-remembered assignment title this is fine.
+            For &ldquo;which week did she define the effective population
+            size&rdquo; it takes hours.
+          </p>
         </GuideSection>
 
         <GuideSection id="old-work" title="Finding an old assignment or grade">
-          <div className="prose">
-            <p>
-              A finished course does not disappear. It moves to Past Enrollments on
-              the All Courses page, where Instructure describes a concluded course as a
-              read-only archive. You can still view course material and grades there,
-              but you can no longer participate. Open the course and two pages are
-              useful.
-            </p>
-            <ul>
-              <li>
-                <strong>Grades</strong>, from the course navigation menu, shows what a
-                submission scored and any comments left on it.
-              </li>
-              <li>
-                <strong>Assignments</strong> lists every assignment the course expected
-                of you and the points each was worth. It is the fastest way to recover
-                a title you half-remember, and from there you can follow it through to
-                the submission.
-              </li>
-            </ul>
-            <p>
-              One caveat before you panic: Instructure notes that institutions may
-              restrict access to concluded courses after the course has ended. If a
-              course is missing from Past Enrollments entirely, that is usually a
-              school setting and not something you did, so your registrar or help desk
-              is the place to ask. Anything you want to keep permanently is worth
-              downloading while the course is still open to you.
-            </p>
-          </div>
+          <p>
+            A finished course does not disappear. It moves to Past Enrollments on
+            the All Courses page, where Instructure describes a concluded course as a
+            read-only archive. You can still view course material and grades there,
+            but you can no longer participate. Open the course and two pages are
+            useful.
+          </p>
+          <ul>
+            <li>
+              <strong>Grades</strong>, from the course navigation menu, shows what a
+              submission scored and any comments left on it.
+            </li>
+            <li>
+              <strong>Assignments</strong> lists every assignment the course expected
+              of you and the points each was worth. It is the fastest way to recover
+              a title you half-remember, and from there you can follow it through to
+              the submission.
+            </li>
+          </ul>
+          <p>
+            One caveat before you panic: Instructure notes that institutions may
+            restrict access to concluded courses after the course has ended. If a
+            course is missing from Past Enrollments entirely, that is usually a
+            school setting and not something you did, so your registrar or help desk
+            is the place to ask. Anything you want to keep permanently is worth
+            downloading while the course is still open to you.
+          </p>
         </GuideSection>
 
         <GuideSection id="downloaders" title="Bulk-download extensions as a workaround">
-          <div className="prose">
-            <p>
-              A whole category of browser extension exists to walk through a
-              course&apos;s modules, pages, and assignments and pull every attachment
-              down in one pass, keeping the folder structure. The searching then
-              happens on your own computer, where Spotlight or File Explorer can read
-              inside the documents, which is the one thing Canvas cannot do.
-            </p>
-            <p>
-              To give a sense of the category, and not as a recommendation: the Chrome
-              Web Store listing for Canvas Files Downloader, read on {CHECKED_ON},
-              showed 3,000 users and a 3.4 rating from 23 ratings, version 1.3.0, last
-              updated September 27, 2025. We have not tested it. Several similar
-              extensions exist with smaller listings, and we are naming the one whose
-              listing we actually read.
-            </p>
-            <p>Here are the trade-offs.</p>
-            <ul>
-              <li>It is still course by course, so six courses means six passes.</li>
-              <li>
-                A download is a snapshot. The moment an instructor posts a revised
-                problem set, your local copy is out of date and nothing tells you.
-              </li>
-              <li>
-                You get a folder instead of an index. Finding the file becomes your
-                operating system&apos;s job, and scanned handouts with no text layer
-                stay unsearchable.
-              </li>
-              <li>
-                An extension that downloads your course files can read your Canvas
-                session. That is a real permission to hand over, so read{" "}
-                <Link href="/guides/canvas-extension-safety">
-                  what a Canvas extension can see
-                </Link>{" "}
-                before you install any of them, ours included.
-              </li>
-              <li>
-                Check your institution&apos;s policy. Some schools have rules about
-                bulk-downloading course materials, particularly licensed readings.
-              </li>
-            </ul>
-          </div>
+          <p>
+            A whole category of browser extension exists to walk through a
+            course&apos;s modules, pages, and assignments and pull every attachment
+            down in one pass, keeping the folder structure. The searching then
+            happens on your own computer, where Spotlight or File Explorer can read
+            inside the documents, which is the one thing Canvas cannot do.
+          </p>
+          <p>
+            To give a sense of the category, and not as a recommendation: the Chrome
+            Web Store listing for Canvas Files Downloader, read on {CHECKED_ON},
+            showed 3,000 users and a 3.4 rating from 23 ratings, version 1.3.0, last
+            updated September 27, 2025. We have not tested it. Several similar
+            extensions exist with smaller listings, and we are naming the one whose
+            listing we actually read.
+          </p>
+          <p>Here are the trade-offs.</p>
+          <ul>
+            <li>It is still course by course, so six courses means six passes.</li>
+            <li>
+              A download is a snapshot. The moment an instructor posts a revised
+              problem set, your local copy is out of date and nothing tells you.
+            </li>
+            <li>
+              You get a folder instead of an index. Finding the file becomes your
+              operating system&apos;s job, and scanned handouts with no text layer
+              stay unsearchable.
+            </li>
+            <li>
+              An extension that downloads your course files can read your Canvas
+              session. That is a real permission to hand over, so read{" "}
+              <Link href="/guides/canvas-extension-safety">
+                what a Canvas extension can see
+              </Link>{" "}
+              before you install any of them, ours included.
+            </li>
+            <li>
+              Check your institution&apos;s policy. Some schools have rules about
+              bulk-downloading course materials, particularly licensed readings.
+            </li>
+          </ul>
         </GuideSection>
 
         <GuideSection id="scope" title="A cross-course search extension">
-          <div className="prose">
-            <p>{SCOPE_DEFINITION}</p>
-            <p>
-              What sets it apart from everything above is that it holds more than one
-              course at a time and reads what is inside the documents, including
-              scanned pages, so a phrase from a lecture slide is findable alongside
-              the assignment that referenced it. Ask a question and it answers from
-              the materials your instructors posted, with a link back to the page or
-              file each part of the answer came from.
-            </p>
-            <p>It also falls short in ways that matter.</p>
-            <ul>
-              <li>
-                It has to index a course before it can search it. A course you have
-                never opened with Scope running is not in the index, and the first
-                pass through a term of material takes a few minutes.
-              </li>
-              <li>
-                It can only reach courses you can already open yourself. If your
-                school has closed a concluded course, Scope sees exactly what you see,
-                which is nothing.
-              </li>
-              <li>
-                No app syncs with Canvas automatically. Scope indexes what you visit,
-                and it does not mirror your account in the background.
-              </li>
-              <li>
-                Scope answers questions from the materials your instructors posted and
-                links every answer to its source. It does not take quizzes, write
-                submissions, or interact with Canvas quiz logs.
-              </li>
-              <li>
-                It is small. {LIVE_USERS} people were using Scope and Lectra Notes
-                combined when we last counted by hand, on {LIVE_USERS_CHECKED_ON}, and
-                we{" "}
-                <Link href="/newsroom/how-we-count-people-using-scope">
-                  show our working
-                </Link>
-                . The bulk downloaders above have more users than we do.
-              </li>
-            </ul>
-            <p>
-              On privacy, here are the two honest sentences. Search and indexing run
-              entirely on your device. AI answers try Chrome&apos;s on-device model
-              first, and when it is unavailable, an optional, clearly marked cloud
-              fallback is used.
-            </p>
-          </div>
+          <p>{SCOPE_DEFINITION}</p>
+          <p>
+            What sets it apart from everything above is that it holds more than one
+            course at a time and reads what is inside the documents, including
+            scanned pages, so a phrase from a lecture slide is findable alongside
+            the assignment that referenced it. Ask a question and it answers from
+            the materials your instructors posted, with a link back to the page or
+            file each part of the answer came from.
+          </p>
+          <p>It also falls short in ways that matter.</p>
+          <ul>
+            <li>
+              It has to index a course before it can search it. A course you have
+              never opened with Scope running is not in the index, and the first
+              pass through a term of material takes a few minutes.
+            </li>
+            <li>
+              It can only reach courses you can already open yourself. If your
+              school has closed a concluded course, Scope sees exactly what you see,
+              which is nothing.
+            </li>
+            <li>
+              No app syncs with Canvas automatically. Scope indexes what you visit,
+              and it does not mirror your account in the background.
+            </li>
+            <li>
+              Scope answers questions from the materials your instructors posted and
+              links every answer to its source. It does not take quizzes, write
+              submissions, or interact with Canvas quiz logs.
+            </li>
+            <li>
+              It is small. {LIVE_USERS} people were using Scope and Lectra Notes
+              combined when we last counted by hand, on {LIVE_USERS_CHECKED_ON}, and
+              we{" "}
+              <Link href="/newsroom/how-we-count-people-using-scope">
+                show our working
+              </Link>
+              . The bulk downloaders above have more users than we do.
+            </li>
+          </ul>
+          <p>
+            On privacy, here are the two honest sentences. Search and indexing run
+            entirely on your device. AI answers try Chrome&apos;s on-device model
+            first, and when it is unavailable, an optional, clearly marked cloud
+            fallback is used.
+          </p>
         </GuideSection>
 
         <GuideSection id="brightspace" title="On Brightspace">
-          <div className="prose">
-            <p>
-              Brightspace has the same problem. Asked whether an instructor could
-              search every course at once, D2L answered in its own community that
-              there is no global content search in Brightspace. You can search topic
-              names within a course, and for anything beyond that the suggested
-              workaround was the browser&apos;s own find, which only matches text
-              already rendered on the page.{" "}
-              {/* verify: a later community reply says the search topics box
-                  reached the New Content Experience in a December release, but
-                  does not give the year, so the sentence above stays at the
-                  course level rather than naming an experience. */}
-              So the routine is the one above: open the course, open the module list
-              or the content tree, expand everything, and use Ctrl+F. Scope indexes
-              Brightspace courses the same way it indexes Canvas ones.
-            </p>
-          </div>
+          <p>
+            Brightspace has the same problem. Asked whether an instructor could
+            search every course at once, D2L answered in its own community that
+            there is no global content search in Brightspace. You can search topic
+            names within a course, and for anything beyond that the suggested
+            workaround was the browser&apos;s own find, which only matches text
+            already rendered on the page.{" "}
+            {/* verify: a later community reply says the search topics box
+                reached the New Content Experience in a December release, but
+                does not give the year, so the sentence above stays at the
+                course level rather than naming an experience. */}
+            So the routine is the one above: open the course, open the module list
+            or the content tree, expand everything, and use Ctrl+F. Scope indexes
+            Brightspace courses the same way it indexes Canvas ones.
+          </p>
         </GuideSection>
 
         <GuideSection id="faq" title="Searching Canvas, answered">
-          <FaqList items={faqs} />
+          <div className="my-6">
+            <FaqList items={faqs} />
+          </div>
         </GuideSection>
 
         <GuideSection id="last-verified" title="When this was last checked">
-          <div className="prose">
-            <p>
-              Checked on {CHECKED_ON}. Every Canvas step and limit on this page was
-              read that day from Instructure&apos;s own guides and developer
-              documentation, the Brightspace paragraph from D2L&apos;s community, and
-              the downloader figures from that extension&apos;s Chrome Web Store
-              listing. One thing has changed since this guide was first written:
-              Instructure now lists Smart Search under the name IgniteAI Search for
-              Courses, and its guide was last updated in July 2026. The feature is
-              still opt-in per institution and still scoped to one course. Canvas
-              guides move, and features arrive at different schools at different
-              times, so if a step here no longer matches what you see, tell us and we
-              will correct it.
-            </p>
-          </div>
+          <p>
+            Checked on {CHECKED_ON}. Every Canvas step and limit on this page was
+            read that day from Instructure&apos;s own guides and developer
+            documentation, the Brightspace paragraph from D2L&apos;s community, and
+            the downloader figures from that extension&apos;s Chrome Web Store
+            listing. One thing has changed since this guide was first written:
+            Instructure now lists Smart Search under the name IgniteAI Search for
+            Courses, and its guide was last updated in July 2026. The feature is
+            still opt-in per institution and still scoped to one course. Canvas
+            guides move, and features arrive at different schools at different
+            times, so if a step here no longer matches what you see, tell us and we
+            will correct it.
+          </p>
           <MethodologyNote
             product="scope"
             dateChecked={CHECKED_ON}
@@ -498,8 +485,9 @@ export default function HowToSearchCanvasGuidePage() {
           <StoreLink
             store="chrome-web-store"
             href={CHROME_WEB_STORE_URL}
-            className="btn btn-primary"
+            className={buttonClasses("primary", "lg")}
           >
+            <ChromeIcon className="size-[18px]" />
             Add Scope to Chrome for free
           </StoreLink>
         }

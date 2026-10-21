@@ -34,6 +34,14 @@ const versionedDmgFile = RECEIVER_DMG_PATTERN.source
   .concat("(?:\\.sha256)?");
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
   images: {
     // Every quality a page passes to <Image> must be listed, or the optimizer
     // answers 400 for that request. The product screenshots use 90.
@@ -68,6 +76,10 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/mission", destination: "/direction", permanent: true },
+      // Short product paths, in case anyone types them.
+      { source: "/extension", destination: "/products/extension", permanent: true },
+      { source: "/lectra", destination: "/products/lectra", permanent: true },
+      { source: "/polya", destination: "/products/polya", permanent: true },
       // The student workspace was retired; its entry points now land on the
       // marketing home rather than dead-ending.
       { source: "/account", destination: "/", permanent: true },

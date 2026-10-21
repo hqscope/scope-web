@@ -1,42 +1,24 @@
-"use client";
-
-import { useReducedMotion } from "@/components/motion/useReducedMotion";
-import { useEffect, useState } from "react";
-
-import PenMark from "@/components/motion/PenMark";
-import { useOnScreen } from "@/components/motion/useInView";
+import { CheckIcon } from "@/components/icons";
 
 /* ------------------------------------------------------------------
-   One floor of Agent Workspace, played as paper session cards on the
-   desk. The whole thing is a fixed script: every card has one frame per
-   beat, so the server and the browser render the same first frame, and
-   the loop is the same for every visitor. Beat 0 is a good still (one
-   card working, one thinking, one waiting for you, one done), which is
-   what reduced motion and the server show.
+   One floor of Agent Workspace as a still picture: one session working,
+   one thinking, one waiting for you (circled in red pen), and one done.
+   Decorative and hidden from assistive tech; the sr-only paragraph
+   describes it.
    ------------------------------------------------------------------ */
 
 type Status = "working" | "thinking" | "waiting" | "done";
-
-type Frame = {
-  status: Status;
-  /** What the session is doing, or what it is asking you. */
-  line: string;
-  /** Task progress for working frames, 0 to 100. */
-  progress?: number;
-  /** A short note the pen leaves after you step in. */
-  note?: string;
-};
 
 type Session = {
   id: string;
   agent: string;
   detail: string;
-  frames: Frame[];
+  status: Status;
+  /** What the session is doing, or what it is asking you. */
+  line: string;
+  /** Task progress for working sessions, 0 to 100. */
+  progress?: number;
 };
-
-const BEATS = 12;
-const BEAT_MS = 2600;
-const START_MINUTES = 14 * 60 + 29;
 
 const statusLabel: Record<Status, string> = {
   working: "Working",
@@ -45,258 +27,193 @@ const statusLabel: Record<Status, string> = {
   done: "Done",
 };
 
+const chipTone: Record<Status, string> = {
+  working: "bg-wash text-ink",
+  thinking: "bg-wash text-stone",
+  waiting: "bg-red-tint text-red",
+  done: "bg-wash text-ink",
+};
+
+const dotTone: Record<Status, string> = {
+  working: "bg-pen",
+  thinking: "bg-stone/50",
+  waiting: "bg-red",
+  done: "bg-ink",
+};
+
 const sessions: Session[] = [
   {
     id: "claude",
     agent: "Claude Code",
     detail: "Sonnet",
-    frames: [
-      { status: "working", line: "Editing auth/middleware.ts", progress: 42 },
-      { status: "working", line: "Rewriting the token refresh", progress: 58 },
-      { status: "thinking", line: "Weighing two approaches" },
-      { status: "waiting", line: "Overwrite config.toml?" },
-      { status: "waiting", line: "Overwrite config.toml?" },
-      { status: "working", line: "Running the auth suite", progress: 81, note: "You approved it" },
-      { status: "working", line: "Tidying up the diff", progress: 93 },
-      { status: "done", line: "118 of 118 tests pass. The PR is ready." },
-      { status: "done", line: "118 of 118 tests pass. The PR is ready." },
-      { status: "working", line: "Reading the migration history", progress: 12 },
-      { status: "thinking", line: "Planning the next pass" },
-      { status: "working", line: "Editing auth/session.ts", progress: 30 },
-    ],
+    status: "working",
+    line: "Editing auth/middleware.ts",
+    progress: 42,
   },
   {
     id: "codex",
     agent: "Codex CLI",
     detail: "Codex",
-    frames: [
-      { status: "thinking", line: "Planning the next pass" },
-      { status: "working", line: "Running pytest -q", progress: 20 },
-      { status: "working", line: "Chasing a flaky test", progress: 46 },
-      { status: "working", line: "Chasing a flaky test", progress: 61 },
-      { status: "working", line: "Wiring up the webhook", progress: 77 },
-      { status: "done", line: "244 of 244 green. The PR is ready." },
-      { status: "done", line: "244 of 244 green. The PR is ready." },
-      { status: "working", line: "Writing the changelog entry", progress: 30 },
-      { status: "working", line: "Trimming the fixtures", progress: 55 },
-      { status: "waiting", line: "Push straight to main?" },
-      { status: "waiting", line: "Push straight to main?" },
-      { status: "working", line: "Opening a pull request instead", progress: 70, note: "You said no" },
-    ],
+    status: "thinking",
+    line: "Planning the next pass",
   },
   {
     id: "gemini",
     agent: "Gemini CLI",
     detail: "Flash",
-    frames: [
-      { status: "waiting", line: "Approve the schema change?" },
-      { status: "working", line: "Drafting the migration", progress: 35, note: "You approved it" },
-      { status: "working", line: "Drafting the migration", progress: 52 },
-      { status: "thinking", line: "Sketching the query plan" },
-      { status: "working", line: "Checking the indexes", progress: 70 },
-      { status: "working", line: "Checking the indexes", progress: 84 },
-      { status: "done", line: "Migration written. Take a look." },
-      { status: "done", line: "Migration written. Take a look." },
-      { status: "working", line: "Scanning the schema", progress: 15 },
-      { status: "thinking", line: "Reading the room" },
-      { status: "working", line: "Counting the call sites", progress: 40 },
-      { status: "working", line: "Counting the call sites", progress: 62 },
-    ],
+    status: "waiting",
+    line: "Approve the schema change?",
   },
   {
     id: "subagent",
     agent: "Claude Code",
     detail: "Haiku, a subagent",
-    frames: [
-      { status: "done", line: "Found 14 call sites. Handed back." },
-      { status: "working", line: "Reading src/api", progress: 18 },
-      { status: "working", line: "Reading src/api", progress: 40 },
-      { status: "working", line: "Mapping the webhook handlers", progress: 66 },
-      { status: "thinking", line: "Weighing two approaches" },
-      { status: "waiting", line: "Delete the legacy adapter?" },
-      { status: "waiting", line: "Delete the legacy adapter?" },
-      { status: "working", line: "Removing the legacy adapter", progress: 72, note: "You approved it" },
-      { status: "working", line: "Running the webhook tests", progress: 90 },
-      { status: "done", line: "All webhook tests pass. Handed back." },
-      { status: "done", line: "All webhook tests pass. Handed back." },
-      { status: "thinking", line: "Planning the next pass" },
-    ],
+    status: "done",
+    line: "Found 14 call sites. Handed back.",
   },
 ];
 
 const floors = ["payments-api", "web-client", "infra"];
 
-/** What changed at each beat, for the log under the cards. */
-function eventsAt(beat: number): string[] {
-  const previous = (beat - 1 + BEATS) % BEATS;
-  const events: string[] = [];
+const log = [
+  { time: "14:29", text: "Gemini CLI (Flash) is asking: Approve the schema change?" },
+  { time: "14:29", text: "Claude Code (Haiku) finished. Found 14 call sites. Handed back." },
+];
 
-  for (const session of sessions) {
-    const now = session.frames[beat];
-    const before = session.frames[previous];
-    const name = `${session.agent} (${session.detail.split(",")[0]})`;
+const waitingCount = sessions.filter((session) => session.status === "waiting").length;
 
-    if (now.status === "waiting" && before.status !== "waiting") {
-      events.push(`${name} is asking: ${now.line}`);
-    } else if (now.status === "done" && before.status !== "done") {
-      events.push(`${name} finished. ${now.line}`);
-    } else if (now.note && before.status === "waiting") {
-      events.push(`${name} is back to work.`);
-    }
-  }
-
-  return events;
-}
-
-/** A minute passes on the board's clock with every beat played. */
-function clock(played: number) {
-  const minutes = START_MINUTES + played;
-  const hours = Math.floor(minutes / 60) % 24;
-  return `${hours}:${String(minutes % 60).padStart(2, "0")}`;
-}
-
-/** The last few things that happened, newest first. */
-function logAt(visits: number) {
-  const lines: { key: string; time: string; text: string }[] = [];
-
-  for (let step = 0; step < BEATS && lines.length < 3; step++) {
-    const absolute = visits - step;
-    if (absolute < 0) break;
-    const at = ((absolute % BEATS) + BEATS) % BEATS;
-    for (const text of eventsAt(at)) {
-      if (lines.length < 3) lines.push({ key: `${absolute}-${text}`, time: clock(absolute), text });
-    }
-  }
-
-  if (lines.length === 0) {
-    lines.push({ key: "start", time: clock(visits), text: "Four sessions on this floor." });
-  }
-
-  return lines;
-}
-
-function StatusChip({ status }: { status: Status }) {
+/** A loose loop of red pen around the card that needs you. */
+function PenCircle() {
   return (
-    <span className="aw-status" data-status={status}>
-      <span className="aw-status-dot" aria-hidden="true" />
-      {statusLabel[status]}
-    </span>
+    <svg
+      viewBox="0 0 200 100"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute -left-3 -top-3 h-[calc(100%_+_1.5rem)] w-[calc(100%_+_1.5rem)] text-red"
+    >
+      <path
+        d="M 22 4 C 70 1, 140 2, 186 4 C 197 5, 199 12, 198 30 C 197 55, 199 78, 196 92 C 194 98, 186 99, 170 98 C 120 97, 70 99, 22 97 C 8 96, 2 92, 2 76 C 1 55, 3 30, 3 16 C 3 6, 10 2, 34 2 C 50 1.5, 64 2, 80 3.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
   );
 }
 
-function SessionCard({ session, frame }: { session: Session; frame: Frame }) {
-  const waiting = frame.status === "waiting";
+function SessionCard({ session }: { session: Session }) {
+  const { status } = session;
 
   return (
-    <li className="aw-card" data-status={frame.status}>
-      {waiting ? (
-        <PenMark key={frame.line} kind="circle" play inset="-14px -10px -16px -12px" />
-      ) : null}
+    <li className="relative rounded-2xl bg-paper p-4 ring-1 ring-line">
+      {status === "waiting" ? <PenCircle /> : null}
 
-      <div className="aw-card-top">
-        <p className="aw-card-agent">
-          <strong>{session.agent}</strong>
-          <span>{session.detail}</span>
+      <div className="flex items-start justify-between gap-3">
+        <p className="min-w-0">
+          <strong className="block truncate text-[13.5px] font-semibold text-ink">
+            {session.agent}
+          </strong>
+          <span className="block truncate text-[11.5px] text-stone">{session.detail}</span>
         </p>
-        <StatusChip status={frame.status} />
+        <span
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-semibold ${chipTone[status]}`}
+        >
+          <span className={`size-1.5 rounded-full ${dotTone[status]}`} />
+          {statusLabel[status]}
+        </span>
       </div>
 
-      <p className="aw-card-line">{frame.line}</p>
+      <p className="mt-3 text-[14px] leading-[1.4] text-ink">{session.line}</p>
 
-      <div className="aw-card-foot">
-        {waiting ? (
-          <span className="aw-ask">
-            <span className="aw-ask-yes">Approve</span>
-            <span className="aw-ask-no">Deny</span>
+      <div className="mt-4 flex min-h-7 items-center">
+        {status === "waiting" ? (
+          <span className="flex gap-2">
+            <span className="rounded-full bg-ink px-3 py-1.5 text-[12px] font-semibold text-white">
+              Approve
+            </span>
+            <span className="rounded-full px-3 py-1.5 text-[12px] font-semibold text-ink ring-1 ring-line">
+              Deny
+            </span>
           </span>
-        ) : frame.status === "done" ? (
-          <span className="aw-card-done">Ready for review</span>
-        ) : frame.status === "thinking" ? (
-          <span className="aw-dots" aria-hidden="true">
-            <i />
-            <i />
-            <i />
+        ) : status === "done" ? (
+          <span className="inline-flex items-center gap-2 text-[12.5px] font-medium text-stone">
+            <span className="inline-flex size-4 items-center justify-center rounded-full bg-ink text-white">
+              <CheckIcon className="size-2.5" />
+            </span>
+            Ready for review
+          </span>
+        ) : status === "thinking" ? (
+          <span className="flex gap-1.5">
+            <span className="size-1.5 rounded-full bg-stone/50" />
+            <span className="size-1.5 rounded-full bg-stone/50" />
+            <span className="size-1.5 rounded-full bg-stone/50" />
           </span>
         ) : (
-          <span className="aw-progress">
-            <span className="aw-progress-bar">
-              <span style={{ width: `${frame.progress ?? 0}%` }} />
+          <span className="flex w-full items-center gap-3">
+            <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-wash">
+              <span
+                className="block h-full rounded-full bg-ink"
+                style={{ width: `${session.progress ?? 0}%` }}
+              />
             </span>
-            <span className="aw-progress-num">{frame.progress ?? 0}%</span>
+            <span className="text-[12px] font-medium tabular-nums text-stone">
+              {session.progress ?? 0}%
+            </span>
           </span>
         )}
-        {frame.note ? <span className="aw-card-note">{frame.note}</span> : null}
       </div>
     </li>
   );
 }
 
 export default function SessionBoard() {
-  const reduceMotion = useReducedMotion();
-  const [rootRef, onScreen] = useOnScreen<HTMLDivElement>("80px");
-  const [pageVisible, setPageVisible] = useState(true);
-  // Beats played so far. The frame on screen is visits % BEATS.
-  const [visits, setVisits] = useState(0);
-
-  useEffect(() => {
-    const update = () => setPageVisible(document.visibilityState === "visible");
-    update();
-    document.addEventListener("visibilitychange", update);
-    return () => document.removeEventListener("visibilitychange", update);
-  }, []);
-
-  // One timer, and only while someone can see the board.
-  const running = !reduceMotion && onScreen && pageVisible;
-
-  useEffect(() => {
-    if (!running) return;
-    const timer = window.setTimeout(() => setVisits((count) => count + 1), BEAT_MS);
-    return () => window.clearTimeout(timer);
-  }, [running, visits]);
-
-  const beat = reduceMotion ? 0 : visits % BEATS;
-  const frames = sessions.map((session) => session.frames[beat]);
-  const waitingCount = frames.filter((frame) => frame.status === "waiting").length;
-  const log = logAt(reduceMotion ? 0 : visits);
-
   return (
-    <div className="aw-board-wrap" ref={rootRef}>
-      <div className="aw-board paper" aria-hidden="true" data-running={running}>
-        <div className="aw-board-head">
-          <ul className="aw-floors">
+    <div>
+      <div
+        aria-hidden="true"
+        className="select-none rounded-[22px] bg-paper p-4 shadow-[0_24px_60px_-24px_rgba(36,30,24,0.35)] ring-1 ring-line sm:p-6"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <ul className="flex flex-wrap gap-2">
             {floors.map((floor, index) => (
-              <li key={floor} className={index === 0 ? "chip chip-pen" : "chip"}>
+              <li
+                key={floor}
+                className={`rounded-full px-3 py-1 text-[12.5px] font-semibold ${
+                  index === 0 ? "bg-ink text-white" : "text-stone ring-1 ring-line"
+                }`}
+              >
                 {floor}
               </li>
             ))}
           </ul>
-          <p className="aw-board-count">
+          <p className="text-[13px] text-stone">
             {`${sessions.length} sessions, ${
               waitingCount > 0 ? `${waitingCount} waiting for you` : "none waiting"
             }`}
           </p>
         </div>
 
-        <ul className="aw-cards">
-          {sessions.map((session, index) => (
-            <SessionCard key={session.id} session={session} frame={frames[index]} />
+        <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {sessions.map((session) => (
+            <SessionCard key={session.id} session={session} />
           ))}
         </ul>
 
-        <ol className="aw-log">
+        <ol className="mt-6 space-y-2 border-t border-line pt-4">
           {log.map((entry) => (
-            <li key={entry.key}>
-              <span className="aw-log-time">{entry.time}</span>
-              <span>{entry.text}</span>
+            <li key={entry.text} className="flex gap-3 text-[12.5px] leading-[1.45]">
+              <span className="shrink-0 tabular-nums text-stone">{entry.time}</span>
+              <span className="min-w-0 text-ink-soft">{entry.text}</span>
             </li>
           ))}
         </ol>
       </div>
 
       <p className="sr-only">
-        A preview of one project floor in Agent Workspace. Four coding sessions from
-        Claude Code, Codex CLI, and Gemini CLI move between working, thinking, waiting
-        for your approval, and done. A session that needs you is circled in red.
+        A preview of one project floor in Agent Workspace. Four coding sessions from Claude
+        Code, Codex CLI, and Gemini CLI move between working, thinking, waiting for your
+        approval, and done. A session that needs you is circled in red.
       </p>
     </div>
   );

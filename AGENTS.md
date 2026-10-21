@@ -2,31 +2,16 @@
 
 Project-specific guidance for AI coding agents.
 
-Public pages use the design system in `docs/DESIGN.md` (paper sheets on a desk, red pen, Schibsted Grotesk), implemented in `src/styles/site.css`, `src/components/site`, and `src/components/motion`. Follow it for any public page. Treat ASTRYX as an opt-in system for new or intentionally migrated app-workspace surfaces; do not rewrite public pages or shared components just to satisfy ASTRYX conventions.
+Public pages use the design system in `docs/DESIGN.md`: white pages, warm ink, Scope red used sparingly, Schibsted Grotesk, drawn product illustrations. It is implemented in `src/app/globals.css` (tokens, `.link`, `.prose-scope`), `src/components/site/*` (page chrome and content primitives), `src/components/page-parts.tsx`, `src/components/buttons.tsx`, and `src/components/mocks/*`. Every public page renders inside `PageShell`. Follow it for any public page.
 
-<!-- ASTRYX:START -->
-Astryx v0.1.2 · 148 components
-CLI: run every command as `npx astryx <cmd>` (shown below as `astryx ...`).
+Backend routes (`src/app/api`, `src/app/auth`, `src/app/login`, `src/proxy.ts`, `src/lib/{auth,data,http,server,supabase}`) are independent of the design. Don't change their behavior as part of page work.
 
-SETUP (once, in your app entry e.g. main.tsx) — without these, components render unstyled:
-  import "@astryxdesign/core/reset.css";
-  import "@astryxdesign/core/astryx.css";
+<!-- BEGIN:nextjs-agent-rules -->
 
-WORKFLOW — discover, don't guess. Before writing UI:
-1. `astryx build "<idea>"` — START HERE: returns a kit (closest [page] + [block]s + [component]s). No args = full playbook.
-2. `astryx template <name> [--skeleton]` — scaffold the [page]/[block]s it named, or study their layout. Templates are reference code.
-3. `astryx component <Name>` — props + examples for every component you use.
+## This is NOT the Next.js you know
 
-RULES:
-- No <div> — components do all layout/spacing. Full page → AppShell; sidebar nav → SideNav.
-- Custom styling: component props first; else Tailwind utilities backed by tokens (bg-surface, text-primary, rounded-lg) via tailwind-theme.css. No raw hex/px.
-- Tokens for every value (`astryx docs tokens`). Brand/accent via `astryx theme` — never override --color-* in :root.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-MORE CLI:
-  search "<query>"   find any component / hook / doc / template / block
-  component --list   148 components by category
-  template --list    page + block recipes
-  docs <topic>       color, elevation, icons, illustrations, migration, motion, principles, shape, spacing, styling, theme, tokens, typography
-  swizzle <Name>     eject component source (--gap reports why)
-  upgrade --apply    run after any @astryxdesign/core bump
-<!-- ASTRYX:END -->
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

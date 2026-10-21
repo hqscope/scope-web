@@ -20,18 +20,18 @@ const publicRoutes: {
   changeFrequency: ChangeFrequency;
   lastModified: string;
 }[] = [
-  { path: "/", priority: 1, changeFrequency: "weekly", lastModified: MARKETING_LAST_MODIFIED },
+  { path: "/", priority: 1, changeFrequency: "weekly", lastModified: "2026-10-20" },
   {
     path: "/products/extension",
     priority: 0.95,
     changeFrequency: "weekly",
-    lastModified: MARKETING_LAST_MODIFIED,
+    lastModified: "2026-10-20",
   },
   {
     path: "/products/lectra",
     priority: 0.92,
     changeFrequency: "weekly",
-    lastModified: MARKETING_LAST_MODIFIED,
+    lastModified: "2026-10-20",
   },
   {
     path: "/products/lectra/notebooks",
@@ -49,7 +49,7 @@ const publicRoutes: {
     path: "/products/polya",
     priority: 0.85,
     changeFrequency: "monthly",
-    lastModified: "2026-08-25",
+    lastModified: "2026-10-20",
   },
   {
     path: "/products/agent-workspace",
@@ -100,6 +100,12 @@ const publicRoutes: {
     priority: 0.8,
     changeFrequency: "weekly",
     lastModified: "2026-08-24",
+  },
+  {
+    path: "/about",
+    priority: 0.75,
+    changeFrequency: "monthly",
+    lastModified: "2026-10-20",
   },
   {
     path: "/direction",

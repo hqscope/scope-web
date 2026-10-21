@@ -16,11 +16,16 @@ export default function PageShell({
 }) {
   return (
     <>
-      <a href="#main" className="skip-link">
+      <a
+        href="#main"
+        className="sr-only z-[60] rounded-full bg-ink px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-3"
+      >
         Skip to content
       </a>
       <Header active={active} cta={cta} />
-      <main id="main">{children}</main>
+      <main id="main" className="flex-1">
+        {children}
+      </main>
       <Footer />
     </>
   );

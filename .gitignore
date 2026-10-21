@@ -20,13 +20,13 @@
 # production
 /build
 
-# misc
-.DS_Store
-*.pem
-
 # app binaries — Lectra Receiver DMGs are ~50 MB and live in R2, never in git.
 # See docs/RECEIVER_DISTRIBUTION.md
 *.dmg
+
+# misc
+.DS_Store
+*.pem
 
 # debug
 npm-debug.log*
@@ -40,10 +40,11 @@ yarn-error.log*
 # vercel
 .vercel
 
-# supabase cli local state
-supabase/.temp/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# supabase cli local state
+supabase/.temp/
+
 .gstack/

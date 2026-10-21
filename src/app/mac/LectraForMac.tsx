@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 
+import { ButtonLink, buttonClasses } from "@/components/buttons";
+import { ClosingCta } from "@/components/page-parts";
 import JsonLd from "@/components/seo/JsonLd";
-import Sheet from "@/components/motion/Sheet";
 import FaqList from "@/components/site/FaqList";
 import { DownloadIcon } from "@/components/site/Icons";
 import PageShell from "@/components/site/PageShell";
@@ -14,7 +14,6 @@ import {
 } from "@/lib/structured-data";
 import { LECTRA_MAC_DOWNLOAD_URL } from "@/lib/site";
 
-import "./mac.css";
 import MacPlatformNotice from "./MacPlatformNotice";
 import MirrorScene from "./MirrorScene";
 
@@ -117,14 +116,22 @@ const faqs: FaqEntry[] = [
   },
 ];
 
-function DownloadButton() {
+// A plain <a>, not next/link: the URL is a redirect to the current .dmg.
+function DownloadButton({ onDark = false }: { onDark?: boolean }) {
   return (
-    <a href={LECTRA_MAC_DOWNLOAD_URL} download className="btn btn-primary">
+    <a
+      href={LECTRA_MAC_DOWNLOAD_URL}
+      download
+      className={buttonClasses(onDark ? "inverted" : "primary", "lg")}
+    >
       <DownloadIcon size={18} />
       Download for Mac
     </a>
   );
 }
+
+const sectionTitle =
+  "text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.03] tracking-[-0.04em]";
 
 /**
  * The Lectra for Mac page body.
@@ -151,132 +158,148 @@ export default function LectraForMac() {
       />
 
       {/* Hero, with the Mac and iPad scene beside it. */}
-      <Sheet className="mac-hero" labelledBy="mac-title">
-        <div className="shell mac-hero-grid">
-          <header className="mac-hero-copy">
+      <section
+        aria-labelledby="mac-title"
+        className="mx-auto max-w-[1200px] px-5 pb-16 pt-12 sm:px-8 sm:pb-24 sm:pt-20"
+      >
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
+          <header className="min-w-0">
             <Image
               src="/brand/lectra-mark.png"
               alt="Lectra logo"
               width={56}
               height={56}
-              className="mac-mark"
+              className="size-14 rounded-[13px]"
               priority
             />
-            <p className="context-line">Lectra for Mac, free</p>
-            <h1 id="mac-title" className="t-title" data-focus>
+            <p className="mt-6 text-[15px] font-medium text-stone">Lectra for Mac, free</p>
+            <h1
+              id="mac-title"
+              className="mt-4 max-w-[14ch] text-[clamp(2.6rem,6vw,4.75rem)] font-semibold leading-[0.97] tracking-[-0.046em]"
+            >
               Lectra, on your Mac.
             </h1>
-            <p className="lede">
+            <p className="mt-6 max-w-[48ch] text-[18px] leading-[1.55] text-ink-soft">
               The whole app runs here now, with readings and markup, notebooks, Python,
               and a terminal. When you want it, your iPad can open this Mac and work on
               it from anywhere.
             </p>
-            <div className="actions">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <DownloadButton />
-              <Link href="/products/lectra" className="btn btn-line">
+              <ButtonLink href="/products/lectra" variant="secondary" size="lg">
                 Lectra for iPad
-              </Link>
+              </ButtonLink>
             </div>
-            <p className="btn-note">
+            <p className="mt-4 text-[14px] text-stone">
               Free, signed and notarized by Apple, and nothing to buy, ever.
             </p>
             <MacPlatformNotice />
           </header>
-          <MirrorScene caption="Your Mac on your iPad, with the keyboard, trackpad, and Pencil across every display connected to it." />
+          <div className="min-w-0">
+            <MirrorScene caption="Your Mac on your iPad, with the keyboard, trackpad, and Pencil across every display connected to it." />
+          </div>
         </div>
-      </Sheet>
+      </section>
 
       {/* For people who came here looking for Receiver. */}
-      <Sheet className="section" id="receiver" labelledBy="receiver-title">
-        <div className="shell split split--top">
+      <section id="receiver" aria-labelledby="receiver-title" className="bg-wash">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-10 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="context-line">If you came here for Receiver</p>
-            <h2 id="receiver-title" className="t-head" data-focus style={{ marginTop: 14 }}>
+            <p className="text-[15px] font-medium text-stone">If you came here for Receiver</p>
+            <h2 id="receiver-title" className={`mt-4 max-w-[18ch] ${sectionTitle}`}>
               Receiver is now part of Lectra for Mac.
             </h2>
-            <p className="copy" style={{ marginTop: 22 }}>
+            <p className="mt-5 max-w-[50ch] text-[17px] leading-[1.65] text-stone">
               There is no separate app to install anymore. Everything Receiver did is
               built into Lectra for Mac, from letting your iPad see and control this
               Mac to catching documents you send over and sharing a clipboard between
               them, and the rest of Lectra comes with it.
             </p>
           </div>
-          <div className="note note-hi mac-one-app">
-            <h3>One app instead of two</h3>
-            <p style={{ marginTop: 8 }}>
+          <div className="rounded-[22px] bg-paper p-7 ring-1 ring-line sm:p-8 lg:mt-10">
+            <h3 className="text-[20px] font-semibold tracking-[-0.02em]">One app instead of two</h3>
+            <p className="mt-2 text-[16px] leading-[1.6] text-stone">
               Download Lectra for Mac and you can put the old app away. Setup is the
               same short run it always was: open it, sign in, allow access.
             </p>
           </div>
         </div>
-      </Sheet>
+      </section>
 
       {/* What it does. */}
-      <Sheet className="section" id="capabilities" labelledBy="capabilities-title">
-        <div className="shell split split--top">
-          <h2 id="capabilities-title" className="t-head" data-focus>
+      <section
+        id="capabilities"
+        aria-labelledby="capabilities-title"
+        className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-24"
+      >
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+          <h2 id="capabilities-title" className={`max-w-[16ch] ${sectionTitle}`}>
             A workspace and a way back to your desk.
           </h2>
-          <ul className="feature-list feature-list--wide" style={{ marginTop: 0 }}>
+          <dl className="divide-y divide-line border-y border-line">
             {capabilities.map((item) => (
-              <li key={item.title}>
-                <strong>{item.title}</strong>
-                <span>{item.copy}</span>
-              </li>
+              <div key={item.title} className="grid gap-1.5 py-5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-8">
+                <dt className="text-[16.5px] font-semibold tracking-[-0.015em]">{item.title}</dt>
+                <dd className="text-[15.5px] leading-[1.6] text-stone">{item.copy}</dd>
+              </div>
             ))}
-          </ul>
-        </div>
-      </Sheet>
-
-      {/* Setup, then questions. */}
-      <Sheet className="section" id="setup" labelledBy="setup-title">
-        <div className="shell">
-          <div className="split split--top">
-            <div>
-              <h2 id="setup-title" className="t-head" data-focus>
-                A couple of minutes, and you&apos;re connected.
-              </h2>
-              <p className="copy" style={{ marginTop: 22 }}>
-                Install it on the Mac you want to reach. It waits quietly for your iPad,
-                and the rest of Lectra is there the moment you open it.
-              </p>
-            </div>
-            <ol className="mac-steps">
-              {steps.map((step) => (
-                <li key={step.title}>
-                  <h3 className="t-item">{step.title}</h3>
-                  <p>{step.copy}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div id="faq" className="mac-faq">
-            <h2 className="t-head" data-focus style={{ marginBottom: 28 }}>
-              What people ask about Lectra for Mac.
-            </h2>
-            <FaqList items={faqs} />
-          </div>
-        </div>
-      </Sheet>
-
-      {/* Close, on the desk. */}
-      <section
-        className="on-desk shell section mac-closing"
-        id="download"
-        aria-labelledby="download-title"
-      >
-        <h2 id="download-title" className="t-title" data-focus>
-          Put your Mac in reach.
-        </h2>
-        <p className="lede">
-          One download: the full Lectra app on macOS, with everything the Receiver used
-          to do built in.
-        </p>
-        <div className="actions">
-          <DownloadButton />
+          </dl>
         </div>
       </section>
+
+      {/* Setup. */}
+      <section id="setup" aria-labelledby="setup-title" className="bg-wash">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <h2 id="setup-title" className={`max-w-[18ch] ${sectionTitle}`}>
+              A couple of minutes, and you&apos;re connected.
+            </h2>
+            <p className="mt-5 max-w-[46ch] text-[17px] leading-[1.65] text-stone">
+              Install it on the Mac you want to reach. It waits quietly for your iPad,
+              and the rest of Lectra is there the moment you open it.
+            </p>
+          </div>
+          <ol className="divide-y divide-line border-y border-line">
+            {steps.map((step, index) => (
+              <li key={step.title} className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 py-6">
+                <span aria-hidden="true" className="text-[26px] font-semibold leading-none tracking-[-0.04em] tabular-nums text-ink">
+                  {index + 1}
+                </span>
+                <div>
+                  <h3 className="text-[17px] font-semibold tracking-[-0.015em]">{step.title}</h3>
+                  <p className="mt-1.5 text-[15.5px] leading-[1.6] text-stone">{step.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Questions. */}
+      <section
+        id="faq"
+        aria-labelledby="faq-title"
+        className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-24"
+      >
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
+          <h2
+            id="faq-title"
+            className="max-w-[16ch] text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em]"
+          >
+            What people ask about Lectra for Mac.
+          </h2>
+          <FaqList items={faqs} />
+        </div>
+      </section>
+
+      {/* Close. */}
+      <div id="download">
+        <ClosingCta
+          title="Put your Mac in reach."
+          body="One download: the full Lectra app on macOS, with everything the Receiver used to do built in."
+          actions={<DownloadButton onDark />}
+        />
+      </div>
     </PageShell>
   );
 }

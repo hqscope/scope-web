@@ -1,29 +1,19 @@
 import Link from "next/link";
-
+import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
-import StoreLink from "@/components/seo/StoreLink";
-import PenMark from "@/components/motion/PenMark";
-import Sheet from "@/components/motion/Sheet";
-import Mark from "@/components/site/Mark";
-import NewsList from "@/components/site/NewsList";
 import PageShell from "@/components/site/PageShell";
-import { newsroomArticles } from "@/lib/newsroom";
+import { AppStoreButton, ButtonLink, ChromeStoreButton } from "@/components/buttons";
+import { CommandPaletteDemo } from "@/components/command-palette-demo";
+import { CheckIcon } from "@/components/icons";
+import { FindScene, HandInScene, SendScene } from "@/components/mocks/flow-mocks";
+import { LectraMock } from "@/components/mocks/lectra-mock";
+import { PolyaMock } from "@/components/mocks/polya-mock";
+import { WeekFlow, type FlowStep } from "@/components/week-flow";
 import { publicPageMetadata } from "@/lib/seo";
-import {
-  CHROME_WEB_STORE_URL,
-  LECTRA_APP_STORE_CAMPAIGN_URL,
-  SCOPE_DEFINITION,
-} from "@/lib/site";
 import { breadcrumbSchema, canvascopeSoftwareSchema } from "@/lib/structured-data";
+import { products, site } from "@/lib/site";
 
-import "./_home/home.css";
-import LectraTurn from "./_home/LectraTurn";
-import LoopScene, { type LoopStep } from "./_home/LoopScene";
-import PenSearch from "./_home/PenSearch";
-import PolyaReplay from "./_home/PolyaReplay";
-import Roadmap, { type RoadmapRow } from "./_home/Roadmap";
-
-export const metadata = publicPageMetadata({
+export const metadata: Metadata = publicPageMetadata({
   title: "Scope for Canvas | Local-First Canvas Search Extension",
   absoluteTitle: true,
   description:
@@ -31,371 +21,284 @@ export const metadata = publicPageMetadata({
   path: "/",
 });
 
-const loopSteps: LoopStep[] = [
+const steps: FlowStep[] = [
   {
-    name: "Find",
-    title: "⌘K in the browser",
-    copy: "Every file, page, and assignment across your courses is searched on your device, and answers are cited to the source.",
+    title: "Find it",
+    app: products.extension.name,
+    body: "Press ⌘K on any Canvas or Brightspace page and type a few words. Scope searches every course you're in, so you stop clicking through modules.",
+    scene: <FindScene />,
   },
   {
-    name: "Work",
-    title: "Lectra Notes on iPad",
-    copy: "Ink the reading, run the notebook, and keep the library offline. Polya is there when you're stuck on a step.",
+    title: "Send it to your iPad",
+    app: "Scope for Canvas and Lectra Notes",
+    body: "When the result is a PDF, send it to Lectra Notes in one step. It lands in the Scope Inbox in your library.",
+    scene: <SendScene />,
   },
   {
-    name: "Back",
-    title: "Into supported upload flows",
-    copy: "Finished files come back to the browser and into supported upload flows. DropBridge carries them.",
-  },
-];
-
-const extensionFeatures = [
-  {
-    title: "Instant, local search",
-    copy: "Indexed on your device, including the text in scanned PDFs.",
+    title: "Work on it",
+    app: products.lectra.name,
+    body: "Read and write on the PDF with Apple Pencil. Record the lecture while you take notes, then tap your notes to hear that moment.",
+    scene: <LectraMock />,
   },
   {
-    title: "Cited course answers",
-    copy: "Ask about the course and every answer points back to the page it came from. Scope does not take quizzes, write submissions, or interact with Canvas quiz logs.",
+    title: "Hand it in",
+    app: "Scope for Canvas and Lectra Notes",
+    body: "On a Canvas or Gradescope upload page, choose Select from Lectra to attach your marked-up PDF. Scope fills in the file. You press submit.",
+    scene: <HandInScene />,
   },
   {
-    title: "Practice exams and a planner",
-    copy: "Built from real course materials, with due dates that can go into Google Calendar if you want them there.",
-  },
-];
-
-const lectraFeatures = [
-  {
-    title: "Apple Pencil first ink",
-    copy: "Vector ink on PDFs, notebooks, and scans, with your library kept offline.",
-  },
-  {
-    title: "A real computing environment",
-    copy: "Python notebooks, a terminal, and Git that all work offline on the iPad.",
-  },
-  {
-    title: "On-device document intelligence",
-    copy: "It runs on supported devices, and anything that goes to the cloud is explicit and optional.",
+    title: "Get unstuck",
+    app: products.polya.name,
+    body: "When a problem doesn't make sense, ask Polya. It answers from your course materials and, by default, starts with a hint instead of the answer.",
+    scene: <PolyaMock showModes={false} />,
   },
 ];
 
-const briefing = [
-  { label: "Problem Set 4 due Thursday", course: "Math 53", urgent: true },
-  { label: "Quiz Friday, sections 5.1 to 5.4", course: "Chem 1A" },
-  { label: "New slides posted, Week 9", course: "BioE 141" },
+const apps = [
+  {
+    name: products.extension.name,
+    where: "Chrome extension",
+    summary: "Search every Canvas and Brightspace course from one search bar.",
+    features: [
+      "Search across all your courses",
+      "Every due date in one agenda",
+      "Ask about dates, policies, and files",
+      "Study plans and practice questions",
+      "Send PDFs to your iPad",
+    ],
+    href: products.extension.href,
+  },
+  {
+    name: products.lectra.name,
+    where: "iPad app",
+    summary: "Read, mark up, and work on course documents with Apple Pencil.",
+    features: [
+      "Handwriting on PDFs and notebooks",
+      "Lecture recording tied to your notes",
+      "Search your handwriting",
+      "Python and Jupyter notebooks, offline",
+      "Works without an account",
+    ],
+    href: products.lectra.href,
+  },
+  {
+    name: products.polya.name,
+    where: "On the web",
+    summary: "A tutor that teaches from your own course materials.",
+    features: [
+      "Answers that open the page they came from",
+      "Four study modes, Guided by default",
+      "Exam practice from your materials",
+      "Works inside ChatGPT and Claude",
+      "Use it on your phone, too",
+    ],
+    href: products.polya.href,
+  },
 ];
 
-const roadmap: RoadmapRow[] = [
+const commitments = [
   {
-    when: "Today",
-    status: "Shipping and free",
-    copy: "The student layer on top of the LMS your school already runs: the extension, Lectra Notes, and Polya.",
-    distance: 0,
+    title: "Help starts with a hint.",
+    body: "Polya's default mode gives you the next step, not the answer. You choose how much help each course gets, and you can change it any time.",
   },
   {
-    when: "Next",
-    status: "In design",
-    copy: "Instructors run the course in Scope, from publishing to feedback to grading.",
-    distance: 1,
+    title: "You press submit.",
+    body: "Scope can find a file and attach it to an upload form. Handing work in is always your move.",
   },
   {
-    when: "Eventually",
-    status: "The goal",
-    copy: "The course no longer needs the old system underneath it, so replacing that system turns into a migration you can plan.",
-    distance: 2,
+    title: "Your work stays yours.",
+    body: "No ads, and no selling your data. Your notes, documents, and course materials aren't used to train AI models.",
   },
 ];
-
-function PrimaryActions() {
-  return (
-    <>
-      <div className="actions">
-        <StoreLink
-          store="chrome-web-store"
-          href={CHROME_WEB_STORE_URL}
-          className="btn btn-primary"
-        >
-          Add Scope to Chrome for free
-        </StoreLink>
-        <Link href="/products/lectra" className="btn btn-line">
-          Get Lectra Notes
-        </Link>
-      </div>
-      <p className="btn-note">
-        Works with Canvas and Brightspace, needs no account, and is free.
-      </p>
-    </>
-  );
-}
 
 export default function HomePage() {
-  const latestPosts = newsroomArticles.slice(0, 3);
-
   return (
     <PageShell>
       <JsonLd
         data={[breadcrumbSchema([{ name: "Home", path: "/" }]), canvascopeSoftwareSchema()]}
       />
-
-      {/* Hero: the first sheet on the desk. */}
-      <Sheet className="hero" labelledBy="hero-title">
-        <div className="shell hero-grid">
-          <div className="hero-copy">
-            <p className="context-line">
-              Scope for Canvas, the free Chrome extension for Canvas and Brightspace
+      {/* Hero */}
+      <section className="mx-auto max-w-[1200px] px-5 pb-16 pt-12 sm:px-8 sm:pt-20">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-14">
+          <div>
+            <p className="text-[15px] font-medium text-stone">
+              Course search, PDF notes, and a tutor for Canvas and Brightspace
             </p>
-            <h1 id="hero-title" className="t-display hero-title">
+            <h1 className="mt-5 max-w-[12ch] text-[clamp(2.9rem,7.4vw,5.75rem)] font-semibold leading-[0.95] tracking-[-0.048em] text-ink">
               The LMS where students actually do the work.
             </h1>
-            <p className="lede">
-              {SCOPE_DEFINITION} Lectra Notes, its free iPad app, is where you mark up
-              the reading with Apple Pencil and run the notebook.
-            </p>
-            <PrimaryActions />
           </div>
-          <PenSearch />
-        </div>
-      </Sheet>
-
-      {/* The problem, said plainly. */}
-      <Sheet className="section problem" labelledBy="problem-title">
-        <div className="shell split split--top">
-          <div>
-            <h2 id="problem-title" className="t-head" data-focus>
-              The course lives in the LMS. The work lives everywhere else.
-            </h2>
-            <p className="copy" style={{ marginTop: 22 }}>
-              Files, assignments, and grades sit in the system your school runs. The
-              reading gets annotated in one app, the code gets written in another, and
-              the questions get asked somewhere else entirely. The LMS only ever sees
-              the final upload.
+          <div className="lg:pb-2">
+            <p className="max-w-[46ch] text-[18px] leading-[1.55] text-ink-soft">
+              Scope is a free Canvas extension, iPad notes app, and course tutor. Find any reading in
+              a keystroke, mark it up with Apple Pencil, and work through problems with help that
+              starts with a hint.
             </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ChromeStoreButton />
+              <AppStoreButton />
+            </div>
           </div>
-          <blockquote className="problem-quote">
-            <p>
-              Goodnotes knows the notebook but not the course. Canvas knows the course
-              but not the work.{" "}
-              <span className="problem-connect">
-                We connect them.
-                <PenMark kind="underline" inset="auto -4px -14px -4px" delay={0.3} />
-              </span>
-            </p>
-          </blockquote>
         </div>
-      </Sheet>
 
-      {/* Find, Work, Back: one problem set makes the whole trip, on the desk. */}
-      <section className="on-desk loop" aria-labelledby="loop-title">
-        <div className="shell loop-head">
-          <h2 id="loop-title" className="t-title" data-focus>
-            Find. Work. Back.
-          </h2>
-          <p className="margin-note">Shipping now, and free.</p>
+        <div className="mt-14 sm:mt-16">
+          <CommandPaletteDemo />
+          <p className="mt-4 text-center text-[14px] text-stone">
+            Try it: click the search box and type, or press <kbd className="font-semibold text-ink-soft">⌘K</kbd>.
+            The courses here are samples.
+          </p>
         </div>
-        <LoopScene steps={loopSteps} />
-        <p className="shell small loop-caption">
-          DropBridge moves files between the browser and the iPad, and back into
-          supported upload flows.
-        </p>
       </section>
 
-      {/* The extension. */}
-      <Sheet className="section" labelledBy="ext-title">
-        <div className="shell split">
-          <div>
-            <p className="section-tag">
-              <Mark size={18} /> Scope for Canvas, in Chrome
-            </p>
-            <h2 id="ext-title" className="t-head" data-focus>
-              Search every Canvas and Brightspace course, one keystroke away.
+      {/* A week of class */}
+      <section aria-labelledby="week-heading" className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+        <div className="max-w-[40rem]">
+          <h2 id="week-heading" className="text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]">
+            One week of class, without the tab hunt.
+          </h2>
+          <p className="mt-5 text-[18px] leading-[1.55] text-stone">
+            Canvas is where your course lives. Scope is where you do the work: find the reading, mark
+            it up, hand it in, and get help when you&apos;re stuck. Your instructor doesn&apos;t need
+            to set anything up.
+          </p>
+        </div>
+        <div className="mt-14">
+          <WeekFlow steps={steps} />
+        </div>
+      </section>
+
+      {/* The apps */}
+      <section aria-labelledby="apps-heading" className="border-y border-line bg-wash">
+        <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <h2 id="apps-heading" className="max-w-[16ch] text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]">
+              Three free apps, one account.
             </h2>
-            <ul className="feature-list">
-              {extensionFeatures.map((feature) => (
-                <li key={feature.title}>
-                  <strong>{feature.title}</strong>
-                  <span>{feature.copy}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="link-row">
-              <Link href="/products/extension" className="link">
-                Explore the extension
-              </Link>
-              <Link href="/compare/best-canvas-chrome-extensions" className="link">
-                Best Canvas Chrome extensions, compared
-              </Link>
-            </div>
+            <p className="max-w-[44ch] text-[17px] leading-[1.55] text-stone">
+              Each app works on its own. Sign in to all three with the same Google account and your
+              PDFs, backups, and courses come with you.
+            </p>
           </div>
 
-          <div className="briefing-wrap" aria-hidden="true">
-            <div className="briefing-commands">
-              <span className="chip">/ask</span>
-              <span className="chip">/plan</span>
-              <span className="chip chip-pen">/quiz</span>
+          <div className="mt-14 grid overflow-hidden rounded-[22px] bg-line ring-1 ring-line md:grid-cols-3 md:gap-px">
+            {apps.map((app) => (
+              <article key={app.name} className="flex flex-col bg-paper p-7 sm:p-9 max-md:border-t max-md:border-line max-md:first:border-t-0">
+                <p className="text-[13.5px] font-medium text-stone">{app.where}</p>
+                <h3 className="mt-1 text-[24px] font-semibold tracking-[-0.03em]">{app.name}</h3>
+                <p className="mt-3 text-[16px] leading-[1.5] text-ink-soft">{app.summary}</p>
+                <ul className="mt-6 flex-1 space-y-2.5">
+                  {app.features.map((feature) => (
+                    <li key={feature} className="flex gap-2.5 text-[15px] leading-snug text-ink-soft">
+                      <CheckIcon className="mt-0.5 size-4 shrink-0 text-red" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={app.href}
+                  className="mt-8 inline-flex w-fit items-center rounded-full text-[15px] font-semibold text-ink underline decoration-line decoration-2 underline-offset-[6px] hover:decoration-red"
+                >
+                  More about {app.name}
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Principle */}
+      <section aria-labelledby="principle-heading" className="bg-ink text-white">
+        <div className="mx-auto max-w-[1200px] px-5 py-24 sm:px-8 sm:py-32">
+          <h2 id="principle-heading" className="max-w-[18ch] text-[clamp(2.25rem,5.6vw,4.25rem)] font-semibold leading-[1] tracking-[-0.045em]">
+            Automate everything around learning. Don&apos;t automate learning itself.
+          </h2>
+          <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.55] text-white/65">
+            Scope handles the finding, filing, and keeping track, so the hours you spend on a course
+            go to the course. The thinking stays with you.
+          </p>
+          <div className="mt-16 grid gap-10 border-t border-white/15 pt-10 md:grid-cols-3 md:gap-12">
+            {commitments.map((item) => (
+              <div key={item.title}>
+                <h3 className="text-[19px] font-semibold tracking-[-0.02em]">{item.title}</h3>
+                <p className="mt-3 text-[15.5px] leading-[1.6] text-white/65">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Privacy */}
+      <section aria-labelledby="privacy-heading" className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+          <div>
+            <h2 id="privacy-heading" className="text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]">
+              Your coursework stays on your side.
+            </h2>
+            <p className="mt-5 max-w-[42ch] text-[17px] leading-[1.55] text-stone">
+              Scope is free, shows no ads, and doesn&apos;t track you across other apps and websites.
+              You can search your courses and use Lectra Notes without an account.
+            </p>
+            <Link
+              href="/privacy"
+              className="mt-7 inline-flex text-[15px] font-semibold text-ink underline decoration-line decoration-2 underline-offset-[6px] hover:decoration-red"
+            >
+              Read privacy at a glance
+            </Link>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-[22px] bg-line ring-1 ring-line sm:grid-cols-2">
+            <div className="bg-paper p-7">
+              <h3 className="text-[16px] font-semibold">On your device</h3>
+              <ul className="mt-4 space-y-3 text-[15px] leading-snug text-ink-soft">
+                <li>Your course search index. Searching happens on your computer.</li>
+                <li>Your Lectra Notes documents and handwriting.</li>
+                <li>Summaries and answers about your documents in Lectra Notes, which are written on your iPad and are off until you turn them on.</li>
+              </ul>
             </div>
-            <div className="briefing plane">
-              <p className="briefing-date">Today, Tue Aug 25</p>
-              <ul>
-                {briefing.map((item) => (
-                  <li key={item.label} data-urgent={item.urgent || undefined}>
-                    <span className="briefing-label">
-                      {item.label}
-                      {item.urgent ? (
-                        <PenMark kind="circle" inset="-9px -14px -10px -12px" delay={0.2} />
-                      ) : null}
-                    </span>
-                    <span className="briefing-course">{item.course}</span>
-                  </li>
-                ))}
+            <div className="bg-paper p-7">
+              <h3 className="text-[16px] font-semibold">With your account, if you sign in</h3>
+              <ul className="mt-4 space-y-3 text-[15px] leading-snug text-ink-soft">
+                <li>The PDFs you send to your iPad.</li>
+                <li>A backup copy of your Lectra Notes pages.</li>
+                <li>The courses you add to Polya, your study modes, and your conversations.</li>
               </ul>
             </div>
           </div>
         </div>
-      </Sheet>
+      </section>
 
-      {/* Lectra Notes: the iPad turns on the desk as you scroll. */}
-      <section className="on-desk section lectra-band" aria-labelledby="lectra-title">
-        <div className="shell split split--flip">
-          <LectraTurn />
+      {/* Instructors */}
+      <section aria-labelledby="teach-heading" className="mx-auto max-w-[1200px] px-5 sm:px-8">
+        <div className="grid gap-8 rounded-[22px] bg-wash p-8 sm:p-12 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-end">
           <div>
-            <p className="section-tag">Lectra Notes on iPad and iPhone</p>
-            <h2 id="lectra-title" className="t-head" data-focus>
-              The workspace for documents you think on.
+            <h2 id="teach-heading" className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-semibold leading-[1.05] tracking-[-0.035em]">
+              Teaching a course?
             </h2>
-            <ul className="feature-list">
-              {lectraFeatures.map((feature) => (
-                <li key={feature.title}>
-                  <strong>{feature.title}</strong>
-                  <span>{feature.copy}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="link-row">
-              <StoreLink store="app-store" href={LECTRA_APP_STORE_CAMPAIGN_URL} className="link">
-                Get Lectra Notes
-              </StoreLink>
-              <Link href="/guides/annotate-lecture-slides-on-ipad" className="link">
-                Annotate Canvas lecture slides on iPad
-              </Link>
-              <Link href="/mac" className="link">
-                Also on Mac
-              </Link>
-            </div>
+            <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.55] text-stone">
+              Canvas keeps the record of a course, and students do the work somewhere else. We&apos;re
+              building Scope so the work happens next to the course. If you teach, we&apos;d like to
+              hear what your students need.
+            </p>
+          </div>
+          <div className="md:justify-self-end">
+            <ButtonLink href={`mailto:${site.supportEmail}?subject=Scope%20for%20my%20course`} variant="secondary" size="lg">
+              Email the Scope team
+            </ButtonLink>
           </div>
         </div>
       </section>
 
-      {/* Polya. */}
-      <Sheet className="section" labelledBy="polya-title">
-        <div className="shell split">
-          <div>
-            <p className="section-tag">Polya on the web</p>
-            <h2 id="polya-title" className="t-head" data-focus>
-              A tutor that knows the course.
-            </h2>
-            <p className="copy" style={{ marginTop: 22 }}>
-              General chatbots know a little about everything and nothing about your
-              class. Polya grounds every hint in your actual course materials and cites
-              the page, slide, or lecture moment it came from. The help is guided, so it
-              gets you to the answer and stops there.
-            </p>
-            <div className="link-row">
-              <Link href="/products/polya" className="link">
-                Try Polya
-              </Link>
-            </div>
-          </div>
-          <div>
-            <PolyaReplay />
-            <p className="margin-note" style={{ marginTop: 16 }}>
-              Guided help, and every answer is cited.
-            </p>
-          </div>
-        </div>
-      </Sheet>
-
-      {/* Direction: plans in pencil, today in ink. */}
-      <Sheet className="section direction" labelledBy="direction-title">
-        <div className="shell">
-          <div className="direction-head">
-            <h2 id="direction-title" className="t-title" data-focus>
-              The next LMS should not be a better filing cabinet.
-            </h2>
-            <div>
-              <p className="lede">
-                It should be the course&rsquo;s execution environment. Here is the path,
-                plainly labeled.
-              </p>
-              <p className="margin-note" style={{ marginTop: 14 }}>
-                This is what we&rsquo;re building. It is not what ships today.
-              </p>
-            </div>
-          </div>
-          <Roadmap rows={roadmap} />
-          <div className="link-row">
-            <Link href="/direction" className="link">
-              See where this goes
-            </Link>
-          </div>
-        </div>
-      </Sheet>
-
-      {/* Privacy and the newsroom share the last sheet. */}
-      <Sheet className="section" labelledBy="privacy-title">
-        <div className="shell">
-          <div className="split split--even privacy">
-            <div>
-              <h2 id="privacy-title" className="t-head" data-focus>
-                Local-first is the whole point.
-              </h2>
-              <p className="copy" style={{ marginTop: 22 }}>
-                Search and indexing run entirely on your device. AI answers try
-                Chrome&rsquo;s on-device model first, and when it is unavailable an
-                optional, clearly marked cloud fallback is used.
-              </p>
-              <div className="link-row">
-                <Link href="/guides/canvas-extension-safety" className="link">
-                  How to check any Canvas extension before installing it
-                </Link>
-              </div>
-            </div>
-            <ul className="privacy-facts">
-              <li>
-                <span className="privacy-zero">0</span>
-                <span>data sold</span>
-              </li>
-              <li>
-                <span className="privacy-zero">0</span>
-                <span>subscriptions</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="news">
-            <div className="news-head">
-              <h2 id="news-title" className="t-head" data-focus>
-                Building in the open.
-              </h2>
-              <Link href="/newsroom" className="link">
-                All posts
-              </Link>
-            </div>
-            <NewsList articles={latestPosts} showDescription={false} />
-          </div>
-        </div>
-      </Sheet>
-
-      {/* Close, on the desk. */}
-      <section className="on-desk shell section closing" aria-labelledby="closing-title">
-        <Mark size={48} className="closing-mark" />
-        <h2 id="closing-title" className="t-title" data-focus>
-          Start where you already are.
+      {/* Closing */}
+      <section className="mx-auto max-w-[1200px] px-5 py-24 text-center sm:px-8 sm:py-32">
+        <h2 className="mx-auto max-w-[16ch] text-[clamp(2.25rem,5.6vw,4.25rem)] font-semibold leading-[1] tracking-[-0.045em]">
+          Put every course one search away.
         </h2>
-        <p className="lede">
-          Scope enters through the LMS your school already runs. Install it, open a
-          course, and press ⌘K.
+        <p className="mx-auto mt-5 max-w-[44ch] text-[17px] leading-[1.55] text-stone">
+          Add Scope to Chrome, open your Canvas or Brightspace site once, and press ⌘K.
         </p>
-        <PrimaryActions />
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <ChromeStoreButton />
+          <AppStoreButton />
+        </div>
       </section>
     </PageShell>
   );

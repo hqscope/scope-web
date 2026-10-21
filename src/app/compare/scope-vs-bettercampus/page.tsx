@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
 import FaqList, { type FaqItem } from "@/components/site/FaqList";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -128,11 +129,11 @@ export default function ScopeVsBetterCampusPage() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Add Scope to Chrome for free
             </StoreLink>
-            <a href="#table" className="btn btn-line">
+            <a href="#table" className={buttonClasses("secondary", "lg")}>
               See the comparison
             </a>
           </>
@@ -314,7 +315,7 @@ export default function ScopeVsBetterCampusPage() {
             id: "which",
             title: "Which one should you install?",
             content: (
-              <div className="prose">
+              <>
                 <p>
                   If Canvas looks wrong to you, because it is too bright, too
                   cluttered, or the cards are in the wrong order, install
@@ -331,7 +332,7 @@ export default function ScopeVsBetterCampusPage() {
                   If both sound familiar, run both. Neither one needs the other to
                   be gone.
                 </p>
-              </div>
+              </>
             ),
           },
           {
@@ -397,7 +398,7 @@ export default function ScopeVsBetterCampusPage() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Add Scope to Chrome for free
             </StoreLink>

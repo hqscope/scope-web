@@ -19,7 +19,9 @@ export default function DeviceFrame({
   className?: string;
 }) {
   return (
-    <div className={className ? `device ${className}` : "device"}>
+    <div
+      className={`rounded-[26px] bg-[#1d1915] p-2 shadow-[0_30px_80px_-30px_rgba(36,30,24,0.55)] ${className ?? ""}`}
+    >
       <Image
         src={src}
         alt={alt}
@@ -28,6 +30,7 @@ export default function DeviceFrame({
         quality={90}
         sizes={sizes}
         priority={priority}
+        className="h-auto w-full rounded-[19px]"
       />
     </div>
   );

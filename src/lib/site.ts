@@ -146,3 +146,53 @@ export function resolveAuthCallbackBaseUrl(rawOrigin: string): string {
  */
 export const GOOGLE_PREFERRED_SOURCE_URL =
   "https://www.google.com/preferences/source?q=canvascope.org";
+
+// --- Site chrome (2026-10 redesign) -----------------------------------------
+// The header, footer, and product pages read from these so names, paths, and
+// store links stay in one place. Store and download URLs reuse the constants
+// above.
+
+export const SITE_URL = "https://www.canvascope.org";
+export const DOCS_URL = "https://docs.canvascope.org";
+
+export const site = {
+  name: "Scope",
+  url: SITE_URL,
+  tagline: "The LMS where students actually do the work.",
+  description:
+    "Scope is a free Chrome extension, iPad app, and course tutor for Canvas and Brightspace students. Search every course, mark up readings with Apple Pencil, and get help that starts with a hint.",
+  supportEmail: SUPPORT_EMAIL,
+  docsUrl: DOCS_URL,
+  linkedinUrl: LINKEDIN_COMPANY_URL,
+} as const;
+
+export const products = {
+  extension: {
+    name: SCOPE_PRODUCT_NAME,
+    href: "/products/extension",
+    storeUrl: CHROME_WEB_STORE_URL,
+    definition: SCOPE_DEFINITION,
+  },
+  lectra: {
+    name: LECTRA_PRODUCT_NAME,
+    href: "/products/lectra",
+    storeUrl: LECTRA_APP_STORE_CAMPAIGN_URL,
+    definition: LECTRA_DEFINITION,
+  },
+  polya: {
+    name: "Polya",
+    href: "/products/polya",
+    appUrl: POLYA_LOGIN_URL,
+    definition:
+      "Polya is a course-aware AI tutor that answers from your own course materials and shows the source behind every answer.",
+  },
+  mac: {
+    name: "Lectra for Mac",
+    href: "/mac",
+    downloadUrl: LECTRA_MAC_DOWNLOAD_URL,
+  },
+  agentWorkspace: {
+    name: "Agent Workspace",
+    href: "/products/agent-workspace",
+  },
+} as const;

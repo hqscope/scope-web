@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import Sheet from "@/components/motion/Sheet";
 import JsonLd from "@/components/seo/JsonLd";
+import ArticleShell from "@/components/site/ArticleShell";
 import Mark from "@/components/site/Mark";
 import NewsList from "@/components/site/NewsList";
 import PageShell from "@/components/site/PageShell";
@@ -20,8 +20,6 @@ import {
   getNewsroomArticle,
   newsroomArticles,
 } from "@/lib/newsroom";
-
-import "../newsroom.css";
 
 type NewsroomArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -116,36 +114,47 @@ export default async function NewsroomArticlePage({
         ]}
       />
 
-      <Sheet as="article" className="post" labelledBy="post-title">
-        <div className="shell post-column">
-          <header className="post-head">
+      <article aria-labelledby="post-title">
+        <header className="mx-auto max-w-[1200px] px-5 pb-10 pt-12 sm:px-8 sm:pb-12 sm:pt-16">
+          {/* 70ch at 17px matches the reading column below. */}
+          <div className="max-w-[70ch] text-[17px]">
             <nav aria-label="Breadcrumb">
-              <ol className="crumbs">
+              <ol className="flex flex-wrap items-center gap-x-2 text-[14px] text-stone">
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" className="hover:text-ink">
+                    Home
+                  </Link>
                 </li>
-                <li>
-                  <Link href="/newsroom">Newsroom</Link>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">/</span>
+                  <Link href="/newsroom" className="hover:text-ink">
+                    Newsroom
+                  </Link>
                 </li>
               </ol>
             </nav>
 
-            <h1 id="post-title" className="t-title post-title" data-focus>
+            <h1
+              id="post-title"
+              className="mt-6 max-w-[22ch] text-[clamp(2.1rem,4.6vw,3.5rem)] font-semibold leading-[1.04] tracking-[-0.042em] text-balance"
+            >
               {article.title}
             </h1>
 
-            <p className="lede post-lede">{article.lede ?? article.description}</p>
+            <p className="mt-6 max-w-[58ch] text-[18px] leading-[1.6] text-ink-soft">
+              {article.lede ?? article.description}
+            </p>
 
-            <dl className="post-meta">
+            <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-line pt-6">
               <div>
-                <dt>Published</dt>
-                <dd>
+                <dt className="text-[13.5px] text-stone">Published</dt>
+                <dd className="mt-0.5 text-[15.5px] font-semibold text-ink">
                   <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
                 </dd>
               </div>
               <div>
-                <dt>Topic</dt>
-                <dd>
+                <dt className="text-[13.5px] text-stone">Topic</dt>
+                <dd className="mt-0.5 text-[15.5px]">
                   <Link
                     href={`/newsroom?category=${encodeURIComponent(article.category)}`}
                     className="link"
@@ -155,64 +164,69 @@ export default async function NewsroomArticlePage({
                 </dd>
               </div>
               <div>
-                <dt>Reading time</dt>
-                <dd>
+                <dt className="text-[13.5px] text-stone">Reading time</dt>
+                <dd className="mt-0.5 text-[15.5px] font-semibold text-ink">
                   {readingMinutes} {readingMinutes === 1 ? "minute" : "minutes"}
                 </dd>
               </div>
             </dl>
-          </header>
-
-          <div className="prose post-body">
-            {article.body.map((block, index) => {
-              if (block.type === "list") {
-                return (
-                  <ul key={index}>
-                    {block.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                );
-              }
-
-              return <p key={index}>{block.text}</p>;
-            })}
           </div>
+        </header>
 
-          <footer className="post-sign">
-            <Mark size={26} />
+        <ArticleShell>
+          {article.body.map((block, index) => {
+            if (block.type === "list") {
+              return (
+                <ul key={index}>
+                  {block.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              );
+            }
+
+            return <p key={index}>{block.text}</p>;
+          })}
+
+          <footer className="mt-12 flex items-center gap-3.5 border-t border-line pt-6">
+            <Mark size={26} className="shrink-0" />
             <Link href="/newsroom" className="link">
               Back to the newsroom
             </Link>
           </footer>
-        </div>
-      </Sheet>
+        </ArticleShell>
+      </article>
 
-      <Sheet className="section-tight post-more" labelledBy="post-more-title">
-        <div className="shell post-more-inner">
-          <div className="newsroom-archive-head">
-            <h2 id="post-more-title" className="t-head" data-focus>
+      <section aria-labelledby="post-more-title" className="bg-wash">
+        <div className="mx-auto max-w-[1200px] px-5 py-16 sm:px-8 sm:py-24">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+            <h2
+              id="post-more-title"
+              className="text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em]"
+            >
               {relatedArticles.length > 0
                 ? `More in ${article.category}`
                 : "More from the newsroom"}
             </h2>
-            <Link href="/newsroom" className="link">
+            <Link href="/newsroom" className="link text-[15.5px]">
               All posts
             </Link>
           </div>
 
           {surfacedRelatedArticles.length > 0 ? (
-            <NewsList articles={surfacedRelatedArticles} showDescription={false} />
+            <div className="mt-8">
+              <NewsList articles={surfacedRelatedArticles} showDescription={false} />
+            </div>
           ) : null}
 
-          <div className="newsroom-follow">
-            <a href="/feed.xml" className="link">
+          <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3">
+            <a href="/feed.xml" className="link text-[15.5px]">
               Subscribe by RSS
             </a>
             <PreferredSource label="Prefer Scope on Google" markedLabel="Preferred on Google" />
           </div>
         </div>
-      </Sheet>
+      </section>
     </PageShell>
   );
 }

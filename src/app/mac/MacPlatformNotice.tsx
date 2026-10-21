@@ -23,7 +23,10 @@ export default function MacPlatformNotice() {
   if (isMac) return null;
 
   return (
-    <p role="note" className="note note-hi mac-notice">
+    <p
+      role="note"
+      className="mt-6 max-w-[52ch] rounded-[14px] bg-wash px-5 py-4 text-[15px] leading-[1.55] text-ink-soft ring-1 ring-inset ring-line"
+    >
       This one runs on your Mac. Open this page on the Mac you want to reach to set
       it up there.
     </p>

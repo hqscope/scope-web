@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import "@/styles/site.css";
+import type { ReactNode } from "react";
+import { Caveat } from "next/font/google";
 
-import MotionRoot from "@/components/motion/MotionRoot";
 import JsonLd from "@/components/seo/JsonLd";
 import SiteAnalytics from "@/components/seo/SiteAnalytics";
 import { SCOPE_DEFINITION } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import { schibsted } from "@/styles/fonts";
+import "./globals.css";
+
+// Only used for the handwriting drawn inside product illustrations.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -94,41 +103,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  // The sticky header paints into the status-bar strip and the landscape
-  // notch through safe-area padding, which only works with cover.
-  viewportFit: "cover",
-  // The desk the pages sit on. The site has one scheme: cream paper on an
-  // espresso desk reads the same in light and dark system settings.
-  themeColor: "#14100c",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
 };
 
-/**
- * Runs before first paint. Entrance motion (headings that write themselves
- * in, pen marks that draw) is opt-in through html[data-motion="on"], so a
- * visitor without JavaScript, or with reduced motion on, sees finished pages
- * from the first frame. If the observer never reports in, the attribute is
- * withdrawn so nothing can stay hidden.
- */
-const motionBootstrap = `(function(){try{var d=document.documentElement;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.setAttribute('data-motion','on');setTimeout(function(){if(!d.hasAttribute('data-focus-ready'))d.removeAttribute('data-motion')},3500)}catch(e){}})();`;
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={schibsted.variable}
-      suppressHydrationWarning
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
-      </head>
-      <body>
+    <html lang="en" className={`${schibsted.variable} ${caveat.variable}`}>
+      <body className="flex min-h-dvh flex-col">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <MotionRoot>{children}</MotionRoot>
+        {children}
         <SiteAnalytics />
       </body>
     </html>

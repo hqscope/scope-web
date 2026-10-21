@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
-import Sheet from "@/components/motion/Sheet";
+import { ButtonLink } from "@/components/buttons";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import PageHead from "@/components/site/PageHead";
@@ -15,6 +16,7 @@ import {
   LECTRA_PRODUCT_NAME,
   SCOPE_DEFINITION,
   SCOPE_PRODUCT_NAME,
+  SITE_URL,
   SUPPORT_EMAIL,
 } from "@/lib/site";
 import {
@@ -24,10 +26,6 @@ import {
 } from "@/lib/siteRelease";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { LIVE_USERS, VERIFIED_ON, formatUsers } from "@/lib/usage";
-
-import "../_company/company.css";
-
-const SITE_URL = "https://www.canvascope.org";
 
 export const metadata = publicPageMetadata({
   title: "Press Kit",
@@ -83,7 +81,7 @@ type BrandAsset = {
   description: string;
   width: number;
   height: number;
-  /** Marks meant for dark grounds are shown on the desk. */
+  /** Marks meant for dark grounds are shown on an ink tile. */
   dark?: boolean;
 };
 
@@ -184,6 +182,11 @@ const namingRules: NamingRule[] = [
 
 const mailto = `mailto:${SUPPORT_EMAIL}`;
 
+const container = "mx-auto max-w-[1200px] px-5 sm:px-8";
+const sectionTitle =
+  "text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em] text-balance";
+const sideNote = "max-w-[46ch] text-[15.5px] leading-[1.6] text-stone";
+
 export default function PressPage() {
   const peopleCount = formatUsers(LIVE_USERS);
   const countedOn = longDate(VERIFIED_ON);
@@ -198,295 +201,372 @@ export default function PressPage() {
         ])}
       />
 
-      <Sheet labelledBy="press-title">
-        <PageHead
-          context="For journalists, bloggers, and anyone writing about Scope"
-          title={<span id="press-title">Press kit</span>}
-          lede={
-            <p className="co-inline">
-              Everything here may be reused to write about {SCOPE_PRODUCT_NAME} and{" "}
-              {LECTRA_PRODUCT_NAME}. A link back is appreciated but not required. Facts
-              are dated so you can tell how fresh they are, and corrections go to{" "}
-              <a href={mailto}>{SUPPORT_EMAIL}</a>.
-            </p>
-          }
-        />
+      <PageHead
+        context="For journalists, bloggers, and anyone writing about Scope"
+        title="Press kit"
+        lede={
+          <p>
+            Everything here may be reused to write about {SCOPE_PRODUCT_NAME} and{" "}
+            {LECTRA_PRODUCT_NAME}. A link back is appreciated but not required. Facts are
+            dated so you can tell how fresh they are, and corrections go to{" "}
+            <a href={mailto} className="link break-words">
+              {SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
+        }
+      />
 
-        <div className="shell" id="facts" style={{ paddingBottom: "var(--section)" }}>
-          <h2 className="t-head" data-focus style={{ marginBottom: 28 }}>
+      <section id="facts" aria-labelledby="facts-title" className={`${container} pb-20 sm:pb-28`}>
+        <div className="grid grid-cols-1 gap-8 border-t border-line pt-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+          <h2 id="facts-title" className={sectionTitle}>
             The short version.
           </h2>
-          <dl className="co-facts plane" aria-label={`Scope fact sheet, checked ${storeFactsOn}`}>
-            <div>
-              <dt>Company</dt>
-              <dd>
-                Scope Inc., formerly Canvascope. Renamed July 2026.{" "}
-                <Link href="/newsroom/canvascope-is-now-scope">Read the announcement</Link>.
-              </dd>
-            </div>
-            <div>
-              <dt>Founder</dt>
-              <dd>Noel Sason, UC Berkeley.</dd>
-            </div>
-            <div>
-              <dt>Products</dt>
-              <dd>
-                <ul>
-                  <li>
-                    <Link href="/products/extension">{SCOPE_PRODUCT_NAME}</Link>, the free
-                    Chrome extension, version {SCOPE_EXTENSION_VERSION}.
-                  </li>
-                  <li>
-                    <Link href="/products/lectra">{LECTRA_PRODUCT_NAME}</Link>, the free
-                    iPad and iPhone app, version {LECTRA_APP_VERSION}.
-                  </li>
-                  <li>
-                    <Link href="/mac">Lectra for Mac</Link>, the free Mac app.
-                  </li>
-                  <li>
-                    <Link href="/products/polya">Polya</Link>, on the web.
-                  </li>
-                </ul>
-                <p className="small">
-                  Versions as listed on the Chrome Web Store and the App Store on{" "}
-                  {storeFactsOn}.
-                </p>
-              </dd>
-            </div>
-            <div>
-              <dt>People using it</dt>
-              <dd>
-                {peopleCount} across Scope and {LECTRA_PRODUCT_NAME}, counted by hand on{" "}
-                {countedOn}.{" "}
-                <Link href="/newsroom/how-we-count-people-using-scope">How we count</Link>.
-              </dd>
-            </div>
-            <div>
-              <dt>Store listings</dt>
-              <dd>
-                {/* verify: Chrome Web Store user and rating counts, App Store rating, as shown on 2026-09-01 */}
-                The{" "}
-                <StoreLink store="chrome-web-store" href={CHROME_WEB_STORE_URL}>
-                  Chrome Web Store
-                </StoreLink>{" "}
-                showed 94 users and 5.0 from 6 ratings, and the{" "}
-                <StoreLink store="app-store" href={LECTRA_APP_STORE_URL}>
-                  App Store
-                </StoreLink>{" "}
-                showed 5.0 from 7 ratings. Both as of {storeFactsOn}.
-              </dd>
-            </div>
-            <div>
-              <dt>Works with</dt>
-              <dd>Canvas and Brightspace. No app syncs with Canvas automatically.</dd>
-            </div>
-            <div>
-              <dt>Pricing</dt>
-              <dd>Free. No subscription.</dd>
-            </div>
-            <div>
-              <dt>Privacy</dt>
-              <dd>
-                Search and indexing run entirely on your device. Optional cloud features
-                are clearly marked. <Link href="/privacy">Privacy policy</Link>.
-              </dd>
-            </div>
-            <div>
-              <dt>Contact</dt>
-              <dd>
-                <a href={mailto}>{SUPPORT_EMAIL}</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Site</dt>
-              <dd>
-                <a href={SITE_URL}>{SITE_URL}</a>
-              </dd>
-            </div>
+          <dl
+            className="divide-y divide-line border-y border-line"
+            aria-label={`Scope fact sheet, checked ${storeFactsOn}`}
+          >
+            <FactRow term="Company">
+              Scope Inc., formerly Canvascope. Renamed July 2026.{" "}
+              <Link href="/newsroom/canvascope-is-now-scope" className="link">
+                Read the announcement
+              </Link>
+              .
+            </FactRow>
+            <FactRow term="Founder">Noel Sason, UC Berkeley.</FactRow>
+            <FactRow term="Products">
+              <ul className="list-disc space-y-1.5 pl-5 marker:text-stone">
+                <li>
+                  <Link href="/products/extension" className="link">
+                    {SCOPE_PRODUCT_NAME}
+                  </Link>
+                  , the free Chrome extension, version {SCOPE_EXTENSION_VERSION}.
+                </li>
+                <li>
+                  <Link href="/products/lectra" className="link">
+                    {LECTRA_PRODUCT_NAME}
+                  </Link>
+                  , the free iPad and iPhone app, version {LECTRA_APP_VERSION}.
+                </li>
+                <li>
+                  <Link href="/mac" className="link">
+                    Lectra for Mac
+                  </Link>
+                  , the free Mac app.
+                </li>
+                <li>
+                  <Link href="/products/polya" className="link">
+                    Polya
+                  </Link>
+                  , on the web.
+                </li>
+              </ul>
+              <p className="mt-3 text-[14px] leading-[1.55] text-stone">
+                Versions as listed on the Chrome Web Store and the App Store on{" "}
+                {storeFactsOn}.
+              </p>
+            </FactRow>
+            <FactRow term="People using it">
+              {peopleCount} across Scope and {LECTRA_PRODUCT_NAME}, counted by hand on{" "}
+              {countedOn}.{" "}
+              <Link href="/newsroom/how-we-count-people-using-scope" className="link">
+                How we count
+              </Link>
+              .
+            </FactRow>
+            <FactRow term="Store listings">
+              {/* verify: Chrome Web Store user and rating counts, App Store rating, as shown on 2026-09-01 */}
+              The{" "}
+              <StoreLink store="chrome-web-store" href={CHROME_WEB_STORE_URL} className="link">
+                Chrome Web Store
+              </StoreLink>{" "}
+              showed 94 users and 5.0 from 6 ratings, and the{" "}
+              <StoreLink store="app-store" href={LECTRA_APP_STORE_URL} className="link">
+                App Store
+              </StoreLink>{" "}
+              showed 5.0 from 7 ratings. Both as of {storeFactsOn}.
+            </FactRow>
+            <FactRow term="Works with">
+              Canvas and Brightspace. No app syncs with Canvas automatically.
+            </FactRow>
+            <FactRow term="Pricing">Free. No subscription.</FactRow>
+            <FactRow term="Privacy">
+              Search and indexing run entirely on your device. Optional cloud features are
+              clearly marked.{" "}
+              <Link href="/privacy" className="link">
+                Privacy policy
+              </Link>
+              .
+            </FactRow>
+            <FactRow term="Contact">
+              <a href={mailto} className="link break-words">
+                {SUPPORT_EMAIL}
+              </a>
+            </FactRow>
+            <FactRow term="Site">
+              <a href={SITE_URL} className="link break-words">
+                {SITE_URL}
+              </a>
+            </FactRow>
           </dl>
         </div>
-      </Sheet>
+      </section>
 
-      <Sheet className="section" id="definitions" labelledBy="definitions-title">
-        <div className="shell">
-          <div className="co-head-split">
-            <h2 id="definitions-title" className="t-head" data-focus>
+      <div className="bg-wash">
+        <section
+          id="definitions"
+          aria-labelledby="definitions-title"
+          className={`${container} pt-20 sm:pt-28`}
+        >
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <h2 id="definitions-title" className={`${sectionTitle} max-w-[22ch]`}>
               What each product is, in one sentence.
             </h2>
-            <p className="margin-note">Use these sentences word for word.</p>
+            <p className={sideNote}>Use these sentences word for word.</p>
           </div>
-          <div className="split split--even split--top">
-            <div className="co-definition plane">
-              <h3>{SCOPE_PRODUCT_NAME}</h3>
-              <p>{SCOPE_DEFINITION}</p>
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+            <div className="rounded-[18px] bg-paper p-6 ring-1 ring-line sm:p-8">
+              <h3 className="text-[18px] font-semibold tracking-[-0.015em]">
+                {SCOPE_PRODUCT_NAME}
+              </h3>
+              <p className="mt-3 text-[16.5px] leading-[1.6] text-ink-soft">{SCOPE_DEFINITION}</p>
             </div>
-            <div className="co-definition plane">
-              <h3>{LECTRA_PRODUCT_NAME}</h3>
-              <p>{LECTRA_DEFINITION}</p>
+            <div className="rounded-[18px] bg-paper p-6 ring-1 ring-line sm:p-8">
+              <h3 className="text-[18px] font-semibold tracking-[-0.015em]">
+                {LECTRA_PRODUCT_NAME}
+              </h3>
+              <p className="mt-3 text-[16.5px] leading-[1.6] text-ink-soft">
+                {LECTRA_DEFINITION}
+              </p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="shell co-block" id="boilerplates">
-          <div className="co-head-split">
-            <h2 className="t-head" data-focus>
+        <section
+          id="boilerplates"
+          aria-labelledby="boilerplates-title"
+          className={`${container} pb-20 pt-20 sm:pb-28 sm:pt-28`}
+        >
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <h2 id="boilerplates-title" className={`${sectionTitle} max-w-[22ch]`}>
               Ready-made paragraphs at three lengths.
             </h2>
-            <p className="margin-note">
-              Written to be quoted as is. Every claim in them is true of the versions
-              listed above on {storeFactsOn}. If a later release changes something, the
-              fact sheet is updated first.
+            <p className={sideNote}>
+              Written to be quoted as is. Every claim in them is true of the versions listed
+              above on {storeFactsOn}. If a later release changes something, the fact sheet
+              is updated first.
             </p>
           </div>
 
-          <div className="co-boiler-group">
-            <h3>{SCOPE_PRODUCT_NAME}</h3>
-            <div className="co-boilers">
-              {scopeBoilerplates.map((item) => (
-                <div key={`scope-${item.words}`} className="plane">
-                  <h4>{item.words} words</h4>
-                  <p>{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <BoilerplateGroup
+            id="boilerplates-scope"
+            name={SCOPE_PRODUCT_NAME}
+            items={scopeBoilerplates}
+          />
+          <BoilerplateGroup
+            id="boilerplates-lectra"
+            name={LECTRA_PRODUCT_NAME}
+            items={lectraBoilerplates}
+          />
+        </section>
+      </div>
 
-          <div className="co-boiler-group">
-            <h3>{LECTRA_PRODUCT_NAME}</h3>
-            <div className="co-boilers">
-              {lectraBoilerplates.map((item) => (
-                <div key={`lectra-${item.words}`} className="plane">
-                  <h4>{item.words} words</h4>
-                  <p>{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section id="assets" aria-labelledby="assets-title" className={`${container} py-20 sm:py-28`}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+          <h2 id="assets-title" className={sectionTitle}>
+            Files you can use.
+          </h2>
+          <p className={sideNote}>
+            Please do not stretch, recolor, or add effects to the marks. Higher resolutions,
+            the marks on other backgrounds, and screenshots of a specific feature are
+            available on request at{" "}
+            <a href={mailto} className="link break-words">
+              {SUPPORT_EMAIL}
+            </a>
+            .
+          </p>
         </div>
-      </Sheet>
+        <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {brandAssets.map((asset) => (
+            <li
+              key={asset.path}
+              className="flex min-w-0 flex-col overflow-hidden rounded-[18px] ring-1 ring-line"
+            >
+              <div
+                className={`flex aspect-[4/3] items-center justify-center p-6 ${
+                  asset.dark ? "bg-ink" : "bg-wash"
+                }`}
+              >
+                <Image
+                  src={asset.path}
+                  alt={asset.description}
+                  width={asset.width}
+                  height={asset.height}
+                  sizes="(max-width: 640px) 90vw, (max-width: 1100px) 45vw, 400px"
+                  unoptimized={asset.path.endsWith(".svg")}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-2 border-t border-line p-5">
+                <a href={asset.path} className="link self-start break-words text-[14.5px]">
+                  {asset.path}
+                </a>
+                <p className="text-[15px] leading-[1.6] text-stone">{asset.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <Sheet className="section" id="assets" labelledBy="assets-title">
-        <div className="shell">
-          <div className="co-head-split">
-            <h2 id="assets-title" className="t-head" data-focus>
-              Files you can use.
+      <div className="bg-wash">
+        <section
+          id="naming"
+          aria-labelledby="naming-title"
+          className={`${container} pt-20 sm:pt-28`}
+        >
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+            <h2 id="naming-title" className={sectionTitle}>
+              How to write the names.
             </h2>
-            <p className="margin-note co-inline">
-              Please do not stretch, recolor, or add effects to the marks. Higher
-              resolutions, the marks on other backgrounds, and screenshots of a specific
-              feature are available on request at <a href={mailto}>{SUPPORT_EMAIL}</a>.
+            <ul className="divide-y divide-line border-y border-line">
+              {namingRules.map((entry) => (
+                <li
+                  key={entry.name}
+                  className="grid grid-cols-1 gap-1 py-5 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-6"
+                >
+                  <strong className="text-[16px] font-semibold tracking-[-0.01em]">
+                    {entry.name}
+                  </strong>
+                  <span className="text-[15.5px] leading-[1.6] text-stone">{entry.rule}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="coverage"
+          aria-labelledby="coverage-title"
+          className={`${container} pb-20 pt-20 sm:pb-28 sm:pt-28`}
+        >
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+            <h2 id="coverage-title" className={sectionTitle}>
+              What we do and don&rsquo;t do for coverage.
+            </h2>
+            <div className="max-w-[62ch] space-y-5 text-[17px] leading-[1.65] text-ink-soft">
+              <p>
+                We do not pay for coverage, offer reciprocal links, or provide review copies in
+                exchange for a particular verdict. Both products are free, so there is nothing
+                to give. Write what you find.
+              </p>
+              <p>
+                If we got something wrong on this page, or you find a claim of ours that does
+                not hold up, tell us at{" "}
+                <a href={mailto} className="link break-words">
+                  {SUPPORT_EMAIL}
+                </a>{" "}
+                and we will correct it and date the correction. Our own{" "}
+                <Link href="/compare" className="link">
+                  comparison pages
+                </Link>{" "}
+                name where other apps are better, and you are welcome to hold us to the same
+                standard.
+              </p>
+              <p>
+                One boundary worth knowing before you write: Scope answers questions from the
+                materials your instructors posted and links every answer to its source. It
+                does not take quizzes, write submissions, or interact with Canvas quiz logs.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <RelatedLinks
+        title="Where the details live."
+        links={[
+          {
+            href: "/products/extension",
+            label: SCOPE_PRODUCT_NAME,
+            copy: "The extension page: what it indexes, how answers are cited, and what it will not do.",
+          },
+          {
+            href: "/products/lectra",
+            label: LECTRA_PRODUCT_NAME,
+            copy: "The app page: handwriting, PDF markup, notebooks, terminal, and Git on an iPad.",
+          },
+          {
+            href: "/compare",
+            label: "Comparisons",
+            copy: "Dated, sourced comparisons with the apps students usually consider instead, including where those apps win.",
+          },
+          {
+            href: "/newsroom",
+            label: "Newsroom",
+            copy: "Release notes, company announcements, and the posts that explain how our numbers are counted.",
+          },
+        ]}
+      />
+
+      <section id="contact" aria-labelledby="contact-title" className="bg-ink text-white">
+        <div
+          className={`${container} flex flex-col gap-8 py-20 sm:py-24 md:flex-row md:items-end md:justify-between`}
+        >
+          <div>
+            <h2
+              id="contact-title"
+              className="max-w-[18ch] text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]"
+            >
+              Need something that isn&rsquo;t here?
+            </h2>
+            <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-white/65">
+              Email {SUPPORT_EMAIL} for interviews, more screenshots, or a fact check on a
+              draft. We answer from the same inbox students write to, so replies are quick but
+              not instant.
             </p>
           </div>
-          <ul className="co-assets">
-            {brandAssets.map((asset) => (
-              <li key={asset.path} className="co-asset plane">
-                <div className="co-asset-thumb" data-dark={asset.dark || undefined}>
-                  <Image
-                    src={asset.path}
-                    alt={asset.description}
-                    width={asset.width}
-                    height={asset.height}
-                    sizes="(max-width: 640px) 90vw, (max-width: 1100px) 45vw, 400px"
-                    unoptimized={asset.path.endsWith(".svg")}
-                  />
-                </div>
-                <div className="co-asset-body">
-                  <a href={asset.path} className="link" style={{ justifySelf: "start" }}>
-                    {asset.path}
-                  </a>
-                  <p>{asset.description}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Sheet>
-
-      <Sheet className="section" id="naming" labelledBy="naming-title">
-        <div className="shell split split--top">
-          <h2 id="naming-title" className="t-head" data-focus>
-            How to write the names.
-          </h2>
-          <ul className="feature-list feature-list--wide" style={{ marginTop: 0 }}>
-            {namingRules.map((entry) => (
-              <li key={entry.name}>
-                <strong>{entry.name}</strong>
-                <span>{entry.rule}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="shell split split--top co-block" id="coverage">
-          <h2 className="t-head" data-focus>
-            What we do and don&rsquo;t do for coverage.
-          </h2>
-          <div className="co-inline">
-            <p className="copy">
-              We do not pay for coverage, offer reciprocal links, or provide review copies
-              in exchange for a particular verdict. Both products are free, so there is
-              nothing to give. Write what you find.
-            </p>
-            <p className="copy co-copy-gap">
-              If we got something wrong on this page, or you find a claim of ours that
-              does not hold up, tell us at <a href={mailto}>{SUPPORT_EMAIL}</a> and we
-              will correct it and date the correction. Our own{" "}
-              <Link href="/compare">comparison pages</Link> name where other apps are
-              better, and you are welcome to hold us to the same standard.
-            </p>
-            <p className="copy co-copy-gap">
-              One boundary worth knowing before you write: Scope answers questions from
-              the materials your instructors posted and links every answer to its source.
-              It does not take quizzes, write submissions, or interact with Canvas quiz
-              logs.
-            </p>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+            <ButtonLink href={mailto} variant="inverted" size="lg">
+              Email us
+            </ButtonLink>
           </div>
-        </div>
-      </Sheet>
-
-      <Sheet labelledBy="related-title">
-        <RelatedLinks
-          title="Where the details live."
-          links={[
-            {
-              href: "/products/extension",
-              label: SCOPE_PRODUCT_NAME,
-              copy: "The extension page: what it indexes, how answers are cited, and what it will not do.",
-            },
-            {
-              href: "/products/lectra",
-              label: LECTRA_PRODUCT_NAME,
-              copy: "The app page: handwriting, PDF markup, notebooks, terminal, and Git on an iPad.",
-            },
-            {
-              href: "/compare",
-              label: "Comparisons",
-              copy: "Dated, sourced comparisons with the apps students usually consider instead, including where those apps win.",
-            },
-            {
-              href: "/newsroom",
-              label: "Newsroom",
-              copy: "Release notes, company announcements, and the posts that explain how our numbers are counted.",
-            },
-          ]}
-        />
-      </Sheet>
-
-      <section className="on-desk shell section co-closing" id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title" className="t-title" data-focus>
-          Need something that isn&rsquo;t here?
-        </h2>
-        <p className="lede">
-          Email {SUPPORT_EMAIL} for interviews, more screenshots, or a fact check on a
-          draft. We answer from the same inbox students write to, so replies are quick
-          but not instant.
-        </p>
-        <div className="actions">
-          <a href={mailto} className="btn btn-primary">
-            Email us
-          </a>
         </div>
       </section>
     </PageShell>
+  );
+}
+
+function FactRow({ term, children }: { term: string; children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 gap-1 py-4 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
+      <dt className="text-[15px] font-semibold">{term}</dt>
+      <dd className="min-w-0 text-[15.5px] leading-[1.6] text-ink-soft">{children}</dd>
+    </div>
+  );
+}
+
+function BoilerplateGroup({
+  id,
+  name,
+  items,
+}: {
+  id: string;
+  name: string;
+  items: Boilerplate[];
+}) {
+  return (
+    <div className="mt-12">
+      <h3 id={id} className="text-[20px] font-semibold tracking-[-0.02em]">
+        {name}
+      </h3>
+      <div className="mt-5 grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-5">
+        {items.map((item) => (
+          <div key={`${id}-${item.words}`} className="rounded-[18px] bg-paper p-6 ring-1 ring-line">
+            <h4 className="text-[14px] font-semibold text-stone">{item.words} words</h4>
+            <p className="mt-2 text-[15.5px] leading-[1.65] text-ink-soft">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

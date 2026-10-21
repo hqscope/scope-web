@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-
 import JsonLd from "@/components/seo/JsonLd";
-import StoreLink from "@/components/seo/StoreLink";
-import Sheet from "@/components/motion/Sheet";
-import FaqList from "@/components/site/FaqList";
-import Mark from "@/components/site/Mark";
-import PageHead from "@/components/site/PageHead";
 import PageShell from "@/components/site/PageShell";
+import { ButtonLink, PolyaButton } from "@/components/buttons";
+import { PolyaMock } from "@/components/mocks/polya-mock";
 import {
-  breadcrumbSchema,
-  faqSchema,
-  type FaqEntry,
-} from "@/lib/structured-data";
-import { CHROME_WEB_STORE_URL, POLYA_LOGIN_URL } from "@/lib/site";
+  ClosingCta,
+  FeatureGrid,
+  PageHero,
+  Questions,
+  Requirements,
+  SectionHeading,
+} from "@/components/page-parts";
+import { publicPageMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
+import { breadcrumbSchema, faqSchema, type FaqEntry } from "@/lib/structured-data";
 
-import "./polya.css";
-import HintScene from "./HintScene";
-
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "Polya, a tutor that knows the course",
   description:
     "Polya grounds every hint in your actual course materials and cites the page, slide, or lecture moment it came from. It is Socratic by default, with guided help that gets you to the answer and stops there.",
-  alternates: {
-    canonical: "/products/polya",
-  },
+  path: "/products/polya",
   keywords: [
     "Polya",
     "Scope Polya",
@@ -34,54 +29,79 @@ export const metadata: Metadata = {
     "Socratic tutoring",
     "study help",
   ],
-  openGraph: {
-    title: "Polya, a tutor that knows the course",
-    description:
-      "Every hint comes from your course materials, with the source linked.",
-    type: "website",
-    url: "/products/polya",
-  },
-};
+});
 
-const principles = [
+const modes = [
   {
-    title: "Your course, and only your course",
-    copy:
-      "Hints come from the slides, readings, and recordings your instructor actually posted. If it isn't in the course, Polya says so.",
+    name: "Open",
+    does: "Gives full answers and walkthroughs when you ask.",
+    for: "Reading up and reviewing material you already understand.",
   },
   {
-    title: "Every answer points home",
-    copy:
-      "The page, the slide, the minute of lecture. Click through and read the source yourself, because that's the point.",
+    name: "Guided",
+    does: "Starts with hints and one step at a time. Holds the full solution until you've had a go.",
+    for: "Homework and problem sets you're working through.",
+    isDefault: true,
   },
   {
-    title: "It stops before the last step",
-    copy:
-      "Socratic by default. Polya asks what you tried, narrows the gap, and makes you do the last step.",
+    name: "Practice",
+    does: "You commit to an answer before Polya reveals anything. Answer keys are hidden.",
+    for: "Testing yourself before an exam.",
+  },
+  {
+    name: "Review",
+    does: "Gives full worked solutions, then suggests a related problem to try.",
+    for: "Going over work after the deadline.",
+  },
+];
+
+const features = [
+  {
+    title: "Check every answer",
+    body: "Each claim carries a numbered citation. Select it to open the PDF at the cited page, or the passage it came from.",
+  },
+  {
+    title: "Get the next step",
+    body: "Use I'm stuck — next step for one more hint, and Check yourself to try a related question on your own.",
+  },
+  {
+    title: "Prepare for an exam",
+    body: "Add an exam, map its topics, and practice exam-style questions written from your course. Answers are graded the same way every time.",
+  },
+  {
+    title: "Bring in a course",
+    body: "Import a Canvas course with Scope for Canvas, add a public class website, or upload your own PDFs and lecture transcripts.",
+  },
+  {
+    title: "Leave a note for the tutor",
+    body: "Tell Polya about a method your professor wants you to use, like the substitution method from Lecture 8.",
+  },
+  {
+    title: "Use it in ChatGPT or Claude",
+    body: "Connect Polya so the assistant you already use can search your course materials and follow the study mode you chose.",
   },
 ];
 
 const faqs: FaqEntry[] = [
-  {
-    question: "Why is it called Polya?",
-    answer:
-      "After George Pólya, the mathematician who wrote How to Solve It. He argued that you learn by being led to the answer instead of being handed it, and that is the whole design of this tutor.",
-  },
-  {
-    question: "Where do the answers come from?",
-    answer:
-      "Only from your course materials: the slides, readings, pages, and recordings your instructor posted. Polya cites the page, slide, or lecture timestamp behind every hint, and says so plainly when something is not in the course.",
-  },
-  {
-    question: "Will Polya just give me the answer?",
-    answer:
-      "No. Polya asks what you have already tried, narrows the gap, and leaves the last step to you. It is built to get you unstuck without carrying you.",
-  },
-  {
-    question: "Do I need the Scope extension?",
-    answer:
-      "No, but Polya works best with it. The extension is what indexes your courses, so with it installed Polya already knows the material you are asking about.",
-  },
+    {
+      question: "Can Polya be wrong?",
+      answer:
+        "Yes. Polya is an AI tutor, and its answers can be wrong. Every answer that uses your course shows its sources, so you can open the page and check.",
+    },
+    {
+      question: "Will Polya just give me the answers?",
+      answer:
+        "Not by default. In Guided mode, Polya starts with hints and holds the full solution until you've had a go. You choose each course's mode, and your syllabus and your school's honor code decide what help is allowed.",
+    },
+    {
+      question: "Can my instructor set the study mode?",
+      answer: "No. Study modes are your own choice for each course.",
+    },
+    {
+      question: "Does ChatGPT or Claude have to follow my study mode?",
+      answer:
+        "Polya tells the assistant which mode you chose and asks it to check again for each new question. Polya can't force another company's assistant to follow it, so if one goes past your mode, remind it to check the course's study rules.",
+    },
 ];
 
 export default function PolyaPage() {
@@ -96,104 +116,75 @@ export default function PolyaPage() {
           faqSchema(faqs),
         ]}
       />
+      <PageHero
+        kicker="Polya, a course-aware AI tutor"
+        title="A tutor that knows your course."
+        lede="Polya answers from your own readings, slides, and lectures, and every answer links to the page it came from. On a problem, it starts with a hint and gives you one step at a time."
+        actions={
+          <>
+            <PolyaButton variant="primary" />
+            <ButtonLink href={`${site.docsUrl}/polya/overview`} variant="secondary" size="lg">
+              Read the guide
+            </ButtonLink>
+          </>
+        }
+        visual={<PolyaMock />}
+      />
 
-      {/* Hero. */}
-      <Sheet>
-        <PageHead
-          context="Polya, on the web and free"
-          title="A tutor that knows the course."
-          lede={
-            <p>
-              Named for George Pólya, who taught that you learn by being led to the
-              answer instead of being handed it. Polya grounds every hint in your
-              actual course materials and cites where it came from.
-            </p>
-          }
-        >
-          <Link href={POLYA_LOGIN_URL} className="btn btn-primary">
-            Try Polya for free
-          </Link>
-          <Link href="/products/extension" className="btn btn-line">
-            Pairs with the extension
-          </Link>
-        </PageHead>
-      </Sheet>
-
-      {/* The scene: one stuck step, circled and left for the student. */}
-      <section className="on-desk section polya-scene-band" aria-labelledby="scene-title">
-        <div className="shell">
-          <div className="polya-scene-head">
-            <h2 id="scene-title" className="t-head" data-focus>
-              It finds the step. You fix it.
-            </h2>
-            <p className="margin-note">
-              The hint points at the slide it came from and asks what differs. The
-              last step stays yours.
-            </p>
-          </div>
-          <HintScene
-            header="Math 53, grounded in 214 documents"
-            question="I keep getting the wrong sign when I set up the Lagrangian for problem 3. Where am I going wrong?"
-            answer="Before I point at the step, write your constraint as g(x, y) = 0. Did you move the constant to the left side first? In lecture your professor set up the same form with the constant on the left. Compare your ∇g against slide 22 and tell me what differs."
-            sources={["Lecture 14, slide 22", "Recording, 31:04"]}
-            replyHint="Polya won't do the problem for you."
+      <section aria-labelledby="modes" className="border-y border-line bg-wash">
+        <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-24">
+          <SectionHeading
+            id="modes"
+            title="You decide how much help you get."
+            intro="Each course has a study mode, and you can change it any time. Concept questions get a full answer in every mode. The modes differ in how Polya handles problems you're asked to solve."
           />
-        </div>
-      </section>
-
-      {/* Principles and questions. */}
-      <Sheet className="section" labelledBy="principles-title">
-        <div className="shell">
-          <h2
-            id="principles-title"
-            className="t-head"
-            data-focus
-            style={{ maxWidth: "22ch" }}
-          >
-            A chatbot knows a little about everything. Polya knows your course.
-          </h2>
-          <div className="idea-grid idea-grid--3 polya-principles">
-            {principles.map((principle) => (
-              <div key={principle.title}>
-                <h3>{principle.title}</h3>
-                <p>{principle.copy}</p>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-[22px] bg-line ring-1 ring-line sm:grid-cols-2 lg:grid-cols-4">
+            {modes.map((mode) => (
+              <div key={mode.name} className="flex flex-col bg-paper p-7">
+                <h3 className="flex items-center gap-2.5 text-[20px] font-semibold tracking-[-0.02em]">
+                  {mode.name}
+                  {mode.isDefault && (
+                    <span className="rounded-full bg-red-tint px-2 py-0.5 text-[12px] font-semibold tracking-normal text-red">
+                      Default
+                    </span>
+                  )}
+                </h3>
+                <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-ink-soft">{mode.does}</p>
+                <p className="mt-5 border-t border-line pt-4 text-[14px] leading-[1.5] text-stone">
+                  Good for {mode.for.charAt(0).toLowerCase() + mode.for.slice(1)}
+                </p>
               </div>
             ))}
           </div>
-
-          <div style={{ marginTop: "var(--section)" }}>
-            <h2 className="t-head polya-faq-head" data-focus>
-              Questions people actually ask.
-            </h2>
-            <FaqList items={faqs} />
-          </div>
         </div>
-      </Sheet>
-
-      {/* Close, on the desk. */}
-      <section
-        className="on-desk shell section polya-closing"
-        id="try"
-        aria-labelledby="closing-title"
-      >
-        <Mark size={48} />
-        <h2 id="closing-title" className="t-title" data-focus>
-          Get unstuck without getting carried.
-        </h2>
-        <div className="actions">
-          <Link href={POLYA_LOGIN_URL} className="btn btn-primary">
-            Try Polya for free
-          </Link>
-          <StoreLink
-            store="chrome-web-store"
-            href={CHROME_WEB_STORE_URL}
-            className="btn btn-line"
-          >
-            Add Scope to Chrome for free
-          </StoreLink>
-        </div>
-        <p className="btn-note">Works best with the Scope extension installed</p>
       </section>
+
+      <FeatureGrid
+        id="features"
+        title="Built to help you learn it."
+        intro="Polya is built to help you understand the material, not to finish your work for you."
+        features={features}
+      />
+
+      <Requirements
+        items={[
+          { label: "Browser", value: "Any web browser, on a computer, tablet, or phone." },
+          { label: "Account", value: "A Google account to sign in. Polya keeps your courses for you." },
+          {
+            label: "Materials",
+            value: "A Canvas course, a public course website, or PDFs and lecture transcripts on your device.",
+          },
+          { label: "Price", value: "Free." },
+        ]}
+      />
+
+      <Questions items={faqs} />
+
+      <ClosingCta
+        title="Bring a course to Polya."
+        body="Sign in with Google, add your course, and ask your first question."
+        actions={<PolyaButton variant="inverted" />}
+      />
     </PageShell>
   );
 }

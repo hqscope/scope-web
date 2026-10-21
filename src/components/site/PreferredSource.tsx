@@ -57,11 +57,11 @@ export default function PreferredSource({
       href={GOOGLE_PREFERRED_SOURCE_URL}
       target="_blank"
       rel="noreferrer"
-      className="preferred-source"
       data-marked={marked}
       onClick={mark}
+      className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[13px] font-medium text-stone ring-1 ring-line transition-colors hover:text-ink hover:ring-[#d6d0c7] data-[marked=true]:text-ink"
     >
-      <StarIcon filled={marked} />
+      <StarIcon filled={marked} size={15} className={marked ? "text-red" : undefined} />
       <span>{marked ? markedLabel : label}</span>
     </a>
   );

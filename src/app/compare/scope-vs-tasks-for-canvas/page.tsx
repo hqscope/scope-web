@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import FaqList, { type FaqItem } from "@/components/site/FaqList";
 import MethodologyNote from "@/components/site/MethodologyNote";
@@ -111,11 +112,11 @@ export default function ScopeVsTasksForCanvasPage() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Add Scope to Chrome for free
             </StoreLink>
-            <a href="#table" className="btn btn-line">
+            <a href="#table" className={buttonClasses("secondary", "lg")}>
               See the comparison
             </a>
           </>
@@ -364,7 +365,7 @@ export default function ScopeVsTasksForCanvasPage() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
               Add Scope to Chrome for free
             </StoreLink>

@@ -2,6 +2,7 @@
 
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
+import { buttonClasses } from "@/components/buttons";
 import { AGENT_WORKSPACE_WAITLIST_SOURCE } from "@/lib/site";
 
 type FormPhase = "idle" | "submitting" | "success" | "already" | "error";
@@ -94,58 +95,68 @@ export default function WaitlistForm() {
   }
 
   return (
-    <div className="aw-waitlist">
+    <div>
       {!isDone && (
         <>
           <form
-            className="aw-waitlist-form"
+            className="relative"
             method="post"
             action="/api/waitlist"
             onSubmit={handleSubmit}
           >
-            <label className="sr-only" htmlFor="aw-waitlist-email">
+            <label
+              className="block text-[14.5px] font-semibold text-ink"
+              htmlFor="aw-waitlist-email"
+            >
               Email address
             </label>
-            <input
-              id="aw-waitlist-email"
-              className="aw-waitlist-input"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              inputMode="email"
-              placeholder="you@company.com"
-              aria-invalid={hasError || undefined}
-              aria-describedby={hasError ? "aw-waitlist-status" : undefined}
-            />
-            {/* Honeypot: hidden from people, tempting to bots. The name is
-                deliberately meaningless, because password managers autofill a
-                hidden field called "company" and would drop real signups. */}
-            <div className="aw-waitlist-hp" aria-hidden="true">
+            <div className="mt-2.5 flex flex-col gap-3 sm:flex-row">
               <input
-                type="text"
-                name="aw_ref_code"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
+                id="aw-waitlist-email"
+                className="h-12 w-full min-w-0 rounded-full sm:flex-1 bg-paper px-5 text-[16px] text-ink ring-1 ring-inset ring-[#d6d0c7] transition-shadow placeholder:text-stone/70 hover:ring-stone/60 focus:ring-2 focus:ring-ink aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-red"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                inputMode="email"
+                placeholder="you@company.com"
+                aria-invalid={hasError || undefined}
+                aria-describedby={hasError ? "aw-waitlist-status" : undefined}
               />
+              {/* Honeypot: hidden from people, tempting to bots. The name is
+                  deliberately meaningless, because password managers autofill a
+                  hidden field called "company" and would drop real signups. */}
+              <div
+                className="absolute h-px w-px overflow-hidden whitespace-nowrap [clip-path:inset(50%)]"
+                aria-hidden="true"
+              >
+                <input
+                  type="text"
+                  name="aw_ref_code"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+              </div>
+              <button
+                type="submit"
+                className={`${buttonClasses("primary", "lg")} shrink-0 disabled:cursor-progress disabled:opacity-60`}
+                disabled={phase === "submitting"}
+                aria-busy={phase === "submitting" || undefined}
+              >
+                Get early access
+              </button>
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary aw-waitlist-submit"
-              disabled={phase === "submitting"}
-              aria-busy={phase === "submitting" || undefined}
-            >
-              Get early access
-            </button>
           </form>
-          <p className="aw-waitlist-micro">
+          <p className="mt-3 text-[14px] leading-[1.5] text-stone">
             We send one email, when your invite is ready. There is no newsletter.
           </p>
         </>
       )}
       <p
-        className="aw-waitlist-status"
+        className={`text-[15px] font-medium leading-[1.5] data-[tone=done]:text-[18px] data-[tone=done]:font-semibold data-[tone=done]:tracking-[-0.015em] data-[tone=done]:text-ink data-[tone=error]:text-red ${
+          isDone ? "" : "mt-3"
+        }`}
         id="aw-waitlist-status"
         role="status"
         aria-live="polite"

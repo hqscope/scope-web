@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import PenMark from "@/components/motion/PenMark";
+import { ButtonLink, buttonClasses } from "@/components/buttons";
+import { ChromeIcon } from "@/components/icons";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import ComparisonTable, { type ComparisonRow } from "@/components/site/ComparisonTable";
@@ -18,7 +19,7 @@ import { SCOPE_EXTENSION_VERSION } from "@/lib/siteRelease";
 import { breadcrumbSchema, guideArticleSchema } from "@/lib/structured-data";
 import { LIVE_USERS, VERIFIED_ON } from "@/lib/usage";
 
-import GuideArticle, { GuideClosing, GuideSection } from "../_guide/GuideArticle";
+import GuideArticle, { GuideClosing, GuideList, GuideSection, GuideWide } from "../_guide/GuideArticle";
 
 const guide = getGuide("canvas-extension-safety");
 const path = guidePath(guide);
@@ -91,7 +92,7 @@ const permissionRows: ComparisonRow[] = [
   {
     label: "Google sign-in",
     cells: [
-      "Your Google ID, email, name, and profile picture, used to create your account and keep synced records scoped to you: course snapshots, documents, Course Brain artifacts, and Student Profile facts.",
+      "Your Google ID, email, name, and profile picture, used to create your account and keep synced records scoped to you: documents and Student Profile facts.",
       "Optional. Only account-linked features ask for it.",
       "Scope’s servers, under your account.",
     ],
@@ -203,12 +204,7 @@ export default function CanvasExtensionSafetyGuide() {
             institutions, the group responsible claimed data on roughly 275 million
             users, and a proposed class action was filed in federal court in
             California on May 13, 2026. None of that involved a browser extension,
-            but it is a good moment to ask{" "}
-            <span className="pen-phrase">
-              what an extension can see
-              <PenMark kind="underline" inset="auto -4px -12px -4px" delay={0.6} className="pen-line" />
-            </span>
-            .
+            but it is a good moment to ask what an extension can see.
           </p>
         }
         outline={outline}
@@ -241,234 +237,220 @@ export default function CanvasExtensionSafetyGuide() {
         }
       >
         <GuideSection id="what-it-can-see" title="What any Canvas extension can see">
-          <div className="prose">
-            <p>
-              When you install an extension, Chrome asks you to grant it access to
-              certain sites. On every site it has, the extension runs inside the pages
-              you open. It can read what is on the page, change it, and make requests
-              to that site as you, because your browser is already signed in. It does
-              not need your password. Your logged-in session is the key, and the
-              extension is already inside the door.
-            </p>
-            <p>
-              Two things follow. First, reading and acting are the same permission. An
-              extension that can read your assignments page can also press submit on
-              it, and nothing in Chrome&apos;s prompt tells you which one it does.
-              Only the code and the privacy policy can. Second, some permissions reach
-              past the sites an extension runs on. &ldquo;Read your browsing
-              history,&rdquo; which Chrome shows when an extension asks to see your
-              tabs, means it can see the address and title of every tab you have open,
-              whether or not it does anything there.
-            </p>
-            <p>
-              There are also limits. An extension cannot see inside other extensions,
-              read sites it was never granted, or reach data that never passes
-              through your browser. It also cannot undo anything Instructure already
-              stores.
-            </p>
-          </div>
+          <p>
+            When you install an extension, Chrome asks you to grant it access to
+            certain sites. On every site it has, the extension runs inside the pages
+            you open. It can read what is on the page, change it, and make requests
+            to that site as you, because your browser is already signed in. It does
+            not need your password. Your logged-in session is the key, and the
+            extension is already inside the door.
+          </p>
+          <p>
+            Two things follow. First, reading and acting are the same permission. An
+            extension that can read your assignments page can also press submit on
+            it, and nothing in Chrome&apos;s prompt tells you which one it does.
+            Only the code and the privacy policy can. Second, some permissions reach
+            past the sites an extension runs on. &ldquo;Read your browsing
+            history,&rdquo; which Chrome shows when an extension asks to see your
+            tabs, means it can see the address and title of every tab you have open,
+            whether or not it does anything there.
+          </p>
+          <p>
+            There are also limits. An extension cannot see inside other extensions,
+            read sites it was never granted, or reach data that never passes
+            through your browser. It also cannot undo anything Instructure already
+            stores.
+          </p>
         </GuideSection>
 
         <GuideSection id="checklist" title="The checklist">
-          <div className="prose">
-            <p>Run these nine checks on any extension before it gets your Canvas session.</p>
-          </div>
-          <ul className="feature-list">
-            {checklist.map((item) => (
-              <li key={item.title}>
-                <strong>{item.title}</strong>
-                <span>{item.copy}</span>
-              </li>
-            ))}
-          </ul>
+          <p>Run these nine checks on any extension before it gets your Canvas session.</p>
+          <GuideList items={checklist} />
         </GuideSection>
 
         <GuideSection id="local-first" title="The honest limits of local-first">
-          <div className="prose">
-            <p>
-              Local-first limits what an extension adds to your exposure. If the index
-              stays in your browser, a breach of the publisher&apos;s servers cannot
-              leak it, because it is not there. That is the whole benefit, and it is
-              real. It is also narrow.
-            </p>
-            <p>
-              Local-first cannot protect anything Instructure already holds. Your
-              name, email, enrollments, submissions, and messages live on
-              Canvas&apos;s servers, and that is exactly what the 2026 breach reached.
-              Nothing you install or uninstall changes the copy there.
-            </p>
-            <p>
-              It also stops at the feature boundary. The moment an extension offers
-              account sync or cloud AI, some data leaves the device, and the honest
-              question becomes which data, to whom, and whether you can decline.{" "}
-              {SCOPE_PRODUCT_NAME} has both of those features. The table below says
-              what each one sends.
-            </p>
-          </div>
+          <p>
+            Local-first limits what an extension adds to your exposure. If the index
+            stays in your browser, a breach of the publisher&apos;s servers cannot
+            leak it, because it is not there. That is the whole benefit, and it is
+            real. It is also narrow.
+          </p>
+          <p>
+            Local-first cannot protect anything Instructure already holds. Your
+            name, email, enrollments, submissions, and messages live on
+            Canvas&apos;s servers, and that is exactly what the 2026 breach reached.
+            Nothing you install or uninstall changes the copy there.
+          </p>
+          <p>
+            It also stops at the feature boundary. The moment an extension offers
+            account sync or cloud AI, some data leaves the device, and the honest
+            question becomes which data, to whom, and whether you can decline.{" "}
+            {SCOPE_PRODUCT_NAME} has both of those features. The table below says
+            what each one sends.
+          </p>
         </GuideSection>
 
         <GuideSection id="scope" title="Scope against its own checklist">
-          <div className="prose">
-            <p>{SCOPE_DEFINITION}</p>
-            <p>
-              Here is the checklist applied to version {SCOPE_EXTENSION_VERSION}, read
-              from its Chrome Web Store listing, its declared permissions, and the{" "}
-              <Link href="/privacy">privacy policy</Link> on {CHECKED_ON}. The policy
-              is the controlling statement, and where this table and the policy
-              differ, the policy wins.
-            </p>
-          </div>
-          <ComparisonTable
-            caption={`${SCOPE_PRODUCT_NAME} permissions, read on ${CHECKED_ON}`}
-            columns={["What it is for", "Optional?", "Where the data goes"]}
-            rows={permissionRows}
+          <p>{SCOPE_DEFINITION}</p>
+          <p>
+            Here is the checklist applied to version {SCOPE_EXTENSION_VERSION}, read
+            from its Chrome Web Store listing, its declared permissions, and the{" "}
+            <Link href="/privacy">privacy policy</Link> on {CHECKED_ON}. The policy
+            is the controlling statement, and where this table and the policy
+            differ, the policy wins.
+          </p>
+          <GuideWide>
+            <ComparisonTable
+              caption={`${SCOPE_PRODUCT_NAME} permissions, read on ${CHECKED_ON}`}
+              columns={["What it is for", "Optional?", "Where the data goes"]}
+              rows={permissionRows}
+            />
+          </GuideWide>
+          <h3>The rest of the checklist</h3>
+          <GuideList
+            terms
+            items={[
+              {
+                title: "Publisher",
+                copy: (
+                  <>
+                    Scope Inc. The listing links to canvascope.org, is marked as created by
+                    the owner of that website, and showed a publisher record with no
+                    history of violations on {CHECKED_ON}.
+                  </>
+                ),
+              },
+              {
+                title: "Last updated",
+                copy: (
+                  <>
+                    August 30, 2026, version {SCOPE_EXTENSION_VERSION}, as shown on the
+                    Chrome Web Store on {CHECKED_ON}.
+                  </>
+                ),
+              },
+              {
+                title: "Reviews",
+                copy: (
+                  <>
+                    5.0 from 6 ratings and 94 users on the Chrome Web Store on{" "}
+                    {CHECKED_ON}. Six ratings is not a track record, so read them, then
+                    read the policy. Counting Lectra Notes on iPad, {LIVE_USERS} people
+                    were using Scope when we last counted by hand, on{" "}
+                    {LIVE_USERS_CHECKED_ON} (
+                    <Link className="link" href="/newsroom/how-we-count-people-using-scope">
+                      how we count
+                    </Link>
+                    ).
+                  </>
+                ),
+              },
+              // verify: whether the extension source is published anywhere
+              {
+                title: "Open source",
+                copy: "Not today. You are trusting the policy and this page.",
+              },
+              {
+                title: "Quizzes and grades",
+                copy: "It reads the pages you open, including the grades page if you open it. It does not act on your behalf inside graded work, and the next section says exactly what that rules out.",
+              },
+            ]}
           />
-          <div className="prose">
-            <h3>The rest of the checklist</h3>
-          </div>
-          <ul className="feature-list feature-list--wide">
-            <li>
-              <strong>Publisher</strong>
-              <span>
-                Scope Inc. The listing links to canvascope.org, is marked as created by
-                the owner of that website, and showed a publisher record with no
-                history of violations on {CHECKED_ON}.
-              </span>
-            </li>
-            <li>
-              <strong>Last updated</strong>
-              <span>
-                August 30, 2026, version {SCOPE_EXTENSION_VERSION}, as shown on the
-                Chrome Web Store on {CHECKED_ON}.
-              </span>
-            </li>
-            <li>
-              <strong>Reviews</strong>
-              <span>
-                5.0 from 6 ratings and 94 users on the Chrome Web Store on{" "}
-                {CHECKED_ON}. Six ratings is not a track record, so read them, then
-                read the policy. Counting Lectra Notes on iPad, {LIVE_USERS} people
-                were using Scope when we last counted by hand, on{" "}
-                {LIVE_USERS_CHECKED_ON} (
-                <Link className="link" href="/newsroom/how-we-count-people-using-scope">
-                  how we count
-                </Link>
-                ).
-              </span>
-            </li>
-            <li>
-              {/* verify: whether the extension source is published anywhere */}
-              <strong>Open source</strong>
-              <span>Not today. You are trusting the policy and this page.</span>
-            </li>
-            <li>
-              <strong>Quizzes and grades</strong>
-              <span>
-                It reads the pages you open, including the grades page if you open it.
-                It does not act on your behalf inside graded work, and the next section
-                says exactly what that rules out.
-              </span>
-            </li>
-          </ul>
         </GuideSection>
 
         <GuideSection id="integrity" title="What Scope will not do for you">
-          <div className="prose">
-            <p>
-              Scope answers questions from the materials your instructors posted and
-              links every answer to its source. It does not take quizzes, write
-              submissions, or interact with Canvas quiz logs.
-            </p>
-            <p>
-              Extensions that answer quiz questions for you, or that block
-              Canvas&apos;s activity log, are a different category, and we leave them
-              out of{" "}
-              <Link href="/compare/best-canvas-chrome-extensions">our round-ups</Link>{" "}
-              on purpose. They exist to act on your behalf inside graded work, which
-              is the one thing a study tool should never do.
-            </p>
-          </div>
+          <p>
+            Scope answers questions from the materials your instructors posted and
+            links every answer to its source. It does not take quizzes, write
+            submissions, or interact with Canvas quiz logs.
+          </p>
+          <p>
+            Extensions that answer quiz questions for you, or that block
+            Canvas&apos;s activity log, are a different category, and we leave them
+            out of{" "}
+            <Link href="/compare/best-canvas-chrome-extensions">our round-ups</Link>{" "}
+            on purpose. They exist to act on your behalf inside graded work, which
+            is the one thing a study tool should never do.
+          </p>
         </GuideSection>
 
         <GuideSection id="questions" title="Questions people ask">
-          <div className="prose">
-            <h3>Can Canvas see which extensions I use?</h3>
-            {/* verify: wording against Chrome's isolated-world model — a page cannot enumerate extensions, but can observe changes an extension makes to the page */}
-            <p>
-              Not as a list. Extensions run inside your browser, and Chrome keeps an
-              extension&apos;s code separate from the page&apos;s own code, so a site
-              cannot simply ask which extensions are installed. What a page can see is
-              the page. If an extension adds a button or restyles the dashboard, that
-              change is in the page, and a site that goes looking for it can in
-              principle notice. Scope adds a search bar and a Send to iPad button to
-              course pages, so the change is there to find. It reads course material
-              through the same signed-in session your browser already uses. Whether
-              Instructure looks for extension activity in its own logs is a question
-              only Instructure can answer.
-            </p>
+          <h3>Can Canvas see which extensions I use?</h3>
+          {/* verify: wording against Chrome's isolated-world model — a page cannot enumerate extensions, but can observe changes an extension makes to the page */}
+          <p>
+            Not as a list. Extensions run inside your browser, and Chrome keeps an
+            extension&apos;s code separate from the page&apos;s own code, so a site
+            cannot simply ask which extensions are installed. What a page can see is
+            the page. If an extension adds a button or restyles the dashboard, that
+            change is in the page, and a site that goes looking for it can in
+            principle notice. Scope adds a search bar and a Send to iPad button to
+            course pages, so the change is there to find. It reads course material
+            through the same signed-in session your browser already uses. Whether
+            Instructure looks for extension activity in its own logs is a question
+            only Instructure can answer.
+          </p>
 
-            <h3>Can an extension see my grades?</h3>
-            <p>
-              If it runs on your Canvas pages, yes. It sees whatever you open, and the
-              grades page is a page. Chrome has no permission that carves grades out
-              of the rest of Canvas. The questions that matter are whether it stores
-              them and whether it sends them anywhere.
-            </p>
-            <p>
-              {/* verify: that search and the local index work without signing in */}
-              For Scope, search runs on the pages you open and keeps its index in
-              browser-local storage. If you sign in, the privacy policy describes an
-              account sync path that carries your grades, notes, and tasks.
-              Account-linked features need sign-in, and the local index does not.
-            </p>
+          <h3>Can an extension see my grades?</h3>
+          <p>
+            If it runs on your Canvas pages, yes. It sees whatever you open, and the
+            grades page is a page. Chrome has no permission that carves grades out
+            of the rest of Canvas. The questions that matter are whether it stores
+            them and whether it sends them anywhere.
+          </p>
+          <p>
+            {/* verify: that search and the local index work without signing in */}
+            For Scope, search runs on the pages you open and keeps its index in
+            browser-local storage. If you sign in, the privacy policy describes an
+            account sync path that carries your grades, notes, and tasks.
+            Account-linked features need sign-in, and the local index does not.
+          </p>
 
-            <h3>Is BetterCampus safe?</h3>
-            <p>
-              We have not audited it, and a competitor&apos;s page is the wrong place
-              to take anyone&apos;s word on it. Run the checklist. Open its Chrome Web
-              Store listing, read the permissions and the privacy-practices
-              disclosure, find the privacy policy and check that it names every data
-              type, look at the last-updated date and the newest reviews, and decide
-              whether what it asks for matches what it does.{" "}
-              {/* verify: BetterCampus restyles Canvas — from the compare registry, not read from its listing today */}
-              It restyles Canvas, so it has to run on your Canvas pages, and that part
-              is expected. Our{" "}
-              <Link href="/compare/scope-vs-bettercampus">
-                comparison with BetterCampus
-              </Link>{" "}
-              covers what it does. Whether it is safe is your call, after the
-              checklist.
-            </p>
+          <h3>Is BetterCampus safe?</h3>
+          <p>
+            We have not audited it, and a competitor&apos;s page is the wrong place
+            to take anyone&apos;s word on it. Run the checklist. Open its Chrome Web
+            Store listing, read the permissions and the privacy-practices
+            disclosure, find the privacy policy and check that it names every data
+            type, look at the last-updated date and the newest reviews, and decide
+            whether what it asks for matches what it does.{" "}
+            {/* verify: BetterCampus restyles Canvas — from the compare registry, not read from its listing today */}
+            It restyles Canvas, so it has to run on your Canvas pages, and that part
+            is expected. Our{" "}
+            <Link href="/compare/scope-vs-bettercampus">
+              comparison with BetterCampus
+            </Link>{" "}
+            covers what it does. Whether it is safe is your call, after the
+            checklist.
+          </p>
 
-            <h3>What happened in the 2026 Canvas breach?</h3>
-            <p>
-              On April 25, 2026, unauthorized actors accessed Instructure&apos;s Canvas
-              systems. Instructure detected the intrusion four days later and
-              disclosed it on its status page on May 1. On May 7, Canvas was hit
-              again, this time with a ransom message from the group ShinyHunters,
-              which threatened to publish the data unless it was paid by May 12. The
-              breach affected 8,809 universities, education ministries, and other
-              institutions, and ShinyHunters claimed 3.65 terabytes of data covering
-              roughly 275 million users.
-            </p>
-            <p>
-              The exposed data included names, email addresses, student ID numbers,
-              and messages between users. Instructure said it found no evidence that
-              passwords, birth dates, government IDs, or financial information were
-              involved. On May 13, 2026, a proposed class action was filed against
-              Instructure in the United States District Court for the Southern
-              District of California. No browser extension was involved. Source:{" "}
-              <a href={BREACH_SOURCE_URL} target="_blank" rel="noreferrer">
-                Wikipedia&apos;s entry on the breach
-              </a>
-              , read {CHECKED_ON}.
-            </p>
-          </div>
+          <h3>What happened in the 2026 Canvas breach?</h3>
+          <p>
+            On April 25, 2026, unauthorized actors accessed Instructure&apos;s Canvas
+            systems. Instructure detected the intrusion four days later and
+            disclosed it on its status page on May 1. On May 7, Canvas was hit
+            again, this time with a ransom message from the group ShinyHunters,
+            which threatened to publish the data unless it was paid by May 12. The
+            breach affected 8,809 universities, education ministries, and other
+            institutions, and ShinyHunters claimed 3.65 terabytes of data covering
+            roughly 275 million users.
+          </p>
+          <p>
+            The exposed data included names, email addresses, student ID numbers,
+            and messages between users. Instructure said it found no evidence that
+            passwords, birth dates, government IDs, or financial information were
+            involved. On May 13, 2026, a proposed class action was filed against
+            Instructure in the United States District Court for the Southern
+            District of California. No browser extension was involved. Source:{" "}
+            <a href={BREACH_SOURCE_URL} target="_blank" rel="noreferrer">
+              Wikipedia&apos;s entry on the breach
+            </a>
+            , read {CHECKED_ON}.
+          </p>
         </GuideSection>
 
         <GuideSection id="methodology" title="How this was checked">
           <MethodologyNote product="scope" dateChecked={CHECKED_ON} />
-          <p className="small guide-checked">
+          <p className="text-[14.5px] leading-[1.6] text-stone">
             Last verified {CHECKED_ON} against the Chrome Web Store listing (version{" "}
             {SCOPE_EXTENSION_VERSION}, updated August 30, 2026), the extension&apos;s
             declared permissions, the privacy policy, and
@@ -484,13 +466,14 @@ export default function CanvasExtensionSafetyGuide() {
             <StoreLink
               store="chrome-web-store"
               href={CHROME_WEB_STORE_URL}
-              className="btn btn-primary"
+              className={buttonClasses("primary", "lg")}
             >
+              <ChromeIcon className="size-[18px]" />
               Get Scope for Canvas for free
             </StoreLink>
-            <Link href="/privacy" className="btn btn-line">
+            <ButtonLink href="/privacy" variant="secondary" size="lg">
               Read the privacy policy
-            </Link>
+            </ButtonLink>
           </>
         }
       >

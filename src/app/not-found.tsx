@@ -1,75 +1,25 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-
-import PenMark from "@/components/motion/PenMark";
-import Sheet from "@/components/motion/Sheet";
+import { ButtonLink } from "@/components/buttons";
 import PageShell from "@/components/site/PageShell";
-
-import "./_company/company.css";
-
-export const metadata: Metadata = {
-  title: "Page not found",
-  robots: { index: false, follow: true },
-};
-
-const places = [
-  {
-    href: "/",
-    label: "The homepage",
-    copy: "Start from the top and find your way from there.",
-  },
-  {
-    href: "/products/extension",
-    label: "Scope for Canvas",
-    copy: "The free Chrome extension that searches your Canvas and Brightspace courses.",
-  },
-  {
-    href: "/products/lectra",
-    label: "Lectra Notes",
-    copy: "The free iPad and iPhone app for handwritten notes, PDF markup, and notebooks.",
-  },
-  {
-    href: "/support",
-    label: "Support",
-    copy: "Something broken, or a link of ours that sent you here? Tell us and we'll fix it.",
-  },
-];
 
 export default function NotFound() {
   return (
     <PageShell>
-      <Sheet className="section" labelledBy="not-found-title">
-        <div className="shell split split--top">
-          <div>
-            <p className="context-line">Error 404</p>
-            <h1 id="not-found-title" className="t-title" data-focus style={{ marginTop: 18 }}>
-              We couldn&rsquo;t find that page.
-            </h1>
-            <p className="lede co-copy-gap">
-              The link may be old, or the page may have moved. One of these is probably what
-              you were after.
-            </p>
-            <div style={{ marginTop: 40 }}>
-              <p className="co-missing">
-                The page you wanted
-                <PenMark kind="strike" inset="0 -8px" delay={0.6} />
-              </p>
-            </div>
-          </div>
-          <ul className="index-list">
-            {places.map((place) => (
-              <li key={place.href}>
-                <Link href={place.href}>
-                  <span className="index-title">
-                    <span>{place.label}</span>
-                  </span>
-                  <span className="index-copy">{place.copy}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Sheet>
+    <section className="mx-auto max-w-[1200px] px-5 py-28 sm:px-8 sm:py-40">
+      <p className="text-[15px] font-medium text-stone">Page not found</p>
+      <h1 className="mt-5 max-w-[16ch] text-[clamp(2.4rem,5.4vw,4rem)] font-semibold leading-[1] tracking-[-0.045em]">
+        This page isn&apos;t here anymore.
+      </h1>
+      <p className="mt-5 max-w-[46ch] text-[17px] leading-[1.55] text-stone">
+        It may have moved when the site was rebuilt. Start from the home page, or look it up in the
+        documentation.
+      </p>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <ButtonLink href="/" size="lg">Go to the home page</ButtonLink>
+        <ButtonLink href="https://docs.canvascope.org" variant="secondary" size="lg">
+          Open the documentation
+        </ButtonLink>
+      </div>
+    </section>
     </PageShell>
   );
 }

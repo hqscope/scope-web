@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import Sheet from "@/components/motion/Sheet";
+import { ButtonLink, buttonClasses } from "@/components/buttons";
+import { AppleIcon } from "@/components/icons";
+import { ClosingCta, FeatureGrid } from "@/components/page-parts";
 import JsonLd from "@/components/seo/JsonLd";
 import StoreLink from "@/components/seo/StoreLink";
 import FaqList, { type FaqItem } from "@/components/site/FaqList";
@@ -13,7 +15,6 @@ import {
 } from "@/lib/structured-data";
 import { LECTRA_APP_STORE_URL } from "@/lib/site";
 
-import "../lectra.css";
 import TerminalSlip from "../_visuals/TerminalSlip";
 
 const title = "Lectra Notes: Terminal, Git & Code Editor on iPad";
@@ -53,27 +54,27 @@ export const metadata: Metadata = {
 const features = [
   {
     title: "A real terminal",
-    copy: "A POSIX-style shell built for iPad, with pipelines, redirection, globbing, and dozens of familiar commands, plus python and pip. There is no server behind it.",
+    body: "A POSIX-style shell built for iPad, with pipelines, redirection, globbing, and dozens of familiar commands, plus python and pip. There is no server behind it.",
   },
   {
     title: "Git on the device",
-    copy: "Clone, pull, commit, and push over HTTPS from the terminal or the Git panel. Your working tree lives on the iPad and works offline.",
+    body: "Clone, pull, commit, and push over HTTPS from the terminal or the Git panel. Your working tree lives on the iPad and works offline.",
   },
   {
     title: "GitHub, connected",
-    copy: "Link your account to browse repositories and branches, pull files into a project, and push finished work back.",
+    body: "Link your account to browse repositories and branches, pull files into a project, and push finished work back.",
   },
   {
     title: "A serious editor",
-    copy: "Syntax highlighting for Python, JavaScript, C++, Rust, and more, with a command palette, a symbol outline, and project-wide search. Python also runs on the device.",
+    body: "Syntax highlighting for Python, JavaScript, C++, Rust, and more, with a command palette, a symbol outline, and project-wide search. Python also runs on the device.",
   },
   {
     title: "SSH when you need a bigger machine",
-    copy: "Connect to any server with a full terminal emulator. Interactive, full-screen terminal apps render exactly as they do on a desktop.",
+    body: "Connect to any server with a full terminal emulator. Interactive, full-screen terminal apps render exactly as they do on a desktop.",
   },
   {
     title: "All of it offline",
-    copy: "The shell, the editor, Git, and Python work with no connection at all. The network is for remotes, and the tools never need it.",
+    body: "The shell, the editor, Git, and Python work with no connection at all. The network is for remotes, and the tools never need it.",
   },
 ];
 
@@ -105,19 +106,30 @@ const faqs: FaqItem[] = [
   },
 ];
 
-function StoreActions() {
+/** A secondary button for the dark closing band. */
+const onDarkSecondary =
+  "inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-5 text-[15.5px] font-semibold tracking-[-0.01em] text-white ring-1 ring-inset ring-white/25 transition-colors hover:bg-white/10";
+
+function StoreActions({ onDark = false }: { onDark?: boolean }) {
   return (
     <>
       <StoreLink
         store="app-store"
         href={LECTRA_APP_STORE_URL}
-        className="btn btn-primary"
+        className={buttonClasses(onDark ? "inverted" : "primary", "lg")}
       >
+        <AppleIcon className="size-[18px] -translate-y-px" />
         Download on the App Store
       </StoreLink>
-      <Link href="/products/lectra" className="btn btn-line">
-        All of Lectra Notes
-      </Link>
+      {onDark ? (
+        <Link href="/products/lectra" className={onDarkSecondary}>
+          All of Lectra Notes
+        </Link>
+      ) : (
+        <ButtonLink href="/products/lectra" variant="secondary" size="lg">
+          All of Lectra Notes
+        </ButtonLink>
+      )}
     </>
   );
 }
@@ -144,111 +156,117 @@ export default function LectraCodePage() {
         ]}
       />
 
-      <Sheet labelledBy="code-title">
-        <header className="shell page-head lx-hero" id="hero">
-          <div>
+      <header
+        id="hero"
+        className="mx-auto max-w-[1200px] px-5 pb-16 pt-12 sm:px-8 sm:pb-24 sm:pt-16"
+      >
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
+          <div className="min-w-0">
             <nav aria-label="Breadcrumb">
-              <ol className="crumbs">
+              <ol className="flex flex-wrap items-center gap-x-2 text-[14px] text-stone">
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" className="hover:text-ink">
+                    Home
+                  </Link>
                 </li>
-                <li>
-                  <Link href="/products/lectra">Lectra Notes</Link>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">/</span>
+                  <Link href="/products/lectra" className="hover:text-ink">
+                    Lectra Notes
+                  </Link>
                 </li>
               </ol>
             </nav>
-            <h1 id="code-title" className="t-title" data-focus>
+            <h1 className="mt-6 max-w-[18ch] text-[clamp(2.4rem,5vw,3.9rem)] font-semibold leading-[1] tracking-[-0.045em] text-balance">
               A real terminal, Git, and a code editor on your iPad.
             </h1>
-            <div className="lede">
+            <p className="mt-6 max-w-[52ch] text-[18px] leading-[1.6] text-ink-soft">
               Lectra Notes keeps your repositories next to your readings. It has
               a POSIX-style shell, on-device Git and GitHub, a serious editor,
               and SSH for the moments when a bigger machine is the right tool.
-            </div>
-            <div className="actions">
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <StoreActions />
             </div>
-            <p className="btn-note">Free, for iPadOS 18 and later.</p>
+            <p className="mt-4 text-[14px] text-stone">Free, for iPadOS 18 and later.</p>
           </div>
-          <TerminalSlip
-            label="Shell history in the Lectra Notes terminal, in a project called bio-lab. Git status shows two changed files, circled in red pen, then python runs an analysis script that writes results.csv, and a pen note says it ran offline on the iPad."
-            title="Terminal"
-            where="bio-lab"
-            lines={[
-              { cmd: "git status" },
-              { out: "On branch main" },
-              { out: "2 files changed", circled: true },
-              { cmd: "python analysis.py" },
-              { out: "Wrote results.csv" },
-              { cmd: 'git commit -am "Add growth analysis"' },
-              { out: "[main 4c1e2a9] Add growth analysis" },
-            ]}
-            note="ran offline, on the iPad"
-          />
-        </header>
-      </Sheet>
-
-      <Sheet className="section" id="features" labelledBy="features-title">
-        <div className="shell">
-          <h2 id="features-title" className="t-head lx-intro" data-focus>
-            The tools from the lab machine, on the iPad in your bag.
-          </h2>
-          <div className="idea-grid idea-grid--3">
-            {features.map((item) => (
-              <div key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
-            ))}
+          <div className="min-w-0">
+            <TerminalSlip
+              label="Shell history in the Lectra Notes terminal, in a project called bio-lab. Git status shows two changed files, circled in red pen, then python runs an analysis script that writes results.csv, and a pen note says it ran offline on the iPad."
+              title="Terminal"
+              where="bio-lab"
+              lines={[
+                { cmd: "git status" },
+                { out: "On branch main" },
+                { out: "2 files changed", circled: true },
+                { cmd: "python analysis.py" },
+                { out: "Wrote results.csv" },
+                { cmd: 'git commit -am "Add growth analysis"' },
+                { out: "[main 4c1e2a9] Add growth analysis" },
+              ]}
+              note="ran offline, on the iPad"
+            />
           </div>
         </div>
-      </Sheet>
+      </header>
 
-      <Sheet className="section" id="why" labelledBy="why-title">
-        <div className="shell split split--top">
+      <FeatureGrid
+        id="features"
+        title="The tools from the lab machine, on the iPad in your bag."
+        features={features}
+      />
+
+      <section id="why" aria-labelledby="why-title" className="bg-wash">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="lx-tag">Why it lives in a notes app</p>
-            <h2 id="why-title" className="t-head" data-focus>
+            <p className="text-[15px] font-medium text-stone">Why it lives in a notes app</p>
+            <h2
+              id="why-title"
+              className="mt-4 max-w-[18ch] text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.03] tracking-[-0.04em]"
+            >
               The assignment and the code stay in one place.
             </h2>
           </div>
-          <p className="copy lx-body">
+          <p className="max-w-[52ch] text-[17px] leading-[1.65] text-stone lg:pt-10">
             A problem set is a PDF, a notebook, and a repository at once. Lectra
             Notes keeps them side by side, so you read the handout, work the
             notebook, run the script, and commit the result without switching
             apps or emailing files to yourself. Notebooks have{" "}
-            <Link href="/products/lectra/notebooks">their own page</Link>, and
-            when you want your whole Mac instead, it&rsquo;s{" "}
-            <Link href="/mac">a tap away</Link>.
+            <Link href="/products/lectra/notebooks" className="link">
+              their own page
+            </Link>
+            , and when you want your whole Mac instead, it&rsquo;s{" "}
+            <Link href="/mac" className="link">
+              a tap away
+            </Link>
+            .
           </p>
         </div>
-      </Sheet>
+      </section>
 
-      <Sheet className="section" id="faq" labelledBy="faq-title">
-        <div className="shell shell-narrow">
-          <h2 id="faq-title" className="t-head lx-faq-head" data-focus>
+      <section
+        id="faq"
+        aria-labelledby="faq-title"
+        className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-24"
+      >
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+          <h2
+            id="faq-title"
+            className="text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em]"
+          >
             Coding on iPad, answered.
           </h2>
           <FaqList items={faqs} />
         </div>
-      </Sheet>
-
-      <section
-        className="on-desk shell section lx-closing"
-        id="download"
-        aria-labelledby="closing-title"
-      >
-        <h2 id="closing-title" className="t-title" data-focus>
-          Bring your repos to your iPad.
-        </h2>
-        <p className="lede">
-          Lectra Notes is on the App Store. It is free, it works offline, and it
-          is built for the work between the readings.
-        </p>
-        <div className="actions">
-          <StoreActions />
-        </div>
       </section>
+
+      <div id="download">
+        <ClosingCta
+          title="Bring your repos to your iPad."
+          body="Lectra Notes is on the App Store. It is free, it works offline, and it is built for the work between the readings."
+          actions={<StoreActions onDark />}
+        />
+      </div>
     </PageShell>
   );
 }

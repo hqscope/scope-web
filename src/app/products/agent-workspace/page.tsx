@@ -1,8 +1,8 @@
 import Link from "next/link";
 
+import { buttonClasses } from "@/components/buttons";
+import { CheckIcon } from "@/components/icons";
 import JsonLd from "@/components/seo/JsonLd";
-import PenMark from "@/components/motion/PenMark";
-import Sheet from "@/components/motion/Sheet";
 import FaqList from "@/components/site/FaqList";
 import Mark from "@/components/site/Mark";
 import PageShell from "@/components/site/PageShell";
@@ -18,7 +18,6 @@ import {
 import MenuBarSlip from "./MenuBarSlip";
 import SessionBoard from "./SessionBoard";
 import WaitlistForm from "./WaitlistForm";
-import "./workspace.css";
 
 export const metadata = publicPageMetadata({
   title: "Agent Workspace - Mission Control for AI Coding Agents",
@@ -45,17 +44,20 @@ const PRIMARY_CTA = AGENT_WORKSPACE_DOWNLOAD_URL
   ? { href: AGENT_WORKSPACE_DOWNLOAD_URL, label: "Download free for Mac" }
   : { href: "#early-access", label: "Get early access" };
 
-function PrimaryCta() {
+const onInkSecondary =
+  "inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-5 text-[15.5px] font-semibold tracking-[-0.01em] text-white ring-1 ring-inset ring-white/30 transition-colors hover:bg-white/10";
+
+function PrimaryCta({ onInk = false }: { onInk?: boolean }) {
   return (
-    <a className="btn btn-primary" href={PRIMARY_CTA.href}>
+    <a className={buttonClasses(onInk ? "inverted" : "primary", "lg")} href={PRIMARY_CTA.href}>
       {PRIMARY_CTA.label}
     </a>
   );
 }
 
-function SecondaryCta() {
+function SecondaryCta({ onInk = false }: { onInk?: boolean }) {
   return (
-    <a className="btn btn-line" href="#demo">
+    <a className={onInk ? onInkSecondary : buttonClasses("secondary", "lg")} href="#demo">
       See it live
     </a>
   );
@@ -186,6 +188,12 @@ const FAQS: FaqEntry[] = [
   },
 ];
 
+const container = "mx-auto max-w-[1200px] px-5 sm:px-8";
+const sectionTitle =
+  "text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.035em] text-balance";
+const bigTitle =
+  "text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.03] tracking-[-0.04em] text-balance";
+
 export default function AgentWorkspacePage() {
   return (
     <PageShell
@@ -207,107 +215,124 @@ export default function AgentWorkspacePage() {
       />
 
       {/* Hero */}
-      <Sheet className="aw-hero" labelledBy="aw-title">
-        <div className="shell split aw-hero-grid">
-          <header className="page-head aw-hero-copy">
+      <section aria-labelledby="aw-title" className={`${container} pb-16 pt-12 sm:pb-24 sm:pt-16`}>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
+          <header className="min-w-0">
             <nav aria-label="Breadcrumb">
-              <ol className="crumbs">
+              <ol className="flex flex-wrap items-center gap-x-2 text-[14px] text-stone">
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" className="hover:text-ink">
+                    Home
+                  </Link>
                 </li>
-                <li>
-                  <Link href="/products/agent-workspace">Agent Workspace</Link>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">/</span>
+                  <Link href="/products/agent-workspace" className="hover:text-ink">
+                    Agent Workspace
+                  </Link>
                 </li>
               </ol>
             </nav>
-            <p className="context-line">Agent Workspace for Mac, in development</p>
-            <h1 id="aw-title" className="t-title" data-focus>
+            <p className="mt-6 text-[15px] font-medium text-stone">
+              Agent Workspace for Mac, in development
+            </p>
+            <h1
+              id="aw-title"
+              className="mt-5 max-w-[14ch] text-[clamp(2.6rem,6vw,4.75rem)] font-semibold leading-[0.97] tracking-[-0.046em]"
+            >
               Every agent. Every repo. One office.
             </h1>
-            <p className="lede">
-              Your Claude Code, Codex, and Gemini sessions, alive in a little office on
-              your Mac. Watch them work, step in when they&rsquo;re stuck, and give every
-              project its own floor.
+            <p className="mt-6 max-w-[48ch] text-[18px] leading-[1.55] text-ink-soft">
+              Your Claude Code, Codex, and Gemini sessions, alive in a little office on your Mac.
+              Watch them work, step in when they&rsquo;re stuck, and give every project its own
+              floor.
             </p>
-            <div className="actions">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <PrimaryCta />
               <SecondaryCta />
             </div>
-            <p className="btn-note aw-hero-note">
+            <p className="mt-4 text-[14px] leading-[1.5] text-stone">
               For macOS 14 and later. It lives in your menu bar and works local-first.
             </p>
           </header>
           <MenuBarSlip />
         </div>
-      </Sheet>
+      </section>
 
-      {/* The live demo, on the desk */}
+      {/* The demo board */}
       <section
-        className="on-desk aw-demo"
         id="demo"
         tabIndex={-1}
         aria-labelledby="aw-demo-title"
+        className="bg-wash focus-visible:outline-none"
       >
-        <div className="shell aw-demo-head">
-          <h2 id="aw-demo-title" className="t-head" data-focus>
-            Who is working, who is thinking, and who needs you.
-          </h2>
-          <p className="margin-note">
-            One project floor, playing on its own. When a session needs your
-            approval, the pen circles it.
-          </p>
-        </div>
-        <div className="shell">
-          <SessionBoard />
-          <p className="aw-vendors">
-            Watches over Claude Code, Codex CLI, and Gemini CLI, and every subagent
-            gets a desk.
+        <div className={`${container} py-20 sm:py-24`}>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <h2 id="aw-demo-title" className={`${sectionTitle} max-w-[24ch]`}>
+              Who is working, who is thinking, and who needs you.
+            </h2>
+            <p className="max-w-[42ch] text-[15.5px] leading-[1.6] text-stone">
+              One project floor, playing on its own. When a session needs your approval, the pen
+              circles it.
+            </p>
+          </div>
+          <div className="mt-10">
+            <SessionBoard />
+          </div>
+          <p className="mt-6 text-[15px] leading-[1.6] text-stone">
+            Watches over Claude Code, Codex CLI, and Gemini CLI, and every subagent gets a desk.
           </p>
         </div>
       </section>
 
       {/* The three ideas */}
-      <Sheet className="section" labelledBy="aw-ideas-title">
-        <div className="shell">
-          <h2 id="aw-ideas-title" className="t-head aw-ideas-title" data-focus>
-            Your agents, under one roof.
-          </h2>
-          <div className="idea-grid idea-grid--3">
-            {ideas.map((idea) => (
-              <div key={idea.title}>
-                <h3>{idea.title}</h3>
-                <p>{idea.body}</p>
-              </div>
-            ))}
-          </div>
+      <section aria-labelledby="aw-ideas-title" className={`${container} py-20 sm:py-28`}>
+        <h2 id="aw-ideas-title" className={bigTitle}>
+          Your agents, under one roof.
+        </h2>
+        <div className="mt-12 grid grid-cols-1 gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
+          {ideas.map((idea) => (
+            <div key={idea.title} className="border-t border-line py-7">
+              <h3 className="text-[17px] font-semibold tracking-[-0.015em]">{idea.title}</h3>
+              <p className="mt-2 text-[15.5px] leading-[1.6] text-stone">{idea.body}</p>
+            </div>
+          ))}
         </div>
-      </Sheet>
+      </section>
 
       {/* A closer look */}
-      <Sheet className="section" labelledBy="aw-dives-title">
-        <div className="shell">
-          <h2 id="aw-dives-title" className="t-head" data-focus>
+      <section aria-labelledby="aw-dives-title" className="bg-wash">
+        <div className={`${container} py-20 sm:py-28`}>
+          <h2 id="aw-dives-title" className={bigTitle}>
             A closer look.
           </h2>
-          <div className="aw-dives">
+          <div className="mt-10 divide-y divide-line border-y border-line">
             {dives.map((dive) => (
-              <section key={dive.id} className="aw-dive split split--top" aria-labelledby={dive.id}>
+              <section
+                key={dive.id}
+                aria-labelledby={dive.id}
+                className="grid grid-cols-1 gap-6 py-10 lg:grid-cols-2 lg:gap-16"
+              >
                 <div>
-                  <h3 id={dive.id} className="t-sub">
-                    {dive.id === "dive-approvals" ? (
-                      <span className="aw-hand">
-                        {dive.title}
-                        <PenMark kind="underline" inset="auto -4px -14px -4px" delay={0.2} />
-                      </span>
-                    ) : (
-                      dive.title
-                    )}
+                  <h3
+                    id={dive.id}
+                    className="text-[clamp(1.35rem,2.4vw,1.75rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-balance"
+                  >
+                    {dive.title}
                   </h3>
-                  <p className="copy aw-dive-lede">{dive.lede}</p>
+                  <p className="mt-4 max-w-[52ch] text-[16.5px] leading-[1.65] text-ink-soft">
+                    {dive.lede}
+                  </p>
                 </div>
-                <ul className="feature-list aw-points">
+                <ul className="space-y-3 lg:pt-2">
                   {dive.points.map((point) => (
-                    <li key={point}>
+                    <li key={point} className="flex gap-3 text-[15.5px] leading-[1.55] text-ink-soft">
+                      <span
+                        aria-hidden="true"
+                        className="mt-[3px] inline-flex size-[18px] shrink-0 items-center justify-center rounded-full bg-paper text-ink ring-1 ring-line"
+                      >
+                        <CheckIcon className="size-3" />
+                      </span>
                       <span>{point}</span>
                     </li>
                   ))}
@@ -316,60 +341,77 @@ export default function AgentWorkspacePage() {
             ))}
           </div>
         </div>
-      </Sheet>
+      </section>
 
       {/* Details and questions */}
-      <Sheet className="section" labelledBy="aw-details-title">
-        <div className="shell">
-          <div className="split split--top">
-            <h2 id="aw-details-title" className="t-head" data-focus>
-              Built like a Mac app.
-            </h2>
-            <ul className="feature-list feature-list--wide aw-details">
-              {details.map((detail) => (
-                <li key={detail.title}>
-                  <strong>{detail.title}</strong>
-                  <span>{detail.body}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="split split--top aw-faq" id="faq">
-            <h2 id="aw-faq-title" className="t-head" data-focus>
-              Common questions.
-            </h2>
-            <FaqList items={FAQS} />
-          </div>
+      <section aria-labelledby="aw-details-title" className={`${container} pt-20 sm:pt-28`}>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+          <h2 id="aw-details-title" className={sectionTitle}>
+            Built like a Mac app.
+          </h2>
+          <ul className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+            {details.map((detail) => (
+              <li key={detail.title} className="border-t border-line py-5">
+                <strong className="block text-[16.5px] font-semibold tracking-[-0.01em] text-ink">
+                  {detail.title}
+                </strong>
+                <span className="mt-1 block text-[15.5px] leading-[1.6] text-stone">
+                  {detail.body}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </Sheet>
+      </section>
 
-      {/* Close, on the desk */}
       <section
-        className="on-desk shell section aw-closing"
+        id="faq"
+        aria-labelledby="aw-faq-title"
+        className={`${container} pb-20 pt-16 sm:pb-28 sm:pt-20`}
+      >
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+          <h2 id="aw-faq-title" className={sectionTitle}>
+            Common questions.
+          </h2>
+          <FaqList items={FAQS} />
+        </div>
+      </section>
+
+      {/* Close */}
+      <section
         id="early-access"
         tabIndex={-1}
         aria-labelledby="aw-closing-title"
+        className="bg-ink text-white focus-visible:outline-none"
       >
-        <Mark size={48} className="aw-closing-mark" />
-        <p className="context-line">Agent Workspace for Mac</p>
-        <h2 id="aw-closing-title" className="t-title" data-focus>
-          Put your agents to work.
-        </h2>
-        <p className="lede">
-          It&rsquo;s free while in beta, and the office opens soon. Join the
-          waitlist to be among the first through the door.
-        </p>
-        {AGENT_WORKSPACE_DOWNLOAD_URL ? (
-          <div className="actions">
-            <PrimaryCta />
-            <SecondaryCta />
+        <div
+          className={`${container} grid grid-cols-1 items-end gap-10 py-20 sm:py-24 lg:grid-cols-2 lg:gap-16`}
+        >
+          <div>
+            <Mark size={48} className="[--mark-ink:#ffffff]" />
+            <p className="mt-6 text-[15px] font-medium text-white/60">Agent Workspace for Mac</p>
+            <h2
+              id="aw-closing-title"
+              className="mt-3 max-w-[18ch] text-[clamp(2rem,4.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]"
+            >
+              Put your agents to work.
+            </h2>
+            <p className="mt-4 max-w-[46ch] text-[17px] leading-[1.6] text-white/65">
+              It&rsquo;s free while in beta, and the office opens soon. Join the waitlist to be
+              among the first through the door.
+            </p>
           </div>
-        ) : (
-          <div className="aw-slip paper">
-            <WaitlistForm />
-          </div>
-        )}
+          {AGENT_WORKSPACE_DOWNLOAD_URL ? (
+            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+              <PrimaryCta onInk />
+              <SecondaryCta onInk />
+            </div>
+          ) : (
+            <div className="rounded-[22px] bg-paper p-6 text-ink sm:p-8">
+              <WaitlistForm />
+            </div>
+          )}
+        </div>
       </section>
     </PageShell>
   );
