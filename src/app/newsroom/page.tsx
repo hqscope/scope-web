@@ -145,7 +145,7 @@ export default async function NewsroomPage({
               <span className="rounded-full bg-paper px-3 py-1 text-[13px] font-semibold text-ink ring-1 ring-line">
                 {featured.category}
               </span>
-              <time dateTime={featured.date} className="tabular-nums">
+              <time dateTime={featured.date}>
                 {formatArticleDate(featured.date)}
               </time>
               <span>{articleReadingMinutes(featured)} minute read</span>

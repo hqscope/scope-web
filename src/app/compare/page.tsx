@@ -94,7 +94,7 @@ export default function ComparePage() {
         aria-labelledby="compare-title"
         className="mx-auto max-w-[1200px] px-5 pb-20 pt-12 sm:px-8 sm:pb-24 sm:pt-20"
       >
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">
           <div>
             <p className="text-[15px] font-medium text-stone">
               Comparisons for Scope for Canvas and Lectra Notes

@@ -27,10 +27,7 @@ export default function NewsList({
                 {showDescription ? article.description : article.category}
               </span>
             </span>
-            <time
-              className="text-[14px] tabular-nums text-stone sm:row-start-1 sm:pt-1 sm:text-right"
-              dateTime={article.date}
-            >
+            <time className="text-[14px] text-stone sm:pt-1 sm:text-right" dateTime={article.date}>
               {formatArticleDate(article.date)}
             </time>
           </Link>
