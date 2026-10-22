@@ -41,8 +41,8 @@ const features = [
   },
   SCOPE_CONNECTOR_GOOGLE_LIVE
     ? {
-        title: "Plan around your calendar",
-        body: "Connect Google to check your calendar and add study blocks. Anything that sends, shares, or changes something asks you first.",
+        title: "Bring in Google",
+        body: "Connect Google to search your email, plan around your calendar, and work in your Docs, Sheets, and Forms. Anything that sends, shares, or changes something asks you first.",
       }
     : {
         title: "Your to-dos and notes",
@@ -66,6 +66,15 @@ const faqs: FaqEntry[] = [
     answer:
       "You make an access token in Canvas and paste it on Scope's connect page, never into a chat. You can remove it any time, from Scope or by deleting the token in Canvas. If your school doesn't let students make access tokens, Canvas can't be connected yet.",
   },
+  ...(SCOPE_CONNECTOR_GOOGLE_LIVE
+    ? [
+        {
+          question: "Why does Google warn that the app isn't verified?",
+          answer:
+            "Google hasn't reviewed Scope's Google connection, so it shows a warning before you allow access. To continue, choose Advanced, then go to Scope. Google and Canvas access are optional; the connector works without them.",
+        },
+      ]
+    : []),
   {
     question: "What does Scope keep?",
     answer:
