@@ -9,19 +9,29 @@ import {
   publishedReleaseFromAppcast,
 } from "./src/lib/receiver-release";
 
-// Read at build time. The appcast is the single record of which Mac build is
+// Read at build time. The feed is the single record of which Mac build is
 // live, so the /downloads redirect is derived from it rather than from a
-// constant that could drift out of sync with the feed.
-const publishedMacApp = publishedReleaseFromAppcast(
-  readFileSync(path.join(process.cwd(), "public/updates/appcast.xml"), "utf8"),
-);
+// constant that could drift out of sync with it. Lectra for Mac has its own
+// feed (lectra-mac.xml); until its first release, the last standalone
+// Receiver (appcast.xml) is what downloads.
+function readFeed(name: string): string | null {
+  try {
+    return readFileSync(path.join(process.cwd(), "public/updates", name), "utf8");
+  } catch {
+    return null;
+  }
+}
+const macFeed = readFeed("lectra-mac.xml");
+const publishedMacApp =
+  (macFeed ? publishedReleaseFromAppcast(macFeed) : null) ??
+  publishedReleaseFromAppcast(readFeed("appcast.xml") ?? "");
 
 if (!publishedMacApp) {
   // A silent fallback here would ship a site whose /mac page still says
   // "Download for Mac" while /downloads/Lectra.dmg 404s. Fail the build
   // instead so an empty or malformed appcast can't reach production.
   throw new Error(
-    "[mac] appcast.xml has no entries — /downloads/Lectra.dmg would 404. " +
+    "[mac] neither lectra-mac.xml nor appcast.xml has entries — /downloads/Lectra.dmg would 404. " +
       "Publish a release (scripts/publish-receiver-release.sh) before building.",
   );
 }
@@ -147,6 +157,14 @@ const nextConfig: NextConfig = {
         // so a new release is picked up promptly. Content-Type is pinned because
         // Sparkle feeds are expected to be served as XML.
         source: "/updates/appcast.xml",
+        headers: [
+          { key: "Content-Type", value: "application/xml; charset=utf-8" },
+          { key: "Cache-Control", value: "public, max-age=300" },
+        ],
+      },
+      {
+        // Lectra for Mac's own feed (SUFeedURL in the app).
+        source: "/updates/lectra-mac.xml",
         headers: [
           { key: "Content-Type", value: "application/xml; charset=utf-8" },
           { key: "Cache-Control", value: "public, max-age=300" },

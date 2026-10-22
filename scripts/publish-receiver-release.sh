@@ -13,7 +13,11 @@
 # Does three things, in this order:
 #   1. Uploads the DMG to Cloudflare R2 under its versioned name, cached forever
 #      (the versioned name makes that safe), and verifies it is live.
-#   2. Copies the appcast into public/updates/ verbatim, REPLACING the old one.
+#   2. Copies the appcast into public/updates/ verbatim, REPLACING the old one:
+#      lectra-mac.xml for Lectra for Mac (Lectra-X.Y.Z.dmg), the feed the app
+#      reads; appcast.xml only for a standalone Receiver (LectraReceiver-…dmg).
+#      appcast.xml belongs to installed Receiver 1.0.x copies, a different
+#      bundle ID: offering them the unified app would fail to install.
 #   3. Leaves the diff for you to review, commit and deploy.
 #
 # It never commits, never overwrites an already-published version, and never
@@ -29,7 +33,8 @@ R2_BUCKET="${R2_BUCKET:-lectra-receiver-download}"
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 release_ts="$repo_root/src/lib/receiver-release.ts"
-appcast_dest="$repo_root/public/updates/appcast.xml"
+mac_feed_dest="$repo_root/public/updates/lectra-mac.xml"
+receiver_feed_dest="$repo_root/public/updates/appcast.xml"
 
 die() { printf '\nerror: %s\n' "$*" >&2; exit 1; }
 step() { printf '\n==> %s\n' "$*"; }
@@ -71,6 +76,12 @@ version="$(printf '%s' "$parsed" | cut -f3)"
 enclosure_length="$(printf '%s' "$parsed" | cut -f4)"
 
 [ -n "$key" ] || die "appcast parse returned no DMG filename"
+
+case "$key" in
+  LectraReceiver-*) appcast_dest="$receiver_feed_dest" ;;
+  Lectra-*) appcast_dest="$mac_feed_dest" ;;
+  *) die "unexpected DMG name $key" ;;
+esac
 
 # shortVersionString is optional in a feed; the filename always carries it,
 # after the last dash — Lectra-1.1.0.dmg and LectraReceiver-1.0.2.dmg alike.
@@ -187,7 +198,7 @@ fi
 # --- 4. Update this repo -----------------------------------------------------
 # Only after the DMG is confirmed live, so the redirect never points at nothing.
 
-step "Replacing public/updates/appcast.xml (verbatim, not appended)"
+step "Replacing public/updates/$(basename "$appcast_dest") (verbatim, not appended)"
 cp "$appcast_src" "$appcast_dest"
 
 cat <<EOF
@@ -197,7 +208,7 @@ Done. ${key} is live and this repo now points at it.
 The redirect is derived from the appcast at build time, so there is nothing else
 to bump. Review, then commit and deploy:
 
-  git diff -- public/updates/appcast.xml
+  git diff -- public/updates/$(basename "$appcast_dest")
 
 After deploying, confirm the contract:
 

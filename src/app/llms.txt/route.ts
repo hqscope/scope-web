@@ -49,6 +49,7 @@ const staticPages: { path: string; label: string }[] = [
   { path: "/products/lectra/notebooks", label: "Python notebooks on iPad" },
   { path: "/products/lectra/code", label: "Terminal, Git, and SSH on iPad" },
   { path: "/products/polya", label: "Polya" },
+  { path: "/mcp", label: "Scope in Claude, ChatGPT, and other AI assistants" },
   { path: "/mac", label: "Lectra for Mac" },
   { path: "/compare", label: "Comparisons" },
   { path: "/guides", label: "Guides" },

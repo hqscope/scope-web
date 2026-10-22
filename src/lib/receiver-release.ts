@@ -13,7 +13,8 @@
 //   /receiver                     landing page, still served (renders /mac)
 //   /downloads/LectraReceiver.dmg 307 -> /downloads/Lectra.dmg
 //   /downloads/Lectra.dmg         307 -> the newest versioned DMG
-//   /updates/appcast.xml          Sparkle feed (public/updates/appcast.xml)
+//   /updates/appcast.xml          Sparkle feed of the standalone Receiver 1.0.x
+//   /updates/lectra-mac.xml       Sparkle feed of Lectra for Mac (SUFeedURL)
 //
 // The redirects and cache headers that implement the last two are in
 // next.config.ts, which calls into this module at build time.

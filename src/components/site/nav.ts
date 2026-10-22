@@ -42,6 +42,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { href: products.polya.href, label: products.polya.name },
       { href: products.mac.href, label: products.mac.name },
       { href: products.agentWorkspace.href, label: products.agentWorkspace.name },
+      { href: "/mcp", label: "AI assistants" },
     ],
   },
   {
