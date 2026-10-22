@@ -52,6 +52,12 @@ const publicRoutes: {
     lastModified: "2026-10-20",
   },
   {
+    path: "/mcp",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    lastModified: "2026-10-22",
+  },
+  {
     path: "/products/agent-workspace",
     priority: 0.9,
     changeFrequency: "weekly",
