@@ -73,7 +73,7 @@ export const SCOPE_CONNECTOR_URL = "https://mcp.canvascope.org/mcp";
 // Whether the connector offers Google (Calendar, Drive, Docs, ...). It does
 // only once its Google OAuth client is configured, so the page doesn't
 // promise it before then. Flip with the GOOGLE_CLIENT_ID deploy.
-export const SCOPE_CONNECTOR_GOOGLE_LIVE = false;
+export const SCOPE_CONNECTOR_GOOGLE_LIVE = true;
 
 // Any origin works as a parsing base; only whether the result stays on it matters.
 const NEXT_PATH_PARSE_BASE = "https://next-path.invalid";
