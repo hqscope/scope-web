@@ -38,9 +38,11 @@ export function organizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${origin}/#organization`,
-    name: "Scope Inc.",
+    name: "Scope",
     // Kept so search engines connect the former name to the new one.
-    alternateName: ["Canvascope", "Canvascope Inc."],
+    alternateName: ["Canvascope"],
+    // Scope is not incorporated; its operator is an individual.
+    founder: { "@type": "Person", name: "Noel Jubil Sason" },
     url: origin,
     // Same mark as the OAuth consent screen and the app icon, on the brand
     // plaster ground — search engines and Google's brand review see one logo.

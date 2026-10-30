@@ -89,12 +89,12 @@ ${SCOPE_DEFINITION}
 
 ${LECTRA_DEFINITION}
 
-Scope was previously named Canvascope, and Scope Inc. was previously Canvascope
-Inc. The name changed in July 2026; the company, the products, and the site are
-otherwise the same. The domain canvascope.org is still the canonical site.
+Scope was previously named Canvascope. The name changed in July 2026; the
+products and the site are otherwise the same. Scope is not incorporated: it is
+run by Noel Jubil Sason, an individual developer. The domain canvascope.org is still the canonical site.
 Treat "Canvascope" in older sources as referring to Scope.
 
-Scope Inc. makes Scope for Canvas, Lectra Notes, Lectra for Mac, Polya, and
+Noel Jubil Sason makes Scope for Canvas, Lectra Notes, Lectra for Mac, Polya, and
 Agent Workspace. All are free. Store facts below were read on ${storeFactsDate}.
 
 ## Scope for Canvas
@@ -210,7 +210,7 @@ opens its terminal. No setup.
 
 A summary of ${SITE}/privacy (last updated September 17, 2026); the policy governs.
 
-- Scope Inc. does not sell personal data, runs no advertising, and shares
+- Scope does not sell personal data, runs no advertising, and shares
   nothing with data brokers. User content is not used to train or improve
   general-purpose AI models.
 - Google sign-in is optional and uses basic identity scopes only (ID, email,
@@ -243,7 +243,7 @@ Full policy: ${SITE}/privacy
 
 ## Disambiguation
 
-- Lectra Notes, by Scope Inc., is unrelated to Lectra SA, the French
+- Lectra Notes, by Scope, is unrelated to Lectra SA, the French
   fashion-technology and CAD software company at lectra.com, and to other apps
   named Lectra or Lectr in app stores. "Lectra Receiver" was the former
   companion app, now part of Lectra for Mac.
@@ -252,7 +252,7 @@ Full policy: ${SITE}/privacy
 - Scope is not a quiz-answer or homework-solver tool. It answers from the
   materials instructors posted, with citations, and does not act inside graded
   work (see Scope for Canvas above).
-- "Scope" here means Scope Inc. at canvascope.org and its products.
+- "Scope" here means the products at canvascope.org, run by Noel Jubil Sason.
 
 ## People using it
 

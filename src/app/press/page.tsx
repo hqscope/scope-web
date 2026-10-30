@@ -168,7 +168,7 @@ const namingRules: NamingRule[] = [
   },
   {
     name: "Scope (formerly Canvascope)",
-    rule: "The company, on first mention where the old name matters, for example when linking to coverage from before July 2026. Otherwise just “Scope”. The legal name is Scope Inc.",
+    rule: "The company, on first mention where the old name matters, for example when linking to coverage from before July 2026. Otherwise just “Scope”. Scope is not incorporated; it is run by Noel Jubil Sason.",
   },
   {
     name: "Polya",
@@ -226,14 +226,14 @@ export default function PressPage() {
             className="divide-y divide-line border-y border-line"
             aria-label={`Scope fact sheet, checked ${storeFactsOn}`}
           >
-            <FactRow term="Company">
-              Scope Inc., formerly Canvascope. Renamed July 2026.{" "}
+            <FactRow term="Operator">
+              Noel Jubil Sason, an individual developer. Scope is not incorporated. Formerly Canvascope, renamed July 2026.{" "}
               <Link href="/newsroom/canvascope-is-now-scope" className="link">
                 Read the announcement
               </Link>
               .
             </FactRow>
-            <FactRow term="Founder">Noel Sason, UC Berkeley.</FactRow>
+            <FactRow term="Founder">Noel Jubil Sason, UC Berkeley.</FactRow>
             <FactRow term="Products">
               <ul className="list-disc space-y-1.5 pl-5 marker:text-stone">
                 <li>

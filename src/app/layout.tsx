@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   description: `${SCOPE_DEFINITION} Lectra Notes, the free iPad app from Scope, is where the reading gets marked up and the notebook runs.`,
   applicationName: "Scope",
-  authors: [{ name: "Scope Inc." }],
-  creator: "Scope Inc.",
-  publisher: "Scope Inc.",
+  authors: [{ name: "Noel Jubil Sason" }],
+  creator: "Noel Jubil Sason",
+  publisher: "Noel Jubil Sason",
   category: "education",
   keywords: [
     "Scope",

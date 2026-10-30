@@ -314,7 +314,7 @@ export default function CanvasExtensionSafetyGuide() {
                 title: "Publisher",
                 copy: (
                   <>
-                    Scope Inc. The listing links to canvascope.org, is marked as created by
+                    Scope, run by Noel Jubil Sason. The listing links to canvascope.org, is marked as created by
                     the owner of that website, and showed a publisher record with no
                     history of violations on {CHECKED_ON}.
                   </>
