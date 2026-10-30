@@ -139,7 +139,7 @@ export default function TermsPage() {
               <p>
                 These Terms of Service (the &ldquo;Terms&rdquo;) govern your use
                 of Scope, Lectra Notes, and the Scope website and web workspace
-                (together, the &ldquo;Service&rdquo;), operated by Scope Inc. By
+                (together, the &ldquo;Service&rdquo;), operated by Noel Jubil Sason. By
                 installing, signing in to, or using the Service, you agree to
                 these Terms. If you do not agree, do not use the Service.
               </p>
@@ -175,7 +175,7 @@ export default function TermsPage() {
           </h2>
           <p>
             {
-              "Scope is developed and operated by Scope Inc., previously named Canvascope Inc. The rename did not change the company, your agreement, or the Service. These Terms apply to the Scope browser extension, the Scope website and web workspace, Lectra Notes distributed on the Apple App Store, and the connected workflows that share the same account system. Your privacy is covered separately by our "
+              "Scope is developed and operated by Noel Jubil Sason, an individual developer. Scope is not a company or other legal entity. Scope was previously named Canvascope; the rename did not change who operates it, your agreement, or the Service. These Terms apply to the Scope browser extension, the Scope website and web workspace, Lectra Notes distributed on the Apple App Store, and the connected workflows that share the same account system. Your privacy is covered separately by our "
             }
             <Link href="/privacy">Privacy Policy</Link>
             {", which is incorporated into these Terms by reference."}
@@ -184,7 +184,7 @@ export default function TermsPage() {
           <h2 id="who-can-use-the-service">2. Who can use the Service</h2>
           <p>
             {
-              "Scope is built for students and is not directed to children under 13. You may use the Service only if you can form a binding agreement with Scope Inc. If you are under the age of majority in your jurisdiction, you may use the Service only with the involvement and consent of a parent, guardian, or your school. If you use the Service through a school or institutional account, you are responsible for complying with that institution's rules, and your institution's policies may also apply to your use."
+              "Scope is built for students and is not directed to children under 13. You may use the Service only if you can form a binding agreement with Noel Jubil Sason. If you are under the age of majority in your jurisdiction, you may use the Service only with the involvement and consent of a parent, guardian, or your school. If you use the Service through a school or institutional account, you are responsible for complying with that institution's rules, and your institution's policies may also apply to your use."
             }
           </p>
 
@@ -210,7 +210,7 @@ export default function TermsPage() {
           <h2 id="your-content">5. Your content</h2>
           <p>
             {
-              "You keep ownership of the content you bring to the Service, including the PDFs and documents you index or send, the highlights, ink, and notes you add in Lectra, the code and files in Lectra Projects, and the profile facts you save. You grant Scope Inc. a limited, non-exclusive, worldwide, royalty-free license to host, store, process, transmit, sync, and display that content solely to operate and support the Service for you, including delivering documents between your devices and generating the results you request."
+              "You keep ownership of the content you bring to the Service, including the PDFs and documents you index or send, the highlights, ink, and notes you add in Lectra, the code and files in Lectra Projects, and the profile facts you save. You grant Noel Jubil Sason a limited, non-exclusive, worldwide, royalty-free license to host, store, process, transmit, sync, and display that content solely to operate and support the Service for you, including delivering documents between your devices and generating the results you request."
             }
           </p>
           <p>
@@ -295,7 +295,7 @@ export default function TermsPage() {
           </h2>
           <p>
             {
-              "The Service, including its software, design, and the Scope and Lectra names and logos, is owned by Scope Inc. and protected by intellectual property laws. Subject to these Terms, we grant you a personal, limited, non-exclusive, non-transferable, revocable license to use the Service for your own studies. We reserve all rights not expressly granted. Open-source components included in the Service remain governed by their own licenses, and in Lectra Projects your own repositories and code remain yours, with GitHub access subject to GitHub's terms."
+              "The Service, including its software, design, and the Scope and Lectra names and logos, is owned by Noel Jubil Sason and protected by intellectual property laws. Subject to these Terms, we grant you a personal, limited, non-exclusive, non-transferable, revocable license to use the Service for your own studies. We reserve all rights not expressly granted. Open-source components included in the Service remain governed by their own licenses, and in Lectra Projects your own repositories and code remain yours, with GitHub access subject to GitHub's terms."
             }
           </p>
 
@@ -309,14 +309,14 @@ export default function TermsPage() {
           <h2 id="limitation-of-liability">12. Limitation of liability</h2>
           <p>
             {
-              "To the maximum extent permitted by law, Scope Inc. and its operators will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of data, lost work, missed deadlines, or academic outcomes such as grades, arising out of or relating to your use of, or inability to use, the Service. Because the Service is provided free of charge, to the maximum extent permitted by law our total liability for any claim relating to the Service is limited to one hundred U.S. dollars (USD 100). Some jurisdictions do not allow certain limitations, so some of these limitations may not apply to you."
+              "To the maximum extent permitted by law, Noel Jubil Sason will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of data, lost work, missed deadlines, or academic outcomes such as grades, arising out of or relating to your use of, or inability to use, the Service. Because the Service is provided free of charge, to the maximum extent permitted by law our total liability for any claim relating to the Service is limited to one hundred U.S. dollars (USD 100). Some jurisdictions do not allow certain limitations, so some of these limitations may not apply to you."
             }
           </p>
 
           <h2 id="indemnification">13. Indemnification</h2>
           <p>
             {
-              "You agree to indemnify and hold harmless Scope Inc. from claims, damages, and expenses (including reasonable legal fees) arising out of your misuse of the Service, your violation of these Terms, or your violation of any law or the rights of a third party."
+              "You agree to indemnify and hold harmless Noel Jubil Sason from claims, damages, and expenses (including reasonable legal fees) arising out of your misuse of the Service, your violation of these Terms, or your violation of any law or the rights of a third party."
             }
           </p>
 
@@ -339,13 +339,13 @@ export default function TermsPage() {
           <h2 id="governing-law">16. Governing law</h2>
           <p>
             {
-              "These Terms are governed by the laws of the United States and the state in which Scope Inc. is incorporated, without regard to conflict-of-laws principles, except where applicable consumer-protection law in your place of residence requires otherwise. Nothing in these Terms limits any non-waivable rights you have under the law of your jurisdiction."
+              "These Terms are governed by the laws of the United States and the state in which Noel Jubil Sason resides, without regard to conflict-of-laws principles, except where applicable consumer-protection law in your place of residence requires otherwise. Nothing in these Terms limits any non-waivable rights you have under the law of your jurisdiction."
             }
           </p>
 
           <h2 id="contact-us">17. Contact us</h2>
           <p>
-            {"Questions about these Terms can be sent to Scope Inc. at "}
+            {"Questions about these Terms can be sent to Noel Jubil Sason at "}
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
             {"."}
           </p>

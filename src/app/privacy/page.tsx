@@ -12,7 +12,7 @@ import { SUPPORT_EMAIL } from "@/lib/site";
 export const metadata = publicPageMetadata({
   title: "Privacy Policy",
   description:
-    "How Scope and Lectra Notes, operated by Scope Inc., access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
+    "How Scope and Lectra Notes, operated by Noel Jubil Sason, access, use, store, share, retain, and protect account data, user content, and optional AI requests.",
   path: "/privacy",
 });
 
@@ -143,7 +143,7 @@ export default function PrivacyPage() {
               <p>
                 This Privacy Policy explains how the Scope application and website
                 (collectively, &ldquo;Scope,&rdquo; the &ldquo;Service&rdquo;),
-                operated by Scope Inc., accesses, uses, stores, shares, retains,
+                operated by Noel Jubil Sason, accesses, uses, stores, shares, retains,
                 and protects your data, including data obtained from your Google
                 Account. Scope is local-first where that matters most: course
                 indexing, fast search, and day-to-day retrieval. Connected web and
@@ -179,9 +179,9 @@ export default function PrivacyPage() {
         <ArticleShell outline={outline}>
           <h2 id="who-we-are">Who we are</h2>
           <p>
-            Scope is developed and operated by Scope Inc., previously
-            named Canvascope Inc. The rename did not change the company,
-            this policy, or how your data is handled. This policy applies
+            Scope is developed and operated by Noel Jubil Sason, an individual
+            developer; Scope is not a company. Scope was previously named
+            Canvascope. The rename did not change who operates it, this policy, or how your data is handled. This policy applies
             to the Scope browser extension, the Scope website and web app,
             the Lectra Notes app distributed on the Apple App Store, and
             the Lectra-connected workflows that share the same account
@@ -759,7 +759,7 @@ export default function PrivacyPage() {
           <h2 id="contact-us">Contact us</h2>
           <p>
             For any questions, concerns, or requests regarding this
-            Privacy Policy or your data, contact Scope Inc. at{" "}
+            Privacy Policy or your data, contact Noel Jubil Sason at{" "}
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
           </p>
         </ArticleShell>
