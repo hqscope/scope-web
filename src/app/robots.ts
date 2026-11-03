@@ -2,10 +2,11 @@ import type { MetadataRoute } from "next";
 
 import { getConfiguredSiteUrl } from "@/lib/site";
 
-// Sign-in, auth callbacks, the admin area, and API routes. /login is kept
+// Sign-in, auth callbacks, the admin area, API routes, and the counted
+// campus QR links (a crawler following one would add a scan). /login is kept
 // out of this list on purpose: it carries a noindex tag, and a robots block
 // would stop crawlers from ever reading it.
-const PRIVATE_PATHS = ["/app/", "/api/", "/auth/"];
+const PRIVATE_PATHS = ["/app/", "/api/", "/auth/", "/go/"];
 
 /**
  * The crawlers behind search and answer engines, named explicitly. The
