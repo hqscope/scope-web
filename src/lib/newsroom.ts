@@ -15,6 +15,58 @@ export type NewsroomArticle = {
 
 export const newsroomArticles: NewsroomArticle[] = [
   {
+    slug: "polya-reads-your-photos",
+    title: "Polya reads your photos now, and the exam coach got gentler",
+    date: "2026-11-02",
+    category: "Product",
+    description:
+      "You can drop, paste, or snap photos into Polya's tutor and exam coach, add photos of notes and handouts to a course, and Polya now reads the pictures inside your PDFs. The exam coach also stopped telling you how little time you have.",
+    lede: "The person studying already knows when the exam is.",
+    keywords: [
+      "Polya",
+      "photos",
+      "exam coach",
+      "study tutor",
+      "course materials",
+      "diagrams in PDFs",
+    ],
+    body: [
+      {
+        type: "paragraph",
+        text: "This week a friend of ours used Polya's exam coach for an exam two days away and told us honestly how it went. It opened by saying the schedule was tight and there was no time to waste. They asked for flashcards, and it offered to quiz them instead. It said \"Here's the plan:\" and then showed nothing. And it couldn't read the photos of their slides.",
+      },
+      {
+        type: "paragraph",
+        text: "Every one of those was on us. The coach had been told to be realistic about the time left, and realistic came out as pressure. Here's what changed:",
+      },
+      {
+        type: "list",
+        items: [
+          "The coach makes a plan for the days you have and starts on the first topic, without commenting on how close your exam is.",
+          "You choose how you study. Ask for flashcards, a summary, or a list of what to review, and that's what you get.",
+          "The plan shows up. A day packed with topics used to be rejected, which left \"Here's the plan:\" with nothing under it. A day can now hold more, and an overfull day gets trimmed instead of thrown out.",
+          "When your study mode means Polya won't hand over an answer, it tells you what it will do and starts doing it, along with where to change your study mode if you want more help.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "You can now add photos to a message in the tutor and in the exam coach. Drag one onto the conversation, paste a screenshot, or tap Photo to choose one or take one with your phone's camera, up to four at a time. Before it answers, Polya reads the photo and looks through your course materials for what it's about, so the explanation can point back to the lecture or homework it came from. If you follow up with \"what about part b?\", it still has the photo.",
+      },
+      {
+        type: "paragraph",
+        text: "Photos work as course materials too. Next to your PDFs, you can add photos of handwritten notes, a handout, or the whiteboard. Polya reads each one, and when it cites one, the photo opens next to the answer.",
+      },
+      {
+        type: "paragraph",
+        text: "Polya also reads the pictures inside your PDFs now. A slide with a title and a diagram used to give Polya only the title. Now it also reads what the diagram, graph, or photo on the slide shows, so a question about it can find the right slide. Long slide decks are read all the way through, including slides that are only a picture.",
+      },
+      {
+        type: "paragraph",
+        text: "One more change matters more than the rest. If you tell Polya you're overwhelmed, it pauses the coursework and offers something smaller. If you mention wanting to hurt yourself, it stops, checks in, and points you to the 988 Suicide & Crisis Lifeline and your campus counseling service. In the US, you can call or text 988 at any time.",
+      },
+    ],
+  },
+  {
     slug: "the-notebook-is-where-learning-happens",
     title:
       "The notebook is where learning happens. Polya should meet you there.",
