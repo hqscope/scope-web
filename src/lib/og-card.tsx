@@ -4,20 +4,22 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 
 /**
- * The share card every page uses: a sheet of plaster paper on the espresso
- * desk, the Scope mark, the title in Schibsted Grotesk with a red pen line
- * under it. Rendered on the Node runtime so the font can be read from disk
- * (src/assets/fonts, static instances, OFL).
+ * The share card every page uses: the brand haze (blurred pills under film
+ * grain, from scope-brand), the Scope mark, and the title in Schibsted
+ * Grotesk. The haze is a pre-rendered image because Satori can't blur.
+ * Rendered on the Node runtime so the fonts and images can be read from disk
+ * (src/assets, static font instances, OFL).
  */
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
+const DEEP = "#14100c";
 const INK = "#241e18";
-const INK_SOFT = "#6b635b";
-const PAPER = "#ffffff";
-const DESK = "#f6f5f2";
+const INK_SOFT = "#6b5f55";
 const RED = "#c42b26";
+
+const ASSETS = path.join(process.cwd(), "src/assets");
 
 type Font = {
   name: string;
@@ -30,7 +32,7 @@ let fontsPromise: Promise<Font[]> | null = null;
 
 function loadFonts(): Promise<Font[]> {
   if (!fontsPromise) {
-    const dir = path.join(process.cwd(), "src/assets/fonts");
+    const dir = path.join(ASSETS, "fonts");
     fontsPromise = Promise.all([
       readFile(path.join(dir, "SchibstedGrotesk-500.ttf")),
       readFile(path.join(dir, "SchibstedGrotesk-800.ttf")),
@@ -40,6 +42,20 @@ function loadFonts(): Promise<Font[]> {
     ]);
   }
   return fontsPromise;
+}
+
+const imageCache = new Map<string, Promise<string>>();
+
+/** An image from src/assets/og as a data URI, which is what Satori's <img> accepts. */
+function loadImage(file: string, mime: "image/png" | "image/jpeg"): Promise<string> {
+  let image = imageCache.get(file);
+  if (!image) {
+    image = readFile(path.join(ASSETS, "og", file)).then(
+      (data) => `data:${mime};base64,${data.toString("base64")}`,
+    );
+    imageCache.set(file, image);
+  }
+  return image;
 }
 
 /** Long titles step down so they still fit in three lines. */
@@ -57,12 +73,15 @@ export type CardInput = {
   subtitle?: string;
   /** Bottom-left: usually the page's address. */
   footer: string;
-  /** Bottom-right, in pen red. */
+  /** Bottom-right, in Scope red. */
   note?: string;
 };
 
 export async function renderCard({ label, title, subtitle, footer, note }: CardInput) {
-  const fonts = await loadFonts();
+  const [fonts, background] = await Promise.all([
+    loadFonts(),
+    loadImage("card-background.jpg", "image/jpeg"),
+  ]);
 
   return new ImageResponse(
     (
@@ -71,20 +90,25 @@ export async function renderCard({ label, title, subtitle, footer, note }: CardI
           width: "100%",
           height: "100%",
           display: "flex",
-          padding: "34px",
-          backgroundColor: DESK,
+          position: "relative",
           fontFamily: "Schibsted",
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> only */}
+        <img
+          src={background}
+          alt=""
+          width={OG_SIZE.width}
+          height={OG_SIZE.height}
+          style={{ position: "absolute", top: 0, left: 0 }}
+        />
         <div
           style={{
             flex: 1,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            padding: "58px 70px",
-            borderRadius: "26px",
-            backgroundColor: PAPER,
+            padding: "64px 96px",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
@@ -102,8 +126,9 @@ export async function renderCard({ label, title, subtitle, footer, note }: CardI
                   marginLeft: "10px",
                   padding: "6px 18px",
                   borderRadius: "999px",
-                  border: `2px solid ${RED}`,
-                  color: RED,
+                  border: "2px solid rgba(20, 16, 12, 0.12)",
+                  backgroundColor: "rgba(246, 241, 231, 0.72)",
+                  color: DEEP,
                   fontSize: "22px",
                   fontWeight: 500,
                 }}
@@ -120,25 +145,16 @@ export async function renderCard({ label, title, subtitle, footer, note }: CardI
                 fontWeight: 800,
                 lineHeight: 1.02,
                 letterSpacing: "-2.5px",
-                color: INK,
+                color: DEEP,
                 maxWidth: "980px",
               }}
             >
               {title}
             </span>
-            <svg width="420" height="26" viewBox="0 0 420 26" style={{ marginTop: "14px" }}>
-              <path
-                d="M4 18 C 90 8, 220 4, 416 12"
-                fill="none"
-                stroke={RED}
-                strokeWidth="5"
-                strokeLinecap="round"
-              />
-            </svg>
             {subtitle ? (
               <span
                 style={{
-                  marginTop: "18px",
+                  marginTop: "22px",
                   fontSize: "26px",
                   fontWeight: 500,
                   lineHeight: 1.35,
@@ -167,5 +183,21 @@ export async function renderCard({ label, title, subtitle, footer, note }: CardI
       </div>
     ),
     { ...OG_SIZE, fonts },
+  );
+}
+
+/**
+ * The homepage card: "Study with Scope" on the haze, exactly as designed in
+ * scope-brand (web/link-previews/canvascope-link-preview-1200x630.png).
+ */
+export async function renderBrandCard() {
+  const image = await loadImage("canvascope-link-preview.png", "image/png");
+
+  return new ImageResponse(
+    (
+      // eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> only
+      <img src={image} alt="" width={OG_SIZE.width} height={OG_SIZE.height} />
+    ),
+    OG_SIZE,
   );
 }

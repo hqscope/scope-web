@@ -61,6 +61,7 @@ export const footerColumns: { title: string; links: NavLink[] }[] = [
       { href: "/direction", label: "Direction" },
       { href: "/research", label: "Research" },
       { href: "/press", label: "Press" },
+      { href: "/careers", label: "Careers" },
       ...(LINKEDIN_COMPANY_URL ? [{ href: LINKEDIN_COMPANY_URL, label: "LinkedIn" }] : []),
     ],
   },

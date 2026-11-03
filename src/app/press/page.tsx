@@ -146,8 +146,8 @@ const brandAssets: BrandAsset[] = [
     path: "/brand/lectra-mark.png",
     width: 1024,
     height: 1024,
-    dark: true,
-    description: "Lectra Notes app mark on a dark ground, 1024 × 1024 PNG. A page with a red pen.",
+    description:
+      "Lectra Notes app icon, 1024 × 1024 PNG. Two dark pills and a red one, forming an L, on a paper tile.",
   },
 ];
 

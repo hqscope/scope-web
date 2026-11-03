@@ -75,6 +75,14 @@ export function DownloadIcon(props: IconProps) {
   );
 }
 
+export function ArrowUpRightIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M7 17L17 7M8 7h9v9" />
+    </Svg>
+  );
+}
+
 export function ExternalIcon(props: IconProps) {
   return (
     <Svg {...props}>

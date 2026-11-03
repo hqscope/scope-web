@@ -114,6 +114,12 @@ const publicRoutes: {
     lastModified: "2026-10-20",
   },
   {
+    path: "/careers",
+    priority: 0.5,
+    changeFrequency: "monthly",
+    lastModified: "2026-11-03",
+  },
+  {
     path: "/direction",
     priority: 0.75,
     changeFrequency: "monthly",
